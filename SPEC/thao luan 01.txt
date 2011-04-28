@@ -1,0 +1,11 @@
+1. 1 o search, ket qua chia theo casi, nhacsi, album, tenbaihat
+2. phat lien tuc, khong load lai trang
+3. record keyword khong co kq de update bai hat dang hot con thieu
+4. dang nhap k can pass, chi can email
+5. cho uplink
+6. bao cao link hong/xau
+7. uu tien Official khi search
+8. like facebook
+9. relation: chung ca si, chung nhac sy, chung album
+10. SEO
+11. genre
