@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:admin="http://www.aihat.net/admin"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="admin-template.xhtml">
+	<ui:param name="title" value="TODO" />
+	<ui:param name="mainBean" value="#{manageComposerBean}"/>
+	<ui:define name="pageName">
+		<h:outputText value="COMPOSERS"/>
+	</ui:define>
+	<ui:define name="body">
+		<h:form>
+			<h:panelGrid columns="2">
+				<h:outputText value="ID"/>
+				<h:inputText value="#{manageComposerBean.idCriterion}"/>
+				
+				<h:outputText value="Name"/>
+				<h:inputText value="#{manageComposerBean.nameCriterion}"/>
+				
+				<h:outputText value="Created by"/>
+				<h:inputText value="#{manageComposerBean.userMailCriterion}"/>
+			</h:panelGrid>
+			<br/>
+			<h:commandButton value="Search" action="#{manageComposerBean.search}"/>
+		</h:form>
+		<h:form>
+			<h:commandButton value="Clear" action="#{manageComposerBean.clear}"/>
+		</h:form>
+		<br></br>
+		<br></br>
+		<h:form>
+			<input type="button" onclick="location.href='#{config.server}/pages/admin/CreateComposer.jsf'" value="Create"/>
+			<h:commandButton value="Delete" action="#{manageComposerBean.delete}" onclick="return confirm('Do you really want to delete the composer and ALL HIS/HER CLIPS?');"/>
+			<a href="javascript:void()" onclick="changeCheckBoxStt('selectClipCheckBox', 'checked')">Select all</a>
+			<a href="javascript:void()" onclick="changeCheckBoxStt('selectClipCheckBox', '')">Deselect all</a>
+			<br></br>
+			<h:outputFormat value="{0} result(s) found.">
+				<f:param value="#{manageComposerBean.searchResultsSize}"/>
+			</h:outputFormat>
+			<h:dataTable var="aComposer" value="#{manageComposerBean.searchResults}" rendered="#{not empty manageComposerBean.searchResults}" border="1"  styleClass="dataTable">
+				<h:column>
+					<f:facet name="header">
+					</f:facet>
+					<h:selectBooleanCheckbox id="selectClipCheckBox" value="#{aComposer.selectedInDataTable}" styleClass="selectClipCheckBox"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="ID"/>
+							<admin:sort-button bean="#{manageComposerBean}" colName="id"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:outputText value="#{aComposer.id}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="AVATAR"/>
+					</f:facet>
+					<h:graphicImage url="#{config.server}/img/#{aComposer.image}" width="120"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="NAME"/>
+							<admin:sort-button bean="#{manageComposerBean}" colName="name"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:commandLink value="#{aComposer.name}" action="#{manageComposerEditBean.init}">
+						<f:setPropertyActionListener target="#{manageComposerEditBean.composerId}" value="#{aComposer.id}"/>
+					</h:commandLink>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="BIRTHDAY"/>
+							<admin:sort-button bean="#{manageComposerBean}" colName="birthday"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:outputText value="#{aComposer.birthday}">
+						<f:convertDateTime pattern="dd.MM.yyyy"/>
+					</h:outputText>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="COUNTRY"/>
+							<admin:sort-button bean="#{manageComposerBean}" colName="country"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:outputText value="#{aComposer.country}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="CLIPS"/>
+							<admin:sort-button bean="#{manageComposerBean}" colName="nClips"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:commandLink value="#{aComposer.nClips}" action="#{manageComposerEditBean.searchAllClips}">
+						<f:setPropertyActionListener target="#{manageComposerEditBean.composerId}" value="#{aComposer.id}"/>
+					</h:commandLink>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="DESCRIPTION"/>
+					</f:facet>
+					#{aComposer.shortDescription}
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="CREATED BY"/>
+							<admin:sort-button bean="#{manageComposerBean}" colName="user.mail"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:outputText value="#{aComposer.user.mail}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="CREATED AT"/>
+							<admin:sort-button bean="#{manageComposerBean}" colName="createdTime"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:outputText value="#{aComposer.createdTime}">
+						<f:convertDateTime dateStyle="full" type="both"/>
+					</h:outputText>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="LAST MODIFICATION AT"/>
+							<admin:sort-button bean="#{manageComposerBean}" colName="modifiedTime"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:outputText value="#{aComposer.modifiedTime}">
+						<f:convertDateTime dateStyle="full" type="both"/>
+					</h:outputText>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

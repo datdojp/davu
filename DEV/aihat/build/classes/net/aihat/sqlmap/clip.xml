@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="clip">
+	<sql id="clipCommonSelect">
+		SELECT
+			c.id as id,
+			c.title as title,
+			c.title_search as titleSearch,
+			c.user_id as `user.id`,
+			u.mail as `user.mail`,
+			u.name as `user.name`,
+			c.deleted as deleted,
+			c.created_time as createdTime,
+			c.modified_time as modifiedTime,
+			c.link as link,
+			c.official as official,
+			(SELECT count(*) FROM user_view_clip uvc_ WHERE uvc_.clip_id = c.id) as nViews,
+			(SELECT count(*) FROM user_like_clip ulc_ WHERE ulc_.clip_id = c.id) as nFans,
+			(
+				SELECT s_.name
+				FROM singer s_, clip_singer cs_
+				WHERE cs_.clip_id = c.id AND cs_.singer_id = s_.id AND NOT s_.deleted
+				ORDER BY cs_.`order` asc
+				LIMIT 1
+			) as mainSingerName,
+			(
+				SELECT com_.name
+				FROM composer com_, clip_composer cc_
+				WHERE cc_.clip_id = c.id AND cc_.composer_id = com_.id AND NOT com_.deleted
+				ORDER BY cc_.`order` asc
+				LIMIT 1
+			) as mainComposerName,
+			(
+				SELECT g_.name_en
+				FROM genre g_, clip_genre cg_
+				WHERE cg_.clip_id = c.id AND cg_.genre_id = g_.id AND NOT g_.deleted
+				ORDER BY cg_.`order` asc
+				LIMIT 1
+			) as mainGenreName
+			<dynamic>
+				<isPropertyAvailable property="playlist">
+					<isNotNull prepend="," property="playlist.id">
+						(
+							SELECT `order`
+							FROM playlist_clip pc_
+							WHERE
+								pc_.playlist_id = #playlist.id# AND
+								pc_.clip_id = c.id
+						) as orderInPlaylist
+					</isNotNull>
+					<isNull prepend="," property="playlist.id">
+						-1 as orderInPlaylist
+					</isNull>
+				</isPropertyAvailable>
+				<isNotPropertyAvailable prepend="," property="playlist">
+					-1 as orderInPlaylist
+				</isNotPropertyAvailable>
+			</dynamic>
+	</sql>
+	<sql id="clipCommonFrom">
+		FROM clip c, user u
+	</sql>
+	<sql id="clipCommonWhere">
+		WHERE
+			NOT c.deleted AND
+			c.user_id = u.id
+	</sql>
+	<sql id="clipCommonSet">
+		SET
+			modified_time = NOW()
+	</sql>
+	<sql id="clipCommonSearchConditions">
+		<dynamic>
+			<isNotNull prepend="AND" property="id">
+				c.id = #id#
+			</isNotNull>
+			<isNotNull prepend="AND" property="title">
+				c.title_search like #title#
+			</isNotNull>
+			<isNotNull prepend="AND" property="singer.id">
+				EXISTS(
+					SELECT *
+					FROM clip_singer _cs
+					WHERE _cs.clip_id = c.id AND _cs.singer_id = #singer.id#
+				)
+			</isNotNull>
+			<isNotNull prepend="AND" property="composer.id">
+				EXISTS(
+					SELECT *
+					FROM clip_composer _cc
+					WHERE _cc.clip_id = c.id AND _cc.composer_id = #composer.id# 
+				)
+			</isNotNull>
+			<isNotNull prepend="AND" property="genre.id">
+				EXISTS(
+					SELECT *
+					FROM clip_genre _cg
+					WHERE _cg.clip_id = c.id AND _cg.genre_id = #genre.id#
+				)
+			</isNotNull>
+			<isNotNull prepend="AND" property="playlist.id">
+				EXISTS (
+					SELECT *
+					FROM playlist_clip _pc
+					WHERE _pc.clip_id = c.id AND _pc.playlist_id = #playlist.id#
+				)
+			</isNotNull>
+			<isNotNull prepend="AND" property="user.id">
+				c.user_id = #user.id#
+			</isNotNull>
+			<isNotNull prepend="AND" property="user.mail">
+				u.mail = #user.mail#
+			</isNotNull>
+			<isNotNull prepend="AND" property="official">
+				c.official = #official#
+			</isNotNull>
+			<isEqual prepend="AND" property="hasDuplicate" compareValue="true">
+				EXISTS (
+					SELECT *
+					FROM clip _c
+					WHERE NOT _c.deleted AND _c.id != c.id AND _c.title = c.title 
+				)
+			</isEqual>
+			<isNotNull prepend="AND" property="likedBy.id">
+				EXISTS (
+					SELECT *
+					FROM user_like_clip _ulc
+					WHERE _ulc.clip_id = c.id AND _ulc.user_id = #likedBy.id#
+				)
+			</isNotNull>
+			<isNotNull prepend="AND" property="notifiedUser.id">
+				NOT EXISTS (
+					SELECT *
+					FROM user_view_clip _uvc
+					WHERE
+						_uvc.clip_id = c.id AND
+						_uvc.user_id = #notifiedUser.id#
+				) AND (
+					EXISTS (
+						SELECT *
+						FROM user_follow_singer _ufs, clip_singer _cs
+						WHERE
+							_ufs.user_id = #notifiedUser.id# AND
+							c.id = _cs.clip_id AND
+							_ufs.singer_id = _cs.singer_id AND
+							_ufs.time &lt; c.created_time
+					)
+					OR
+					EXISTS (
+						SELECT *
+						FROM user_follow_uploader _ufu
+						WHERE
+							_ufu.following = #notifiedUser.id# AND
+							_ufu.followed = c.user_id AND
+							_ufu.time &lt; c.created_time
+					)
+				)
+			</isNotNull>
+		</dynamic>
+		<include refid="commonSorting"/>
+		<include refid="commonPaging"/>
+	</sql>
+	<select id="getClip" parameterClass="integer" resultClass="net.aihat.dto.ClipDto">
+		<include refid="clipCommonSelect"/>
+		<include refid="clipCommonFrom"/> 
+		<include refid="clipCommonWhere"/>
+			AND c.id = #id# 
+	</select>
+	<select id="getMostLikedClips" parameterClass="integer" resultClass="net.aihat.dto.ClipDto">
+		<include refid="clipCommonSelect"/>
+		<include refid="clipCommonFrom"/>
+		<include refid="clipCommonWhere"/>
+			AND c.official=true
+		ORDER BY nFans desc
+		LIMIT #nClips#;
+	</select>
+	<select id="searchClip" parameterClass="net.aihat.criteria.ClipSearchCriteria" resultClass="net.aihat.dto.ClipDto">
+		<include refid="clipCommonSelect"/>
+		<include refid="clipCommonFrom"/>
+		<include refid="clipCommonWhere"/>
+		<include refid="clipCommonSearchConditions"/>
+	</select>
+	<select id="countClip" parameterClass="net.aihat.criteria.ClipSearchCriteria" resultClass="long">
+		SELECT count(*)
+		<include refid="clipCommonFrom"/>
+		<include refid="clipCommonWhere"/>
+		<include refid="clipCommonSearchConditions"/>
+	</select>
+	<insert id="insertClip" parameterClass="net.aihat.dto.ClipDto">
+		INSERT INTO clip(title, user_id, created_time, modified_time, link, title_search, official)
+		VALUES(#title#, #user.id#, NOW(), NOW(), #link#, #titleSearch#, #official#)
+	</insert>
+	<insert id="insertClipSinger" parameterClass="map">
+		INSERT INTO clip_singer(clip_id, singer_id, `order`)
+		VALUES (#clipId#, #singerId#, #order#)
+	</insert>
+	<insert id="insertClipComposer" parameterClass="map">
+		INSERT INTO clip_composer(clip_id, composer_id, `order`)
+		VALUES (#clipId#, #composerId#, #order#)
+	</insert>
+	<insert id="insertClipGenre" parameterClass="map">
+		INSERT INTO clip_genre(clip_id, genre_id, `order`)
+		VALUES (#clipId#, #genreId#, #order#)
+	</insert>
+	<update id="updateClipsDeleted" parameterClass="list">
+		UPDATE clip
+		<include refid="clipCommonSet"/>
+			,
+			deleted = 1
+		WHERE id in
+		<iterate open="(" close=")" conjunction=",">
+			#ids[]#
+		</iterate>
+	</update>
+	<update id="updateClip" parameterClass="net.aihat.dto.ClipDto">
+		UPDATE clip
+		<include refid="clipCommonSet"/>
+			,
+			title = #title#,
+			link = #link#,
+			title_search = #titleSearch#,
+			official = #official#
+		WHERE
+			id = #id#
+	</update>
+	<delete id="clearClipSinger" parameterClass="int">
+		DELETE FROM clip_singer WHERE clip_id = #clipId#
+	</delete>
+	<delete id="clearClipComposer" parameterClass="int">
+		DELETE FROM clip_composer WHERE clip_id = #clipId#
+	</delete>
+	<delete id="clearClipGenre" parameterClass="int">
+		DELETE FROM clip_genre WHERE clip_id = #clipId#
+	</delete>
+	<select id="loadSingerForClip" parameterClass="int" resultClass="net.aihat.dto.SingerDto">
+		SELECT
+			s.id as id,
+			s.name as name
+		FROM singer s, clip_singer cs
+		WHERE
+			cs.clip_id = #id# AND
+			cs.singer_id = s.id
+		ORDER BY cs.`order` asc
+	</select>
+	<select id="loadComposerForClip" parameterClass="int" resultClass="net.aihat.dto.ComposerDto">
+		SELECT
+			com.id as id,
+			com.name as name
+		FROM composer com, clip_composer cc
+		WHERE
+			cc.clip_id = #id# AND
+			cc.composer_id = com.id
+		ORDER BY cc.`order` asc
+	</select>
+	<select id="loadGenreForClip" parameterClass="int" resultClass="net.aihat.dto.GenreDto">
+		SELECT
+			g.id as id,
+			g.name_vi as nameVi,
+			g.name_en as nameEn
+		FROM genre g, clip_genre cg
+		WHERE
+			cg.clip_id = #id# AND
+			cg.genre_id = g.id
+		ORDER BY cg.`order` asc
+	</select>
+	<insert id="addClipView" parameterClass="map">
+		INSERT INTO user_view_clip(clip_id, time, user_id) VALUES(#clip.id#, NOW(), #user.id#)
+	</insert>
+	<insert id="addClipLiked" parameterClass="map">
+		INSERT INTO user_like_clip(clip_id, user_id) VALUES(#clip.id#, #user.id#)
+	</insert>
+	<delete id="deleteUserLikeClip" parameterClass="map">
+		DELETE FROM user_like_clip
+		WHERE
+			user_id = #user.id# AND
+			clip_id = #clip.id#
+	</delete>
+	<select id="checkLikedForClip" parameterClass="map" resultClass="long">
+		SELECT count(*)
+		FROM user_like_clip ulc
+		WHERE
+			ulc.user_id = #user.id# AND
+			ulc.clip_id = #clip.id#
+	</select>
+</sqlMap>

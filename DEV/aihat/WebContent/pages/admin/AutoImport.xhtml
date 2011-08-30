@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:admin="http://www.aihat.net/admin"
+	xmlns:x="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="admin-template.xhtml">
+	<ui:param name="title" value="TODO" />
+	<ui:param name="mainBean" value="#{autoImportBean}"/>
+	<ui:define name="pageName">
+		<h:outputText value="AUTOMATIC IMPORTING"/>
+	</ui:define>
+	<ui:define name="body">
+		<h:form>
+			<h:panelGrid columns="3">
+				<c:if test="#{autoImportBean.selectedImportType eq 0}">
+					<c:set var="clipBtnStyleClass" value="selectedBtn"/>
+				</c:if>
+				<c:if test="#{autoImportBean.selectedImportType eq 1}">
+					<c:set var="singerBtnStyleClass" value="selectedBtn"/>
+				</c:if>
+				<c:if test="#{autoImportBean.selectedImportType eq 2}">
+					<c:set var="composerBtnStyleClass" value="selectedBtn"/>
+				</c:if>
+				
+				<h:commandButton value="Clips" action="#{autoImportBean.selectType}" styleClass="#{clipBtnStyleClass}">
+					<f:setPropertyActionListener target="#{autoImportBean.selectedImportType}" value="0"/>
+				</h:commandButton>
+				<h:commandButton value="Singer" action="#{autoImportBean.selectType}" styleClass="#{singerBtnStyleClass}">
+					<f:setPropertyActionListener target="#{autoImportBean.selectedImportType}" value="1"/>
+				</h:commandButton>
+				<h:commandButton value="Composer" action="#{autoImportBean.selectType}" styleClass="#{composerBtnStyleClass}">
+					<f:setPropertyActionListener target="#{autoImportBean.selectedImportType}" value="2"/>
+				</h:commandButton>
+			</h:panelGrid>
+		</h:form>
+		<h:form enctype="multipart/form-data">
+			<h:panelGrid columns="1" rendered="#{autoImportBean.selectedImportType eq 0}">
+				<ui:repeat var="aField" value="#{autoImportBean.clipFields}">
+					<h:selectBooleanCheckbox value="#{aField.selected}" disabled="#{aField.mandatory}"/>
+					<h:outputText value="#{aField.name}(#{aField.note})"/>
+					<br/>
+				</ui:repeat>
+			</h:panelGrid>
+			<h:panelGrid columns="1" rendered="#{autoImportBean.selectedImportType eq 1}">
+				<ui:repeat var="aField" value="#{autoImportBean.singerFields}">
+					<h:selectBooleanCheckbox value="#{aField.selected}" disabled="#{aField.mandatory}"/>
+					<h:outputText value="#{aField.name}(#{aField.note})"/>
+					<br/>
+				</ui:repeat>
+			</h:panelGrid>
+			<h:panelGrid columns="1" rendered="#{autoImportBean.selectedImportType eq 2}">
+				<ui:repeat var="aField" value="#{autoImportBean.composerFields}">
+					<h:selectBooleanCheckbox value="#{aField.selected}" disabled="#{aField.mandatory}"/>
+					<h:outputText value="#{aField.name}(#{aField.note})"/>
+					<br/>
+				</ui:repeat>
+			</h:panelGrid>
+			<h:outputText value="File" />
+			<x:inputFileUpload value="#{autoImportBean.uploadedFile}" storage="file" required="true" requiredMessage="Please select file to import."/>
+			<br/>
+			<h:commandButton value="Import" action="#{autoImportBean.upload}"/>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

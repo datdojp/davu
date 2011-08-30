@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:client="http://www.aihat.net/client"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+<ui:composition>
+	<h:form id="myProfile" enctype="multipart/form-data">
+		<t:div rendered="#{userProfileBean.loggedIn}">
+			<h:panelGrid columns="2">
+				<h:panelGroup>
+					<h:graphicImage url="#{config.server}/img/#{userProfileBean.profile.image}" width="120"/>
+					<br/>
+					<t:inputFileUpload value="#{myProfileBean.avatarFile}"
+								storage="file"
+								accept="image/*"
+								styleClass="fileProfileAvatar"/>
+				</h:panelGroup>
+				<h:panelGrid columns="2">
+					<h:outputText value="#{msg.CU0039}"/>
+					<h:inputText value="#{myProfileBean.name}"/>
+					
+					<h:outputText value="#{msg.CU0040}"/>
+					<h:selectOneListbox value="#{myProfileBean.sex}" size="1">
+						<f:selectItem itemLabel="#{msg.CU0041}" itemValue="U"/>
+						<f:selectItem itemLabel="#{msg.CU0042}" itemValue="M"/>
+						<f:selectItem itemLabel="#{msg.CU0043}" itemValue="F"/>
+					</h:selectOneListbox>
+					
+					<h:outputText value="#{msg.CU0044}"/>
+					<h:panelGroup>
+						<h:outputText value="#{msg.CU0045}"/>
+						<h:selectOneListbox value="#{myProfileBean.birthdayDD}" size="1">
+							<c:forEach var="i" begin="1" end="31" step="1">
+								<f:selectItem itemLabel="#{i}" itemValue="#{i}"/>			
+							</c:forEach>
+						</h:selectOneListbox>
+						<h:outputText value="#{msg.CU0046}"/>
+						<h:selectOneListbox value="#{myProfileBean.birthdayMM}" size="1">
+							<c:forEach var="i" begin="1" end="12" step="1">
+								<f:selectItem itemLabel="#{i}" itemValue="#{i}"/>			
+							</c:forEach>
+						</h:selectOneListbox>
+						<h:outputText value="#{msg.CU0047}"/>
+						<h:selectOneListbox value="#{myProfileBean.birthdayYY}" size="1">
+							<c:forEach var="i" begin="1950" end="2011" step="1">
+								<f:selectItem itemLabel="#{2048+i}" itemValue="#{2048+i}"/>			
+							</c:forEach>
+						</h:selectOneListbox>
+					</h:panelGroup>
+					
+					<h:outputText value="#{msg.CU0001}"/>
+					<h:inputSecret value="#{myProfileBean.oldPassword}" redisplay="true"/>
+					<h:outputText value="#{msg.CU0002}"/>
+					<h:inputSecret value="#{myProfileBean.newPassword}" redisplay="true"/>
+					<h:outputText value="#{msg.CU0003}"/>
+					<h:inputSecret value="#{myProfileBean.confirmNewPassword}" redisplay="true"/>
+					<h:commandButton value="#{msg.CU0004}" action="#{myProfileBean.update}">
+						<f:setPropertyActionListener target="#{zentaiBean.pageName}" value="MyProfile"/>
+					</h:commandButton>
+				</h:panelGrid>
+			</h:panelGrid>
+			<h:panelGrid columns="3">
+				<h:commandButton value="#{msg.CU0005}">
+					<f:ajax event="click" render="@form" listener="#{myProfileBean.selectMyPlaylistsTab}"/>
+				</h:commandButton>
+				<h:commandButton value="#{msg.CU0006}">
+					<f:ajax event="click" render="@form" listener="#{myProfileBean.selectLikedClipstab}"/>
+				</h:commandButton>
+				<h:commandButton value="#{msg.CU0007}">
+					<f:ajax event="click" render="@form" listener="#{myProfileBean.selectNotifiedClipsTab}"/>
+				</h:commandButton>
+			</h:panelGrid>
+			<t:div rendered="#{myProfileBean.displayTab eq 'myplaylists'}">
+				<client:paging  bean="#{myProfileBean}"/>
+				<client:playlist-list playlists="#{myProfileBean.tabDataMap['myplaylists']}"/>
+				<client:paging  bean="#{myProfileBean}"/>
+			</t:div>
+			<t:div rendered="#{myProfileBean.displayTab eq 'likedClips'}">
+				<client:clip-list-func formId="myProfile" checkBoxId="selectClipCheckBox" bean="#{myProfileBean}"/>
+				<client:paging bean="#{myProfileBean}"/>
+				<client:clip-list formId="myProfile" clips="#{myProfileBean.tabDataMap['likedClips']}" bean="#{myProfileBean}"/>
+				<client:paging bean="#{myProfileBean}"/>
+			</t:div>
+			<t:div rendered="#{myProfileBean.displayTab eq 'newClips'}">
+				<client:clip-list-func formId="myProfile" checkBoxId="selectClipCheckBox" bean="#{myProfileBean}"/>
+				<client:paging bean="#{myProfileBean}"/>
+				<client:clip-list formId="myProfile" clips="#{myProfileBean.tabDataMap['newClips']}" bean="#{myProfileBean}"/>
+				<client:paging bean="#{myProfileBean}"/>
+			</t:div>
+		</t:div>
+		<client:messages formId="myProfile" bean="#{myProfileBean}"/>
+		<client:messages formId="myProfile" bean="#{detailBean}"/>
+		<client:messages formId="myProfile" bean="#{zentaiBean}"/>
+	</h:form>
+</ui:composition>
+</html>

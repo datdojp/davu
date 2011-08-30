@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<bean id="baseDao" class="net.aihat.dao.BaseDao" abstract="true" scope="application">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+	<bean id="clipDao" class="net.aihat.dao.ClipDaoImpl" parent="baseDao">
+	</bean>
+	<bean id="singerDao" class="net.aihat.dao.SingerDaoImpl" parent="baseDao">
+	</bean>
+	<bean id="composerDao" class="net.aihat.dao.ComposerDaoImpl" parent="baseDao">
+	</bean>
+	<bean id="genreDao" class="net.aihat.dao.GenreDaoImpl" parent="baseDao">
+	</bean>
+	<bean id="userDao" class="net.aihat.dao.UserDaoImpl" parent="baseDao"/>
+	<bean id="passwordDao" class="net.aihat.dao.PasswordDaoImpl" parent="baseDao"/>
+	<bean id="failedSearchDao" class="net.aihat.dao.FailedSearchDaoImpl" parent="baseDao"/>
+	<bean id="playlistDao" class="net.aihat.dao.PlaylistDaoImpl" parent="baseDao"/>
+</beans>		

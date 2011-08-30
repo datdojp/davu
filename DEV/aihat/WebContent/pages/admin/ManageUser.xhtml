@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:admin="http://www.aihat.net/admin"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="admin-template.xhtml">
+	<ui:param name="title" value="TODO" />
+	<ui:param name="mainBean" value="#{manageUserBean}"/>
+	<ui:define name="pageName">
+		<h:outputText value="USERS"/>
+	</ui:define>
+	<ui:define name="body">
+		<h:form>
+			<h:panelGrid columns="2">
+				<h:outputText value="ID"/>
+				<h:inputText value="#{manageUserBean.idCriterion}"/>
+				
+				<h:outputText value="Email"/>
+				<h:inputText value="#{manageUserBean.mailCriterion}"/>
+				
+				<h:outputText value="Blocked"/>
+				<h:selectOneListbox value="#{manageUserBean.blockedStatusCriterion}" size="1">
+					<f:selectItem itemLabel="Both" itemValue="0"/>
+					<f:selectItem itemLabel="Normal" itemValue="1"/>
+					<f:selectItem itemLabel="Blocked" itemValue="2"/>
+				</h:selectOneListbox>
+				
+				<h:outputText value="Type"/>
+				<h:selectOneListbox value="#{manageUserBean.adminCriterion}" size="1">
+					<f:selectItem itemLabel="Both" itemValue="0"/>
+					<f:selectItem itemLabel="Client" itemValue="1"/>
+					<f:selectItem itemLabel="Admin" itemValue="2"/>
+				</h:selectOneListbox>
+			</h:panelGrid>
+			<br/>
+			<h:commandButton value="Search" action="#{manageUserBean.search}"/>
+		</h:form>
+		<h:form>
+			<h:commandButton value="Clear" action="#{manageUserBean.clear}"/>
+		</h:form>
+		<br></br>
+		<br></br>
+		<h:form>
+			<h:commandButton value="Delete" action="#{manageUserBean.delete}" onclick="return confirm('Do you really want to delete the user and ALL HIS/HER CLIPS?');"/>
+			<h:commandButton value="Block" action="#{manageUserBean.block}"/>
+			<h:commandButton value="Unblock" action="#{manageUserBean.unblock}"/>
+			<h:commandButton value="Reset password" action="#{manageUserBean.resetPassword}"/>
+			<a href="javascript:void()" onclick="changeCheckBoxStt('selectClipCheckBox', 'checked')">Select all</a>
+			<a href="javascript:void()" onclick="changeCheckBoxStt('selectClipCheckBox', '')">Deselect all</a>
+			<br></br>
+			<h:outputFormat value="{0} result(s) found.">
+				<f:param value="#{manageUserBean.searchResultsSize}"/>
+			</h:outputFormat>
+			<h:dataTable var="aUser" value="#{manageUserBean.searchResults}" rendered="#{not empty manageUserBean.searchResults}" border="1"  styleClass="dataTable">
+				<h:column>
+					<f:facet name="header">
+					</f:facet>
+					<h:selectBooleanCheckbox id="selectClipCheckBox" value="#{aUser.selectedInDataTable}" styleClass="selectClipCheckBox"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="ID"/>
+							<admin:sort-button bean="#{manageUserBean}" colName="id"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:outputText value="#{aUser.id}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="AVATAR"/>
+					</f:facet>
+					<h:graphicImage url="#{config.server}/img/#{aUser.image}" width="120"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="EMAIL"/>
+							<admin:sort-button bean="#{manageUserBean}" colName="mail"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:outputText value="#{aUser.mail}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="BLOCKED"/>
+							<admin:sort-button bean="#{manageUserBean}" colName="blocked"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:outputText value="yes" rendered="#{aUser.blocked}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="ADMIN"/>
+							<admin:sort-button bean="#{manageUserBean}" colName="admin"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:outputText value="yes" rendered="#{aUser.admin}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="CLIPS"/>
+							<admin:sort-button bean="#{manageUserBean}" colName="nClips"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:commandLink value="#{aUser.nClips}" action="#{manageUserBean.searchAllClips}">
+						<f:setPropertyActionListener target="#{manageUserBean.referencedMail}" value="#{aUser.mail}"/>
+					</h:commandLink>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="SINGERS"/>
+							<admin:sort-button bean="#{manageUserBean}" colName="nSingers"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:commandLink value="#{aUser.nSingers}" action="#{manageUserBean.searchAllSingers}">
+						<f:setPropertyActionListener target="#{manageUserBean.referencedMail}" value="#{aUser.mail}"/>
+					</h:commandLink>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="COMPOSER"/>
+							<admin:sort-button bean="#{manageUserBean}" colName="nComposers"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:commandLink value="#{aUser.nComposers}" action="#{manageUserBean.searchAllComposers}">
+						<f:setPropertyActionListener target="#{manageUserBean.referencedMail}" value="#{aUser.mail}"/>
+					</h:commandLink>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="GENRE"/>
+							<admin:sort-button bean="#{manageUserBean}" colName="nGenres"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:commandLink value="#{aUser.nGenres}" action="#{manageUserBean.searchAllGenres}">
+						<f:setPropertyActionListener target="#{manageUserBean.referencedMail}" value="#{aUser.mail}"/>
+					</h:commandLink>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="LANGUAGE"/>
+							<admin:sort-button bean="#{manageUserBean}" colName="language"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:outputText value="#{aUser.language}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="LAST LOGIN AT"/>
+							<admin:sort-button bean="#{manageUserBean}" colName="lastLogin"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:outputText value="#{aUser.lastLogin}">
+						<f:convertDateTime dateStyle="full" type="both"/>
+					</h:outputText>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="CREATED AT"/>
+							<admin:sort-button bean="#{manageUserBean}" colName="createdTime"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:outputText value="#{aUser.createdTime}">
+						<f:convertDateTime dateStyle="full" type="both"/>
+					</h:outputText>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="LAST MODIFICATION AT"/>
+							<admin:sort-button bean="#{manageUserBean}" colName="modifiedTime"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:outputText value="#{aUser.modifiedTime}">
+						<f:convertDateTime dateStyle="full" type="both"/>
+					</h:outputText>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

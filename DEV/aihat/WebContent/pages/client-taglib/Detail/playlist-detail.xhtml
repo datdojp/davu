@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+<ui:composition>
+	<h1>#{msg.CU0010}</h1><br/>
+	<h:panelGrid columns="2">
+		<h:graphicImage url="#{playlist.mainClip.thumbnailLink}" width="120"/>
+		<h:panelGrid columns="1">
+			<h:outputText value="#{msg.client_clips_composer_name}:#{playlist.name}" rendered="#{not playlist.editable}"/>
+			<h:panelGrid columns="2" rendered="#{playlist.editable}">
+				<h:inputText value="#{playlist.name}"/>
+				<h:commandButton value="#{msg.CU0018}">
+					<f:ajax event="click" render="@form" execute="@form" listener="#{detailBean.updatePlaylistName}"/>
+				</h:commandButton>
+			</h:panelGrid>
+			<h:outputText value="#{msg.client_clips_playlist_uploader}:#{playlist.user.mail}"/>
+			<h:outputText value="#{playlist.nClips} #{msg.client_clips_playlist_nClips}"/>
+		</h:panelGrid>
+	</h:panelGrid>
+</ui:composition>
+</html>

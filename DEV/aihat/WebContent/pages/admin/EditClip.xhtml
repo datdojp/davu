@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:admin="http://www.aihat.net/admin">
+<ui:composition template="admin-template.xhtml">
+	<ui:param name="title" value="TODO" />
+	<ui:param name="mainBean" value="#{manageClipEditBean}"></ui:param>
+	<ui:define name="pageName">
+		<h:outputText value="CLIPS > EDIT"/>
+	</ui:define>
+	<ui:define name="body">
+		<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+		<script type="text/javascript">
+     			google.load("swfobject", "2.1");
+   		</script>
+		<div id="ytwrapper"></div>
+		<script>
+			embedClip("ytwrapper", "#{manageClipEditBean.clip.embeddedLink}", "1", "425", "356");
+		</script>
+		<h:form>
+			<h:panelGrid columns="2" styleClass="oneColumnForm">
+				<h:outputText value="ID"/>
+				<h:outputText value="#{manageClipEditBean.clip.id}" styleClass="id"/>
+				<h:outputText value="Title(*)"/>
+				<h:inputText value="#{manageClipEditBean.clip.title}"
+					required="true" requiredMessage="Please input title"/>
+					
+				<h:outputText value="Singer(*)"/>
+				<c:set target="#{utilsBean}" property="tempSingerList" value="#{utilsBean.allSingers}"/>
+				<h:panelGrid columns="2">
+					<h:outputText value="(1)"/>
+					<h:selectOneListbox value="#{manageClipEditBean.singerId_1}" size="1"
+							required="true" requiredMessage="Please select singer 1.">
+						<f:selectItem itemLabel="" itemValue=""/>
+						<c:forEach items="#{utilsBean.tempSingerList}" var="aSinger">
+							<f:selectItem itemLabel="#{aSinger.name}" itemValue="#{aSinger.id}"/>
+						</c:forEach>
+					</h:selectOneListbox>
+					<h:outputText value="(2)"/>
+					<h:selectOneListbox value="#{manageClipEditBean.singerId_2}" size="1">
+						<f:selectItem itemLabel="" itemValue=""/>
+						<c:forEach items="#{utilsBean.tempSingerList}" var="aSinger">
+							<f:selectItem itemLabel="#{aSinger.name}" itemValue="#{aSinger.id}"/>
+						</c:forEach>
+					</h:selectOneListbox>
+					<h:outputText value="(3)"/>
+					<h:selectOneListbox value="#{manageClipEditBean.singerId_3}" size="1">
+						<f:selectItem itemLabel="" itemValue=""/>
+						<c:forEach items="#{utilsBean.tempSingerList}" var="aSinger">
+							<f:selectItem itemLabel="#{aSinger.name}" itemValue="#{aSinger.id}"/>
+						</c:forEach>
+					</h:selectOneListbox>
+				</h:panelGrid>
+				
+				<h:outputText value="Composer(*)"/>
+				<c:set target="#{utilsBean}" property="tempComposerList" value="#{utilsBean.allComposers}"/>
+				<h:panelGrid columns="2">
+					<h:outputText value="(1)"/>
+					<h:selectOneListbox value="#{manageClipEditBean.composerId_1}" size="1"
+							required="true" requiredMessage="Please select composer 1.">
+						<f:selectItem itemLabel="" itemValue=""/>
+						<c:forEach items="#{utilsBean.tempComposerList}" var="aComposer">
+							<f:selectItem itemLabel="#{aComposer.name}" itemValue="#{aComposer.id}"/>
+						</c:forEach>
+					</h:selectOneListbox>
+					<h:outputText value="(2)"/>
+					<h:selectOneListbox value="#{manageClipEditBean.composerId_2}" size="1">
+						<f:selectItem itemLabel="" itemValue=""/>
+						<c:forEach items="#{utilsBean.tempComposerList}" var="aComposer">
+							<f:selectItem itemLabel="#{aComposer.name}" itemValue="#{aComposer.id}"/>
+						</c:forEach>
+					</h:selectOneListbox>
+					<h:outputText value="(3)"/>
+					<h:selectOneListbox value="#{manageClipEditBean.composerId_3}" size="1">
+						<f:selectItem itemLabel="" itemValue=""/>
+						<c:forEach items="#{utilsBean.tempComposerList}" var="aComposer">
+							<f:selectItem itemLabel="#{aComposer.name}" itemValue="#{aComposer.id}"/>
+						</c:forEach>
+					</h:selectOneListbox>
+				</h:panelGrid>
+				
+				<h:outputText value="Genre(*)"/>
+				<c:set target="#{utilsBean}" property="tempGenreList" value="#{utilsBean.allGenres}"/>
+				<h:panelGrid columns="2">
+					<h:outputText value="(1)"/>
+					<h:selectOneListbox value="#{manageClipEditBean.genreId_1}" size="1"
+							required="true" requiredMessage="Please select genre 1.">
+						<f:selectItem itemLabel="" itemValue=""/>
+						<c:forEach items="#{utilsBean.tempGenreList}" var="aGenre">
+							<f:selectItem itemLabel="#{aGenre.nameEn}" itemValue="#{aGenre.id}"/>
+						</c:forEach>
+					</h:selectOneListbox>
+					<h:outputText value="(2)"/>
+					<h:selectOneListbox value="#{manageClipEditBean.genreId_2}" size="1">
+						<f:selectItem itemLabel="" itemValue=""/>
+						<c:forEach items="#{utilsBean.tempGenreList}" var="aGenre">
+							<f:selectItem itemLabel="#{aGenre.nameEn}" itemValue="#{aGenre.id}"/>
+						</c:forEach>
+					</h:selectOneListbox>
+					<h:outputText value="(3)"/>
+					<h:selectOneListbox value="#{manageClipEditBean.genreId_3}" size="1">
+						<f:selectItem itemLabel="" itemValue=""/>
+						<c:forEach items="#{utilsBean.tempGenreList}" var="aGenre">
+							<f:selectItem itemLabel="#{aGenre.nameEn}" itemValue="#{aGenre.id}"/>
+						</c:forEach>
+					</h:selectOneListbox>
+				</h:panelGrid>
+				
+				<h:outputText value="Link(*)"/>
+				<h:inputText value="#{manageClipEditBean.clip.link}"
+						required="true" requiredMessage="Please input link">
+					<f:validator validatorId="clipLinkValidator"/>
+				</h:inputText>
+				
+				<h:outputText value="Official"/>
+				<h:selectBooleanCheckbox value="#{manageClipEditBean.clip.official}"/>
+			</h:panelGrid>
+			<h:commandButton action="#{manageClipEditBean.update}" value="Update"/>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

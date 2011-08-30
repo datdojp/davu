@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:x="http://myfaces.apache.org/tomahawk"
+	xmlns:admin="http://www.aihat.net/admin">
+<ui:composition template="admin-template.xhtml">
+	<ui:param name="title" value="TODO" />
+	<ui:param name="mainBean" value="#{manageGenreEditBean}"></ui:param>
+	<ui:define name="pageName">
+		<h:outputText value="GENRES > EDIT"/>
+	</ui:define>
+	<ui:define name="body">
+		<h:form>
+			<h:panelGrid columns="2" styleClass="oneColumnForm">
+				<h:outputText value="ID" />
+				<h:outputText value="#{manageGenreEditBean.genre.id}"
+					styleClass="id" />
+
+				<h:outputText value="Vietnameser name (*)"/>
+				<h:inputText value="#{manageGenreEditBean.genre.nameVi}"
+					required="true" requiredMessage="Please input Vietnamese name."/>
+				
+				<h:outputText value="English name (*)"/>
+				<h:inputText value="#{manageGenreEditBean.genre.nameEn}"
+					required="true" requiredMessage="Please input English name."/>
+			</h:panelGrid>
+			<h:panelGrid columns="3">
+				<h:commandButton action="#{manageGenreEditBean.update}" value="Update"/>
+				<h:commandLink value="Clips of this genre" action="#{manageGenreEditBean.searchAllClips}"/>
+				<h:commandLink value="Upload clips" action="#{manageGenreEditBean.uploadClips}"/>
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

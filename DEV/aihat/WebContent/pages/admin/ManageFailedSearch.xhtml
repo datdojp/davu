@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:admin="http://www.aihat.net/admin"
+	xmlns:x="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="admin-template.xhtml">
+	<ui:param name="title" value="TODO" />
+	<ui:param name="mainBean" value="#{manageFailedSearchBean}"/>
+	<ui:define name="pageName">
+		<h:outputText value="FAILED-SEARCH"/>
+	</ui:define>
+	<ui:define name="body">
+		<h:form>
+			<h:panelGrid columns="3">
+				<h:outputText value="FROM:"/>
+				<h:inputText value="#{manageFailedSearchBean.fromDateYmd}" maxlength="8"/>
+				<h:outputText value="(yyyymmdd)"/>
+				<h:outputText value="TO:"/>
+				<h:inputText value="#{manageFailedSearchBean.toDateYmd}" maxlength="8"/>
+				<h:outputText value="(yyyymmdd)"/>
+				<h:commandButton value="Search" action="#{manageFailedSearchBean.search}"/>
+			</h:panelGrid>
+			<h:dataTable var="aFailedSearch" value="#{manageFailedSearchBean.failedSearchs}" rendered="#{not empty manageFailedSearchBean.failedSearchs}" border="1"  styleClass="dataTable">
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="Keyword"/>
+							<admin:sort-button bean="#{manageFailedSearchBean}"	colName="keyword"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:outputText value="#{aFailedSearch.keyword}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="User"/>
+							<admin:sort-button bean="#{manageFailedSearchBean}"	colName="user.mail"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:outputText value="#{aFailedSearch.user.mail}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="Time"/>
+							<admin:sort-button bean="#{manageFailedSearchBean}"	colName="dateTime"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:outputText value="#{aFailedSearch.dateTime}"/>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

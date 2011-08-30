@@ -1,0 +1,181 @@
+body {
+	font-family: verdana;
+	font-size: 11pt;
+}
+
+#wrapper {
+	width:100%;
+	height:100%;
+	position:absolute;
+	top:0;left:0;
+	overflow:hidden;
+}
+
+#mask {
+	width:500%;
+	height:100%;
+}
+
+.page {
+	float:left;
+	overflow:scroll;
+	color: white;
+}
+
+#UpperPanel {
+	height:116px;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	background-image: url('TopPanel_sides.png');
+}
+
+#FeaturedClips {
+	overflow: hidden;
+}
+
+.player {
+	width:100%;
+	height:100%
+}
+
+.player .title {
+	color:white;
+}
+
+.dataTable {
+	color: white;
+	border-width: 1px;
+	border-color: white;
+	border-style: solid;
+}
+
+.dataTable th {
+	background-color: gray;
+}
+
+.clips {
+}
+
+.detail {
+}
+
+.play {
+	background-image: url("/img/client/play.png");
+}
+
+.style001 {
+	width: 891px;
+	height: 116px;
+	background-image: url("TopPanel_middle.png");
+}
+
+.style001 td {
+	vertical-align: bottom;
+	padding-bottom: 2px;
+}
+
+.style002 {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	color: ghostWhite;
+	font-weight: bold;
+	font-size: 10pt;
+}
+
+.style003 {
+	position: fixed;
+	top:70px;
+	right: 50px;
+}
+.style003 :HOVER {
+	background-color: #f8f8ff;
+	border-radius: 5px;
+	color: black;
+}
+
+.style004 {
+	border: solid thin;
+	background-color: ghostWhite;
+	height: 17px;
+	width: 150px;
+}
+
+.style005 {
+	background-color: #777777;
+	height: 23px;
+	border: solid thin black;
+	font-weight: bold;
+}
+
+.style005 :HOVER {
+	background-color: #f8f8ff;
+}
+
+.style006 {
+	height: 78px;
+	width:100%;
+	background-image: url("searchPane.png");
+}
+
+#clips .clips, #clips .singers, #clips .composers, #clips .playlists, #clips .genres {
+	width: 100%;
+	height: 24px;
+	font-family: verdana;
+	font-size: 10pt;
+	color: #666666;
+	background-image: url("tab.png");
+	opacity: 0.5;
+}
+
+#clips .selected {
+	opacity: 1;
+	font-weight: bold;
+}
+
+.style008 {
+	width: 100%;
+	border: none;
+}
+.style008 td {
+	width: 20%;
+}
+
+.style009 {
+	width: 449px;
+	height: 30px;
+	background-image: url("searchBtn.png");
+	background-repeat: no-repeat;
+	padding-top: 4px;
+}
+
+.style010 {
+	width: 390px;
+	height: 17px;
+	border: none;
+}
+
+.button-body {
+	height: 26px;
+	background-image: url("btnCenter.png");
+	border: none;
+	font-family: verdana;
+	font-size: 10pt;
+	color: #666666;
+}
+
+.clipThumbnail {
+	width:120px;
+	opacity:0.5;
+}
+.clipThumbnail :HOVER {
+	opacity: 1;
+}
+.playing {
+	opacity: 1;
+	width: 160px;
+	border-style: groove;
+	border-color: ghostWhite;
+}

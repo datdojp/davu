@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:client="http://www.aihat.net/client">
+<ui:composition>
+	<table>
+		<tr>
+			<td>
+				<client:button>
+					<ui:define name="button-body">
+						<h:commandButton value="Play" onclick="slideToFeaturedClips();updateCurrentPlaybackPos();" styleClass="button-body">
+							<f:param name="referenceBeanName" value="#{bean.beanName}"/>
+							<f:ajax event="click" execute="@form :featuredClips" render=":featuredClips" listener="#{featuredClipsBean.play}"/>
+						</h:commandButton>
+					</ui:define>
+				</client:button>
+			</td>
+			<td>
+				<client:button>
+					<ui:define name="button-body">
+						<h:commandButton value="Add" onclick="slideToFeaturedClips();updateCurrentPlaybackPos();" styleClass="button-body">
+							<f:param name="referenceBeanName" value="#{bean.beanName}"/>
+							<f:ajax event="click" execute="@form :featuredClips" render=":featuredClips" listener="#{featuredClipsBean.add}"/>
+						</h:commandButton>
+					</ui:define>
+				</client:button>
+			</td>
+			<td>
+				<t:div rendered="#{userProfileBean.loggedIn}">
+					<client:button>
+						<ui:define name="button-body">
+							<h:commandButton value="#{msg.client_clips_add_to_my_playlist}" styleClass="button-body"
+									onclick="showDlgCreateOrAddToMyPlaylists('#{formId}');return false;"/>
+						</ui:define>
+					</client:button>
+			  		<div class="dlgCreateOrAddToMyPlaylists" style="display:none" title="#{msg.client_clips_add_to_my_playlist}">
+			  			<h:panelGrid columns="1">
+							<h:panelGrid columns="3">
+								<h:outputText value="#{msg.client_clips_popup_myplaylist_create_1}"/>
+								<input type="text" value="#{zentaiBean.newPlaylistTitle}" onchange="onchangeNewPlaylistTitle(this, '#{formId}');"/>
+								<h:commandButton value="#{msg.client_clips_popup_myplaylist_create_2}"
+											onclick="onclickCreateOrAddToMyPlaylists('#{formId}');return false;">
+								</h:commandButton>
+							</h:panelGrid>
+							<br/>
+							<h:outputText value="#{msg.client_clips_popup_myplaylist_create_3}"/> 
+							<br/>
+							<h:dataTable var="aPlaylist" value="#{zentaiBean.myPlaylists}">
+								<h:column>
+									<input type="checkbox" onchange="onchangeSelectPlaylist(this, '#{formId}', '#{aPlaylist.id}');"/>
+								</h:column>
+								<h:column>
+									<h:outputText value="#{aPlaylist.name}"/>
+								</h:column>
+							</h:dataTable>
+							<h:commandButton value="#{msg.client_clips_popup_myplaylist_add}"
+										onclick="onclickAddClipsToSelectedPlaylists('#{formId}');return false;">
+							</h:commandButton>
+						</h:panelGrid>
+			  		</div>
+			  		<h:inputText style="display:none;" styleClass="hdnNewPlaylistTitle" value="#{zentaiBean.newPlaylistTitle}"/>
+			  		<h:commandButton style="display:none;" styleClass="hdnSubmitCreatePlaylistAndAddClips">
+			  			<f:param name="referenceBeanName" value="#{bean.beanName}"/>
+						<f:ajax event="click" render="@form" execute="@form" listener="#{zentaiBean.createPlaylistAndAddClips}"/>
+					</h:commandButton>
+					<ui:repeat var="aPlaylist" value="#{zentaiBean.myPlaylists}">
+						<h:selectBooleanCheckbox style="display:none;" value="#{aPlaylist.selectedInDataTable}" styleClass="playlist_#{aPlaylist.id}"
+							onchange="onchangeSelectPlaylist(this, '#{formId}')"/>
+					</ui:repeat>
+					<h:commandButton style="display:none;" styleClass="hdnSubmitAddClipsToSelectedPlaylists">
+						<f:param name="referenceBeanName" value="#{bean.beanName}"/>
+						<f:ajax event="click" render="@form" execute="@form" listener="#{zentaiBean.addClipsToSelectedPlaylists}"/>
+					</h:commandButton>
+				</t:div>
+			</td>
+		</tr>
+	</table>
+</ui:composition>
+</html>

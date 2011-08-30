@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+<ui:composition>
+	<h:panelGrid columns="3">
+		<ui:repeat var="aGenre" value="#{genres}">
+			<h:commandLink onclick="slideToDetail();">
+				<f:param name="genreId" value="#{aGenre.id}"/>
+				<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showGenreDetail}"/>
+				<h:outputText
+					value="#{aGenre.nameVi}"
+					rendered="#{utilsBean.currentLanguage eq 'vi'}"/>
+				<h:outputText
+					value="#{aGenre.nameEn}"
+					rendered="#{utilsBean.currentLanguage eq 'en'}"/>
+			</h:commandLink>
+			<h:outputText value="(#{aGenre.nClips} #{msg.client_clips_genre_clip})"/>
+		</ui:repeat>
+	</h:panelGrid>
+</ui:composition>
+</html>

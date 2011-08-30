@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="failed-search">
+	<sql id="fsCommonSelect">
+		SELECT
+			fs.id as id,
+			fs.keyword as keyword,
+			fs.user_id as `user.id`,
+			u.mail as `user.mail`,
+			fs.datetime as dateTime
+	</sql>
+	<sql id="fsCommonFrom">
+		FROM failed_search fs left outer join user u on user_id
+	</sql>
+	<sql id="fsCommonWhere">
+		WHERE (fs.user_id is null OR fs.user_id = u.id)
+	</sql>
+	<select id="searchFailedSearch" parameterClass="net.aihat.criteria.FailedSearchCriteria" resultClass="net.aihat.dto.FailedSearchDto">
+		<include refid="fsCommonSelect"/>
+		<include refid="fsCommonFrom"/>
+		<include refid="fsCommonWhere"/>
+			<dynamic>
+				<isNotNull prepend="AND" property="fromDate">
+					#fromDate# &lt;= fs.datetime
+				</isNotNull>
+				<isNotNull prepend="AND" property="toDate">
+					fs.datetime &lt;= #toDate#
+				</isNotNull>
+			</dynamic>
+		<include refid="commonSorting"/>
+	</select>
+	<insert id="insertFailedSearch" parameterClass="net.aihat.dto.FailedSearchDto">
+		INSERT INTO failed_search(keyword, user_id, datetime)
+		VALUES(#keyword#, #user.id#, NOW())
+	</insert>
+</sqlMap>
