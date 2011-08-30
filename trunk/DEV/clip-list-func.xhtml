@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+<ui:composition>
+	<!-- TODO thay chu 'play', 'add' bang icon -->
+	<h:commandButton value="Play" action="#{zentaiBean.featuredClipsBean.play}"/>
+	<h:commandButton value="Add" action="#{zentaiBean.featuredClipsBean.add}"/>
+	<t:div rendered="#{userProfileBean.loggedIn}">
+		<h:inputText style="display:none;" styleClass="hdnNewPlaylistTitle" value="#{zentaiBean.newPlaylistTitle}"/>
+		<h:inputText style="display:none;" styleClass="hdnSelectedPlaylistIds" value="#{zentaiBean.selectedPlaylistIds}"/>
+		<h:commandButton style="display:none;" styleClass="hdnSubmitCreatePlaylistAndAddClips">
+			<f:ajax event="click" render="@form" execute="@form" listener="#{zentaiBean.createPlaylistAndAddClips}"/>
+		</h:commandButton>
+		<h:commandButton style="display:none;" styleClass="hdnSubmitAddClipsToSelectedPlaylists">
+			<f:ajax event="click" render="@form" execute="@form" listener="#{zentaiBean.addClipsToSelectedPlaylists}"/>
+		</h:commandButton>
+		<h:commandButton value="#{msg.client_clips_add_to_my_playlist}"
+				onclick="#{formId}_showDlgCreateOrAddToMyPlaylists('#{formId}');return false;"/>
+  		<div class="#{formId}_dlgCreateOrAddToMyPlaylists" style="display:none" title="#{msg.client_clips_add_to_my_playlist}">
+  			<h:panelGrid columns="1">
+				<h:panelGrid columns="3">
+					<h:outputText value="#{msg.client_clips_popup_myplaylist_create_1}"/>
+					<h:inputText styleClass="popup_newPlaylistTitle" value="#{zentaiBean.newPlaylistTitle}"/>
+					<h:commandButton value="#{msg.client_clips_popup_myplaylist_create_2}"
+								onclick="#{formId}_onclickCreateOrAddToMyPlaylists('#{formId}');return false;">
+					</h:commandButton>
+				</h:panelGrid>
+				<br/>
+				<h:outputText value="#{msg.client_clips_popup_myplaylist_create_3}"/> 
+				<br/>
+				<h:dataTable var="aPlaylist" value="#{zentaiBean.myPlaylists}">
+					<h:column>
+						<h:selectBooleanCheckbox value="#{aPlaylist.selectedInDataTable}" styleClass="popup_selectPlaylistId"/>
+					</h:column>
+					<h:column>
+						<h:outputText value="#{aPlaylist.name}"/>
+					</h:column>
+				</h:dataTable>
+				<h:commandButton value="#{msg.client_clips_popup_myplaylist_add}"
+							onclick="#{formId}_onclickAddClipsToSelectedPlaylists('#{formId}');return false;">
+				</h:commandButton>
+			</h:panelGrid>
+  		</div>
+	</t:div>
+	<script>
+		var #{formId}_dlgCreateOrAddToMyPlaylists = null;
+		function #{formId}_showDlgCreateOrAddToMyPlaylists() {
+			if(#{formId}_dlgCreateOrAddToMyPlaylists) {
+				#{formId}_dlgCreateOrAddToMyPlaylists.dialog("open");
+			} else {
+				#{formId}_dlgCreateOrAddToMyPlaylists =
+					$("##{formId}").find(".#{formId}_dlgCreateOrAddToMyPlaylists").dialog({
+						width:500,
+						modal:true,
+						draggable:true,
+						resizable:true,
+						show:"drop",
+						hide:"drop"
+					});
+			}
+		}
+		
+		function #{formId}_onclickCreateOrAddToMyPlaylists() {
+			var newPlaylistTitle = $(".#{formId}_dlgCreateOrAddToMyPlaylists").find(".popup_newPlaylistTitle").val();
+			$("##{formId}").find(".hdnNewPlaylistTitle").val(newPlaylistTitle);
+			$("##{formId}").find(".popup_newPlaylistTitle").val(newPlaylistTitle);
+			$("##{formId}").find(".hdnSubmitCreatePlaylistAndAddClips").click();
+			#{formId}_dlgCreateOrAddToMyPlaylists.dialog("close");
+		}
+	
+		function #{formId}_onclickAddClipsToSelectedPlaylists() {
+			var selectedIds = []
+			$(".#{formId}_dlgCreateOrAddToMyPlaylists").find(".popup_selectPlaylistId").each(function(i){
+				selectedIds.push($(this).val());
+			});
+			$("##{formId}").find(".hdnSelectedPlaylistIds").val(selectedIds.join(','));
+			$("##{formId}").find(".hdnSubmitAddClipsToSelectedPlaylists").click();
+			#{formId}_dlgCreateOrAddToMyPlaylists.dialog("close");
+		}
+	</script>
+</ui:composition>
+</html>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:client="http://www.aihat.net/client"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+<ui:composition>
+	<h:form id="register">
+		<h1>#{msg.CU0027}</h1>
+		<h:panelGrid columns="3">
+			<h:outputText value="#{msg.CU0039}"/>
+			<h:inputText value="#{registerBean.name}"/>
+			<h:outputText/>
+			
+			<h:outputText value="#{msg.CU0040}"/>
+			<h:selectOneListbox value="#{registerBean.sex}" size="1">
+				<f:selectItem itemLabel="#{msg.CU0041}" itemValue="U"/>
+				<f:selectItem itemLabel="#{msg.CU0042}" itemValue="M"/>
+				<f:selectItem itemLabel="#{msg.CU0043}" itemValue="F"/>
+			</h:selectOneListbox>
+			<h:outputText/>
+			
+			<h:outputText value="#{msg.CU0044}"/>
+			<h:panelGroup>
+				<h:outputText value="#{msg.CU0045}"/>
+				<h:selectOneListbox value="#{registerBean.birthdayDD}" size="1">
+					<c:forEach var="i" begin="1" end="31" step="1">
+						<f:selectItem itemLabel="#{i}" itemValue="#{i}"/>			
+					</c:forEach>
+				</h:selectOneListbox>
+				<h:outputText value="#{msg.CU0046}"/>
+				<h:selectOneListbox value="#{registerBean.birthdayMM}" size="1">
+					<c:forEach var="i" begin="1" end="12" step="1">
+						<f:selectItem itemLabel="#{i}" itemValue="#{i}"/>			
+					</c:forEach>
+				</h:selectOneListbox>
+				<h:outputText value="#{msg.CU0047}"/>
+				<h:selectOneListbox value="#{registerBean.birthdayYY}" size="1">
+					<c:forEach var="i" begin="1950" end="2011" step="1">
+						<f:selectItem itemLabel="#{2048+i}" itemValue="#{2048+i}"/>			
+					</c:forEach>
+				</h:selectOneListbox>
+			</h:panelGroup>
+			<h:outputText/>
+			
+			<h:outputText value="#{msg.CU0028}"/>
+			<h:inputText value="#{registerBean.mail}"/>
+			<h:panelGroup>
+				<h:commandButton value="#{msg.CU0029}">
+					<f:ajax event="click" execute="@form" render="@form" listener="#{registerBean.checkMailAvailability}"/>
+				</h:commandButton>
+				<h:outputText value="không hợp lệ" style="color:red;" rendered="#{not registerBean.mailAvailable}"/>
+				<h:outputText value="hợp lệ" style="color:green;" rendered="#{registerBean.mailAvailable}"/>				
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.CU0030}"/>
+			<h:inputSecret value="#{registerBean.password}" redisplay="true"/>
+			<h:outputText value=""/>
+			
+			<h:outputText value="#{msg.CU0031}"/>
+			<h:inputSecret value="#{registerBean.confirmPassword}" redisplay="true"/>
+			<h:outputText value=""/>
+			
+			<h:outputText value="#{registerBean.confirmQuestion.question}"/>
+			<h:inputText value="#{registerBean.answer}"/>
+			<h:outputText value="(#{msg.CU0032})"/>
+		</h:panelGrid>
+		
+		<h:selectBooleanCheckbox value="#{registerBean.confirmPolicy}"/>
+		<h:outputText value="#{msg.CU0033}"/>
+		<h:commandLink onclick="showPolicyDialog();return false;">
+			<h:outputText value="#{msg.CU0034}"/>
+		</h:commandLink>
+		<div class="dlgPolicy" style="display:none" title="#{msg.CU0036}">
+  			<h:outputText value="#{msg.policy}"/>
+  		</div>
+		<br/>
+		<h:commandButton value="#{msg.CU0035}">
+			<f:ajax event="click" execute="@form" render="@form" listener="#{registerBean.register}"/>
+		</h:commandButton>
+		<script>
+			var policyDialog;
+			function showPolicyDialog() {
+				if(policyDialog) {
+					policyDialog.dialog("open");
+				} else {
+					policyDialog = $("#register").find(".dlgPolicy").dialog({
+										width:800,
+										modal:true,
+										draggable:true,
+										resizable:true,
+										show:"drop",
+										hide:"drop"
+									});
+				}
+			}
+		</script>
+		<client:messages formId="register" bean="#{registerBean}"/>
+		<client:messages formId="register" bean="#{myProfileBean}"/>
+		<client:messages formId="register" bean="#{detailBean}"/>
+		<client:messages formId="register" bean="#{zentaiBean}"/>
+	</h:form>
+</ui:composition>
+</html>

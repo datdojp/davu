@@ -1,0 +1,8 @@
+#Sat Jul 09 15:39:46 ICT 2011
+eclipse.preferences.version=1
+encoding//src/net/aihat/bean/BaseBean.java=UTF-8
+encoding//src/net/aihat/bean/admin/autoimport/AutoImportBean.java=UTF-8
+encoding//src/net/aihat/bean/client/ZentaiBean.java=UTF-8
+encoding//src/net/aihat/bundle/msg-en.properties=UTF-8
+encoding//src/net/aihat/dao/BaseDao.java=UTF-8
+encoding//src/net/aihat/utils/BeanUtils.java=UTF-8

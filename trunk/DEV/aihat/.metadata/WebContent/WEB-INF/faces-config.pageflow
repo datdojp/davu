@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13049262451900" configfile="/aihat/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="*" id="pf13094568168857" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf13094568168858 pf13094568168859 pf130945681688510 pf130945681688511 pf130945681688512 pf130945681688513 pf130945681688514 pf130945681688515 pf130945681688516 pf130945681688517 pf130945681688518 pf130945681688519 pf130945681688520 pf130945681688521 pf130945681688522 pf130945681688523 pf130945681688524 pf13095975464890" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/user/Blocked.jsf" id="pf130945681688525" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf13094568168858" path="/pages/user/Blocked.jsf"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/user/LoginFailed.jsf" id="pf130945681688626" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf13094568168859" path="/pages/user/LoginFailed.jsf"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/admin/EditClip.jsf" id="pf130945681688627" referenceLink="//@navigationRule.0/@navigationCase.2/@toViewId|" inlinks="pf130945681688510" path="/pages/admin/EditClip.jsf"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/admin/ManageClip.jsf" id="pf130945681688628" referenceLink="//@navigationRule.0/@navigationCase.8/@toViewId|" inlinks="pf130945681688511 pf130945681688516" path="/pages/admin/ManageClip.jsf"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/client/Zentai.jsf" id="pf130945681688629" referenceLink="//@navigationRule.0/@navigationCase.17/@toViewId|" inlinks="pf130945681688512 pf13095975464890" path="/pages/client/Zentai.jsf"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/admin/HomePage.jsf" id="pf130945681688630" referenceLink="//@navigationRule.0/@navigationCase.5/@toViewId|" inlinks="pf130945681688513" path="/pages/admin/HomePage.jsf"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/admin/EditSinger.jsf" id="pf130945681688631" referenceLink="//@navigationRule.0/@navigationCase.6/@toViewId|" inlinks="pf130945681688514" path="/pages/admin/EditSinger.jsf"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/admin/ManageSinger.jsf" id="pf130945681688632" referenceLink="//@navigationRule.0/@navigationCase.9/@toViewId|" inlinks="pf130945681688515 pf130945681688517" path="/pages/admin/ManageSinger.jsf"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/admin/ManageComposer.jsf" id="pf130945681688633" referenceLink="//@navigationRule.0/@navigationCase.14/@toViewId|" inlinks="pf130945681688518 pf130945681688522" path="/pages/admin/ManageComposer.jsf"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/admin/ManageGenre.jsf" id="pf130945681688634" referenceLink="//@navigationRule.0/@navigationCase.16/@toViewId|" inlinks="pf130945681688519 pf130945681688524" path="/pages/admin/ManageGenre.jsf"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/admin/UploadClip.jsf" id="pf130945681688635" referenceLink="//@navigationRule.0/@navigationCase.12/@toViewId|" inlinks="pf130945681688520" path="/pages/admin/UploadClip.jsf"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/admin/EditComposer.jsf" id="pf130945681688636" referenceLink="//@navigationRule.0/@navigationCase.13/@toViewId|" inlinks="pf130945681688521" path="/pages/admin/EditComposer.jsf"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/admin/EditGenre.jsf" id="pf130945681688637" referenceLink="//@navigationRule.0/@navigationCase.15/@toViewId|" inlinks="pf130945681688523" path="/pages/admin/EditGenre.jsf"/>
+  <links id="pf13094568168858" target="pf130945681688525" source="pf13094568168857" outcome="blocked" fromaction="#{userProfileBean.login}"/>
+  <links id="pf13094568168859" target="pf130945681688626" source="pf13094568168857" outcome="login-failed" fromaction="#{userProfileBean.login}"/>
+  <links id="pf130945681688510" target="pf130945681688627" source="pf13094568168857" outcome="manageClipEditBean-init-complete" fromaction="#{manageClipEditBean.init}"/>
+  <links id="pf130945681688511" target="pf130945681688628" source="pf13094568168857" outcome="return-manage-clip" fromaction="#{manageClipEditBean.update}"/>
+  <links id="pf130945681688512" target="pf130945681688629" source="pf13094568168857" outcome="adminAuthFailure" redirect="true"/>
+  <links id="pf130945681688513" target="pf130945681688630" source="pf13094568168857" outcome="adminHomePage"/>
+  <links id="pf130945681688514" target="pf130945681688631" source="pf13094568168857" outcome="manageSingerEditBean-init-complete" fromaction="#{manageSingerEditBean.init}"/>
+  <links id="pf130945681688515" target="pf130945681688632" source="pf13094568168857" outcome="return-manage-singer" fromaction="#{manageSingerEditBean.update}"/>
+  <links id="pf130945681688516" target="pf130945681688628" source="pf13094568168857" outcome="adminManageClip"/>
+  <links id="pf130945681688517" target="pf130945681688632" source="pf13094568168857" outcome="adminManageSinger"/>
+  <links id="pf130945681688518" target="pf130945681688633" source="pf13094568168857" outcome="adminManageComposer"/>
+  <links id="pf130945681688519" target="pf130945681688634" source="pf13094568168857" outcome="adminManageGenre"/>
+  <links id="pf130945681688520" target="pf130945681688635" source="pf13094568168857" outcome="adminManageClipUpload"/>
+  <links id="pf130945681688521" target="pf130945681688636" source="pf13094568168857" outcome="manageComposerEditBean-init-complete"/>
+  <links id="pf130945681688522" target="pf130945681688633" source="pf13094568168857" outcome="return-manage-composer" fromaction="#{manageComposerEditBean.update}"/>
+  <links id="pf130945681688523" target="pf130945681688637" source="pf13094568168857" outcome="manageGenreEditBean-init-complete"/>
+  <links id="pf130945681688524" target="pf130945681688634" source="pf13094568168857" outcome="return-manage-genre" fromaction="#{manageGenreEditBean.update}"/>
+  <links id="pf13095975464890" target="pf130945681688629" source="pf13094568168857" outcome="zentai"/>
+</pageflow:Pageflow>

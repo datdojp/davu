@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:client="http://www.aihat.net/client"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+<ui:composition>
+	<h:form id="detail" styleClass="detail">
+		<t:div rendered="#{detailBean.objectType eq 'singer'}">
+			<client:singer-detail singer="#{detailBean.singerDetail}" bean="#{detailBean}"/>
+			<client:clip-list-func formId="detail" checkBoxId="selectClipCheckBox" bean="#{detailBean}"/>
+			<client:paging bean="#{detailBean}"/>
+			<client:clip-list formId="detail" clips="#{detailBean.referenceDtos}" bean="#{detailBean}"/>
+			<client:paging bean="#{detailBean}"/>
+		</t:div>
+		<t:div rendered="#{detailBean.objectType eq 'composer'}">
+			<client:composer-detail composer="#{detailBean.composerDetail}"/>
+			<client:clip-list-func formId="detail" checkBoxId="selectClipCheckBox" bean="#{detailBean}"/>
+			<client:paging bean="#{detailBean}"/>
+			<client:clip-list formId="detail" clips="#{detailBean.referenceDtos}" bean="#{detailBean}"/>
+			<client:paging bean="#{detailBean}"/>
+		</t:div>
+		<t:div rendered="#{detailBean.objectType eq 'playlist'}">
+			<client:playlist-detail playlist="#{detailBean.playlistDetail}"/>
+			<h:commandButton value="#{msg.CU0020}" onclick="return confirm('#{msg.CM0010}');"
+					rendered="#{detailBean.playlistDetail.editable}">
+				<f:ajax event="click" render="@form" execute="@form" listener="#{detailBean.deletePlaylists}"/>
+			</h:commandButton>
+			<br/>
+			<h:commandButton value="#{msg.CU0019}">
+				<f:ajax event="click" render="@form" execute="@form" listener="#{detailBean.removeClipsFromPlaylist}"/>
+			</h:commandButton>
+			<client:clip-list-func formId="detail" checkBoxId="selectClipCheckBox" bean="#{detailBean}"/>
+			<client:clip-list formId="detail" clips="#{detailBean.referenceDtos}" bean="#{detailBean}"
+								orderInPlaylistChangable="#{detailBean.playlistDetail.editable}"/>
+		</t:div>
+		<t:div rendered="#{detailBean.objectType eq 'genre'}">
+			<client:genre-detail genre="#{detailBean.genreDetail}"/>
+			<client:clip-list-func formId="detail" checkBoxId="selectClipCheckBox" bean="#{detailBean}"/>
+			<client:paging bean="#{detailBean}"/>
+			<client:clip-list formId="detail" clips="#{detailBean.referenceDtos}" bean="#{detailBean}"/>
+			<client:paging bean="#{detailBean}"/>
+		</t:div>
+		<t:div rendered="#{detailBean.objectType eq 'user'}">
+			<client:uploader-detail uploader="#{detailBean.userDetail}" bean="#{detailBean}"/>
+			<client:clip-list-func formId="detail" checkBoxId="selectClipCheckBox" bean="#{detailBean}"/>
+			<client:paging bean="#{detailBean}"/>
+			<client:clip-list formId="detail" clips="#{detailBean.referenceDtos}" bean="#{detailBean}"/>
+			<client:paging bean="#{detailBean}"/>
+		</t:div>
+		<client:messages formId="detail" bean="#{detailBean}"/>
+		<client:messages formId="detail" bean="#{zentaiBean}"/>
+	</h:form>
+</ui:composition>
+</html>

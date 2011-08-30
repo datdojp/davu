@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<bean id="baseService" class="net.aihat.service.BaseService" abstract="true" scope="application">
+		<property name="clipDao">
+			<ref bean="clipDao"/>
+		</property>
+		<property name="singerDao">
+			<ref bean="singerDao"/>
+		</property>
+		<property name="composerDao">
+			<ref bean="composerDao"/>
+		</property>
+		<property name="genreDao">
+			<ref bean="genreDao"/>
+		</property>
+		<property name="userDao">
+			<ref bean="userDao"/>
+		</property>
+		<property name="passwordDao">
+			<ref bean="passwordDao"/>
+		</property>
+		<property name="failedSearchDao">
+			<ref bean="failedSearchDao"/>
+		</property>
+		<property name="playlistDao">
+			<ref bean="playlistDao"/>
+		</property>
+	</bean>
+	<bean id="clipService" class="net.aihat.service.ClipServiceImpl" parent="baseService">
+	</bean>
+	<bean id="searchService" class="net.aihat.service.SearchServiceImpl" parent="baseService">
+	</bean>
+	<bean id="userService" class="net.aihat.service.UserServiceImpl" parent="baseService">
+		<property name="defaultImage">
+			<value>${service.defaultImage}</value>
+		</property>
+	</bean>
+	<bean id="failedSearchService" class="net.aihat.service.FailedSearchServiceImpl" parent="baseService"/>
+	<bean id="singerService" class="net.aihat.service.SingerServiceImpl" parent="baseService">
+		<property name="defaultImage">
+			<value>${service.defaultImage}</value>
+		</property>
+	</bean>
+	<bean id="composerService" class="net.aihat.service.ComposerServiceImpl" parent="baseService">
+		<property name="defaultImage">
+			<value>${service.defaultImage}</value>
+		</property>
+	</bean>
+	<bean id="genreService" class="net.aihat.service.GenreServiceImpl" parent="baseService"/>
+	<bean id="autoImportService" class="net.aihat.service.AutoImportServiceImpl" parent="baseService">
+		<property name="defaultImage">
+			<value>${service.defaultImage}</value>
+		</property>
+	</bean>
+	<bean id="playlistService" class="net.aihat.service.PlaylistServiceImpl" parent="baseService"/>
+	<bean id="configurationService" class="net.aihat.service.ConfigurationService">
+		<property name="imageBackupFolder">
+			<value>${service.imageBackupFolder}</value>
+		</property>
+		<property name="nHomepageClips">
+			<value>${service.homepage.nClips}</value>
+		</property>
+		<property name="nFeaturedClips">
+			<value>${client.nFeaturedClips}</value>
+		</property>
+		<property name="nRowsPerPage">
+			<value>${client.nRowsPerPage}</value>
+		</property>
+		<property name="nFollowerToDisplay">
+			<value>${client.nFollowerToDisplay}</value>
+		</property>
+	</bean>
+</beans>

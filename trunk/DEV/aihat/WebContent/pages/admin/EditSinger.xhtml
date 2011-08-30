@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:x="http://myfaces.apache.org/tomahawk"
+	xmlns:admin="http://www.aihat.net/admin">
+<ui:composition template="admin-template.xhtml">
+	<ui:param name="title" value="TODO" />
+	<ui:param name="mainBean" value="#{manageSingerEditBean}"></ui:param>
+	<ui:define name="pageName">
+		<h:outputText value="SINGERS > EDIT"/>
+	</ui:define>
+	<ui:define name="body">
+		<h:graphicImage url="#{config.server}/img/#{manageSingerEditBean.singer.image}" width="360"/>
+		<h:form enctype="multipart/form-data">
+			<h:panelGrid columns="2" styleClass="oneColumnForm">
+				<h:outputText value="ID" />
+				<h:outputText value="#{manageSingerEditBean.singer.id}"
+					styleClass="id" />
+
+				<h:outputText value="Name (*)" />
+				<h:inputText value="#{manageSingerEditBean.singer.name}"
+					required="true" requiredMessage="Please input name." />
+
+				<h:outputText value="Birthday" />
+				<h:panelGrid columns="2">
+					<h:inputText value="#{manageSingerEditBean.singer.birthday}">
+						<f:convertDateTime pattern="dd.MM.yyyy" />
+					</h:inputText>
+					<h:outputText value="dd.mm.yyyy" />
+				</h:panelGrid>
+
+				<h:outputText value="Company" />
+				<h:inputText value="#{manageSingerEditBean.singer.company}" />
+
+				<h:outputText value="Website" />
+				<h:inputText value="#{manageSingerEditBean.singer.website}" />
+
+				<h:outputText value="Country"/>
+				<admin:country-select value="#{manageSingerEditBean.singer.country}"/>
+
+				<h:outputText value="Avatar" />
+				<h:panelGrid columns="2">
+					<x:inputFileUpload value="#{manageSingerEditBean.avatarFile}"
+						storage="file"
+						accept="image/*"/>
+					<h:outputText value="maximum 10M" />
+				</h:panelGrid>
+
+				<h:outputText value="Description" />
+				<h:inputTextarea
+					value="#{manageSingerEditBean.singer.description}" />
+			</h:panelGrid>
+			<h:panelGrid columns="3">
+				<h:commandButton action="#{manageSingerEditBean.update}" value="Update"/>
+				<h:commandLink value="Clips of this singer" action="#{manageSingerEditBean.searchAllClips}"/>
+				<h:commandLink value="Upload clips" action="#{manageSingerEditBean.uploadClips}"/>
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

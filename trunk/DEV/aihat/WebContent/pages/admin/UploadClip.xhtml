@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="admin-template.xhtml">
+	<ui:param name="title" value="TODO" />
+	<ui:param name="mainBean" value="#{manageClipUploadBean}"/>
+	<ui:define name="pageName">
+		<h:outputText value="CLIPS > UPLOAD"/>
+	</ui:define>
+	<ui:define name="body">
+		<h:form>
+			<h:panelGrid columns="2" styleClass="oneColumnForm">
+				<h:outputText value="Title(*)"/>
+				<h:inputText value="#{manageClipUploadBean.clip.title}"
+					required="true" requiredMessage="Please input title"/>
+					
+				<h:outputText value="Singer(*)"/>
+				<c:set target="#{utilsBean}" property="tempSingerList" value="#{utilsBean.allSingers}"/>
+				<h:panelGrid columns="2">
+					<h:outputText value="(1)"/>
+					<h:selectOneListbox value="#{manageClipUploadBean.singerId_1}" size="1"
+							required="true" requiredMessage="Please select singer 1.">
+						<f:selectItem itemLabel="" itemValue=""/>
+						<c:forEach items="#{utilsBean.tempSingerList}" var="aSinger">
+							<f:selectItem itemLabel="#{aSinger.name}" itemValue="#{aSinger.id}"/>
+						</c:forEach>
+					</h:selectOneListbox>
+					<h:outputText value="(2)"/>
+					<h:selectOneListbox value="#{manageClipUploadBean.singerId_2}" size="1">
+						<f:selectItem itemLabel="" itemValue=""/>
+						<c:forEach items="#{utilsBean.tempSingerList}" var="aSinger">
+							<f:selectItem itemLabel="#{aSinger.name}" itemValue="#{aSinger.id}"/>
+						</c:forEach>
+					</h:selectOneListbox>
+					<h:outputText value="(3)"/>
+					<h:selectOneListbox value="#{manageClipUploadBean.singerId_3}" size="1">
+						<f:selectItem itemLabel="" itemValue=""/>
+						<c:forEach items="#{utilsBean.tempSingerList}" var="aSinger">
+							<f:selectItem itemLabel="#{aSinger.name}" itemValue="#{aSinger.id}"/>
+						</c:forEach>
+					</h:selectOneListbox>
+				</h:panelGrid>
+				
+				<h:outputText value="Composer(*)"/>
+				<c:set target="#{utilsBean}" property="tempComposerList" value="#{utilsBean.allComposers}"/>
+				<h:panelGrid columns="2">
+					<h:outputText value="(1)"/>
+					<h:selectOneListbox value="#{manageClipUploadBean.composerId_1}" size="1"
+							required="true" requiredMessage="Please select composer 1.">
+						<f:selectItem itemLabel="" itemValue=""/>
+						<c:forEach items="#{utilsBean.tempComposerList}" var="aComposer">
+							<f:selectItem itemLabel="#{aComposer.name}" itemValue="#{aComposer.id}"/>
+						</c:forEach>
+					</h:selectOneListbox>
+					<h:outputText value="(2)"/>
+					<h:selectOneListbox value="#{manageClipUploadBean.composerId_2}" size="1">
+						<f:selectItem itemLabel="" itemValue=""/>
+						<c:forEach items="#{utilsBean.tempComposerList}" var="aComposer">
+							<f:selectItem itemLabel="#{aComposer.name}" itemValue="#{aComposer.id}"/>
+						</c:forEach>
+					</h:selectOneListbox>
+					<h:outputText value="(3)"/>
+					<h:selectOneListbox value="#{manageClipUploadBean.composerId_3}" size="1">
+						<f:selectItem itemLabel="" itemValue=""/>
+						<c:forEach items="#{utilsBean.tempComposerList}" var="aComposer">
+							<f:selectItem itemLabel="#{aComposer.name}" itemValue="#{aComposer.id}"/>
+						</c:forEach>
+					</h:selectOneListbox>
+				</h:panelGrid>
+				
+				<h:outputText value="Genre(*)"/>
+				<c:set target="#{utilsBean}" property="tempGenreList" value="#{utilsBean.allGenres}"/>
+				<h:panelGrid columns="2">
+					<h:outputText value="(1)"/>
+					<h:selectOneListbox value="#{manageClipUploadBean.genreId_1}" size="1"
+							required="true" requiredMessage="Please select genre 1.">
+						<f:selectItem itemLabel="" itemValue=""/>
+						<c:forEach items="#{utilsBean.tempGenreList}" var="aGenre">
+							<f:selectItem itemLabel="#{aGenre.nameEn}" itemValue="#{aGenre.id}"/>
+						</c:forEach>
+					</h:selectOneListbox>
+					<h:outputText value="(2)"/>
+					<h:selectOneListbox value="#{manageClipUploadBean.genreId_2}" size="1">
+						<f:selectItem itemLabel="" itemValue=""/>
+						<c:forEach items="#{utilsBean.tempGenreList}" var="aGenre">
+							<f:selectItem itemLabel="#{aGenre.nameEn}" itemValue="#{aGenre.id}"/>
+						</c:forEach>
+					</h:selectOneListbox>
+					<h:outputText value="(3)"/>
+					<h:selectOneListbox value="#{manageClipUploadBean.genreId_3}" size="1">
+						<f:selectItem itemLabel="" itemValue=""/>
+						<c:forEach items="#{utilsBean.tempGenreList}" var="aGenre">
+							<f:selectItem itemLabel="#{aGenre.nameEn}" itemValue="#{aGenre.id}"/>
+						</c:forEach>
+					</h:selectOneListbox>
+				</h:panelGrid>
+				
+				<h:outputText value="Link(*)"/>
+				<h:inputText value="#{manageClipUploadBean.clip.link}"
+						required="true" requiredMessage="Please input link">
+					<f:validator validatorId="clipLinkValidator"/>
+				</h:inputText>
+				
+				<h:outputText value="Official"/>
+				<h:selectBooleanCheckbox value="#{manageClipUploadBean.clip.official}"/>
+			</h:panelGrid>
+			<h:commandButton action="#{manageClipUploadBean.upload}" value="Upload"/>
+		</h:form>
+		<h:form>
+			<h:commandButton action="#{manageClipUploadBean.clear}" value="Clear"/>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

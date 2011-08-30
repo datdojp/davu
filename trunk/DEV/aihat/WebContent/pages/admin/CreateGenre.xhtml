@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:x="http://myfaces.apache.org/tomahawk"
+	xmlns:admin="http://www.aihat.net/admin">
+<ui:composition template="admin-template.xhtml">
+	<ui:param name="title" value="TODO" />
+	<ui:param name="mainBean" value="#{manageGenreCreateBean}"/>
+	<ui:define name="pageName">
+		<h:outputText value="GENRES > CREATE"/>
+	</ui:define>
+	<ui:define name="body">
+		<h:form>
+			<h:panelGrid columns="2" styleClass="oneColumnForm">
+				<h:outputText value="Vietnameser name (*)"/>
+				<h:inputText value="#{manageGenreCreateBean.genre.nameVi}"
+					required="true" requiredMessage="Please input Vietnamese name."/>
+				
+				<h:outputText value="English name (*)"/>
+				<h:inputText value="#{manageGenreCreateBean.genre.nameEn}"
+					required="true" requiredMessage="Please input English name."/>
+			</h:panelGrid>
+			<h:commandButton action="#{manageGenreCreateBean.create}" value="Create"/>
+		</h:form>
+		<h:form>
+			<h:commandButton action="#{manageGenreCreateBean.clear}" value="Clear"/>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

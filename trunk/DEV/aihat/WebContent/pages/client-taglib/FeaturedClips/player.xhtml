@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition>
+	<h:inputText id="currentEmbeddedLink" value="#{featuredClipsBean.currentEmbeddedLink}" styleClass="currentEmbeddedLink" style="display:none;"/>
+	<h:inputText id="currentPlaybackPos" value="#{featuredClipsBean.currentPlaybackPos}" styleClass="currentPlaybackPos" style="display:none;"/>
+	<h:commandButton styleClass="syncCurrentPlayback" style="display:none">
+		<f:ajax event="click" execute="currentEmbeddedLink currentPlaybackPos" listener="#{featuredClipsBean.syncCurrentPlayback}"/>
+	</h:commandButton>
+	
+	<div class="player">
+		<table style="width: 100%;">
+			<tr>
+				<td align="center" style="height: 480px;">
+					<div id="ytwrapper#{id}"></div>
+				</td>
+			</tr>
+			<tr>
+				<td align="center">
+					<div style="left: 0; right: 0;position: absolute;overflow: hidden">
+						<table>
+							<tr>
+								<h:commandButton value="Remove all">
+									<f:ajax event="click" render="@form" listener="#{featuredClipsBean.removeAll}"/>
+								</h:commandButton>
+							</tr>
+							<tr>
+								<c:forEach items="#{clips}" var="aClip">
+									<td style="width: 100px; vertical-align: top;" align="center">
+										<h:commandButton value="x" onclick="updateCurrentPlaybackPos();">
+											<f:param name="selectedClipId" value="#{aClip.id}"/>
+											<f:ajax event="click" execute="@form" render="@form" listener="#{featuredClipsBean.removeOne}"/>
+										</h:commandButton>
+										<h:graphicImage
+											url="#{aClip.thumbnailLink}"
+											onclick="onclickClipThumbnail(this, '#{aClip.embeddedLink}')"
+											styleClass="reflect clipThumbnail"/>
+										<br/>
+										<h:outputText value="#{aClip.title}" styleClass="title"/>
+									</td>
+								</c:forEach>
+							</tr>
+						</table>
+					</div>
+				</td>
+			</tr>
+		</table>
+	
+		<script>
+			var ytplayer#{id};
+			var currentInterval#{id};
+			var currentLink#{id};
+			var clipList#{id} = [];
+			var clipStartTime#{id};
+			<c:forEach items="#{clips}" var="aClip">
+				clipList#{id}.push({id:"#{aClip.id}", title:"#{aClip.title}", link:"#{aClip.embeddedLink}"});
+			</c:forEach>
+
+			var tempPlaybackPos = 0;
+			var needSeekTo = false;
+
+			function onclickClipThumbnail(obj, link) {
+				$(".playing").removeClass("playing");
+				$(obj).addClass("playing");
+				
+				loadClip#{id}(link, 0);
+			}
+			
+			function loadClip#{id}(link, playbackPos) {
+				if(link == '' || !isLinkExistingInList(link)) {
+					link = clipList#{id}[0].link;
+				}
+				currentLink#{id} = link;
+				$("#featuredClips").find(".currentEmbeddedLink").val(link);
+				$("#featuredClips").find(".syncCurrentPlayback").click();
+				if(playbackPos > 0) {
+					needSeekTo = true;
+					tempPlaybackPos = playbackPos;
+				}
+				
+				//add the div for embedded youtube
+				$("#ytwrapper#{id}").html([
+					"&lt;div id='ytapiplayer#{id}'&gt;",
+						"LOADING.......",
+					"&lt;/div&gt;"
+				].join(""));
+				
+				//embed youtube
+				var params = { allowScriptAccess: "always", allowFullScreen:"true"};
+			    var atts = { id: "myytplayer#{id}" };
+			    swfobject.embedSWF(link + "?enablejsapi=1&amp;fs=1&amp;playerapiid=ytplayer&amp;autoplay=1&amp;version=3",
+			                       "ytapiplayer#{id}", "640", "480", "8", null, null, params, atts);
+			}
+
+			function updateCurrentPlaybackPos() {
+				$("#featuredClips").find(".currentPlaybackPos").val(ytplayer#{id}.getCurrentTime());
+				$("#featuredClips").find(".syncCurrentPlayback").click();
+			}
+			
+			function isLinkExistingInList(link) {
+				for(var i = 0; i &lt; clipList#{id}.length;i++) {
+					if(clipList#{id}[i].link == link) {
+						return true;
+					} 
+				}
+				return false;
+			}
+			
+			function onYouTubePlayerReady(playerId) {
+				  ytplayer#{id} = document.getElementById("myytplayer#{id}");
+				  ytplayer#{id}.addEventListener("onStateChange", "onytplayerStateChange");
+				  currentInterval#{id} = setInterval(checkVideoEnds#{id}, PLAYER_INTERVAL);
+				  clipStartTime#{id} = (new Date()).getTime();
+			}
+
+			function onytplayerStateChange(newState) {
+				if(newState == 1 &amp;&amp; needSeekTo) {
+					ytplayer#{id}.seekTo(tempPlaybackPos, true);
+					needSeekTo = false;
+				}
+			}
+			
+			function checkVideoEnds#{id}() {
+				if(ytplayer#{id}.getCurrentTime() &gt;= ytplayer#{id}.getDuration() ||
+						((new Date()).getTime() - clipStartTime#{id} &gt; 3000 &amp;&amp; ytplayer#{id}.getVideoBytesLoaded() &lt; 0)) {
+					//stop the video
+					ytplayer#{id}.stopVideo();
+					
+					//stop the interval
+					clearInterval(currentInterval#{id});
+					
+					//clear the current embedded youtube
+					$("#ytwrapper#{id}").html("");
+					
+					//load the next clip
+					loadClip#{id}(getNextClipLink#{id}(), 0);
+				}
+			}
+	
+			function getNextClipLink#{id}() {
+				for(var i = 0; i &lt; clipList#{id}.length; i++) {
+					if(currentLink#{id} == clipList#{id}[i].link) {
+						return clipList#{id}[(i+1) % clipList#{id}.length].link;
+					}
+				}
+			}
+			
+			//load the first clip
+			loadClip#{id}('#{featuredClipsBean.currentEmbeddedLink}', #{featuredClipsBean.currentPlaybackPos});
+			
+			//add reflection effect to thumbnails
+			for(var i = 0; i &lt; clipList#{id}.length; i++) {
+				$("#thumbnail_" + clipList#{id}[i].id + "_#{id}").reflect(
+					{
+						height: 0.5,
+						opacity: 0.5
+					}
+				);
+			}
+		</script>
+	</div>
+</ui:composition>
+</html>

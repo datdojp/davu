@@ -1,0 +1,29 @@
+.dataTable
+{
+	
+}
+
+.dataTable td
+{
+	
+}
+
+.oneColumnForm
+{
+
+}
+
+.oneColumnForm td
+{
+	vertical-align: top;
+}
+
+.id
+{
+	font-weight: bold;
+}
+
+.selectedBtn
+{
+	background-color: red;
+}

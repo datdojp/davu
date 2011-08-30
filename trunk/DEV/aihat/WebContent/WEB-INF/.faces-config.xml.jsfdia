@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="blocked:#{userProfileBean.login}:#pages#user#Blocked.jsf"
+    NAME="output" PATH="/pages/user/Blocked.jsf"
+    TARGET="rules:#pages#user#Blocked.jsf"
+    TITLE="#{userProfileBean.login}:blocked" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="login-failed:#{userProfileBean.login}:#pages#user#LoginFailed.jsf"
+    NAME="output1" PATH="/pages/user/LoginFailed.jsf"
+    TARGET="rules:#pages#user#LoginFailed.jsf"
+    TITLE="#{userProfileBean.login}:login-failed" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="manageClipEditBean-init-complete:#{manageClipEditBean.init}:#pages#admin#EditClip.jsf"
+    NAME="output2" PATH="/pages/admin/EditClip.jsf"
+    TARGET="rules:#pages#admin#EditClip.jsf"
+    TITLE="#{manageClipEditBean.init}:manageClipEditBean-init-complete" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="return-manage-clip:#{manageClipEditBean.update}:#pages#admin#ManageClip.jsf"
+    NAME="output3" PATH="/pages/admin/ManageClip.jsf"
+    TARGET="rules:#pages#admin#ManageClip.jsf"
+    TITLE="#{manageClipEditBean.update}:return-manage-clip" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="adminAuthFailure::#pages#client#Zentai.jsf"
+    NAME="output4" PATH="/pages/client/Zentai.jsf"
+    TARGET="rules:#pages#client#Zentai.jsf" TITLE="adminAuthFailure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="adminHomePage::#pages#admin#HomePage.jsf"
+    NAME="output5" PATH="/pages/admin/HomePage.jsf"
+    TARGET="rules:#pages#admin#HomePage.jsf" TITLE="adminHomePage" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="manageSingerEditBean-init-complete:#{manageSingerEditBean.init}:#pages#admin#EditSinger.jsf"
+    NAME="output6" PATH="/pages/admin/EditSinger.jsf"
+    TARGET="rules:#pages#admin#EditSinger.jsf"
+    TITLE="#{manageSingerEditBean.init}:manageSingerEditBean-init-complete" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="return-manage-singer:#{manageSingerEditBean.update}:#pages#admin#ManageSinger.jsf"
+    NAME="output7" PATH="/pages/admin/ManageSinger.jsf"
+    TARGET="rules:#pages#admin#ManageSinger.jsf"
+    TITLE="#{manageSingerEditBean.update}:return-manage-singer" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="adminManageClip::#pages#admin#ManageClip.jsf" NAME="output8"
+    PATH="/pages/admin/ManageClip.jsf"
+    TARGET="rules:#pages#admin#ManageClip.jsf" TITLE="adminManageClip" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="adminManageSinger::#pages#admin#ManageSinger.jsf" NAME="output9"
+    PATH="/pages/admin/ManageSinger.jsf"
+    TARGET="rules:#pages#admin#ManageSinger.jsf"
+    TITLE="adminManageSinger" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="adminManageComposer::#pages#admin#ManageComposer.jsf"
+    NAME="output10" PATH="/pages/admin/ManageComposer.jsf"
+    TARGET="rules:#pages#admin#ManageComposer.jsf"
+    TITLE="adminManageComposer" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="adminManageGenre::#pages#admin#ManageGenre.jsf" NAME="output11"
+    PATH="/pages/admin/ManageGenre.jsf"
+    TARGET="rules:#pages#admin#ManageGenre.jsf" TITLE="adminManageGenre" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="adminManageClipUpload::#pages#admin#UploadClip.jsf"
+    NAME="output12" PATH="/pages/admin/UploadClip.jsf"
+    TARGET="rules:#pages#admin#UploadClip.jsf"
+    TITLE="adminManageClipUpload" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="manageComposerEditBean-init-complete::#pages#admin#EditComposer.jsf"
+    NAME="output13" PATH="/pages/admin/EditComposer.jsf"
+    TARGET="rules:#pages#admin#EditComposer.jsf"
+    TITLE="manageComposerEditBean-init-complete" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="return-manage-composer:#{manageComposerEditBean.update}:#pages#admin#ManageComposer.jsf"
+    NAME="output14" PATH="/pages/admin/ManageComposer.jsf"
+    TARGET="rules:#pages#admin#ManageComposer.jsf"
+    TITLE="#{manageComposerEditBean.update}:return-manage-composer" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="manageGenreEditBean-init-complete::#pages#admin#EditGenre.jsf"
+    NAME="output15" PATH="/pages/admin/EditGenre.jsf"
+    TARGET="rules:#pages#admin#EditGenre.jsf"
+    TITLE="manageGenreEditBean-init-complete" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="return-manage-genre:#{manageGenreEditBean.update}:#pages#admin#ManageGenre.jsf"
+    NAME="output16" PATH="/pages/admin/ManageGenre.jsf"
+    TARGET="rules:#pages#admin#ManageGenre.jsf"
+    TITLE="#{manageGenreEditBean.update}:return-manage-genre" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#admin#EditGenre.jsf"
+  PATH="/pages/admin/EditGenre.jsf" SHAPE="304,1921,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#admin#EditComposer.jsf"
+  PATH="/pages/admin/EditComposer.jsf" SHAPE="304,1809,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#admin#ManageComposer.jsf"
+  PATH="/pages/admin/ManageComposer.jsf" SHAPE="304,1473,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#admin#EditClip.jsf"
+  PATH="/pages/admin/EditClip.jsf" SHAPE="304,801,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#admin#ManageGenre.jsf"
+  PATH="/pages/admin/ManageGenre.jsf" SHAPE="304,1585,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#user#LoginFailed.jsf"
+  PATH="/pages/user/LoginFailed.jsf" SHAPE="304,689,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#user#Blocked.jsf"
+  PATH="/pages/user/Blocked.jsf" SHAPE="304,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#admin#ManageClip.jsf"
+  PATH="/pages/admin/ManageClip.jsf" SHAPE="304,913,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#admin#EditSinger.jsf"
+  PATH="/pages/admin/EditSinger.jsf" SHAPE="304,1249,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#admin#HomePage.jsf"
+  PATH="/pages/admin/HomePage.jsf" SHAPE="304,1137,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#admin#ManageSinger.jsf"
+  PATH="/pages/admin/ManageSinger.jsf" SHAPE="304,1361,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#admin#UploadClip.jsf"
+  PATH="/pages/admin/UploadClip.jsf" SHAPE="304,1697,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#client#Zentai.jsf"
+  PATH="/pages/client/Zentai.jsf" SHAPE="304,1025,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

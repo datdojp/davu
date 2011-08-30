@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:admin="http://www.aihat.net/admin"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="admin-template.xhtml">
+	<ui:param name="title" value="TODO" />
+	<ui:param name="mainBean" value="#{manageClipBean}"/>
+	<ui:define name="pageName">
+		<h:outputText value="CLIPS"/>
+	</ui:define>
+	<ui:define name="body">
+		<h:form id="searchForm">
+			<h:panelGrid columns="2">
+				<h:outputText value="ID"/>
+				<h:inputText value="#{manageClipBean.idCriterion}"/>
+				
+				<h:outputText value="Title"/>
+				<h:inputText value="#{manageClipBean.titleCriterion}"/>
+				
+				<h:outputText value="Singer"/>
+				<c:set target="#{utilsBean}" property="tempSingerList" value="#{utilsBean.allSingers}"/>
+				<h:selectOneListbox value="#{manageClipBean.singerIdCriterion}" size="1">
+					<f:selectItem itemLabel="" itemValue="-1"/>
+					<c:forEach items="#{utilsBean.tempSingerList}" var="aSinger">
+						<f:selectItem itemLabel="#{aSinger.name}" itemValue="#{aSinger.id}" />
+					</c:forEach>
+				</h:selectOneListbox>
+				
+				<h:outputText value="Composer"/>
+				<c:set target="#{utilsBean}" property="tempComposerList" value="#{utilsBean.allComposers}"/>
+				<h:selectOneListbox value="#{manageClipBean.composerIdCriterion}" size="1">
+					<f:selectItem itemLabel="" itemValue="-1"/>
+					<c:forEach items="#{utilsBean.tempComposerList}" var="aComposer">
+						<f:selectItem itemLabel="#{aComposer.name}" itemValue="#{aComposer.id}"/>
+					</c:forEach>
+				</h:selectOneListbox>
+				
+				<h:outputText value="Genre"/>
+				<c:set target="#{utilsBean}" property="tempGenreList" value="#{utilsBean.allGenres}"/>
+				<h:selectOneListbox value="#{manageClipBean.genreIdCriterion}" size="1">
+					<f:selectItem itemLabel="" itemValue="-1"/>
+					<c:forEach items="#{utilsBean.tempGenreList}" var="aGenre">
+						<f:selectItem itemLabel="#{aGenre.nameEn}" itemValue="#{aGenre.id}"/>
+					</c:forEach>
+				</h:selectOneListbox>
+				
+				<h:outputText value="Uploader"/>
+				<h:inputText value="#{manageClipBean.userMailCriterion}"/>
+				
+				<h:outputText value="Official"/>
+				<h:selectOneListbox value="#{manageClipBean.officialCriterion}" size="1">
+					<f:selectItem itemLabel="Both" itemValue="0"/>
+					<f:selectItem itemLabel="Official" itemValue="1"/>
+					<f:selectItem itemLabel="Not official" itemValue="2"/>
+				</h:selectOneListbox>
+				
+				<h:outputText value="Duplicated"/>
+				<h:selectBooleanCheckbox value="#{manageClipBean.hasDuplicateCriterion}"/>
+			</h:panelGrid>
+			<br/>
+			<h:commandButton value="Search" action="#{manageClipBean.search}"/>
+		</h:form>
+		<h:form>
+			<h:commandButton value="Clear" action="#{manageClipBean.clear}"/>
+		</h:form>
+		<br></br>
+		<br></br>
+		<h:form>
+			<input type="button" onclick="location.href='#{config.server}/pages/admin/UploadClip.jsf'" value="Upload"/>
+			<h:commandButton value="Delete" action="#{manageClipBean.delete}" onclick="return confirm('Do you really want to delete?');"/>
+			<a href="javascript:void()" onclick="changeCheckBoxStt('selectClipCheckBox', 'checked')">Select all</a>
+			<a href="javascript:void()" onclick="changeCheckBoxStt('selectClipCheckBox', '')">Deselect all</a>
+			<br></br>
+			<h:outputFormat value="{0} result(s) found.">
+				<f:param value="#{manageClipBean.searchResultsSize}"/>
+			</h:outputFormat>
+			<h:dataTable var="aClip" value="#{manageClipBean.searchResults}" rendered="#{not empty manageClipBean.searchResults}" border="1"  styleClass="dataTable">
+				<h:column>
+					<f:facet name="header">
+					</f:facet>
+					<h:selectBooleanCheckbox id="selectClipCheckBox" value="#{aClip.selectedInDataTable}" styleClass="selectClipCheckBox"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="ID"/>
+							<admin:sort-button bean="#{manageClipBean}"	colName="id"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:outputText value="#{aClip.id}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="TITLE"/>
+							<admin:sort-button bean="#{manageClipBean}"	colName="title"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:commandLink value="#{aClip.title}" action="#{manageClipEditBean.init}">
+						<f:setPropertyActionListener target="#{manageClipEditBean.clipId}" value="#{aClip.id}"/>
+					</h:commandLink>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="SINGER"/>
+							<admin:sort-button bean="#{manageClipBean}"	colName="mainSingerName"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:panelGrid columns="1">
+						<ui:repeat var="aSinger" value="#{aClip.singers}">
+							<h:commandLink value="#{aSinger.name}" action="#{manageSingerEditBean.init}">
+								<f:setPropertyActionListener target="#{manageSingerEditBean.singerId}" value="#{aSinger.id}"/>
+							</h:commandLink>
+							<br/>
+						</ui:repeat>
+					</h:panelGrid>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="COMPOSER"/>
+							<admin:sort-button bean="#{manageClipBean}"	colName="mainComposerName"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:panelGrid columns="1">
+						<ui:repeat var="aComposer" value="#{aClip.composers}">
+							<h:commandLink value="#{aComposer.name}" action="#{manageComposerEditBean.init}">
+								<f:setPropertyActionListener target="#{manageComposerEditBean.composerId}" value="#{aComposer.id}"/>
+							</h:commandLink>
+							<br/>
+						</ui:repeat>
+					</h:panelGrid>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="GENRE"/>
+							<admin:sort-button bean="#{manageClipBean}"	colName="mainGenreName"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:panelGrid columns="1">
+						<ui:repeat var="aGenre" value="#{aClip.genres}">
+							<h:commandLink value="#{aGenre.nameEn}" action="#{manageGenreEditBean.init}">
+								<f:setPropertyActionListener target="#{manageGenreEditBean.genreId}" value="#{aGenre.id}"/>
+							</h:commandLink>
+							<br/>
+						</ui:repeat>
+					</h:panelGrid>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="OFFICIAL"/>
+							<admin:sort-button bean="#{manageClipBean}" colName="official"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:outputText value="yes" rendered="#{aClip.official}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="LINK"/>
+							<admin:sort-button bean="#{manageClipBean}"	colName="link"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:graphicImage url="#{aClip.thumbnailLink}" width="120"/>
+					<a href="#{aClip.embeddedLink}"><h:outputText value="#{aClip.link}"/></a>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="FANS"/>
+							<admin:sort-button bean="#{manageClipBean}"	colName="nFans"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:outputText value="#{aClip.nFans}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="VIEWS"/>
+							<admin:sort-button bean="#{manageClipBean}"	colName="nViews"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:outputText value="#{aClip.nViews}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="UPLOADER"/>
+							<admin:sort-button bean="#{manageClipBean}"	colName="user.mail"/>
+						</h:panelGrid>
+					</f:facet>
+					<a><h:outputText value="#{aClip.user.mail}"/></a>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="UPLOAD AT"/>
+							<admin:sort-button bean="#{manageClipBean}"	colName="createdTime"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:outputText value="#{aClip.createdTime}">
+						<f:convertDateTime dateStyle="full" type="both"/>
+					</h:outputText>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="LAST MODIFICATION AT"/>
+							<admin:sort-button bean="#{manageClipBean}"	colName="modifiedTime"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:outputText value="#{aClip.modifiedTime}">
+						<f:convertDateTime dateStyle="full" type="both"/>
+					</h:outputText>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
