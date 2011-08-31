@@ -167,7 +167,6 @@ body {
 }
 
 .clipThumbnail {
-	width:120px;
 	opacity:0.5;
 }
 .clipThumbnail :HOVER {
@@ -175,7 +174,5 @@ body {
 }
 .playing {
 	opacity: 1;
-	width: 160px;
-	border-style: groove;
-	border-color: ghostWhite;
+	border: thin solid ghostWhite;
 }
