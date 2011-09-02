@@ -20,9 +20,10 @@
 								accept="image/*"
 								styleClass="fileProfileAvatar"/>
 				</h:panelGroup>
-				<h:panelGrid columns="2">
+				<h:panelGrid columns="3">
 					<h:outputText value="#{msg.CU0039}"/>
 					<h:inputText value="#{myProfileBean.name}"/>
+					<h:outputText/>
 					
 					<h:outputText value="#{msg.CU0040}"/>
 					<h:selectOneListbox value="#{myProfileBean.sex}" size="1">
@@ -30,6 +31,7 @@
 						<f:selectItem itemLabel="#{msg.CU0042}" itemValue="M"/>
 						<f:selectItem itemLabel="#{msg.CU0043}" itemValue="F"/>
 					</h:selectOneListbox>
+					<h:outputText/>
 					
 					<h:outputText value="#{msg.CU0044}"/>
 					<h:panelGroup>
@@ -52,13 +54,17 @@
 							</c:forEach>
 						</h:selectOneListbox>
 					</h:panelGroup>
+					<h:outputText/>
 					
 					<h:outputText value="#{msg.CU0001}"/>
 					<h:inputSecret value="#{myProfileBean.oldPassword}" redisplay="true"/>
+					<h:outputText/>
 					<h:outputText value="#{msg.CU0002}"/>
 					<h:inputSecret value="#{myProfileBean.newPassword}" redisplay="true"/>
+					<h:outputText value="(nhiều hơn 3 ký tự TODO)"/>
 					<h:outputText value="#{msg.CU0003}"/>
 					<h:inputSecret value="#{myProfileBean.confirmNewPassword}" redisplay="true"/>
+					<h:outputText/>
 					<h:commandButton value="#{msg.CU0004}" action="#{myProfileBean.update}">
 						<f:setPropertyActionListener target="#{zentaiBean.pageName}" value="MyProfile"/>
 					</h:commandButton>

@@ -37,6 +37,9 @@
 		<property name="defaultImage">
 			<value>${service.defaultImage}</value>
 		</property>
+		<property name="defaultPassword">
+			<value>${defaultPassword}</value>
+		</property>
 	</bean>
 	<bean id="failedSearchService" class="net.aihat.service.FailedSearchServiceImpl" parent="baseService"/>
 	<bean id="singerService" class="net.aihat.service.SingerServiceImpl" parent="baseService">
