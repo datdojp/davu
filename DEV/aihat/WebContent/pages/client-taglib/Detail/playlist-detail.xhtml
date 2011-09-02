@@ -9,14 +9,18 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 <ui:composition>
 	<h1>#{msg.CU0010}</h1><br/>
-	<h:panelGrid columns="2">
+	<h:panelGrid columns="3">
 		<h:graphicImage url="#{playlist.mainClip.thumbnailLink}" width="120"/>
 		<h:panelGrid columns="1">
 			<h:outputText value="#{msg.client_clips_composer_name}:#{playlist.name}" rendered="#{not playlist.editable}"/>
-			<h:panelGrid columns="2" rendered="#{playlist.editable}">
+			<t:div rendered="#{not playlist.editable}">
+				#{playlist.description}
+			</t:div>
+			<h:panelGrid columns="1" rendered="#{playlist.editable}">
 				<h:inputText value="#{playlist.name}"/>
+				<h:inputTextarea value="#{playlist.description}"></h:inputTextarea>
 				<h:commandButton value="#{msg.CU0018}">
-					<f:ajax event="click" render="@form" execute="@form" listener="#{detailBean.updatePlaylistName}"/>
+					<f:ajax event="click" render="@form" execute="@form" listener="#{detailBean.updatePlaylist}"/>
 				</h:commandButton>
 			</h:panelGrid>
 			<h:outputText value="#{msg.client_clips_playlist_uploader}:#{playlist.user.mail}"/>

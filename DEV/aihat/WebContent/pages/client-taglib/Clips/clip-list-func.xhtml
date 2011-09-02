@@ -41,9 +41,12 @@
 					</client:button>
 			  		<div class="dlgCreateOrAddToMyPlaylists" style="display:none" title="#{msg.client_clips_add_to_my_playlist}">
 			  			<h:panelGrid columns="1">
-							<h:panelGrid columns="3">
+							<h:panelGrid columns="2">
 								<h:outputText value="#{msg.client_clips_popup_myplaylist_create_1}"/>
 								<input type="text" value="#{zentaiBean.newPlaylistTitle}" onchange="onchangeNewPlaylistTitle(this, '#{formId}');"/>
+								<h:outputText value="#{msg.playlist_detail}"/>
+								<textarea cols="50" rows="10" text="#{zentaiBean.newPlaylistDescription}" onchange="onchangeNewPlaylistDescription(this, '#{formId}');"></textarea>
+								<h:outputText/>
 								<h:commandButton value="#{msg.client_clips_popup_myplaylist_create_2}"
 											onclick="onclickCreateOrAddToMyPlaylists('#{formId}');return false;">
 								</h:commandButton>
@@ -65,6 +68,7 @@
 						</h:panelGrid>
 			  		</div>
 			  		<h:inputText style="display:none;" styleClass="hdnNewPlaylistTitle" value="#{zentaiBean.newPlaylistTitle}"/>
+			  		<h:inputTextarea style="display:none;" styleClass="hdnNewPlaylistDescription" value="#{zentaiBean.newPlaylistDescription}"></h:inputTextarea>
 			  		<h:commandButton style="display:none;" styleClass="hdnSubmitCreatePlaylistAndAddClips">
 			  			<f:param name="referenceBeanName" value="#{bean.beanName}"/>
 						<f:ajax event="click" render="@form" execute="@form" listener="#{zentaiBean.createPlaylistAndAddClips}"/>

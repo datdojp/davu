@@ -78,6 +78,11 @@ function onchangeNewPlaylistTitle(obj, formId) {
 	$("#" + formId).find(".hdnNewPlaylistTitle").val(newPlaylistTitle);
 }
 
+function onchangeNewPlaylistDescription(obj, formId) {
+	var newPlaylistDescription = $(obj).val();
+	$("#" + formId).find(".hdnNewPlaylistDescription").val(newPlaylistDescription);
+}
+
 function onchangeSelectPlaylist(obj, formId, objId) {
 	var checked = $(obj).attr('checked');
 	$("#" + formId).find(".playlist_" + objId).attr('checked', checked);

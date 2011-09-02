@@ -154,6 +154,14 @@
 					</h:commandButton>
 				</h:panelGrid>
 			</t:div>
+			<t:div rendered="#{userProfileBean.loggedIn}" styleClass="style002">
+				<h:panelGrid columns="2">
+					<h:outputText value="#{msg.welcome} #{userProfileBean.profile.name}"/>
+					<h:commandButton value="#{msg.logout}" styleClass="style005">
+						<f:ajax event="click" render="@form :clips :detail :myProfile" listener="#{userProfileBean.logout}"/>
+					</h:commandButton>
+				</h:panelGrid>
+			</t:div>
 			
 			<h:panelGrid columns="#{zentaiBean.numberOfTopPanelItems}" styleClass="style001">
 				<t:div>
@@ -171,13 +179,6 @@
 						<img src="#{config.server}/img/client/MyProfile.png"/>
 					</a>
 				</t:div>
-				<t:div rendered="#{userProfileBean.loggedIn}">
-					<h:commandLink>
-						<f:ajax event="click" render="@form :clips :detail :myProfile" listener="#{userProfileBean.logout}"/>
-						<h:graphicImage url="#{config.server}/img/client/logout.png"/>
-					</h:commandLink>
-				</t:div>
-				
 			</h:panelGrid>
 			<script>
 				boundLinkToPage();
@@ -207,6 +208,17 @@
 	<button style="position: fixed; right:0px; top: 500px" onclick="slide(1)">
 		<h:graphicImage url="#{config.server}/img/client/navRight.png"/>
 	</button>
+	
+	<!-- KEEP SESSION -->
+	<h:commandButton style="display:none" styleClass="btnKeepSession">
+		<f:ajax event="click" listener="#{zentaiBean.keepSession}"/>
+	</h:commandButton>
+	<script>
+		setInterval(keepSession, 60000);
+		function keepSession() {
+			$(".btnKeepSession").click();
+		}
+	</script>
 </h:body>
 </f:view>
 </html>

@@ -10,7 +10,7 @@
 <ui:composition>
 	<h:panelGrid columns="3">
 		<ui:repeat var="aPlaylist" value="#{playlists}">
-			<h:panelGrid columns="2">
+			<h:panelGrid columns="3">
 				<h:commandLink onclick="slideToDetail();">
 					<f:param name="playlistId" value="#{aPlaylist.id}"/>
 					<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showPlaylistDetail}"/>
@@ -21,6 +21,9 @@
 					<h:outputText value="#{msg.client_clips_playlist_uploader}:#{aPlaylist.user.mail}"/>
 					<h:outputText value="#{aPlaylist.nClips} #{msg.client_clips_playlist_nClips}"/>
 				</h:panelGrid>
+				<t:div>
+					#{aPlaylist.description}
+				</t:div>
 			</h:panelGrid>
 		</ui:repeat>
 	</h:panelGrid>
