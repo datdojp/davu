@@ -546,9 +546,4 @@
 			<to-view-id>/pages/admin/ManageGenre.jsf</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
-	<validator>
-		<validator-id>clipLinkValidator</validator-id>
-		<validator-class>net.aihat.validator.ClipLinkValidator</validator-class>
-	</validator>
 </faces-config>
