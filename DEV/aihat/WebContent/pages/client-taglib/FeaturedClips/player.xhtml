@@ -13,77 +13,89 @@
 		<f:ajax event="click" execute="currentEmbeddedLink currentPlaybackPos" listener="#{featuredClipsBean.syncCurrentPlayback}"/>
 	</h:commandButton>
 	
-	<table>
-		<tr>
-			<td>
-				<c:forEach items="#{clips}" var="aClip">
-					<div class="detail detail#{aClip.id}" style="display: none">
-						<h3>#{aClip.title}</h3>
-						<br/>
-						<p>
-							#{msg.client_clips_singer}:
-							<ui:repeat var="aSinger" value="#{aClip.singers}">
-								<h:commandLink onclick="slideToDetail();">
-									<f:param name="singerId" value="#{aSinger.id}"/>
-									<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showSingerDetail}"/>
-									<h:outputText value="#{aSinger.name}"/>
-								</h:commandLink>
-							</ui:repeat>
-						</p>
-						<br/>
-						<p>
-							#{msg.client_clips_composer}:
-							<ui:repeat var="aComposer" value="#{aClip.composers}">
-								<h:commandLink value="#{aComposer.name}" onclick="slideToDetail();">
-									<f:param name="composerId" value="#{aComposer.id}"/>
-									<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showComposerDetail}"/>
-								</h:commandLink>
-							</ui:repeat>
-						</p>
-						<br/>
-						<p>
-							#{msg.client_clips_genre}:
-							<ui:repeat var="aGenre" value="#{aClip.genres}">
-								<h:commandLink value="#{aGenre.nameEn}"	rendered="#{utilsBean.currentLanguage eq 'en'}" onclick="slideToDetail();">
-									<f:param name="genreId" value="#{aGenre.id}"/>
-									<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showGenreDetail}"/>
-								</h:commandLink>
-								<h:commandLink value="#{aGenre.nameVi}" rendered="#{utilsBean.currentLanguage eq 'vi'}" onclick="slideToDetail();">
-									<f:param name="genreId" value="#{aGenre.id}"/>
-									<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showGenreDetail}"/>
-								</h:commandLink>
-							</ui:repeat>
-						</p>
-						<br/>
-						<p>
-							#{msg.client_clips_uploader}:
-							<h:commandLink onclick="slideToDetail();">
-								<f:param name="userId" value="#{aClip.user.id}"/>
-								<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showUserDetail}"/>
-								<h:outputText value="#{aClip.user.name}"/>
-							</h:commandLink>
-						</p>
-						<br/>
-						<p>
-							<h:outputText value="#{aClip.nFans} #{msg.client_clips_peopleLiked}"/>
-						</p>
-						<p>
-							<h:outputText value="#{aClip.nViews} #{msg.client_clips_peopleViewed}"/>
-						</p>
-					</div>
-				</c:forEach>
-			</td>
-			<td>
-				<div id="ytwrapper"></div>
-			</td>
-		</tr>
-	</table>
+	<div id="ytwrapper"></div>
 	
-	
-	<div style="width: 100%; height: 250px; position: absolute; bottom: 0px;overflow: scroll;">
-		<h:commandButton value="Remove all">
-			<f:ajax event="click" render="@form" listener="#{featuredClipsBean.removeAll}"/>
-		</h:commandButton>
+	<div style="width: 100%; position: absolute; bottom: 0px;overflow: scroll;">
+		<table>
+			<tr>
+				<td>
+					<h:commandButton value="Remove all">
+						<f:ajax event="click" render="@form" listener="#{featuredClipsBean.removeAll}"/>
+					</h:commandButton>
+				</td>
+				<td>
+					<c:forEach items="#{clips}" var="aClip">
+						<div class="detail detail#{aClip.id}" style="display: none; width:100%;">
+							<table>
+								<tr>
+									<td>
+										<h3>#{aClip.title}</h3>
+									</td>
+									<td>
+										<p>
+											#{msg.client_clips_singer}:
+											<ui:repeat var="aSinger" value="#{aClip.singers}">
+												<h:commandLink onclick="slideToDetail();">
+													<f:param name="singerId" value="#{aSinger.id}"/>
+													<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showSingerDetail}"/>
+													<h:outputText value="#{aSinger.name}"/>
+												</h:commandLink>
+											</ui:repeat>
+										</p>
+									</td>
+									<td>
+										<p>
+											#{msg.client_clips_composer}:
+											<ui:repeat var="aComposer" value="#{aClip.composers}">
+												<h:commandLink value="#{aComposer.name}" onclick="slideToDetail();">
+													<f:param name="composerId" value="#{aComposer.id}"/>
+													<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showComposerDetail}"/>
+												</h:commandLink>
+											</ui:repeat>
+										</p>
+									</td>
+									<td>
+										<p>
+											#{msg.client_clips_genre}:
+											<ui:repeat var="aGenre" value="#{aClip.genres}">
+												<h:commandLink value="#{aGenre.nameEn}"	rendered="#{utilsBean.currentLanguage eq 'en'}" onclick="slideToDetail();">
+													<f:param name="genreId" value="#{aGenre.id}"/>
+													<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showGenreDetail}"/>
+												</h:commandLink>
+												<h:commandLink value="#{aGenre.nameVi}" rendered="#{utilsBean.currentLanguage eq 'vi'}" onclick="slideToDetail();">
+													<f:param name="genreId" value="#{aGenre.id}"/>
+													<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showGenreDetail}"/>
+												</h:commandLink>
+											</ui:repeat>
+										</p>
+									</td>
+									<td>
+										<p>
+											#{msg.client_clips_uploader}:
+											<h:commandLink onclick="slideToDetail();">
+												<f:param name="userId" value="#{aClip.user.id}"/>
+												<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showUserDetail}"/>
+												<h:outputText value="#{aClip.user.name}"/>
+											</h:commandLink>
+										</p>
+									</td>
+									<td>
+										<p>
+											<h:outputText value="#{aClip.nFans} #{msg.client_clips_peopleLiked}"/>
+										</p>
+									</td>
+									<td>
+										<p>
+											<h:outputText value="#{aClip.nViews} #{msg.client_clips_peopleViewed}"/>
+										</p>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</c:forEach>
+				</td>
+			</tr>
+		</table>
 		<table style="height: 200px;">
 			<tr>
 			<c:forEach items="#{clips}" var="aClip">
