@@ -46,5 +46,4 @@ public class ConfigurationService {
 	public void setnFollowerToDisplay(long nFollowerToDisplay) {
 		this.nFollowerToDisplay = nFollowerToDisplay;
 	}
-	
 }

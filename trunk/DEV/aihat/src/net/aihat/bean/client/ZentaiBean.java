@@ -14,7 +14,6 @@ import net.aihat.utils.BeanUtils;
 
 import org.apache.log4j.Logger;
 
-//TODO: show message for exception
 public class ZentaiBean extends BaseClientBean {
 	public ZentaiBean() {
 		logger = Logger.getLogger(ZentaiBean.class);
@@ -46,6 +45,7 @@ public class ZentaiBean extends BaseClientBean {
 	 * POPUP MYPLAYLISTS
 	 */
 	private String newPlaylistTitle;
+	private String newPlaylistDescription;
 	private String selectedPlaylistIds;
 	private List<PlaylistDto> myPlaylists;
 	private void loadMyPlaylists() {
@@ -88,7 +88,7 @@ public class ZentaiBean extends BaseClientBean {
 			//create and add
 			UserDto profile = BeanUtils.getUserProfileBean().getProfile();
 			if(profile != null && profile.getId() != null) {
-				PlaylistDto createdPlaylist = getPlaylistService().createPlaylist(newPlaylistTitle, profile.getId());
+				PlaylistDto createdPlaylist = getPlaylistService().createPlaylist(newPlaylistTitle, profile.getId(), newPlaylistDescription);
 				getPlaylistService().addClips(createdPlaylist.getId(), selectedClipIds, null);
 				loadMyPlaylists();
 			}
@@ -342,10 +342,13 @@ public class ZentaiBean extends BaseClientBean {
 	
 	public int getNumberOfTopPanelItems() {
 		if(BeanUtils.getUserProfileBean().getLoggedIn()) {
-			return 4;
+			return 3;
 		} else {
 			return 2;
 		}
+	}
+	
+	public void keepSession(AjaxBehaviorEvent e) {
 	}
 	
 	//getter setter
@@ -364,4 +367,13 @@ public class ZentaiBean extends BaseClientBean {
 	public void setMyPlaylists(List<PlaylistDto> myPlaylists) {
 		this.myPlaylists = myPlaylists;
 	}
+
+	public String getNewPlaylistDescription() {
+		return newPlaylistDescription;
+	}
+
+	public void setNewPlaylistDescription(String newPlaylistDescription) {
+		this.newPlaylistDescription = newPlaylistDescription;
+	}
+	
 }

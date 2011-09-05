@@ -15,7 +15,8 @@
 				SELECT count(*)
 				FROM playlist_clip plc_
 				WHERE plc_.playlist_id = pl.id
-			) as nClips
+			) as nClips,
+			description as description
 	</sql>
 	<sql id="plCommonFrom">
 		FROM playlist pl, user u
@@ -62,8 +63,8 @@
 		<include refid="plCommonSearchConditions"/>
 	</select>
 	<insert id="insertPlaylist" parameterClass="net.aihat.dto.PlaylistDto">
-		INSERT INTO playlist(name, created_time, modified_time, user_id, name_search)
-		VALUES(#name#, NOW(), NOW(), #user.id#, #nameSearch#)
+		INSERT INTO playlist(name, created_time, modified_time, user_id, name_search, description)
+		VALUES(#name#, NOW(), NOW(), #user.id#, #nameSearch#, #description#)
 	</insert>
 	<update id="updatePlaylistDeleted" parameterClass="list">
 		UPDATE playlist
@@ -78,7 +79,8 @@
 		SET
 			name = #name#,
 			modified_time = NOW(),
-			name_search = #nameSearch#
+			name_search = #nameSearch#,
+			description = #description#
 		WHERE
 			id = #id#
 	</update>

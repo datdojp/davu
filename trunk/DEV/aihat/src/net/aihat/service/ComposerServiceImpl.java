@@ -24,7 +24,7 @@ public class ComposerServiceImpl extends BaseService implements ComposerService 
 	public ComposerDto createComposer(ComposerDto composer) throws DataAccessException {
 		if(AihatUtils.isEmpty(composer.getImage())) {
 			composer.setImage(defaultImage);
-		}//TODO test it
+		}
 		return getComposerDao().insert(composer);
 	}
 

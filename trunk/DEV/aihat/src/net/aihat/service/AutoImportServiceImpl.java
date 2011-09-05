@@ -176,7 +176,7 @@ public class AutoImportServiceImpl extends ClipServiceImpl implements AutoImport
 				}
 				singer.setUser(new UserDto());
 				singer.getUser().setId(userId);
-				singer.setImage(defaultImage);//TODO test it
+				singer.setImage(defaultImage);
 				getSingerDao().insert(singer);
 			} else if(AihatConstants.IMPORT_TYPE_COMPOSER == selectedImportType) {
 				ComposerDto composer = new ComposerDto();
@@ -199,7 +199,7 @@ public class AutoImportServiceImpl extends ClipServiceImpl implements AutoImport
 				}
 				composer.setUser(new UserDto());
 				composer.getUser().setId(userId);
-				composer.setImage(defaultImage);//TODO test it
+				composer.setImage(defaultImage);
 				getComposerDao().insert(composer);
 			}
 		} catch (ParseException e) {
