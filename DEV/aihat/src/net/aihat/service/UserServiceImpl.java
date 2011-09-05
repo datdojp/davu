@@ -16,11 +16,14 @@ import net.aihat.dto.PlaylistDto;
 import net.aihat.dto.SingerDto;
 import net.aihat.dto.UserDto;
 import net.aihat.utils.AihatUtils;
+import net.aihat.utils.BeanUtils;
+
 import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
 public class UserServiceImpl extends BaseService implements UserService {
 	private String defaultImage;
+	private String defaultPassword;
 	
 	@Transactional(rollbackFor=DataAccessException.class)
 	public UserDto login(String mail, String password) throws DataAccessException {
@@ -31,7 +34,7 @@ public class UserServiceImpl extends BaseService implements UserService {
 			}
 
 			//get user 's password
-			if(!user.getPassword().getEncrypted().equals(AihatUtils.encryptPassword(password))) {
+			if(!AihatUtils.isPasswordMatch(password, user.getPassword().getEncrypted())) {
 				return null;
 			}
 
@@ -182,7 +185,7 @@ public class UserServiceImpl extends BaseService implements UserService {
 	public void resetPassword(List<UserDto> users) throws DataAccessException {
 		for(UserDto aUser : users) {
 			PasswordDto password = aUser.getPassword();
-			password.setEncrypted(AihatUtils.encryptPassword(AihatUtils.getRandomPassword()));
+			password.setEncrypted(AihatUtils.encryptPassword(defaultPassword));
 			getPasswordDao().update(password);
 		}
 	}
@@ -264,6 +267,14 @@ public class UserServiceImpl extends BaseService implements UserService {
 		user.setSex(sex);
 		user.setBirthday(birthday);
 		getUserDao().update(user);
+	}
+
+	public String getDefaultPassword() {
+		return defaultPassword;
+	}
+
+	public void setDefaultPassword(String defaultPassword) {
+		this.defaultPassword = defaultPassword;
 	}
 	
 	

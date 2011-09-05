@@ -113,7 +113,7 @@ public class MyProfileBean extends MultiTabPagingBean {
 				}
 				
 				//check old password
-				if(!AihatUtils.encryptPassword(oldPassword).equals(profile.getPassword().getEncrypted())) {
+				if(!AihatUtils.isPasswordMatch(oldPassword, profile.getPassword().getEncrypted())) {
 					addErrorMessage(BeanUtils.getBundleMsg("CM0002"));
 					return null;
 				}

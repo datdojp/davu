@@ -25,7 +25,7 @@ public class SingerServiceImpl extends BaseService implements SingerService {
 	public SingerDto createSinger(SingerDto singer) throws DataAccessException {
 		if(AihatUtils.isEmpty(singer.getImage())) {
 			singer.setImage(defaultImage);
-		}//TODO test it
+		}
 		return getSingerDao().insert(singer);
 	}
 

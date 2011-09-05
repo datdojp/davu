@@ -3,12 +3,10 @@ package net.aihat.listener;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
-
 import net.aihat.bean.UserProfileBean;
 import net.aihat.bean.client.BaseClientBean;
 import net.aihat.utils.AihatUtils;
 import net.aihat.utils.BeanUtils;
-
 import org.apache.log4j.Logger;
 
 public class AihatPhaseListener implements PhaseListener {
@@ -23,14 +21,8 @@ public class AihatPhaseListener implements PhaseListener {
 	
 	public void afterPhase(PhaseEvent event) {
 		String uri = BeanUtils.getPageURI();
-		//TODO
-//			//stop any access that not for /pages/admin/* or /pages/client/*
-//			if(uri.indexOf("pages/admin") < 0 && uri.indexOf("pages/user") < 0) {
-//				navigateToHomePage();
-//			}
+		//TODO big security hole
 		if(!AihatUtils.isEmpty(uri)) {
-			
-
 			//admin authentication
 			if(!AihatUtils.isEmpty(uri) && uri.indexOf("pages/admin") >= 0) {
 				UserProfileBean userProfileBean = BeanUtils.getUserProfileBean();

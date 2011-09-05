@@ -2,10 +2,6 @@ package net.aihat.bean.client;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
-import sun.security.action.GetLongAction;
-
 import net.aihat.bean.BaseBean;
 import net.aihat.service.ClipService;
 import net.aihat.service.ComposerService;

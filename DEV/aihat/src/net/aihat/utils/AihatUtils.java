@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import org.jasypt.digest.PooledStringDigester;
+
 import net.aihat.dto.BaseDto;
 import net.aihat.dto.ClipDto;
 import net.aihat.dto.ComposerDto;
@@ -13,20 +15,32 @@ import net.aihat.dto.UserDto;
 public class AihatUtils {
 	
 	//PASSWORD ENCRYPTION
-	//TODO
+	private static PooledStringDigester digester = new PooledStringDigester();
+	static {
+		digester.setPoolSize(7); 
+		digester.setAlgorithm("SHA-1");
+		digester.setIterations(2510);
+	}
 	public static String encryptPassword(String password) {
-		return password;
+		return digester.digest(password);
 	}
-	//TODO
-	public static String decryptPassword(String encryptedPass) {
-		return encryptedPass;
+	public static boolean isPasswordMatch(String inputPassword, String encryptedPassword) {
+		return digester.matches(inputPassword, encryptedPassword);
 	}
+	
 	public static String getRandomPassword() {
 		return Long.toString(Calendar.getInstance().getTimeInMillis());
 	}
 	
-	//TODO
 	public static boolean checkPasswordSafeEnough(String password) {
+		//check empty
+		if(AihatUtils.isEmpty(password)) {
+			return false;
+		}
+		//password length >= 3
+		if(password.length() < 3) {
+			return false;
+		}
 		return true;
 	}
 	

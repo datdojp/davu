@@ -26,11 +26,12 @@ public class PlaylistServiceImpl extends BaseService implements PlaylistService 
 	}
 
 	@Transactional(rollbackFor=DataAccessException.class)
-	public PlaylistDto createPlaylist(String name, Integer userId) throws DataAccessException {
+	public PlaylistDto createPlaylist(String name, Integer userId, String description) throws DataAccessException {
 		PlaylistDto playlist = new PlaylistDto();
 		playlist.setName(name);
 		playlist.setUser(new UserDto());
 		playlist.getUser().setId(userId);
+		playlist.setDescription(description);
 		return getPlaylistDao().insert(playlist);
 	}
 

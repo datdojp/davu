@@ -113,7 +113,7 @@ public class DetailBean extends BaseClientBean implements PagingBean {
 		}
 	}
 	
-	public synchronized void updatePlaylistName(AjaxBehaviorEvent e) {
+	public synchronized void updatePlaylist(AjaxBehaviorEvent e) {
 		try {
 			if(AihatUtils.isEmpty(playlistDetail.getName())) {
 				addErrorMessage(BeanUtils.getBundleMsg("CM0007"));
