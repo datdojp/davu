@@ -3,6 +3,10 @@ body {
 	font-size: 11pt;
 }
 
+a {
+	text-decoration: none;
+}
+
 #wrapper {
 	width:100%;
 	height:100%;
@@ -23,7 +27,7 @@ body {
 }
 
 #UpperPanel {
-	height:116px;
+	height:99px;
 	position: fixed;
 	left: 0;
 	right: 0;
@@ -67,7 +71,7 @@ body {
 
 .style001 {
 	width: 891px;
-	height: 116px;
+	height: 99px;
 	background-image: url("TopPanel_middle.png");
 }
 
@@ -87,8 +91,7 @@ body {
 
 .style003 {
 	position: fixed;
-	top:70px;
-	right: 50px;
+	left: 100px;
 }
 .style003 :HOVER {
 	background-color: #f8f8ff;
@@ -158,8 +161,8 @@ body {
 }
 
 .button-body {
-	height: 26px;
-	background-image: url("btnCenter.png");
+	height: 27px;
+	background-image: url("btnRepeat.png");
 	border: none;
 	font-family: verdana;
 	font-size: 10pt;
@@ -175,4 +178,38 @@ body {
 .playing {
 	opacity: 1;
 	border: thin solid ghostWhite;
+}
+
+.removeBtn {
+	background-color: #666666;
+	opacity:0.5;
+	width: 20px;
+	height: 20px;
+	border-radius: 5px;
+	vertical-align: middle;
+}
+
+.removeBtn input {
+	width: 20px;
+	border: none;
+	background-color: transparent;
+	color: #232323;
+}
+
+.removeBtn :HOVER {
+	opacity:1;
+	background-color: #DDDDDD;
+	border-radius: 5px;
+}
+
+.clipBriefDetailTop {
+	background-image: url("clip_brief_info_top.png");
+	height: 35px;
+}
+
+.style011 {
+	float: left;
+	height: 35px;
+	vertical-align:middle;
+	margin-right: 20px;
 }

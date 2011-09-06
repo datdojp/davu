@@ -70,7 +70,7 @@
 		}
 		function resizeLayout() {
 			width = $(window).width();
-			height = $(window).height() - 116;
+			height = $(window).height() - 99;
 			
 			mask_width = width * $('#wrapper .page').length;
 			$('#wrapper, .page').css({width: width, height: height});
@@ -93,7 +93,7 @@
 	<!--script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script-->
 	
 	<!-- PAGES -->
-	<div id="wrapper" style="top:116px;">
+	<div id="wrapper" style="top:99px;">
 		<div id="mask">
 			<div id="FeaturedClips" class="page" align="center">
 				<ui:insert>
@@ -202,12 +202,13 @@
 			resizeLayout();
 		});
 	</script>
-	<button style="position: fixed; left:0px; top: 500px" onclick="slide(-1)">
-		<h:graphicImage url="#{config.server}/img/client/navLeft.png"/>
-	</button>
-	<button style="position: fixed; right:0px; top: 500px" onclick="slide(1)">
-		<h:graphicImage url="#{config.server}/img/client/navRight.png"/>
-	</button>
+	
+	<h:graphicImage url="#{config.server}/img/client/navLeft.png"
+		style="position: fixed; left:0px; top: 100px;width: 36px" onclick="slide(-1)"/>
+	<h:graphicImage url="#{config.server}/img/client/navRight.png"
+		style="position: fixed; right:0px; top: 100px; width: 36px" onclick="slide(1)"/>
+	
+	<img src="#{config.server}/img/client/aihatvn.png" style="position: fixed;left: 10px;top: 10px;"/>
 	
 	<!-- KEEP SESSION -->
 	<h:commandButton style="display:none" styleClass="btnKeepSession">

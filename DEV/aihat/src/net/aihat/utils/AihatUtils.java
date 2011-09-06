@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import org.jasypt.digest.PooledStringDigester;
-
 import net.aihat.dto.BaseDto;
-import net.aihat.dto.ClipDto;
 import net.aihat.dto.ComposerDto;
 import net.aihat.dto.SingerDto;
 import net.aihat.dto.UserDto;
+
+import org.jasypt.digest.PooledStringDigester;
 
 public class AihatUtils {
 	
