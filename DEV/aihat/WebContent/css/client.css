@@ -1,6 +1,8 @@
 body {
 	font-family: verdana;
 	font-size: 11pt;
+	color: #323131;
+	background-color: ghostWhite;
 }
 
 a {
@@ -23,7 +25,6 @@ a {
 .page {
 	float:left;
 	overflow:scroll;
-	color: white;
 }
 
 #UpperPanel {
@@ -37,6 +38,8 @@ a {
 
 #FeaturedClips {
 	overflow: hidden;
+	background-color: black;
+	color: ghostWhite;
 }
 
 .player {
@@ -49,10 +52,8 @@ a {
 }
 
 .dataTable {
-	color: white;
-	border-width: 1px;
-	border-color: white;
-	border-style: solid;
+	font-size: 8pt;
+	font-weight: bold;
 }
 
 .dataTable th {
@@ -123,6 +124,9 @@ a {
 	background-image: url("searchPane.png");
 }
 
+#clips {
+}
+
 #clips .clips, #clips .singers, #clips .composers, #clips .playlists, #clips .genres {
 	width: 100%;
 	height: 24px;
@@ -130,12 +134,18 @@ a {
 	font-size: 10pt;
 	color: #666666;
 	background-image: url("tab.png");
-	opacity: 0.5;
+	border-left: none;
+	border-bottom: none;
+	border-top: none;
+	border-right: 1px solid gray;
 }
 
 #clips .selected {
-	opacity: 1;
 	font-weight: bold;
+	color: ghostWhite;
+	background-color: black;
+	background-image: none;
+	border: none;
 }
 
 .style008 {
@@ -161,12 +171,24 @@ a {
 }
 
 .button-body {
-	height: 27px;
 	background-image: url("btnRepeat.png");
+}
+
+.button-body :HOVER {
+	text-shadow: -1px 1px 2px gray;
+}
+
+.button-body input {
+	height: 34px;
+	background: none;
 	border: none;
 	font-family: verdana;
 	font-size: 10pt;
-	color: #666666;
+	font-weight: bold;
+	color: ghostWhite;
+	padding-bottom: 7px;
+	padding-left: 15px;
+	padding-right: 15px;
 }
 
 .clipThumbnail {
@@ -212,4 +234,48 @@ a {
 	height: 35px;
 	vertical-align:middle;
 	margin-right: 20px;
+}
+
+.odd-line {
+	background-color: #e8f0f7;
+	height: 31px;
+}
+.even-line {
+}
+
+.line_over{
+	background-color:#abcdf3;
+}
+
+.style012 {
+	background-color: black;
+	color: white;
+	font-size: 10pt;
+	height: 31px;	
+}
+.style012 td {
+	border-right: 1px solid lavender;
+	padding-left: 8px;
+	padding-right: 8px;
+}
+
+.style013 {
+	width: 20px;
+	height: 20px;
+	border: none;
+}
+
+.up {
+	background-image: url("up.png");
+}
+.down {
+	background-image: url("down.png");
+}
+
+.style014 {
+	color: #646262
+}
+
+.style015 {
+	color: #a9b0ba
 }
