@@ -14,7 +14,7 @@
 			<td>
 				<client:button>
 					<ui:define name="button-body">
-						<h:commandButton value="Play" onclick="slideToFeaturedClips();updateCurrentPlaybackPos();" styleClass="button-body">
+						<h:commandButton value="Play" onclick="slideToFeaturedClips();updateCurrentPlaybackPos();">
 							<f:param name="referenceBeanName" value="#{bean.beanName}"/>
 							<f:ajax event="click" execute="@form :featuredClips" render=":featuredClips" listener="#{featuredClipsBean.play}"/>
 						</h:commandButton>
@@ -24,7 +24,7 @@
 			<td>
 				<client:button>
 					<ui:define name="button-body">
-						<h:commandButton value="Add" onclick="slideToFeaturedClips();updateCurrentPlaybackPos();" styleClass="button-body">
+						<h:commandButton value="Add" onclick="slideToFeaturedClips();updateCurrentPlaybackPos();">
 							<f:param name="referenceBeanName" value="#{bean.beanName}"/>
 							<f:ajax event="click" execute="@form :featuredClips" render=":featuredClips" listener="#{featuredClipsBean.add}"/>
 						</h:commandButton>
@@ -35,7 +35,7 @@
 				<t:div rendered="#{userProfileBean.loggedIn}">
 					<client:button>
 						<ui:define name="button-body">
-							<h:commandButton value="#{msg.client_clips_add_to_my_playlist}" styleClass="button-body"
+							<h:commandButton value="#{msg.client_clips_add_to_my_playlist}"
 									onclick="showDlgCreateOrAddToMyPlaylists('#{formId}');return false;"/>
 						</ui:define>
 					</client:button>

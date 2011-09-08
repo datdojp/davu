@@ -92,3 +92,11 @@ function onclickProfileAvatar() {
 	$("#myProfile").find(".fileProfileAvatar").click();
 	$("#myProfile").find(".btnChangeAvatar").attr("disabled", "");
 }
+
+function oddEventMouseOver(line) {
+	$(line).find("td").addClass("line_over");
+	$(line).find(".nohover").removeClass("line_over");
+}
+function oddEventMouseOut(line) {
+	$(line).find("td").removeClass("line_over");
+}
