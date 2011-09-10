@@ -23,13 +23,13 @@
 							<tr>
 								<td>
 									<div class="style009" align="center">
-										<h:inputText value="#{clipsBean.searchKeyword}" styleClass="style010"/>
+										<h:inputText value="#{clipsBean.searchKeyword}" styleClass="searchKeywordInput"/>
 									</div>
 								</td>
 								<td>
 									<client:button>
 										<ui:define name="button-body">
-											<h:commandButton value="#{msg.CU0048}">
+											<h:commandButton value="#{msg.CU0048}" styleClass="searchBtn">
 												<f:ajax event="click" execute="@form" render="@form" listener="#{clipsBean.search}" />
 											</h:commandButton>
 										</ui:define>
@@ -74,7 +74,18 @@
 				</tr>
 			</table>
 		</div>
-		
+		<script>
+			$(function() {
+			    $("#clips").find(".searchKeywordInput").keypress(function (e) {
+			        if ((e.which &amp;&amp; e.which == 13) || (e.keyCode &amp;&amp; e.keyCode == 13)) {
+			            $("#clips").find(".searchBtn").click();
+			            return false;
+			        } else {
+			            return true;
+			        }
+			    });
+			});
+		</script>
 		<h:inputHidden id="selectClipCheckBox"/>
 		<script>
 			$("#clips").find(".#{clipsBean.displayTab}").addClass("selected");
