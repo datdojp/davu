@@ -203,10 +203,22 @@
 		});
 	</script>
 	
-	<h:graphicImage url="#{config.server}/img/client/navLeft.png"
-		style="position: fixed; left:0px; top: 100px;width: 36px" onclick="slide(-1)"/>
-	<h:graphicImage url="#{config.server}/img/client/navRight.png"
-		style="position: fixed; right:0px; top: 100px; width: 36px" onclick="slide(1)"/>
+	<script>
+		document.onkeypress = function(e) {
+	        if ((e.which &amp;&amp; e.which == 37) || (e.keyCode &amp;&amp; e.keyCode == 37)) {
+	        	slide(-1);
+	            return false;
+	        } else if ((e.which &amp;&amp; e.which == 39) || (e.keyCode &amp;&amp; e.keyCode == 39)) {
+	        	slide(1);
+	            return false;
+	        } else {
+	            return true;
+	        }
+		}
+		if (document.layers)
+			document.captureEvents(Event.KEYPRESS);
+	</script>
+	
 	
 	<img src="#{config.server}/img/client/aihatvn.png" style="position: fixed;left: 10px;top: 10px;"/>
 	

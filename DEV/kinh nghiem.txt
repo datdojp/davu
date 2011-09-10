@@ -1,2 +1,3 @@
 ﻿1.Khi bị lỗi không tìm thấy property trong khi rõ ràng đó là một method, check lại các đoạn code bị comment
 2.Bị lỗi khi re-deploy là do chưa tắt debug lúc export
+3. Thẻ ajax không work với ui:repeat
