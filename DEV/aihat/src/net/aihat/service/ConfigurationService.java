@@ -1,6 +1,8 @@
 package net.aihat.service;
 
-public class ConfigurationService {
+import java.io.Serializable;
+
+public class ConfigurationService implements Serializable {
 	public String imageBackupFolder;
 	public int nHomepageClips;
 	private int nFeaturedClips;

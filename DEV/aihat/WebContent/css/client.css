@@ -197,8 +197,12 @@ a {
 .clipThumbnail :HOVER {
 	opacity: 1;
 }
+
 .playing {
 	opacity: 1;
+}
+
+.playing img {
 	border: thin solid ghostWhite;
 }
 

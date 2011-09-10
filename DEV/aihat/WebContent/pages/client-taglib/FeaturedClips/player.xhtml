@@ -177,6 +177,7 @@
 			//switch playing css
 			$("#featuredClips").find(".playing").removeClass("playing");
 			$("#featuredClips").find(".thumbnail" + clipList[getIndexFromLink(link)].id).addClass("playing");
+			$("#featuredClips").find(".playing").css("width", "84px");
 
 			//display detail
 			$("#featuredClips").find(".detail").css("display", "none");
@@ -258,15 +259,11 @@
 		//load the first clip
 		loadClip('#{featuredClipsBean.currentEmbeddedLink}', #{featuredClipsBean.currentPlaybackPos});
 		
-		//add reflection effect to thumbnails
-		for(var i = 0; i &lt; clipList.length; i++) {
-			$("#thumbnail_" + clipList[i].id + "_").reflect(
-				{
-					height: 0.5,
-					opacity: 0.5
-				}
-			);
-		}
+		// AUTOLOAD CODE BLOCK (MAY BE CHANGED OR REMOVED)
+		jQuery(function($) {
+			$("img.reflect").reflect({/* Put custom options here */});
+			$("img.reflected").css("border", "");
+		});
 	</script>
 </ui:composition>
 </html>
