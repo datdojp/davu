@@ -45,6 +45,10 @@
 		<source>paging.xhtml</source>
 	</tag>
 	<tag>
+		<tag-name>sidePanel</tag-name>
+		<source>sidePanel.xhtml</source>
+	</tag>
+	<tag>
 		<tag-name>playlist-detail</tag-name>
 		<source>Detail/playlist-detail.xhtml</source>
 	</tag>

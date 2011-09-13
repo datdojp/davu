@@ -8,22 +8,22 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 <ui:composition>
-	<h:commandLink value="#{msg.client_paging_first}">
-		<f:ajax event="click" render="@form" listener="#{bean.firstPage}"/>
-	</h:commandLink>
-	&nbsp;
-	<h:commandLink value="#{msg.client_paging_previous}">
-		<f:ajax event="click" render="@form" listener="#{bean.previousPage}"/>
-	</h:commandLink>
-	&nbsp;
-	<h:outputText value="#{bean.pageRange}" />
-	&nbsp;
-	<h:commandLink value="#{msg.client_paging_next}">
-		<f:ajax event="click" render="@form" listener="#{bean.nextPage}" />
-	</h:commandLink>
-	&nbsp;
-	<h:commandLink value="#{msg.client_paging_last}">
-		<f:ajax event="click" render="@form" listener="#{bean.lastPage}"/>
-	</h:commandLink>
+	<h:panelGrid columns="5">
+		<h:commandButton value="#{msg.client_paging_first}" styleClass="pagingBtn">
+			<f:ajax event="click" render="@form" listener="#{bean.firstPage}"/>
+		</h:commandButton>
+		<h:commandButton value="#{msg.client_paging_previous}" styleClass="pagingBtn">
+			<f:ajax event="click" render="@form" listener="#{bean.previousPage}"/>
+		</h:commandButton>
+		<t:div styleClass="range">
+			<h:outputText value="#{bean.pageRange}" />
+		</t:div>
+		<h:commandButton value="#{msg.client_paging_next}" styleClass="pagingBtn">
+			<f:ajax event="click" render="@form" listener="#{bean.nextPage}" />
+		</h:commandButton>
+		<h:commandButton value="#{msg.client_paging_last}" styleClass="pagingBtn">
+			<f:ajax event="click" render="@form" listener="#{bean.lastPage}"/>
+		</h:commandButton>
+	</h:panelGrid>
 </ui:composition>
 </html>
