@@ -46,7 +46,7 @@ public abstract class BaseClientBean extends BaseBean {
 	protected abstract List getCurrentDtoList();
 	protected void handleGeneralError(Throwable err) {
 		getLogger().error(err);
-		addErrorMessage("CM0000");
+		addErrorMessage(BeanUtils.getBundleMsg("CM0000"));
 	}
 	
 	//getter setter

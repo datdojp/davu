@@ -9,6 +9,10 @@ a {
 	text-decoration: none;
 }
 
+a :HOVER {
+	text-decoration: underline;	
+}
+
 #wrapper {
 	width:100%;
 	height:100%;
@@ -255,10 +259,9 @@ a {
 	background-color: black;
 	color: white;
 	font-size: 10pt;
-	height: 31px;	
+	height: 35px;	
 }
 .style012 td {
-	border-right: 1px solid lavender;
 	padding-left: 8px;
 	padding-right: 8px;
 }
@@ -282,4 +285,35 @@ a {
 
 .style015 {
 	color: #a9b0ba
+}
+
+.addBtn {
+	width:14px;
+	height:14px;
+	background-image: url("add.png");
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+.shareBtn {
+	border: solid thin #009722;
+	color: #009722;
+	background-color:transparent;
+	font-size: 8pt;
+	font-weight:bold;
+	cursor: pointer;
+}
+
+.pagingBtn {
+	border: solid thin #d1dddb;
+	background-color: #f3f5f2;
+	color: #0d6967;
+	cursor: pointer;
+}
+
+.range {
+	border: #486be5 solid thin;
+	color: ghostWhite;
+	background-color: #87a197;
 }

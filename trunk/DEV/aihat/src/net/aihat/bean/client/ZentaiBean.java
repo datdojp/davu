@@ -292,7 +292,7 @@ public class ZentaiBean extends BaseClientBean {
 			int clipId = Integer.parseInt(BeanUtils.getRequest().getParameter("clipId"));
 			getClipService().addLiked(clipId, profile.getId());
 			
-			//check followed=true for singer
+			//check followed=true for clip
 			ClipDto likedClip = (ClipDto) AihatUtils.getDtoFromList(clipId, getReferenceBean().getCurrentDtoList());
 			if(likedClip != null) {
 				likedClip.setLiked(true);

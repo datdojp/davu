@@ -5,10 +5,9 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:client="http://www.aihat.net/client">
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 <ui:composition>
-	<table cellspacing="0" class="dataTable" style="width: 60%">
+	<table cellspacing="0" class="dataTable" style="width: 100%">
 		<thead>
 			<tr class="style012">
 				<td align="center">
@@ -80,80 +79,89 @@
 					
 				</td>
 				<td>
-					<ui:repeat var="aSinger" value="#{aClip.singers}">
-						<h:commandLink onclick="slideToDetail();" styleClass="style014">
+					<c:forEach var="aSinger" items="#{aClip.singers}">
+						<h:commandLink onclick="slideToDetail();">
 							<f:param name="singerId" value="#{aSinger.id}"/>
 							<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showSingerDetail}"/>
-							<h:outputText value="#{aSinger.name}"/>
-							<h:outputText value="(#{msg.CU0021})" rendered="#{aSinger.followed}"/>
+							<h:outputText value="#{aSinger.name}" styleClass="style014"/>
+							<h:outputText value="(#{msg.CU0021})" rendered="#{aSinger.followed}" styleClass="style014"/>
 						</h:commandLink>
 						<br/>
-					</ui:repeat>
+					</c:forEach>
 				</td>
 				<td>
-					<ui:repeat var="aComposer" value="#{aClip.composers}">
-						<h:commandLink value="#{aComposer.name}" onclick="slideToDetail();" styleClass="style014">
+					<c:forEach var="aComposer" items="#{aClip.composers}">
+						<h:commandLink onclick="slideToDetail();" >
 							<f:param name="composerId" value="#{aComposer.id}"/>
 							<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showComposerDetail}"/>
+							<h:outputText value="#{aComposer.name}" styleClass="style014"/>
 						</h:commandLink>
 						<br/>
-					</ui:repeat>
+					</c:forEach>
 				</td>
 				<td>
-					<ui:repeat var="aGenre" value="#{aClip.genres}">
-						<h:commandLink value="#{aGenre.nameEn}"	rendered="#{utilsBean.currentLanguage eq 'en'}" onclick="slideToDetail();" styleClass="style014">
+					<c:forEach var="aGenre" items="#{aClip.genres}">
+						<h:commandLink rendered="#{utilsBean.currentLanguage eq 'en'}" onclick="slideToDetail();">
 							<f:param name="genreId" value="#{aGenre.id}"/>
 							<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showGenreDetail}"/>
+							<h:outputText value="#{aGenre.nameEn}" styleClass="style014"/>
 						</h:commandLink>
-						<h:commandLink value="#{aGenre.nameVi}" rendered="#{utilsBean.currentLanguage eq 'vi'}" onclick="slideToDetail();" styleClass="style014">
+						<h:commandLink rendered="#{utilsBean.currentLanguage eq 'vi'}" onclick="slideToDetail();" styleClass="style014">
 							<f:param name="genreId" value="#{aGenre.id}"/>
 							<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showGenreDetail}"/>
+							<h:outputText value="#{aGenre.nameVi}" styleClass="style014"/>
 						</h:commandLink>
 						<br/>
-					</ui:repeat>
+					</c:forEach>
 				</td>
 				<td>
 					<h:commandLink onclick="slideToDetail();">
 						<f:param name="userId" value="#{aClip.user.id}"/>
 						<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showUserDetail}"/>
 						<h:outputText value="#{aClip.user.name}" styleClass="style014"/>
-						<h:outputText value="(#{msg.CU0021})" rendered="#{aClip.user.followed}"/>
+						<h:outputText value="(#{msg.CU0021})" rendered="#{aClip.user.followed}" styleClass="style014"/>
 					</h:commandLink>
 				</td>
 			</tr>
 			<tr class="even-line" onmouseover="oddEventMouseOver(this)" onmouseout="oddEventMouseOut(this)">
 				<td colspan="5">
 					<table cellspacing="0" style="width: 100%">
-						<tr>
+						<tr style="height: 31px;">
 							<td>
 								<h:outputText value="#{aClip.nFans} #{msg.client_clips_peopleLiked}" styleClass="style015"/>
 							</td>
 							<td>
 								<h:outputText value="#{aClip.nViews} #{msg.client_clips_peopleViewed}" styleClass="style015"/>
 							</td>
-							<td style="float: right;">
-								<h:commandButton value="+" onclick="slideToFeaturedClips();updateCurrentPlaybackPos();">
+							<td style="width:60px" align="center">
+								<h:commandButton value="#{msg.share}"
+										onclick="alert('#{config.server}/pages/client/Zentai.jsf?perlink_clipid=#{aClip.id}');return false;"
+										styleClass="shareBtn">
+										
+								</h:commandButton>
+							</td>
+							<td style="width:60px" align="center">
+								<h:commandLink rendered="#{userProfileBean.loggedIn and not aClip.liked}">
+									<f:param name="clipId" value="#{aClip.id}"/>
+									<f:param name="referenceBeanName" value="#{bean.beanName}"/>
+									<f:ajax event="click" render="@form" listener="#{zentaiBean.likeClip}"/>
+									<h:graphicImage url="#{config.server}/img/client/like.png"/>
+									<h:outputText value="#{msg.like}" style="text-decoration:none;color:#c9c9c9"/>
+								</h:commandLink>
+								<h:commandLink rendered="#{userProfileBean.loggedIn and aClip.liked}">
+									<f:param name="clipId" value="#{aClip.id}"/>
+									<f:param name="referenceBeanName" value="#{bean.beanName}"/>
+									<f:ajax event="click" render="@form" listener="#{zentaiBean.unlikeClip}"/>
+									<h:graphicImage url="#{config.server}/img/client/unlike.png"/>
+									<h:outputText value="#{msg.like}" style="text-decoration:none;color:#009722"/>
+								</h:commandLink>
+							</td>
+							<td style="width:20px" align="center">
+								<h:commandButton onclick="slideToFeaturedClips();updateCurrentPlaybackPos();" styleClass="addBtn">
 									<f:param name="selectedClipId" value="#{aClip.id}"/>
 									<f:param name="referenceBeanName" value="#{bean.beanName}"/>
 									<f:ajax event="click" execute=":featuredClips" render=":featuredClips" listener="#{featuredClipsBean.addOne}"/>
 								</h:commandButton>
-							</td>
-							<td style="float: right;">
-								<h:commandButton value="like" rendered="#{userProfileBean.loggedIn and not aClip.liked}">
-									<f:param name="clipId" value="#{aClip.id}"/>
-									<f:param name="referenceBeanName" value="#{bean.beanName}"/>
-									<f:ajax event="click" render="@form" listener="#{zentaiBean.likeClip}"/>
-								</h:commandButton>
-							</td>
-							<td style="float: right;">
-								<h:commandButton value="unlike" rendered="#{userProfileBean.loggedIn and aClip.liked}">
-									<f:param name="clipId" value="#{aClip.id}"/>
-									<f:param name="referenceBeanName" value="#{bean.beanName}"/>
-									<f:ajax event="click" render="@form" listener="#{zentaiBean.unlikeClip}"/>
-								</h:commandButton>
-							</td>
-							<td style="float: right;">
-								<h:commandButton value="Link" onclick="alert('#{config.server}/pages/client/Zentai.jsf?perlink_clipid=#{aClip.id}');return false;"/>
 							</td>
 						</tr>
 					</table>
