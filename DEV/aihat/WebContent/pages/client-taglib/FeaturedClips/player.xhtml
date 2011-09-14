@@ -232,8 +232,11 @@
 		}
 		
 		function checkVideoEnds() {
+			/*
 			if(ytplayer.getCurrentTime() &gt;= ytplayer.getDuration() ||
 					((new Date()).getTime() - clipStartTime &gt; 3000 &amp;&amp; ytplayer.getVideoBytesLoaded() &lt; 0)) {
+			*/
+			if(ytplayer.getCurrentTime() &gt;= ytplayer.getDuration()) {
 				//stop the video
 				ytplayer.stopVideo();
 				
