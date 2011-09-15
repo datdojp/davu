@@ -37,7 +37,15 @@
 				SELECT count(*)
 				FROM genre g_
 				WHERE g_.user_id = u.id AND NOT g_.deleted
-			) as nGenres
+			) as nGenres,
+			(
+				SELECT count(*)
+				FROM user_follow_uploader ufu_, user u_
+				WHERE
+					ufu_.followed = u.id AND
+					ufu_.following = u_.id AND
+					NOT u_.deleted
+			) as nFollowers
 	</sql>
 	<sql id="userCommonFrom">
 		FROM user u, password p

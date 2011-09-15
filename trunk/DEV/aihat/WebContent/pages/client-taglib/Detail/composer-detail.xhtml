@@ -8,16 +8,10 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 <ui:composition>
-	<h1>#{msg.CU0009}</h1><br/>
-	<h:panelGrid columns="2">
-		<h:graphicImage url="#{config.server}/img/#{composer.image}" width="120"/>
-		<h:panelGrid columns="1">
-			<h:outputText value="#{msg.client_clips_composer_name}:#{composer.name}"/>
-			<h:outputText value="#{msg.client_clips_composer_birthday}:#{composer.birthday}">
-				<f:convertDateTime pattern="dd.MM.yyyy"/>
-			</h:outputText>
-		</h:panelGrid>
-	</h:panelGrid>
+	<div>
+		<h:graphicImage url="#{config.server}/img/#{composer.image}" style="width:100%"/>
+	</div>
+	<br></br>
 	<t:div>
 		<h:outputText value="#{composer.description}"/>
 	</t:div>
