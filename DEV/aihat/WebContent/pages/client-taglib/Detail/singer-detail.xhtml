@@ -8,38 +8,54 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 <ui:composition>
-	<h1>#{msg.CU0008}</h1><br/>
-	<h:panelGrid columns="2">
-		<h:graphicImage url="#{config.server}/img/#{singer.image}" width="120"/>
-		<h:panelGrid columns="2">
-			<h:outputText value="#{msg.client_clips_singer_name}:#{singer.name}"/>
-			<h:outputText value="#{msg.client_clips_singer_birthday}:#{singer.birthday}">
-				<f:convertDateTime pattern="dd.MM.yyyy"/>
-			</h:outputText>
-			<h:outputText value="#{msg.client_clips_singer_company}:#{singer.company}"/>
-			<h:outputText value="#{msg.client_clips_singer_website}:#{singer.website}"/>
-			<h:commandButton value="#{msg.CU0024}" rendered="#{not singer.liked}">
-				<f:param name="singerId" value="#{singer.id}"/>
-				<f:param name="referenceBeanName" value="#{bean.beanName}"/>
-				<f:ajax event="click" render="@form" listener="#{zentaiBean.likeSinger}"/>
-			</h:commandButton>
-			<h:commandButton value="#{msg.CU0025}" rendered="#{singer.liked}">
-				<f:param name="singerId" value="#{singer.id}"/>
-				<f:param name="referenceBeanName" value="#{bean.beanName}"/>
-				<f:ajax event="click" render="@form" listener="#{zentaiBean.unlikeSinger}"/>
-			</h:commandButton>
-			<h:commandButton value="#{msg.client_clips_singer_follow}" rendered="#{not singer.followed}">
-				<f:param name="singerId" value="#{singer.id}"/>
-				<f:param name="referenceBeanName" value="#{bean.beanName}"/>
-				<f:ajax event="click" render="@form" listener="#{zentaiBean.followSinger}"/>
-			</h:commandButton>
-			<h:commandButton value="#{msg.client_clips_singer_unfollow}" rendered="#{singer.followed}">
-				<f:param name="singerId" value="#{singer.id}"/>
-				<f:param name="referenceBeanName" value="#{bean.beanName}"/>
-				<f:ajax event="click" render="@form" listener="#{zentaiBean.unfollowSinger}"/>
-			</h:commandButton>
-		</h:panelGrid>
-	</h:panelGrid>
+	<div>
+		<h:graphicImage url="#{config.server}/img/#{singer.image}" style="width:100%"/>
+	</div>
+	<br></br>
+	<table cellpadding="0" cellspacing="0" style="width: 100%;" class="detail-text">
+		<tr>
+			<td align="left" style="padding-left: 12px;">
+				<h:outputText value="#{singer.nFans} #{msg.like}"/>
+			</td>
+			<td align="right" style="padding-right: 12px;">
+				<h:commandLink rendered="#{not singer.liked}" style="">
+					<f:param name="singerId" value="#{singer.id}"/>
+					<f:param name="referenceBeanName" value="#{bean.beanName}"/>
+					<f:ajax event="click" render="@form" listener="#{zentaiBean.likeSinger}"/>
+					<h:graphicImage url="#{config.server}/img/client/like.png"/>
+					<h:outputText value="#{msg.like}" styleClass="like"/>
+				</h:commandLink>
+				<h:commandLink rendered="#{singer.liked}">
+					<f:param name="singerId" value="#{singer.id}"/>
+					<f:param name="referenceBeanName" value="#{bean.beanName}"/>
+					<f:ajax event="click" render="@form" listener="#{zentaiBean.unlikeSinger}"/>
+					<h:graphicImage url="#{config.server}/img/client/unlike.png"/>
+					<h:outputText value="#{msg.like}" styleClass="unlike"/>
+				</h:commandLink>
+			</td>
+		</tr>
+		<tr>
+			<td align="left" style="padding-left: 12px;">
+				<h:outputText value="#{singer.nFollowers} #{msg.follow}"/>
+			</td>
+			<td align="right" style="padding-right: 12px;">
+				<h:commandLink rendered="#{not singer.followed}">
+					<f:param name="singerId" value="#{singer.id}"/>
+					<f:param name="referenceBeanName" value="#{bean.beanName}"/>
+					<f:ajax event="click" render="@form" listener="#{zentaiBean.followSinger}"/>
+					<h:graphicImage url="#{config.server}/img/client/like.png"/>
+					<h:outputText value="#{msg.follow}" styleClass="follow"/>
+				</h:commandLink>
+				<h:commandLink rendered="#{singer.followed}">
+					<f:param name="singerId" value="#{singer.id}"/>
+					<f:param name="referenceBeanName" value="#{bean.beanName}"/>
+					<f:ajax event="click" render="@form" listener="#{zentaiBean.unfollowSinger}"/>
+					<h:graphicImage url="#{config.server}/img/client/unlike.png"/>
+					<h:outputText value="#{msg.follow}" styleClass="unfollow"/>
+				</h:commandLink>
+			</td>
+		</tr>
+	</table>
 	<t:div>
 		<h:outputText value="#{singer.description}"/>
 	</t:div>

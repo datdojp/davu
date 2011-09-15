@@ -21,13 +21,13 @@
 								styleClass="fileProfileAvatar"/>
 				</h:panelGroup>
 				<h:panelGrid columns="3">
-					<h:outputText value="#{msg.CU0039}"/>
+					<h:outputText value="#{msg.name}"/>
 					<h:inputText value="#{myProfileBean.name}"/>
 					<h:outputText/>
 					
-					<h:outputText value="#{msg.CU0040}"/>
+					<h:outputText value="#{msg.sex}"/>
 					<h:selectOneListbox value="#{myProfileBean.sex}" size="1">
-						<f:selectItem itemLabel="#{msg.CU0041}" itemValue="U"/>
+						<f:selectItem itemLabel="#{msg.unknown}" itemValue="U"/>
 						<f:selectItem itemLabel="#{msg.CU0042}" itemValue="M"/>
 						<f:selectItem itemLabel="#{msg.CU0043}" itemValue="F"/>
 					</h:selectOneListbox>

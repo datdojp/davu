@@ -10,48 +10,86 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 <ui:composition>
 	<h:form id="detail" styleClass="detail">
-		<t:div rendered="#{detailBean.objectType eq 'singer'}">
-			<client:singer-detail singer="#{detailBean.singerDetail}" bean="#{detailBean}"/>
-			<client:clip-list-func formId="detail" checkBoxId="selectClipCheckBox" bean="#{detailBean}"/>
-			<client:paging bean="#{detailBean}"/>
-			<client:clip-list formId="detail" clips="#{detailBean.referenceDtos}" bean="#{detailBean}"/>
-			<client:paging bean="#{detailBean}"/>
-		</t:div>
-		<t:div rendered="#{detailBean.objectType eq 'composer'}">
-			<client:composer-detail composer="#{detailBean.composerDetail}"/>
-			<client:clip-list-func formId="detail" checkBoxId="selectClipCheckBox" bean="#{detailBean}"/>
-			<client:paging bean="#{detailBean}"/>
-			<client:clip-list formId="detail" clips="#{detailBean.referenceDtos}" bean="#{detailBean}"/>
-			<client:paging bean="#{detailBean}"/>
-		</t:div>
-		<t:div rendered="#{detailBean.objectType eq 'playlist'}">
-			<client:playlist-detail playlist="#{detailBean.playlistDetail}"/>
-			<h:commandButton value="#{msg.CU0020}" onclick="return confirm('#{msg.CM0010}');"
-					rendered="#{detailBean.playlistDetail.editable}">
-				<f:ajax event="click" render="@form" execute="@form" listener="#{detailBean.deletePlaylists}"/>
-			</h:commandButton>
-			<br/>
-			<h:commandButton value="#{msg.CU0019}">
-				<f:ajax event="click" render="@form" execute="@form" listener="#{detailBean.removeClipsFromPlaylist}"/>
-			</h:commandButton>
-			<client:clip-list-func formId="detail" checkBoxId="selectClipCheckBox" bean="#{detailBean}"/>
-			<client:clip-list formId="detail" clips="#{detailBean.referenceDtos}" bean="#{detailBean}"
-								orderInPlaylistChangable="#{detailBean.playlistDetail.editable}"/>
-		</t:div>
-		<t:div rendered="#{detailBean.objectType eq 'genre'}">
-			<client:genre-detail genre="#{detailBean.genreDetail}"/>
-			<client:clip-list-func formId="detail" checkBoxId="selectClipCheckBox" bean="#{detailBean}"/>
-			<client:paging bean="#{detailBean}"/>
-			<client:clip-list formId="detail" clips="#{detailBean.referenceDtos}" bean="#{detailBean}"/>
-			<client:paging bean="#{detailBean}"/>
-		</t:div>
-		<t:div rendered="#{detailBean.objectType eq 'user'}">
-			<client:uploader-detail uploader="#{detailBean.userDetail}" bean="#{detailBean}"/>
-			<client:clip-list-func formId="detail" checkBoxId="selectClipCheckBox" bean="#{detailBean}"/>
-			<client:paging bean="#{detailBean}"/>
-			<client:clip-list formId="detail" clips="#{detailBean.referenceDtos}" bean="#{detailBean}"/>
-			<client:paging bean="#{detailBean}"/>
-		</t:div>
+		<div style="width:100%;height: 54px; padding-top: 13px;" align="left">
+			<client:clip-list-func formId="detail" checkBoxId="selectClipCheckBox" bean="#{detailBean}"
+				displayRemoveClipsFromPlaylist="#{userProfileBean.loggedIn and detailBean.objectType eq 'playlist'}"/>
+		</div>
+		<table cellpadding="0" cellspacing="0" style="width: 100%; vertical-align: middle;">
+			<tr>
+				<td style="width: 20%;vertical-align: top;">
+					<client:sidePanel rendered="#{detailBean.objectType eq 'singer'}">
+						<ui:define name="title">#{msg.singer} #{detailBean.singerDetail.name}</ui:define>
+						<ui:define name="body">
+							<client:singer-detail singer="#{detailBean.singerDetail}" bean="#{detailBean}"/>
+						</ui:define>
+					</client:sidePanel>
+					<client:sidePanel rendered="#{detailBean.objectType eq 'composer'}">
+						<ui:define name="title">#{msg.composer} #{detailBean.composerDetail.name}</ui:define>
+						<ui:define name="body">
+							<client:composer-detail composer="#{detailBean.composerDetail}"/>
+						</ui:define>
+					</client:sidePanel>
+					<client:sidePanel rendered="#{detailBean.objectType eq 'playlist'}">
+						<ui:define name="title">#{msg.playlist} #{detailBean.playlistDetail.name}</ui:define>
+						<ui:define name="body">
+							<client:playlist-detail playlist="#{detailBean.playlistDetail}"/>
+							<h:commandButton value="#{msg.CU0020}" onclick="return confirm('#{msg.CM0010}');"
+									rendered="#{detailBean.playlistDetail.editable}">
+								<f:ajax event="click" render="@form" execute="@form" listener="#{detailBean.deletePlaylists}"/>
+							</h:commandButton>
+						</ui:define>
+					</client:sidePanel>
+					<client:sidePanel rendered="#{detailBean.objectType eq 'genre'}">
+						<ui:define name="title">
+							#{msg.genre}&nbsp;
+							<h:outputText
+								value="#{detailBean.genreDetail.nameVi}"
+								rendered="#{utilsBean.currentLanguage eq 'vi'}"/>
+							<h:outputText
+								value="#{detailBean.genreDetail.nameEn}"
+								rendered="#{utilsBean.currentLanguage eq 'en'}"/>
+						</ui:define>
+						<ui:define name="body">
+							<client:genre-detail genre="#{detailBean.genreDetail}"/>
+						</ui:define>
+					</client:sidePanel>
+					<client:sidePanel rendered="#{detailBean.objectType eq 'user'}">
+						<ui:define name="title">#{msg.uploader} #{detailBean.userDetail.name}</ui:define>
+						<ui:define name="body">
+							<client:uploader-detail uploader="#{detailBean.userDetail}" bean="#{detailBean}"/>
+						</ui:define>
+					</client:sidePanel>
+				</td>
+				<td style="vertical-align: top;" align="center">
+					<t:div rendered="#{detailBean.objectType eq 'singer'}">
+						<client:clip-list formId="detail" clips="#{detailBean.referenceDtos}" bean="#{detailBean}"/>
+						<client:paging bean="#{detailBean}"/>
+					</t:div>
+					<t:div rendered="#{detailBean.objectType eq 'composer'}">
+						<client:clip-list formId="detail" clips="#{detailBean.referenceDtos}" bean="#{detailBean}"/>
+						<client:paging bean="#{detailBean}"/>
+					</t:div>
+					<t:div rendered="#{detailBean.objectType eq 'playlist'}">
+						<client:clip-list formId="detail" clips="#{detailBean.referenceDtos}" bean="#{detailBean}"
+											orderInPlaylistChangable="#{detailBean.playlistDetail.editable}"/>
+					</t:div>
+					<t:div rendered="#{detailBean.objectType eq 'genre'}">
+						<client:clip-list formId="detail" clips="#{detailBean.referenceDtos}" bean="#{detailBean}"/>
+						<client:paging bean="#{detailBean}"/>
+					</t:div>
+					<t:div rendered="#{detailBean.objectType eq 'user'}">
+						<client:clip-list formId="detail" clips="#{detailBean.referenceDtos}" bean="#{detailBean}"/>
+						<client:paging bean="#{detailBean}"/>
+					</t:div>
+				</td>
+				<td style="width: 20%;vertical-align: top;">
+					<client:sidePanel rendered="#{true}">
+						<ui:define name="title">Trang phai</ui:define>
+						<ui:define name="body">Trang phai</ui:define>
+					</client:sidePanel>
+				</td>
+			</tr>
+		</table>
 		<client:messages formId="detail" bean="#{detailBean}"/>
 		<client:messages formId="detail" bean="#{zentaiBean}"/>
 	</h:form>

@@ -19,6 +19,7 @@ public class UserDto extends BaseDto {
 	private String name;
 	private String sex;
 	private Date birthday;
+	private Integer nFollowers;
 	
 	//followers of this uploader
 	private List<UserDto> followers;
@@ -155,6 +156,14 @@ public class UserDto extends BaseDto {
 
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
+	}
+
+	public Integer getnFollowers() {
+		return nFollowers;
+	}
+
+	public void setnFollowers(Integer nFollowers) {
+		this.nFollowers = nFollowers;
 	}
 	
 	

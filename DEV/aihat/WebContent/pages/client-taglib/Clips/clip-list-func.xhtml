@@ -83,6 +83,17 @@
 					</h:commandButton>
 				</t:div>
 			</td>
+			<td>
+				<t:div rendered="#{displayRemoveClipsFromPlaylist}">
+					<client:button>
+						<ui:define name="button-body">
+							<h:commandButton value="#{msg.CU0019}">
+								<f:ajax event="click" render="@form" execute="@form" listener="#{detailBean.removeClipsFromPlaylist}"/>
+							</h:commandButton>
+						</ui:define>
+					</client:button>
+				</t:div>
+			</td>
 		</tr>
 	</table>
 </ui:composition>
