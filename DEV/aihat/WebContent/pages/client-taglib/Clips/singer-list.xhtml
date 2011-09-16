@@ -13,7 +13,7 @@
 				<h:commandLink onclick="slideToDetail();">
 					<f:param name="singerId" value="#{aSinger.id}"/>
 					<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showSingerDetail}"/>
-					<h:graphicImage url="#{config.server}/img/#{aSinger.image}" width="120"/>
+					<h:graphicImage url="#{config.server}/img/#{aSinger.image}"/>
 				</h:commandLink>
 				<h:panelGrid columns="2">
 					<h:outputText value="#{msg.client_clips_singer_name}:#{aSinger.name}"/>

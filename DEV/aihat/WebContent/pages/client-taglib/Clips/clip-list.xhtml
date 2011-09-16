@@ -31,7 +31,7 @@
 			</tr>
 		</thead>
 		<c:forEach var="aClip" items="#{clips}">
-			<tr class="odd-line" onmouseover="oddEventMouseOver(this)" onmouseout="oddEventMouseOut(this)">
+			<tr class="odd-line" style="height:31px;" onmouseover="oddEventMouseOver(this)" onmouseout="oddEventMouseOut(this)">
 				<td rowspan="2" class="nohover" align="center">
 					<table cellpadding="0" cellspacing="0">
 						<tr>
@@ -72,7 +72,7 @@
 						<h:commandLink onclick="slideToFeaturedClips(); updateCurrentPlaybackPos();">
 							<f:param name="selectedClipId" value="#{aClip.id}"/>
 							<f:ajax event="click" execute=":featuredClips" render=":featuredClips" listener="#{featuredClipsBean.playOne}"/>
-							<h:outputText value="#{aClip.title}" style="color:#1d1d1d"/>
+							<h:outputText value="#{aClip.title}" styleClass="style017"/>
 						</h:commandLink>
 						<h:graphicImage url="#{config.server}/img/client/hd.png" rendered="#{aClip.official}"/>
 					</h:panelGrid>
