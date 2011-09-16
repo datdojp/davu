@@ -6,26 +6,75 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:client="http://www.aihat.net/client">
 <ui:composition>
-	<h1>#{msg.CU0010}</h1><br/>
-	<h:panelGrid columns="3">
-		<h:graphicImage url="#{playlist.mainClip.thumbnailLink}" width="120"/>
-		<h:panelGrid columns="1">
-			<h:outputText value="#{msg.client_clips_composer_name}:#{playlist.name}" rendered="#{not playlist.editable}"/>
-			<t:div rendered="#{not playlist.editable}">
-				#{playlist.description}
-			</t:div>
-			<h:panelGrid columns="1" rendered="#{playlist.editable}">
-				<h:inputText value="#{playlist.name}"/>
-				<h:inputTextarea value="#{playlist.description}"></h:inputTextarea>
-				<h:commandButton value="#{msg.CU0018}">
-					<f:ajax event="click" render="@form" execute="@form" listener="#{detailBean.updatePlaylist}"/>
-				</h:commandButton>
-			</h:panelGrid>
-			<h:outputText value="#{msg.client_clips_playlist_uploader}:#{playlist.user.mail}"/>
-			<h:outputText value="#{playlist.nClips} #{msg.client_clips_playlist_nClips}"/>
-		</h:panelGrid>
-	</h:panelGrid>
+	<div>
+		<h:graphicImage url="#{playlist.mainClip.thumbnailLink}" style="width:100%" styleClass="avatar"/>
+	</div>
+	<table cellpadding="0" cellspacing="5" style="width: 100%;" class="detail-text">
+		<tr>
+			<td align="left" style="padding-left: 12px;" colspan="2">
+				<h:outputText value="#{msg.client_clips_composer_name}" rendered="#{playlist.editable}"/>
+			</td>
+		</tr>
+		<tr>
+			<td align="left" style="padding-left: 12px;" colspan="2">
+				<h:inputText value="#{playlist.name}" rendered="#{playlist.editable}" styleClass="style004" style="width:99%"/>
+			</td>
+		</tr>
+		<tr>
+			<td align="left" style="padding-left: 12px;" colspan="2">
+				#{msg.description}
+			</td>
+		</tr>
+		<tr>
+			<td align="left" style="padding-left: 12px;"  colspan="2">
+				<t:div rendered="#{not playlist.editable}">
+					<h:outputText value="#{playlist.description}" styleClass="style016"/>
+				</t:div>
+				<h:inputTextarea value="#{playlist.description}" rendered="#{playlist.editable}" styleClass="style004" style="width:99%; height:100px"/>
+			</td>
+		</tr>
+		<tr>
+			<td align="left" style="padding-left: 12px;">
+				#{msg.client_clips_playlist_uploader}
+			</td>
+			<td>
+				<h:outputText value="#{playlist.user.name}" styleClass="style016"/>
+			</td>
+		</tr>
+		<tr>
+			<td align="left" style="padding-left: 12px;" colspan="2">
+				<h:outputText value="#{playlist.nClips} #{msg.client_clips_playlist_nClips}" styleClass="style016"/>
+			</td>
+		</tr>
+		<tr>
+			<td align="center" colspan="2">
+				<t:div rendered="#{playlist.editable}" style="width:170px">
+					<client:button>
+						<ui:define name="button-body">
+							<h:commandButton value="#{msg.CU0018}">
+								<f:ajax event="click" render="@form" execute="@form" listener="#{detailBean.updatePlaylist}"/>
+							</h:commandButton>
+						</ui:define>
+					</client:button>
+				</t:div>
+			</td>
+		</tr>
+		<tr>
+			<td align="center" colspan="2">
+				<t:div rendered="#{playlist.editable}" style="width:170px">
+					<client:button>
+						<ui:define name="button-body">
+							<h:commandButton value="#{msg.CU0020}" onclick="return confirm('#{msg.CM0010}');">
+								<f:ajax event="click" render="@form" execute="@form" listener="#{detailBean.deletePlaylists}"/>
+							</h:commandButton>
+						</ui:define>
+					</client:button>
+				</t:div>
+			</td>
+		</tr>
+	</table>
 </ui:composition>
 </html>

@@ -33,10 +33,6 @@
 						<ui:define name="title">#{msg.playlist} #{detailBean.playlistDetail.name}</ui:define>
 						<ui:define name="body">
 							<client:playlist-detail playlist="#{detailBean.playlistDetail}"/>
-							<h:commandButton value="#{msg.CU0020}" onclick="return confirm('#{msg.CM0010}');"
-									rendered="#{detailBean.playlistDetail.editable}">
-								<f:ajax event="click" render="@form" execute="@form" listener="#{detailBean.deletePlaylists}"/>
-							</h:commandButton>
 						</ui:define>
 					</client:sidePanel>
 					<client:sidePanel rendered="#{detailBean.objectType eq 'genre'}">

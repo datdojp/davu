@@ -156,7 +156,7 @@
 		var clipList = [];
 		var clipStartTime;
 		<c:forEach items="#{clips}" var="aClip">
-			clipList.push({id:"#{aClip.id}", title:"#{aClip.title}", link:"#{aClip.embeddedLink}"});
+			clipList.push({id:"#{aClip.id}", title:"#{aClip.titleEscapeDoubleQuote}", link:"#{aClip.embeddedLink}"});
 		</c:forEach>
 
 		var tempPlaybackPos = 0;

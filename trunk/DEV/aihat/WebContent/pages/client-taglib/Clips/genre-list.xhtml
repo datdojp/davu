@@ -8,20 +8,26 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 <ui:composition>
-	<h:panelGrid columns="3">
-		<ui:repeat var="aGenre" value="#{genres}">
-			<h:commandLink onclick="slideToDetail();">
-				<f:param name="genreId" value="#{aGenre.id}"/>
-				<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showGenreDetail}"/>
-				<h:outputText
-					value="#{aGenre.nameVi}"
-					rendered="#{utilsBean.currentLanguage eq 'vi'}"/>
-				<h:outputText
-					value="#{aGenre.nameEn}"
-					rendered="#{utilsBean.currentLanguage eq 'en'}"/>
-			</h:commandLink>
-			<h:outputText value="(#{aGenre.nClips} #{msg.client_clips_genre_clip})"/>
-		</ui:repeat>
+	<div class="style018"></div>
+	<h:panelGrid columns="3" rowClasses="genre-item-even,genre-item-odd" style="width:100%; font-weight:bold;font-size:8pt"
+			cellpadding="5">
+		<c:forEach var="aGenre" items="#{genres}">
+			<h:panelGrid columns="2">
+				<h:commandLink onclick="slideToDetail();">
+					<f:param name="genreId" value="#{aGenre.id}"/>
+					<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showGenreDetail}"/>
+					<h:outputText
+						value="#{aGenre.nameVi}"
+						rendered="#{utilsBean.currentLanguage eq 'vi'}"
+						styleClass="style017"/>
+					<h:outputText
+						value="#{aGenre.nameEn}"
+						rendered="#{utilsBean.currentLanguage eq 'en'}"
+						styleClass="style017"/>
+				</h:commandLink>
+				<h:outputText value="(#{aGenre.nClips} #{msg.client_clips_genre_clip})" styleClass="style016"/>
+			</h:panelGrid>
+		</c:forEach>
 	</h:panelGrid>
 </ui:composition>
 </html>

@@ -9,6 +9,7 @@
 			pl.modified_time as modifiedTime,
 			pl.user_id as `user.id`,
 			u.mail as `user.mail`,
+			u.name as `user.name`,
 			pl.name_search as nameSearch,
 			pl.deleted as deleted,
 			(

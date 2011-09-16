@@ -40,6 +40,12 @@ public class ClipDto extends BaseUserCareDto {
 	public String getTitle() {
 		return title;
 	}
+	public String getTitleEscapeDoubleQuote() {
+		if(AihatUtils.isEmpty(title)) {
+			return title;
+		}
+		return title.replace("\"", "\\\"");
+	}
 	public void setTitle(String title) {
 		this.title = title;
 	}
