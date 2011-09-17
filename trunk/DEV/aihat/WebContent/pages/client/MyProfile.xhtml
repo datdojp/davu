@@ -11,93 +11,187 @@
 <ui:composition>
 	<h:form id="myProfile" enctype="multipart/form-data">
 		<t:div rendered="#{userProfileBean.loggedIn}">
-			<h:panelGrid columns="2">
-				<h:panelGroup>
-					<h:graphicImage url="#{config.server}/img/#{userProfileBean.profile.image}" width="120"/>
-					<br/>
-					<t:inputFileUpload value="#{myProfileBean.avatarFile}"
-								storage="file"
-								accept="image/*"
-								styleClass="fileProfileAvatar"/>
-				</h:panelGroup>
-				<h:panelGrid columns="3">
-					<h:outputText value="#{msg.name}"/>
-					<h:inputText value="#{myProfileBean.name}"/>
-					<h:outputText/>
-					
-					<h:outputText value="#{msg.sex}"/>
-					<h:selectOneListbox value="#{myProfileBean.sex}" size="1">
-						<f:selectItem itemLabel="#{msg.unknown}" itemValue="U"/>
-						<f:selectItem itemLabel="#{msg.CU0042}" itemValue="M"/>
-						<f:selectItem itemLabel="#{msg.CU0043}" itemValue="F"/>
-					</h:selectOneListbox>
-					<h:outputText/>
-					
-					<h:outputText value="#{msg.CU0044}"/>
-					<h:panelGroup>
-						<h:outputText value="#{msg.CU0045}"/>
-						<h:selectOneListbox value="#{myProfileBean.birthdayDD}" size="1">
-							<c:forEach var="i" begin="1" end="31" step="1">
-								<f:selectItem itemLabel="#{i}" itemValue="#{i}"/>			
-							</c:forEach>
-						</h:selectOneListbox>
-						<h:outputText value="#{msg.CU0046}"/>
-						<h:selectOneListbox value="#{myProfileBean.birthdayMM}" size="1">
-							<c:forEach var="i" begin="1" end="12" step="1">
-								<f:selectItem itemLabel="#{i}" itemValue="#{i}"/>			
-							</c:forEach>
-						</h:selectOneListbox>
-						<h:outputText value="#{msg.CU0047}"/>
-						<h:selectOneListbox value="#{myProfileBean.birthdayYY}" size="1">
-							<c:forEach var="i" begin="1950" end="2011" step="1">
-								<f:selectItem itemLabel="#{2048+i}" itemValue="#{2048+i}"/>			
-							</c:forEach>
-						</h:selectOneListbox>
-					</h:panelGroup>
-					<h:outputText/>
-					
-					<h:outputText value="#{msg.CU0001}"/>
-					<h:inputSecret value="#{myProfileBean.oldPassword}" redisplay="true"/>
-					<h:outputText/>
-					<h:outputText value="#{msg.CU0002}"/>
-					<h:inputSecret value="#{myProfileBean.newPassword}" redisplay="true"/>
-					<h:outputText value="(#{msg.password_more_than_3_char})"/>
-					<h:outputText value="#{msg.CU0003}"/>
-					<h:inputSecret value="#{myProfileBean.confirmNewPassword}" redisplay="true"/>
-					<h:outputText/>
-					<h:commandButton value="#{msg.CU0004}" action="#{myProfileBean.update}">
-						<f:setPropertyActionListener target="#{zentaiBean.pageName}" value="MyProfile"/>
-					</h:commandButton>
-				</h:panelGrid>
-			</h:panelGrid>
-			<h:panelGrid columns="3">
-				<h:commandButton value="#{msg.CU0005}">
-					<f:ajax event="click" render="@form" listener="#{myProfileBean.selectMyPlaylistsTab}"/>
-				</h:commandButton>
-				<h:commandButton value="#{msg.CU0006}">
-					<f:ajax event="click" render="@form" listener="#{myProfileBean.selectLikedClipstab}"/>
-				</h:commandButton>
-				<h:commandButton value="#{msg.CU0007}">
-					<f:ajax event="click" render="@form" listener="#{myProfileBean.selectNotifiedClipsTab}"/>
-				</h:commandButton>
-			</h:panelGrid>
-			<t:div rendered="#{myProfileBean.displayTab eq 'myplaylists'}">
-				<client:paging  bean="#{myProfileBean}"/>
-				<client:playlist-list playlists="#{myProfileBean.tabDataMap['myplaylists']}"/>
-				<client:paging  bean="#{myProfileBean}"/>
-			</t:div>
-			<t:div rendered="#{myProfileBean.displayTab eq 'likedClips'}">
-				<client:clip-list-func formId="myProfile" checkBoxId="selectClipCheckBox" bean="#{myProfileBean}"/>
-				<client:paging bean="#{myProfileBean}"/>
-				<client:clip-list formId="myProfile" clips="#{myProfileBean.tabDataMap['likedClips']}" bean="#{myProfileBean}"/>
-				<client:paging bean="#{myProfileBean}"/>
-			</t:div>
-			<t:div rendered="#{myProfileBean.displayTab eq 'newClips'}">
-				<client:clip-list-func formId="myProfile" checkBoxId="selectClipCheckBox" bean="#{myProfileBean}"/>
-				<client:paging bean="#{myProfileBean}"/>
-				<client:clip-list formId="myProfile" clips="#{myProfileBean.tabDataMap['newClips']}" bean="#{myProfileBean}"/>
-				<client:paging bean="#{myProfileBean}"/>
-			</t:div>
+			<div class="style006" style="background-image: none;height:auto;">
+				<table cellpadding="5" cellspacing="0">
+					<tr>
+						<td>
+							<h:panelGroup>
+								<h:graphicImage url="#{config.server}/img/#{userProfileBean.profile.image}" height="104"/>
+								<br/>
+								<t:inputFileUpload value="#{myProfileBean.avatarFile}"
+											storage="file"
+											accept="image/*"
+											styleClass="fileProfileAvatar"/>
+							</h:panelGroup>
+						</td>
+						<td>
+							<table cellpadding="5" cellspacing="0">
+								<tr>
+									<td>
+										<h:outputText value="#{msg.name}" styleClass="detail-text"/>
+									</td>
+									<td>
+										<h:inputText value="#{myProfileBean.name}" styleClass="style004 style021" style="width:262px"/>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<h:outputText value="#{msg.sex}" styleClass="detail-text"/>
+									</td>
+									<td>
+										<h:selectOneListbox value="#{myProfileBean.sex}" size="1" styleClass="style004 style021" style="width:262px">
+											<f:selectItem itemLabel="#{msg.unknown}" itemValue="U"/>
+											<f:selectItem itemLabel="#{msg.CU0042}" itemValue="M"/>
+											<f:selectItem itemLabel="#{msg.CU0043}" itemValue="F"/>
+										</h:selectOneListbox>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<h:outputText value="#{msg.CU0044}" styleClass="detail-text"/>
+									</td>
+									<td>
+										<h:panelGrid columns="6">
+											<h:outputText value="#{msg.CU0045}" styleClass="style016"/>
+											<h:selectOneListbox value="#{myProfileBean.birthdayDD}" size="1" styleClass="style004 style021" style="width:40px">
+												<c:forEach var="i" begin="1" end="31" step="1">
+													<f:selectItem itemLabel="#{i}" itemValue="#{i}"/>			
+												</c:forEach>
+											</h:selectOneListbox>
+											<h:outputText value="#{msg.CU0046}" styleClass="style016"/>
+											<h:selectOneListbox value="#{myProfileBean.birthdayMM}" size="1" styleClass="style004 style021" style="width:40px">
+												<c:forEach var="i" begin="1" end="12" step="1">
+													<f:selectItem itemLabel="#{i}" itemValue="#{i}"/>			
+												</c:forEach>
+											</h:selectOneListbox>
+											<h:outputText value="#{msg.CU0047}" styleClass="style016"/>
+											<h:selectOneListbox value="#{myProfileBean.birthdayYY}" size="1" styleClass="style004 style021" style="width:50px">
+												<c:forEach var="i" begin="1950" end="2011" step="1">
+													<f:selectItem itemLabel="#{2048+i}" itemValue="#{2048+i}"/>			
+												</c:forEach>
+											</h:selectOneListbox>
+										</h:panelGrid>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<h:outputText value="#{msg.CU0001}" styleClass="detail-text"/>
+									</td>
+									<td>
+										<h:inputSecret value="#{myProfileBean.oldPassword}" redisplay="true" styleClass="style004 style021" style="width:262px"/>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<h:outputText value="#{msg.CU0002}" styleClass="detail-text"/>
+										<h:outputText value="(#{msg.password_more_than_3_char})"/>
+									</td>
+									<td>
+										<h:inputSecret value="#{myProfileBean.newPassword}" redisplay="true" styleClass="style004 style021" style="width:262px"/>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<h:outputText value="#{msg.CU0003}" styleClass="detail-text"/>
+									</td>
+									<td>
+										<h:inputSecret value="#{myProfileBean.confirmNewPassword}" redisplay="true" styleClass="style004 style021" style="width:262px"/>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" align="right">
+										<t:div>
+											<client:button>
+												<ui:define name="button-body">
+													<h:commandButton value="#{msg.CU0004}" action="#{myProfileBean.update}">
+														<f:setPropertyActionListener target="#{zentaiBean.pageName}" value="MyProfile"/>
+													</h:commandButton>
+												</ui:define>
+											</client:button>
+										</t:div>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+				<hr></hr>
+				<table style="width: 100%; height:100%" cellpadding="0" cellspacing="0">
+					<tr style="height:40px">
+						<td align="left">
+							<t:div rendered="#{myProfileBean.displayTab eq 'myclips' or myProfileBean.displayTab eq 'likedClips' or myProfileBean.displayTab eq 'newClips'}">
+								<client:clip-list-func formId="clips" checkBoxId="selectClipCheckBox" bean="#{myProfileBean}"/>
+							</t:div>
+						</td>
+					</tr>
+					<tr>
+						<td align="center" style="vertical-align: bottom;">
+							<table class="style008" cellspacing="0" cellpadding="0" border="0">
+								<tr>
+									<td>
+										<h:commandButton value="#{msg.CU0005}" styleClass="myplaylists">
+											<f:ajax event="click" render="@form" listener="#{myProfileBean.selectMyPlaylistsTab}"/>
+										</h:commandButton>
+									</td>
+									<td>
+										<h:commandButton value="#{msg.myclips}" styleClass="myclips">
+											<f:ajax event="click" render="@form" listener="#{myProfileBean.selectMyClips}"/>
+										</h:commandButton>
+									</td>
+									<td>
+										<h:commandButton value="#{msg.CU0006}" styleClass="likedClips">
+											<f:ajax event="click" render="@form" listener="#{myProfileBean.selectLikedClipstab}"/>
+										</h:commandButton>
+									</td>
+									<td>
+										<h:commandButton value="#{msg.CU0007}" styleClass="newClips">
+											<f:ajax event="click" render="@form" listener="#{myProfileBean.selectNotifiedClipsTab}"/>
+										</h:commandButton>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<script>
+				$("#myProfile").find(".#{myProfileBean.displayTab}").addClass("selected");
+			</script>
+			
+			<table cellpadding="0" cellspacing="0" style="width: 100%; vertical-align: middle;">
+				<tr>
+					<td style="width: 20%;vertical-align: top;">
+						<client:sidePanel rendered="#{true}">
+							<ui:define name="title">Trang trai</ui:define>
+							<ui:define name="body">Trang trai</ui:define>
+						</client:sidePanel>
+					</td>
+					<td style="vertical-align: top;" align="center">
+						<t:div rendered="#{myProfileBean.displayTab eq 'myplaylists'}">
+							<client:playlist-list playlists="#{myProfileBean.tabDataMap['myplaylists']}"/>
+							<client:paging  bean="#{myProfileBean}"/>
+						</t:div>
+						<t:div rendered="#{myProfileBean.displayTab eq 'myclips'}">
+							<client:clip-list formId="myProfile" clips="#{myProfileBean.tabDataMap['myclips']}" bean="#{myProfileBean}"/>
+							<client:paging  bean="#{myProfileBean}"/>
+						</t:div>
+						<t:div rendered="#{myProfileBean.displayTab eq 'likedClips'}">
+							<client:clip-list formId="myProfile" clips="#{myProfileBean.tabDataMap['likedClips']}" bean="#{myProfileBean}"/>
+							<client:paging bean="#{myProfileBean}"/>
+						</t:div>
+						<t:div rendered="#{myProfileBean.displayTab eq 'newClips'}">
+							<client:clip-list formId="myProfile" clips="#{myProfileBean.tabDataMap['newClips']}" bean="#{myProfileBean}"/>
+							<client:paging bean="#{myProfileBean}"/>
+						</t:div>
+					</td>
+					<td style="width: 20%;vertical-align: top;">
+						<client:sidePanel rendered="#{true}">
+							<ui:define name="title">Trang phai</ui:define>
+							<ui:define name="body">Trang phai</ui:define>
+						</client:sidePanel>
+					</td>
+				</tr>
+			</table>
 		</t:div>
 		<client:messages formId="myProfile" bean="#{myProfileBean}"/>
 		<client:messages formId="myProfile" bean="#{detailBean}"/>

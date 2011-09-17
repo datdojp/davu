@@ -35,6 +35,7 @@ public class MyProfileBean extends MultiTabPagingBean {
 	}
 
 	private final String MYPLAYLISTS_TAB = "myplaylists";
+	private final String MYCLIPS_TAB = "myclips";
 	private final String LIKED_CLIPS_TAB = "likedClips";
 	private final String FOLLOWED_SINGERS_TAB = "likedSingers";
 	private final String NOTIFIED_CLIPS_TAB = "newClips";
@@ -217,18 +218,21 @@ public class MyProfileBean extends MultiTabPagingBean {
 	 */
 	protected void initTabPagingMap() {
 		tabPagingMap.put(MYPLAYLISTS_TAB, new PagingCriterion(0l, getConfigurationService().getnRowsPerPage()));
+		tabPagingMap.put(MYCLIPS_TAB, new PagingCriterion(0l, getConfigurationService().getnRowsPerPage()));
 		tabPagingMap.put(LIKED_CLIPS_TAB, new PagingCriterion(0l, getConfigurationService().getnRowsPerPage()));
 		tabPagingMap.put(FOLLOWED_SINGERS_TAB, new PagingCriterion(0l, getConfigurationService().getnRowsPerPage()));
 		tabPagingMap.put(NOTIFIED_CLIPS_TAB, new PagingCriterion(0l, getConfigurationService().getnRowsPerPage()));
 	}
 	protected void initTabDataMap() {
 		tabDataMap.put(MYPLAYLISTS_TAB, new ArrayList());
+		tabDataMap.put(MYCLIPS_TAB, new ArrayList());
 		tabDataMap.put(LIKED_CLIPS_TAB, new ArrayList());
 		tabDataMap.put(FOLLOWED_SINGERS_TAB, new ArrayList());
 		tabDataMap.put(NOTIFIED_CLIPS_TAB, new ArrayList());
 	}
 	protected void initTabDataCountMap() {
 		tabDataCountMap.put(MYPLAYLISTS_TAB, 0l);
+		tabDataCountMap.put(MYCLIPS_TAB, 0l);
 		tabDataCountMap.put(LIKED_CLIPS_TAB, 0l);
 		tabDataCountMap.put(FOLLOWED_SINGERS_TAB, 0l);
 		tabDataCountMap.put(NOTIFIED_CLIPS_TAB, 0l);
@@ -254,6 +258,24 @@ public class MyProfileBean extends MultiTabPagingBean {
 				addErrorMessage(BeanUtils.getBundleMsg("common_please_login"));
 			}
 			
+			updateCurrentCounting();
+		} catch (Throwable err) {
+			handleGeneralError(err);
+		}
+	}
+	public synchronized void selectMyClips(AjaxBehaviorEvent e) {
+		try {
+			displayTab = MYCLIPS_TAB;
+			UserDto user = BeanUtils.getUserProfileBean().getProfile();
+			if(user != null && AihatUtils.isValidId(user.getId())) {
+				tabDataMap.put(displayTab,
+						getSearchService().searchClips(null, null, null, null, null, null, user.getMail(), user.getId(), null, null, 
+							new SortCriterion("title", SortCriterion.ORDER_ASCENDING), 
+							tabPagingMap.get(displayTab), false, null, null).getResults()
+					);
+			} else {
+				addErrorMessage(BeanUtils.getBundleMsg("common_please_login"));
+			}
 			updateCurrentCounting();
 		} catch (Throwable err) {
 			handleGeneralError(err);
@@ -330,6 +352,8 @@ public class MyProfileBean extends MultiTabPagingBean {
 	protected void reselectCurrentTab() {
 		if(MYPLAYLISTS_TAB.equals(displayTab)) {
 			selectMyPlaylistsTab(null);
+		} else if(MYCLIPS_TAB.equals(displayTab)) {
+			selectMyClips(null);
 		} else if(LIKED_CLIPS_TAB.equals(displayTab)) {
 			selectLikedClipstab(null);
 		} else if(FOLLOWED_SINGERS_TAB.equals(displayTab)) {
@@ -353,6 +377,11 @@ public class MyProfileBean extends MultiTabPagingBean {
 					getSearchService().searchPlaylists(null, null, user.getId(),
 							null, null, true).getnResults()
 					);
+			} else if(MYCLIPS_TAB.equals(displayTab)) {
+				tabDataCountMap.put(displayTab,
+						getSearchService().searchClips(null, null, null, null, null, null, user.getMail(), user.getId(), null, null, 
+								null, null, true, null, null).getnResults()
+						);
 			} else if(LIKED_CLIPS_TAB.equals(displayTab)) {
 				tabDataCountMap.put(displayTab,
 					getSearchService().searchClips(null, null, null, null, null, null, null, user.getId(), null, null, 
