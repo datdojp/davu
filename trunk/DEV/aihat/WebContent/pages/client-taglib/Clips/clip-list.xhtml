@@ -60,7 +60,7 @@
 						</tr>
 					</table>
 				</td>
-				<td rowspan="2" class="nohover" >
+				<td rowspan="2" class="nohover" style="width:1%">
 					<h:commandLink onclick="slideToFeaturedClips(); updateCurrentPlaybackPos();">
 						<f:param name="selectedClipId" value="#{aClip.id}"/>
 						<f:ajax event="click" execute=":featuredClips" render=":featuredClips" listener="#{featuredClipsBean.playOne}"/>

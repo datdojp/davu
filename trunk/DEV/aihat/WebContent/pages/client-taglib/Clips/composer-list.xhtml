@@ -8,23 +8,32 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 <ui:composition>
-	<h:panelGrid columns="3">
-		<ui:repeat var="aComposer" value="#{composers}">
-			<h:panelGrid columns="2">
-				<h:commandLink onclick="slideToDetail();">
-					<f:param name="composerId" value="#{aComposer.id}"/>
-					<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showComposerDetail}"/>
-					<h:graphicImage url="#{config.server}/img/#{aComposer.image}" width="120"/>
-				</h:commandLink>
-				<h:panelGrid columns="1">
-					<h:outputText value="#{msg.client_clips_composer_name}:#{aComposer.name}"/>
-					<h:outputText value="#{msg.client_clips_composer_birthday}:#{aComposer.birthday}">
-						<f:convertDateTime pattern="dd.MM.yyyy"/>
-					</h:outputText>
-					<h:outputText value="#{aComposer.nClips} #{msg.client_clips_composer_clip}"/>
-				</h:panelGrid>
-			</h:panelGrid>
-		</ui:repeat>
+	<div class="style018"></div>
+	<h:panelGrid columns="2" columnClasses="twoItemsPerRows" rowClasses="odd-line,even-line" styleClass="dataTable" style="width:100%">
+		<c:forEach var="aComposer" items="#{composers}">
+			<h:panelGroup>
+				<table cellpadding="0" cellspacing="0" width="100%" style="table-layout: auto;">
+					<tr style="height:52px">
+						<td rowspan="2" style="width: 1%">
+							<h:commandLink onclick="slideToDetail();">
+								<f:param name="composerId" value="#{aComposer.id}"/>
+								<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showComposerDetail}"/>
+								<h:graphicImage url="#{config.server}/img/#{aComposer.image}" styleClass="avatar" height="104"/>
+							</h:commandLink>
+						</td>
+						<td style="padding-left: 12px">
+							<h:commandLink onclick="slideToDetail();">
+								<f:param name="composerId" value="#{aComposer.id}"/>
+								<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showComposerDetail}"/>
+								<h:outputText value="#{aComposer.name}" styleClass="style017"/>
+							</h:commandLink>
+							<br></br>
+							<h:outputText value="#{aComposer.nClips} #{msg.client_clips_composer_clip}" styleClass="style016"/>
+						</td>
+					</tr>
+				</table>
+			</h:panelGroup>
+		</c:forEach>
 	</h:panelGrid>
 </ui:composition>
 </html>
