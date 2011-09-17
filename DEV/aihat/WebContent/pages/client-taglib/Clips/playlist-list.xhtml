@@ -9,7 +9,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 <ui:composition>
 	<div class="style018"></div>
-	<h:panelGrid columns="2" rowClasses="odd-line,even-line" columnClasses="twoItemsPerRows" styleClass="dataTable">
+	<h:panelGrid columns="2" rowClasses="odd-line,even-line" columnClasses="twoItemsPerRows" styleClass="dataTable" style="width:100%">
 		<c:forEach var="aPlaylist" items="#{playlists}">
 			<h:panelGrid columns="2" columnClasses="style019,style020">
 				<h:commandLink onclick="slideToDetail();">
