@@ -9,7 +9,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 <ui:composition>
 	<div class="style018"></div>
-	<h:panelGrid columns="1" rowClasses="odd-line,even-line">
+	<h:panelGrid columns="2" rowClasses="odd-line,even-line" columnClasses="twoItemsPerRows" styleClass="dataTable">
 		<c:forEach var="aPlaylist" items="#{playlists}">
 			<h:panelGrid columns="2" columnClasses="style019,style020">
 				<h:commandLink onclick="slideToDetail();">
@@ -24,9 +24,17 @@
 					</table>
 				</h:commandLink>
 				<h:panelGrid columns="1">
-					<h:outputText value="#{msg.client_clips_composer_name}:#{aPlaylist.name}"/>
-					<h:outputText value="#{msg.client_clips_playlist_uploader}:#{aPlaylist.user.mail}"/>
-					<h:outputText value="#{aPlaylist.nClips} #{msg.client_clips_playlist_nClips}"/>
+					<h:commandLink onclick="slideToDetail();">
+						<f:param name="playlistId" value="#{aPlaylist.id}"/>
+						<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showPlaylistDetail}"/>
+						<h:outputText value="#{aPlaylist.name}" styleClass="style017"/>
+					</h:commandLink>
+					<h:commandLink onclick="slideToDetail();">
+						<f:param name="userId" value="#{aPlaylist.user.id}"/>
+						<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showUserDetail}"/>
+						<h:outputText value="#{aPlaylist.user.name}" styleClass="style014"/>
+					</h:commandLink>
+					<h:outputText value="#{aPlaylist.nClips} #{msg.client_clips_playlist_nClips}" styleClass="style016"/>
 				</h:panelGrid>
 			</h:panelGrid>
 		</c:forEach>

@@ -246,7 +246,6 @@ a :HOVER {
 
 .odd-line {
 	background-color: #e8f0f7;
-	height: 31px;
 }
 
 .line_over, .odd-line :HOVER, .even-line :HOVER{
@@ -380,4 +379,8 @@ a :HOVER {
 	width: 178px;
 }
 .style020 {
+}
+
+.twoItemsPerRows {
+		width: 50%;
 }
