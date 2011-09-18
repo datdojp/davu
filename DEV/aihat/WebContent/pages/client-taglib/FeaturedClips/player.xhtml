@@ -126,27 +126,51 @@
 				</c:forEach>
 			</div>
 		</div>
-		<div style="overflow-x: scroll;overflow:hidden;">
-			<table>
-				<tr style="float: left; height: 83px;">
-				<c:forEach items="#{clips}" var="aClip">
-					<td style="overflow: hidden;">
-						<h:graphicImage
-								url="#{aClip.thumbnailLink}"
-								onclick="loadClip('#{aClip.embeddedLink}', 0);"
-								styleClass="reflect clipThumbnail thumbnail#{aClip.id}"
-								width="80"/>
-						<div class="removeBtn" align="center" style="position:relative; bottom:80px;left:60px;">
-							<h:commandButton value="x" onclick="updateCurrentPlaybackPos();">
-									<f:param name="selectedClipId" value="#{aClip.id}"/>
-									<f:ajax event="click" execute="@form" render="@form" listener="#{featuredClipsBean.removeOne}"/>
-							</h:commandButton>
-						</div>
-					</td>
-				</c:forEach>
-				</tr>
-			</table>
-		</div>
+		<table cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+					<div class="featureclips-nav-left" onclick="featuredClipsNav(-1)">
+					</div>
+				</td>
+				<td>
+					<div style="overflow:hidden;" class="slider">
+						<table>
+							<tr style="float: left; height: 83px;">
+							<c:forEach items="#{clips}" var="aClip">
+								<td style="overflow: hidden;">
+									<div id="post#{aClip.id}">
+										<h:graphicImage
+												url="#{aClip.thumbnailLink}"
+												onclick="loadClip('#{aClip.embeddedLink}', 0);"
+												styleClass="reflect clipThumbnail thumbnail#{aClip.id}"
+												width="80"/>
+										<div class="removeBtn" align="center" style="position:relative; bottom:80px;left:60px;">
+											<h:commandButton value="x" onclick="updateCurrentPlaybackPos();">
+													<f:param name="selectedClipId" value="#{aClip.id}"/>
+													<f:ajax event="click" execute="@form" render="@form" listener="#{featuredClipsBean.removeOne}"/>
+											</h:commandButton>
+										</div>
+									</div>
+								</td>
+							</c:forEach>
+							</tr>
+						</table>
+					</div>
+				</td>
+				<td>
+					<div class="featureclips-nav-right" onclick="featuredClipsNav(1)">
+					</div>
+				</td>
+			</tr>
+		</table>
+		<script>
+			var sliderWidth = $(window).width()-36*2;
+			sliderWidth = sliderWidth - sliderWidth % 85;
+			var nVisibleClipsOnSlider = sliderWidth / 85;
+			var NAV_BY = 3;
+			var slider = $("#featuredClips").find(".slider");
+			slider.css({width:sliderWidth});
+		</script>
 	</div>
 	
 	<script>
@@ -267,6 +291,19 @@
 			$("img.reflect").reflect({/* Put custom options here */});
 			$("img.reflected").css("border", "");
 		});
+
+		//nav
+		var currentVisibleIdx = 0;
+		function featuredClipsNav(leftRight) {
+			if(leftRight == -1) {
+				currentVisibleIdx = Math.max(0, currentVisibleIdx - NAV_BY);
+			} else if (leftRight == 1) {
+				currentVisibleIdx = Math.min(clipList.length-nVisibleClipsOnSlider, currentVisibleIdx + NAV_BY);
+			} else {
+				return;
+			}
+			slider.scrollTo("#post" + clipList[currentVisibleIdx].id, 400);
+		}
 	</script>
 </ui:composition>
 </html>

@@ -61,7 +61,7 @@
 				u.id = #id#
 			</isNotNull>
 			<isNotNull property="mail" prepend="AND">
-				u.mail like #mail#
+				u.mail = #mail#
 			</isNotNull>
 			<isNotNull property="blocked" prepend="AND">
 				u.blocked = #blocked#

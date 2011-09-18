@@ -12,66 +12,66 @@
 	<h:form id="register">
 		<h1>#{msg.CU0027}</h1>
 		<h:panelGrid columns="3">
-			<h:outputText value="#{msg.name}"/>
-			<h:inputText value="#{registerBean.name}"/>
+			<h:outputText value="#{msg.name}" styleClass="detail-text"/>
+			<h:inputText value="#{registerBean.name}" styleClass="style004 style021" style="width:262px"/>
 			<h:outputText/>
 			
-			<h:outputText value="#{msg.sex}"/>
-			<h:selectOneListbox value="#{registerBean.sex}" size="1">
+			<h:outputText value="#{msg.sex}" styleClass="detail-text"/>
+			<h:selectOneListbox value="#{registerBean.sex}" size="1" styleClass="style004 style021" style="width:262px">
 				<f:selectItem itemLabel="#{msg.unknown}" itemValue="U"/>
 				<f:selectItem itemLabel="#{msg.CU0042}" itemValue="M"/>
 				<f:selectItem itemLabel="#{msg.CU0043}" itemValue="F"/>
 			</h:selectOneListbox>
 			<h:outputText/>
 			
-			<h:outputText value="#{msg.CU0044}"/>
-			<h:panelGroup>
-				<h:outputText value="#{msg.CU0045}"/>
-				<h:selectOneListbox value="#{registerBean.birthdayDD}" size="1">
+			<h:outputText value="#{msg.CU0044}" styleClass="detail-text"/>
+			<h:panelGrid columns="6">
+				<h:outputText value="#{msg.CU0045}" styleClass="style016"/>
+				<h:selectOneListbox value="#{registerBean.birthdayDD}" size="1" styleClass="style004 style021" style="width:40px">
 					<c:forEach var="i" begin="1" end="31" step="1">
 						<f:selectItem itemLabel="#{i}" itemValue="#{i}"/>			
 					</c:forEach>
 				</h:selectOneListbox>
-				<h:outputText value="#{msg.CU0046}"/>
-				<h:selectOneListbox value="#{registerBean.birthdayMM}" size="1">
+				<h:outputText value="#{msg.CU0046}" styleClass="style016"/>
+				<h:selectOneListbox value="#{registerBean.birthdayMM}" size="1" styleClass="style004 style021" style="width:40px">
 					<c:forEach var="i" begin="1" end="12" step="1">
 						<f:selectItem itemLabel="#{i}" itemValue="#{i}"/>			
 					</c:forEach>
 				</h:selectOneListbox>
-				<h:outputText value="#{msg.CU0047}"/>
-				<h:selectOneListbox value="#{registerBean.birthdayYY}" size="1">
+				<h:outputText value="#{msg.CU0047}" styleClass="style016"/>
+				<h:selectOneListbox value="#{registerBean.birthdayYY}" size="1" styleClass="style004 style021" style="width:50px">
 					<c:forEach var="i" begin="1950" end="2011" step="1">
 						<f:selectItem itemLabel="#{2048+i}" itemValue="#{2048+i}"/>			
 					</c:forEach>
 				</h:selectOneListbox>
-			</h:panelGroup>
+			</h:panelGrid>
 			<h:outputText/>
 			
-			<h:outputText value="#{msg.CU0028}"/>
-			<h:inputText value="#{registerBean.mail}"/>
-			<h:panelGroup>
-				<h:commandButton value="#{msg.CU0029}">
+			<h:outputText value="#{msg.CU0028}" styleClass="detail-text"/>
+			<h:inputText value="#{registerBean.mail}" styleClass="style004 style021" style="width:262px"/>
+			<h:panelGrid columns="2">
+				<h:commandButton value="#{msg.CU0029}" styleClass="shareBtn">
 					<f:ajax event="click" execute="@form" render="@form" listener="#{registerBean.checkMailAvailability}"/>
 				</h:commandButton>
-				<h:outputText value="không hợp lệ" style="color:red;" rendered="#{not registerBean.mailAvailable}"/>
-				<h:outputText value="hợp lệ" style="color:green;" rendered="#{registerBean.mailAvailable}"/>				
-			</h:panelGroup>
+				<h:graphicImage url="#{config.server}/img/client/unavailable.png" rendered="#{not registerBean.mailAvailable}" height="15"/>
+				<h:graphicImage url="#{config.server}/img/client/available.png" rendered="#{registerBean.mailAvailable}" height="15"/>
+			</h:panelGrid>
 			
-			<h:outputText value="#{msg.CU0030}"/>
-			<h:inputSecret value="#{registerBean.password}" redisplay="true"/>
-			<h:outputText value="(#{msg.password_more_than_3_char})"/>
+			<h:outputText value="#{msg.CU0030}" styleClass="detail-text"/>
+			<h:inputSecret value="#{registerBean.password}" redisplay="true" styleClass="style004 style021" style="width:262px"/>
+			<h:outputText value="(#{msg.password_more_than_3_char})" styleClass="detail-text style016"/>
 			
-			<h:outputText value="#{msg.CU0031}"/>
-			<h:inputSecret value="#{registerBean.confirmPassword}" redisplay="true"/>
+			<h:outputText value="#{msg.CU0031}" styleClass="detail-text"/>
+			<h:inputSecret value="#{registerBean.confirmPassword}" redisplay="true" styleClass="style004 style021" style="width:262px"/>
 			<h:outputText value=""/>
 			
-			<h:outputText value="#{registerBean.confirmQuestion.question}"/>
-			<h:inputText value="#{registerBean.answer}"/>
-			<h:outputText value="(#{msg.CU0032})"/>
+			<h:outputText value="#{registerBean.confirmQuestion.question}" styleClass="detail-text"/>
+			<h:inputText value="#{registerBean.answer}" styleClass="style004 style021" style="width:262px"/>
+			<h:outputText value="(#{msg.CU0032})" styleClass="detail-text style016"/>
 		</h:panelGrid>
-		
+		<br></br>
 		<h:selectBooleanCheckbox value="#{registerBean.confirmPolicy}"/>
-		<h:outputText value="#{msg.CU0033}"/>
+		<h:outputText value="#{msg.CU0033} " styleClass="detail-text style016"/>
 		<h:commandLink onclick="showPolicyDialog();return false;">
 			<h:outputText value="#{msg.CU0034}"/>
 		</h:commandLink>
@@ -79,9 +79,16 @@
   			<h:outputText value="#{msg.policy}"/>
   		</div>
 		<br/>
-		<h:commandButton value="#{msg.CU0035}">
-			<f:ajax event="click" execute="@form" render="@form" listener="#{registerBean.register}"/>
-		</h:commandButton>
+		<br></br>
+		<div style="width:130px">
+			<client:button>
+				<ui:define name="button-body">
+					<h:commandButton value="#{msg.CU0035}">
+						<f:ajax event="click" execute="@form" render="@form" listener="#{registerBean.register}"/>
+					</h:commandButton>
+				</ui:define>
+			</client:button>
+		</div>
 		<script>
 			var policyDialog;
 			function showPolicyDialog() {

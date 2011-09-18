@@ -16,6 +16,7 @@ public class BeanUtils {
 	
 	private static ResourceBundle bundleVn = ResourceBundle.getBundle("net.aihat.bundle.msg-vi");
 	private static ResourceBundle bundleEn = ResourceBundle.getBundle("net.aihat.bundle.msg-en");
+	private static ResourceBundle config = ResourceBundle.getBundle("configurations");
 	
 	public static void navigate(String outCome) {
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -107,6 +108,13 @@ public class BeanUtils {
 			} else {
 				return "";
 			}
+		}
+		return "";
+	}
+	
+	public static String getConfig(String key) {
+		if(!AihatUtils.isEmpty(key)) {
+			return config.getString(key);
 		}
 		return "";
 	}
