@@ -188,9 +188,11 @@ public class MyProfileBean extends MultiTabPagingBean {
 		
 					//remove the old image if it is existing
 					if(!AihatUtils.isEmpty(user.getImage())) {
-						File oldDile = new File(BeanUtils.getServletContext().getRealPath("") + "/img/" + user.getImage());
-						if(oldDile.exists()) {
-							oldDile.delete();
+						if(!BeanUtils.getConfig("service.defaultImage").equals(user.getImage())) {
+							File oldDile = new File(BeanUtils.getServletContext().getRealPath("") + "/img/" + user.getImage());
+							if(oldDile.exists()) {
+								oldDile.delete();
+							}
 						}
 						
 						File oldBackupFile = new File(getConfigurationService().getImageBackupFolder() + user.getImage());

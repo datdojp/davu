@@ -11,6 +11,7 @@
 <f:view>
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
 	<title>#{msg.aihat_title}</title>
 	<style type="text/css">
 		@import url("#{config.server}/css/client.css");
@@ -24,8 +25,8 @@
 			[
 				"FeaturedClips",
 				"Clips",
-				"MyProfile",
 				"Detail",
+				"MyProfile",
 				"Register"
 			];
 		function slide(slideBy) {
@@ -105,14 +106,14 @@
 					<ui:include src="Clips.xhtml"/>
 				</ui:insert>
 			</div>
-			<div id="MyProfile" class="page" align="center">
-				<ui:insert>
-					<ui:include src="MyProfile.xhtml"/>
-				</ui:insert>
-			</div>
 			<div id="Detail" class="page" align="center">
 				<ui:insert>
 					<ui:include src="Detail.xhtml"/>
+				</ui:insert>
+			</div>
+			<div id="MyProfile" class="page" align="center">
+				<ui:insert>
+					<ui:include src="MyProfile.xhtml"/>
 				</ui:insert>
 			</div>
 			<div id="Register" class="page" align="center">
@@ -172,6 +173,11 @@
 				<t:div>
 					<a id="slideToClips" href="#Clips" class="pagelink">
 						<img src="#{config.server}/img/client/Clips.png" />
+					</a>
+				</t:div>
+				<t:div>
+					<a id="slideToDetail" href="#Detail" class="pagelink">
+						<img src="#{config.server}/img/client/Detail.png" />
 					</a>
 				</t:div>
 				<t:div rendered="#{userProfileBean.loggedIn}">

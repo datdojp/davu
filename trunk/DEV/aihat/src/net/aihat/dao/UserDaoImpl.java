@@ -25,14 +25,11 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 			return SearchResultDto.EMPTY;
 		}
 		
-		UserSearchCriteria param = (UserSearchCriteria) criteria.clone();
-		param.setMail(getSQLSearchableString(param.getMail()));
-		
 		if(criteria.isForCounting()) {
-			Long nResults = (Long) getSqlMapClientTemplate().queryForObject("countUser", param);
+			Long nResults = (Long) getSqlMapClientTemplate().queryForObject("countUser", criteria);
 			return new SearchResultDto(nResults.intValue());
 		} else {
-			List<UserDto> results = getSqlMapClientTemplate().queryForList("searchUser", param);
+			List<UserDto> results = getSqlMapClientTemplate().queryForList("searchUser", criteria);
 			return new SearchResultDto(results);
 		}
 	}

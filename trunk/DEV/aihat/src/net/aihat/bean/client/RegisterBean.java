@@ -45,7 +45,7 @@ public class RegisterBean extends BaseClientBean {
 	 * CONFIRM QUESTION
 	 */
 	private static final String[] QUESTIONS = {
-		"CQ001", "CQ002", "CQ003"
+		"CQ001", "CQ002", "CQ003", "CQ004", "CQ005", "CQ006", "CQ007", "CQ008", "CQ009", "CQ010"
 	};
 	private ConfirmQuestion generateConfirmQuestion() {
 		int idx = (int) Math.floor(QUESTIONS.length * Math.random());

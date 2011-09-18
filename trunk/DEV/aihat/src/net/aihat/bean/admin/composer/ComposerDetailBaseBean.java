@@ -64,9 +64,11 @@ public abstract class ComposerDetailBaseBean extends BaseBean {
 
 				//remove the old image if it is existing
 				if(!AihatUtils.isEmpty(composer.getImage())) {
-					File oldDile = new File(BeanUtils.getServletContext().getRealPath("") + "/img/" + composer.getImage());
-					if(oldDile.exists()) {
-						oldDile.delete();
+					if(!BeanUtils.getConfig("service.defaultImage").equals(composer.getImage())) {
+						File oldDile = new File(BeanUtils.getServletContext().getRealPath("") + "/img/" + composer.getImage());
+						if(oldDile.exists()) {
+							oldDile.delete();
+						}
 					}
 					
 					File oldBackupFile = new File(getConfigurationService().getImageBackupFolder() + composer.getImage());

@@ -342,9 +342,9 @@ public class ZentaiBean extends BaseClientBean {
 	
 	public int getNumberOfTopPanelItems() {
 		if(BeanUtils.getUserProfileBean().getLoggedIn()) {
-			return 3;
+			return 4;
 		} else {
-			return 2;
+			return 3;
 		}
 	}
 	

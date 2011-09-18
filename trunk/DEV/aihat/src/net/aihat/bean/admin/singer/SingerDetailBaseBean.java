@@ -66,9 +66,11 @@ public abstract class SingerDetailBaseBean extends BaseBean {
 
 				//remove the old image if it is existing
 				if(!AihatUtils.isEmpty(singer.getImage())) {
-					File oldDile = new File(BeanUtils.getServletContext().getRealPath("") + "/img/" + singer.getImage());
-					if(oldDile.exists()) {
-						oldDile.delete();
+					if(!BeanUtils.getConfig("service.defaultImage").equals(singer.getImage())) {
+						File oldDile = new File(BeanUtils.getServletContext().getRealPath("") + "/img/" + singer.getImage());
+						if(oldDile.exists()) {
+							oldDile.delete();
+						}
 					}
 					
 					File oldBackupFile = new File(getConfigurationService().getImageBackupFolder() + singer.getImage());

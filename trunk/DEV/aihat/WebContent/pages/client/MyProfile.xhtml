@@ -14,9 +14,9 @@
 			<div class="style006" style="background-image: none;height:auto;">
 				<table cellpadding="5" cellspacing="0">
 					<tr>
-						<td>
+						<td style="vertical-align: top">
 							<h:panelGroup>
-								<h:graphicImage url="#{config.server}/img/#{userProfileBean.profile.image}" height="104"/>
+								<h:graphicImage url="#{config.server}/img/#{userProfileBean.profile.image}" height="170"/>
 								<br/>
 								<t:inputFileUpload value="#{myProfileBean.avatarFile}"
 											storage="file"
@@ -84,7 +84,6 @@
 								<tr>
 									<td>
 										<h:outputText value="#{msg.CU0002}" styleClass="detail-text"/>
-										<h:outputText value="(#{msg.password_more_than_3_char})"/>
 									</td>
 									<td>
 										<h:inputSecret value="#{myProfileBean.newPassword}" redisplay="true" styleClass="style004 style021" style="width:262px"/>
@@ -100,7 +99,7 @@
 								</tr>
 								<tr>
 									<td colspan="2" align="right">
-										<t:div>
+										<t:div style="width:170px">
 											<client:button>
 												<ui:define name="button-body">
 													<h:commandButton value="#{msg.CU0004}" action="#{myProfileBean.update}">
