@@ -13,6 +13,12 @@ a :HOVER {
 	text-decoration: underline;	
 }
 
+.top-panel-text {
+	color: ghostWhite;
+	font-size: 9pt;
+	font-weight: bold;
+}
+
 #wrapper {
 	width:100%;
 	height:100%;
@@ -83,6 +89,15 @@ a :HOVER {
 .style001 td {
 	vertical-align: bottom;
 	padding-bottom: 2px;
+}
+
+.style001 a {
+	text-decoration: none;
+}
+
+.style001 a :HOVER {
+	text-decoration: none;
+	
 }
 
 .style002 {

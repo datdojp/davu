@@ -27,13 +27,24 @@
 									</div>
 								</td>
 								<td>
-									<client:button>
-										<ui:define name="button-body">
-											<h:commandButton value="#{msg.CU0048}" styleClass="searchBtn">
-												<f:ajax event="click" execute="@form" render="@form" listener="#{clipsBean.search}" />
-											</h:commandButton>
-										</ui:define>
-									</client:button>
+									<t:div rendered="#{empty clipsBean.searchKeyword}">
+										<client:button>
+											<ui:define name="button-body">
+												<h:commandButton value="#{msg.CU0048}" styleClass="searchBtn">
+													<f:ajax event="click" execute="@form" render="@form" listener="#{clipsBean.search}" />
+												</h:commandButton>
+											</ui:define>
+										</client:button>
+									</t:div>
+									<t:div rendered="#{not empty clipsBean.searchKeyword}">
+										<client:button>
+											<ui:define name="button-body">
+												<h:commandButton value="#{msg.remove_search}" styleClass="searchBtn">
+													<f:ajax event="click" execute="@form" render="@form" listener="#{clipsBean.removeSearch}" />
+												</h:commandButton>
+											</ui:define>
+										</client:button>
+									</t:div>
 								</td>
 							</tr>
 						</table>
@@ -132,6 +143,11 @@
 		<client:messages formId="clips" bean="#{clipsBean}"/>
 		<client:messages formId="clips" bean="#{zentaiBean}"/>
 		<client:messages formId="clips" bean="#{detailBean}"/>
+		<c:if test="#{clipsBean.focusSearchKeyword}">
+			<script>
+				$(".searchKeywordInput").focus();
+			</script>
+		</c:if>
 	</h:form>
 </ui:composition>
 </html>
