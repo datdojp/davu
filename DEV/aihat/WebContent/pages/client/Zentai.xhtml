@@ -11,7 +11,7 @@
 <f:view>
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="favicon.png" type="image/png"/>
 	<title>#{msg.aihat_title}</title>
 	<style type="text/css">
 		@import url("#{config.server}/css/client.css");
@@ -29,6 +29,10 @@
 				"MyProfile",
 				"Register"
 			];
+		function lightenPageLinkOnly(page) {
+			$(".td_slideTo").css("opacity", "0.5");
+			$("#td_slideTo" + page).css("opacity", "1");
+		}
 		function slide(slideBy) {
 			var newPageIdx = currentPageIdx + slideBy;
 			if(0 &lt;= newPageIdx &amp;&amp; newPageIdx &lt; ALL_PAGES.length) {
@@ -140,7 +144,83 @@
 					</div>
 				</h:commandLink>
 			</t:div>
-		
+			
+			<table class="style001">
+				<tr>
+					<td id="td_slideToFeaturedClips" class="td_slideTo" style="opacity:0.5" >
+						<t:div>
+							<a id="slideToFeaturedClips" href="#FeaturedClips" class="pagelink" onclick="lightenPageLinkOnly('FeaturedClips')">
+								<table cellpadding="0" cellspacing="0">
+									<tr>
+										<td>
+											<img src="#{config.server}/img/client/FeaturedClips.png"/>
+										</td>
+										<td style="vertical-align: middle;">
+											<div>
+												<h:outputText value="#{msg.featured_clips}" styleClass="top-panel-text"/>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</a>
+						</t:div>
+					</td>
+					<td id="td_slideToClips" class="td_slideTo" style="opacity:0.5" >
+						<t:div>
+							<a id="slideToClips" href="#Clips" class="pagelink" onclick="lightenPageLinkOnly('Clips')">
+								<table cellpadding="0" cellspacing="0">
+									<tr>
+										<td>
+											<img src="#{config.server}/img/client/Clips.png" />
+										</td>
+										<td style="vertical-align: middle;">
+											<div>
+												<h:outputText value="#{msg.search}" styleClass="top-panel-text"/>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</a>
+						</t:div>
+					</td>
+					<td id="td_slideToDetail" class="td_slideTo" style="opacity:0.5" >
+						<t:div>
+							<a id="slideToDetail" href="#Detail" class="pagelink" onclick="lightenPageLinkOnly('Detail')"> 
+								<table cellpadding="0" cellspacing="0">
+									<tr>
+										<td>
+											<img src="#{config.server}/img/client/Detail.png" />
+										</td>
+										<td style="vertical-align: middle;">
+											<div>
+												<h:outputText value="#{msg.detail}" styleClass="top-panel-text"/>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</a>
+						</t:div>
+					</td>
+					<td id="td_slideToMyProfile" class="td_slideTo" style="opacity:0.5">
+						<t:div rendered="#{userProfileBean.loggedIn}">
+							<a id="slideToMyProfile" href="#MyProfile" class="pagelink" onclick="lightenPageLinkOnly('MyProfile')">
+								<table cellpadding="0" cellspacing="0">
+									<tr>
+										<td>
+											<img src="#{config.server}/img/client/MyProfile.png"/>
+										</td>
+										<td style="vertical-align: middle;">
+											<div>
+												<h:outputText value="#{msg.myprofile}" styleClass="top-panel-text"/>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</a>
+						</t:div>
+					</td>
+				</tr>
+			</table>
 			<t:div rendered="#{not userProfileBean.loggedIn}" styleClass="style002">
 				<h:panelGrid columns="6">
 					<h:outputText value="#{msg.login_email}"/>
@@ -163,29 +243,6 @@
 					</h:commandButton>
 				</h:panelGrid>
 			</t:div>
-			
-			<h:panelGrid columns="#{zentaiBean.numberOfTopPanelItems}" styleClass="style001">
-				<t:div>
-					<a id="slideToFeaturedClips" href="#FeaturedClips" class="pagelink">
-						<img src="#{config.server}/img/client/FeaturedClips.png" />
-					</a>
-				</t:div>
-				<t:div>
-					<a id="slideToClips" href="#Clips" class="pagelink">
-						<img src="#{config.server}/img/client/Clips.png" />
-					</a>
-				</t:div>
-				<t:div>
-					<a id="slideToDetail" href="#Detail" class="pagelink">
-						<img src="#{config.server}/img/client/Detail.png" />
-					</a>
-				</t:div>
-				<t:div rendered="#{userProfileBean.loggedIn}">
-					<a id="slideToMyProfile" href="#MyProfile" class="pagelink">
-						<img src="#{config.server}/img/client/MyProfile.png"/>
-					</a>
-				</t:div>
-			</h:panelGrid>
 			<script>
 				boundLinkToPage();
 			</script>
@@ -198,7 +255,9 @@
 			document.documentElement.style.overflow = 'hidden';
 			resizeLayout();
 			boundLinkToPage();
-
+			
+			lightenPageLinkOnly('FeaturedClips');
+			
 			<c:if test="#{zentaiBean.pageName eq 'MyProfile'}">
 				slideToMyProfile();
 			</c:if>

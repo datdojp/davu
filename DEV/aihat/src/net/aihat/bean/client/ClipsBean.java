@@ -23,6 +23,13 @@ public class ClipsBean extends MultiTabPagingBean {
 
 	private String searchKeyword;
 	
+	private boolean focusSearchKeyword;
+	public boolean isFocusSearchKeyword() {
+		boolean temp = focusSearchKeyword;
+		focusSearchKeyword = false;
+		return temp;
+	}
+
 	private final String CLIPS_TAB = "clips";
 	private final String SINGERS_TAB = "singers";
 	private final String COMPOSERS_TAB = "composers";
@@ -109,6 +116,12 @@ public class ClipsBean extends MultiTabPagingBean {
 		}
 	}
 	
+	public synchronized void removeSearch(AjaxBehaviorEvent e) {
+		searchKeyword = null;
+		search(e);
+		focusSearchKeyword = true;
+	}
+	
 	/**
 	 * COUNTING 
 	 */
@@ -169,7 +182,7 @@ public class ClipsBean extends MultiTabPagingBean {
 			}
 			
 			tabDataMap.put(displayTab, getSearchService().searchClips(null, searchKeyword, null, null, null, null, null, userId, null, null,
-					new SortCriterion("title", SortCriterion.ORDER_ASCENDING), 
+					new SortCriterion("nViews", SortCriterion.ORDER_DESCENDING), 
 					tabPagingMap.get(CLIPS_TAB), false, null, null).getResults());
 			updateCurrentCounting();
 		} catch (Throwable err) {
