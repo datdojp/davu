@@ -6,7 +6,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:client="http://www.aihat.net/client">
+	xmlns:client="http://www.aihat.net/client"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 <ui:composition>
 	<h:inputText id="currentEmbeddedLink" value="#{featuredClipsBean.currentEmbeddedLink}" styleClass="currentEmbeddedLink" style="display:none;"/>
 	<h:inputText id="currentPlaybackPos" value="#{featuredClipsBean.currentPlaybackPos}" styleClass="currentPlaybackPos" style="display:none;"/>
@@ -121,6 +122,26 @@
 						</span>
 						<span style="color: #d76b01">
 							<h:outputText value="#{msg.client_clips_peopleViewed}"/>
+						</span>
+						
+						<span style="float:right;">
+							<h:form>
+								<h:commandLink rendered="#{not aClip.liked}">
+									<f:param name="clipId" value="#{aClip.id}"/>
+									<f:param name="referenceBeanName" value="#{featuredClipsBean.beanName}"/>
+									<f:ajax event="click" render="@form" listener="#{zentaiBean.likeClip}"/>
+									<h:graphicImage url="#{config.server}/img/client/like.png"/>
+									<h:outputText value="#{msg.like}" styleClass="like"/>
+								</h:commandLink>
+								<h:commandLink rendered="#{aClip.liked}">
+									<f:param name="clipId" value="#{aClip.id}"/>
+									<f:param name="referenceBeanName" value="#{featuredClipsBean.beanName}"/>
+									<f:ajax event="click" render="@form" listener="#{zentaiBean.unlikeClip}"/>
+									<h:graphicImage url="#{config.server}/img/client/unlike.png"/>
+									<h:outputText value="#{msg.like}" styleClass="unlike"/>
+								</h:commandLink>
+								<client:messages formId="featuredClips_like" bean="#{zentaiBean}"/>
+							</h:form>
 						</span>
 					</div>
 				</c:forEach>

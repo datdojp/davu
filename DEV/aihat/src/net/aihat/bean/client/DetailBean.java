@@ -44,6 +44,14 @@ public class DetailBean extends BaseClientBean implements PagingBean {
 	/**
 	 * MISC
 	 */
+	public boolean isEmptyData() {
+		return
+			singerDetail.getId() == null &&
+			composerDetail.getId() == null &&
+			playlistDetail.getId() == null &&
+			genreDetail.getId() == null &&
+			userDetail.getId() == null;
+	}
 	protected List getCurrentDtoList() {
 		return referenceDtos;
 	}

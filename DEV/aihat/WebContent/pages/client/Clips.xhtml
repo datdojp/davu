@@ -27,24 +27,30 @@
 									</div>
 								</td>
 								<td>
-									<t:div rendered="#{empty clipsBean.searchKeyword}">
-										<client:button>
-											<ui:define name="button-body">
-												<h:commandButton value="#{msg.CU0048}" styleClass="searchBtn">
-													<f:ajax event="click" execute="@form" render="@form" listener="#{clipsBean.search}" />
-												</h:commandButton>
-											</ui:define>
-										</client:button>
-									</t:div>
-									<t:div rendered="#{not empty clipsBean.searchKeyword}">
-										<client:button>
-											<ui:define name="button-body">
-												<h:commandButton value="#{msg.remove_search}" styleClass="searchBtn">
-													<f:ajax event="click" execute="@form" render="@form" listener="#{clipsBean.removeSearch}" />
-												</h:commandButton>
-											</ui:define>
-										</client:button>
-									</t:div>
+									<table cellpadding="0" cellspacing="1">
+										<tr>
+											<td>
+												<client:button>
+													<ui:define name="button-body">
+														<h:commandButton value="#{msg.CU0048}" styleClass="searchBtn">
+															<f:ajax event="click" execute="@form" render="@form" listener="#{clipsBean.search}" />
+														</h:commandButton>
+													</ui:define>
+												</client:button>
+											</td>
+											<td>
+												<t:div rendered="#{not empty clipsBean.searchKeyword}">
+													<client:button>
+														<ui:define name="button-body">
+															<h:commandButton value="#{msg.remove_search}">
+																<f:ajax event="click" execute="@form" render="@form" listener="#{clipsBean.removeSearch}" />
+															</h:commandButton>
+														</ui:define>
+													</client:button>
+												</t:div>
+											</td>
+										</tr>
+									</table>
 								</td>
 							</tr>
 						</table>
@@ -106,8 +112,8 @@
 				<tr>
 					<td style="width: 20%;vertical-align: top;">
 						<client:sidePanel rendered="#{true}">
-							<ui:define name="title">Trang trai</ui:define>
-							<ui:define name="body">Trang trai</ui:define>
+							<ui:define name="title"></ui:define>
+							<ui:define name="body"></ui:define>
 						</client:sidePanel>
 					</td>
 					<td style="vertical-align: top;" align="center">
@@ -133,8 +139,8 @@
 					</td>
 					<td style="width: 20%;vertical-align: top;">
 						<client:sidePanel rendered="#{true}">
-							<ui:define name="title">Trang phai</ui:define>
-							<ui:define name="body">Trang phai</ui:define>
+							<ui:define name="title"></ui:define>
+							<ui:define name="body"></ui:define>
 						</client:sidePanel>
 					</td>
 				</tr>
