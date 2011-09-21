@@ -124,7 +124,7 @@
 							<h:outputText value="#{msg.client_clips_peopleViewed}"/>
 						</span>
 						
-						<span style="float:right;">
+						<span style="float:right;display: none">
 							<h:form>
 								<h:commandLink rendered="#{not aClip.liked}">
 									<f:param name="clipId" value="#{aClip.id}"/>
