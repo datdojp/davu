@@ -21,12 +21,10 @@ public class AihatUtils {
 		digester.setIterations(2510);
 	}
 	public static String encryptPassword(String password) {
-//		return digester.digest(password);
-		return password;
+		return digester.digest(password);
 	}
 	public static boolean isPasswordMatch(String inputPassword, String encryptedPassword) {
-//		return digester.matches(inputPassword, encryptedPassword);
-		return AihatUtils.isEmpty(encryptedPassword) || encryptedPassword.equals(inputPassword);
+		return AihatUtils.isEmpty(encryptedPassword) || digester.matches(inputPassword, encryptedPassword);
 	}
 	
 	public static String getRandomPassword() {
