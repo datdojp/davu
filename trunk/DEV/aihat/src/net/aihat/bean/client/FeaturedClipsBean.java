@@ -50,10 +50,12 @@ public class FeaturedClipsBean extends BaseClientBean {
 			ClipDto clipDto = getClipService().getClip(clipId);
 			featuredClips = new ArrayList<ClipDto>();
 			featuredClips.add(clipDto);
+			addClipView(clipDto);
 		} else if(!AihatUtils.isEmpty(strPlaylistId)) {
 			Integer playlistId = Integer.parseInt(strPlaylistId);
 			featuredClips = getSearchService().searchClips(null, null, null, null, null, playlistId, null, 
 					BeanUtils.getLogginUserId(), null, null, null, null, false, null, null).getResults();
+			addClipView(featuredClips);
 		} else {
 			if(AihatUtils.isEmpty(featuredClips)) {
 				featuredClips = getClipService().getFeaturedClips(getConfigurationService().getnFeaturedClips());
