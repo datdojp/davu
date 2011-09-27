@@ -6,6 +6,7 @@ import java.util.List;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import net.aihat.dto.ClipDto;
+import net.aihat.dto.PlaylistDto;
 import net.aihat.dto.UserDto;
 import net.aihat.utils.AihatUtils;
 import net.aihat.utils.BeanUtils;
@@ -14,6 +15,7 @@ import org.apache.log4j.Logger;
 
 public class FeaturedClipsBean extends BaseClientBean {
 	private static final String PERMANENT_LINK_PARAM_CLIPID = "perlink_clipid";
+	private static final String PERMANENT_LINK_PARAM_PLAYLISTID = "perlink_playlistid";
 	
 	public FeaturedClipsBean() {
 		logger = Logger.getLogger(FeaturedClipsBean.class);
@@ -42,11 +44,16 @@ public class FeaturedClipsBean extends BaseClientBean {
 	public List<ClipDto> getFeaturedClips() {
 		//check if this is a permanent link
 		String strClipId = BeanUtils.getRequest().getParameter(PERMANENT_LINK_PARAM_CLIPID);
+		String strPlaylistId = BeanUtils.getRequest().getParameter(PERMANENT_LINK_PARAM_PLAYLISTID);
 		if(!AihatUtils.isEmpty(strClipId)) {
 			Integer clipId = Integer.parseInt(strClipId);
 			ClipDto clipDto = getClipService().getClip(clipId);
 			featuredClips = new ArrayList<ClipDto>();
 			featuredClips.add(clipDto);
+		} else if(!AihatUtils.isEmpty(strPlaylistId)) {
+			Integer playlistId = Integer.parseInt(strPlaylistId);
+			featuredClips = getSearchService().searchClips(null, null, null, null, null, playlistId, null, 
+					BeanUtils.getLogginUserId(), null, null, null, null, false, null, null).getResults();
 		} else {
 			if(AihatUtils.isEmpty(featuredClips)) {
 				featuredClips = getClipService().getFeaturedClips(getConfigurationService().getnFeaturedClips());
@@ -143,12 +150,18 @@ public class FeaturedClipsBean extends BaseClientBean {
 	
 	private void addClipView(ClipDto clip) {
 		UserDto profile = BeanUtils.getUserProfileBean().getProfile();
-		getClipService().addView(clip.getId(), profile!=null?profile.getId():null);
+		if(!BeanUtils.availableInSession(clip.getId())) {
+			getClipService().addView(clip.getId(), profile!=null?profile.getId():null);
+			BeanUtils.pushToSession(clip.getId());
+		}
 	}
 	private void addClipView(List<ClipDto> clips) {
-		List<Integer> clipIds = new ArrayList<Integer>(clips.size());
+		List<Integer> clipIds = new ArrayList<Integer>();
 		for(ClipDto aClip : clips) {
-			clipIds.add(aClip.getId());
+			if(!BeanUtils.availableInSession(aClip.getId())) {
+				clipIds.add(aClip.getId());
+				BeanUtils.pushToSession(aClip.getId());
+			}
 		}
 		UserDto profile = BeanUtils.getUserProfileBean().getProfile();
 		getClipService().addView(clipIds, profile!=null?profile.getId():null);

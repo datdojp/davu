@@ -85,7 +85,7 @@ public class ClipsBean extends MultiTabPagingBean {
 			updateGenresCounting();
 			
 			//check if there is any result found,
-			//if no result is found, log fai-search
+			//if no result is found, log failed-search
 			boolean isResultFound = false;
 			for(String aTab : ALL_TABS) {
 				if(tabDataCountMap.get(aTab) > 0) {
@@ -95,7 +95,9 @@ public class ClipsBean extends MultiTabPagingBean {
 			}
 			if(!isResultFound) {
 				addErrorMessage(BeanUtils.getBundleMsg("CM0012"));
-				getFailedSearchService().logFailedSearch(searchKeyword, BeanUtils.getLogginUserId());
+				if(!BeanUtils.getUserProfileBean().getLoggedIn() || !BeanUtils.getUserProfileBean().getProfile().getAdmin()) {
+					getFailedSearchService().logFailedSearch(searchKeyword, BeanUtils.getLogginUserId());	
+				}
 			}
 			
 			if(tabDataCountMap.get(CLIPS_TAB) > 0) {

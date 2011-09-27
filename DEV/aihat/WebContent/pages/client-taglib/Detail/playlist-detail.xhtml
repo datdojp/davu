@@ -50,6 +50,14 @@
 			</td>
 		</tr>
 		<tr>
+			<td align="left" style="padding-left: 12px;" colspan="2">
+				<h:commandButton value="#{msg.share}"
+						onclick="prompt('', '#{config.server}/pages/client/Zentai.jsf?perlink_playlistid=#{playlist.id}');return false;"
+						styleClass="shareBtn">
+				</h:commandButton>
+			</td>
+		</tr>
+		<tr>
 			<td align="center" colspan="2">
 				<t:div rendered="#{playlist.editable}" style="width:170px">
 					<client:button>
