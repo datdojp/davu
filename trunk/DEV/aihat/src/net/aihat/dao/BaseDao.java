@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import net.aihat.utils.AihatUtils;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
 public abstract class BaseDao extends SqlMapClientDaoSupport implements Serializable, Cloneable {
@@ -16,10 +17,15 @@ public abstract class BaseDao extends SqlMapClientDaoSupport implements Serializ
 	}
 	
 	protected String getSQLSearchableString(String input) {
-		if(AihatUtils.isEmpty(input)) {
+		if(AihatUtils.isEmpty(input) || AihatUtils.isEmpty(input.trim())) {
 			return "%";
 		}
-		return "%" + getSearchableString(input) + "%";
+		String result = getSearchableString(input.trim());
+		if(result.indexOf(" ") >= 0) {
+			result = StringUtils.replace(result, " ", "% %");
+		}
+		result = result + "%";
+		return result;
 	}
 	
 	private static final String ALL_VIETNAMESE_CHARACTERS =

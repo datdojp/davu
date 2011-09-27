@@ -42,18 +42,19 @@
 		}
 		function slideTo(page) {
 			$("#slideTo" + page).click();
+			lightenPageLinkOnly(page);
 		}
 		function slideToDetail() {
-			$("#slideToDetail").click();
+			slideTo("Detail");
 		}
 		function slideToMyProfile() {
-			$("#slideToMyProfile").click();
+			slideTo("MyProfile");
 		}
 		function slideToRegister() {
-			$("#slideToRegister").click();
+			slideTo("Register");
 		}
 		function slideToFeaturedClips() {
-			$("#slideToFeaturedClips").click();
+			slideTo("FeaturedClips");
 		}
 		function getPageIdxOf(pageName, prefix) {
 			for(var i = 0; i &lt; ALL_PAGES.length; i++) {

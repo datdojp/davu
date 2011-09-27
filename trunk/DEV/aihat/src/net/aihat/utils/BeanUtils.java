@@ -1,6 +1,9 @@
 package net.aihat.utils;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
@@ -117,5 +120,21 @@ public class BeanUtils {
 			return config.getString(key);
 		}
 		return "";
+	}
+	
+	public static void pushToSession(Object obj) {
+		if(getRequest().getSession().getAttribute("aihat-viewed-clipid") == null) {
+			getRequest().getSession().setAttribute("aihat-viewed-clipid", new ArrayList());
+		}
+		List aihat = (List) getRequest().getSession().getAttribute("aihat-viewed-clipid");
+		aihat.add(obj);
+	}
+	
+	public static boolean availableInSession(Object obj) {
+		if(getRequest().getSession().getAttribute("aihat-viewed-clipid") == null) {
+			getRequest().getSession().setAttribute("aihat-viewed-clipid", new ArrayList());
+		}
+		List aihat = (List) getRequest().getSession().getAttribute("aihat-viewed-clipid");
+		return aihat.contains(obj);
 	}
 }

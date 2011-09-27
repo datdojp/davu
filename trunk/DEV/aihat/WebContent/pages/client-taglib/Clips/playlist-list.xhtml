@@ -35,6 +35,10 @@
 						<h:outputText value="#{aPlaylist.user.name}" styleClass="style014"/>
 					</h:commandLink>
 					<h:outputText value="#{aPlaylist.nClips} #{msg.client_clips_playlist_nClips}" styleClass="style016"/>
+					<h:commandButton value="#{msg.share}"
+							onclick="prompt('', '#{config.server}/pages/client/Zentai.jsf?perlink_playlistid=#{aPlaylist.id}');return false;"
+							styleClass="shareBtn">
+					</h:commandButton>
 				</h:panelGrid>
 			</h:panelGrid>
 		</c:forEach>
