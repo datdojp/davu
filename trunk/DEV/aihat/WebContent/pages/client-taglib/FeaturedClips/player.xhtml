@@ -164,7 +164,9 @@
 												url="#{aClip.thumbnailLink}"
 												onclick="loadClip('#{aClip.embeddedLink}', 0);"
 												styleClass="reflect clipThumbnail thumbnail#{aClip.id}"
-												width="80"/>
+												width="80"
+												onmouseover="showClipDetail(#{aClip.id})"
+												onmouseout="showCurrentClipDetail()"/>
 										<div class="removeBtn" align="center" style="position:relative; bottom:80px;left:60px;">
 											<h:commandButton value="x" onclick="updateCurrentPlaybackPos();">
 													<f:param name="selectedClipId" value="#{aClip.id}"/>
@@ -327,6 +329,15 @@
 				return;
 			}
 			slider.scrollTo("#post" + clipList[currentVisibleIdx].id, 400);
+		}
+		
+		function showClipDetail(clipId) {
+			$("#featuredClips").find(".detail").hide();
+			$("#featuredClips").find(".detail" + clipId).show();
+		}
+		function showCurrentClipDetail() {
+			$("#featuredClips").find(".detail").hide();
+			$("#featuredClips").find(".detail" + clipList[getIndexFromLink(currentLink)].id).show();
 		}
 	</script>
 </ui:composition>
