@@ -43,20 +43,18 @@ public class FeaturedClipsBean extends BaseClientBean {
 	}
 	
 	public List<ClipDto> getFeaturedClips() {
-		//check if this is a permanent link
 		String strClipIds = BeanUtils.getRequest().getParameter(PARAM_CLIPIDS);
 		String strPermClipId = BeanUtils.getRequest().getParameter(PERMANENT_LINK_PARAM_CLIPID);
 		String strPermPlaylistId = BeanUtils.getRequest().getParameter(PERMANENT_LINK_PARAM_PLAYLISTID);
 		if(!AihatUtils.isEmpty(strClipIds)) {
 			String[] splitted = strClipIds.split(",");
-			featuredClips = new ArrayList<ClipDto>();
+			List<Integer> clipIds = new ArrayList<Integer>();
 			for(String anStrId : splitted) {
-				Integer anId = Integer.parseInt(anStrId);
-				featuredClips.add(getClipService().getClip(anId));
+				clipIds.add(Integer.parseInt(anStrId));
 			}
+			featuredClips = getClipService().getClips(clipIds);
 			addClipView(featuredClips);
-		}
-		if(!AihatUtils.isEmpty(strPermClipId)) {
+		} else if(!AihatUtils.isEmpty(strPermClipId)) {
 			Integer clipId = Integer.parseInt(strPermClipId);
 			ClipDto clipDto = getClipService().getClip(clipId);
 			featuredClips = new ArrayList<ClipDto>();
@@ -83,71 +81,67 @@ public class FeaturedClipsBean extends BaseClientBean {
 	/**
 	 * PLAY & ADD 
 	 */
-//	public synchronized void play(AjaxBehaviorEvent e) {
-//		try {
-//			List selectedClips = AihatUtils.getSelectedObjects(getReferenceBean().getCurrentDtoList()); 
-//			if(!AihatUtils.isEmpty(selectedClips)) {
-//				featuredClips = selectedClips;
-//				resetCurrent();
-//				addClipView(selectedClips);
-//			}
-//		} catch (Throwable err) {
-//			handleGeneralError(err);
-//		}
-//	}
-	
 	public synchronized String play() {
-		List selectedClips = AihatUtils.getSelectedObjects(getReferenceBean().getCurrentDtoList()); 
-		if(!AihatUtils.isEmpty(selectedClips)) {
-			resetCurrent();
-			addClipView(selectedClips);
-			BeanUtils.redirect(generateRedirectLink(selectedClips));
+		try {
+			List selectedClips = AihatUtils.getSelectedObjects(getReferenceBean().getCurrentDtoList()); 
+			if(!AihatUtils.isEmpty(selectedClips)) {
+				resetCurrent();
+				BeanUtils.redirect(generateRedirectLink(selectedClips));
+			}
+		} catch (Throwable err) {
+			handleGeneralError(err);
 		}
 		return null;
 	}
-	public synchronized void add(AjaxBehaviorEvent e) {
+	
+	public synchronized String add() {
 		try {
 			List<ClipDto> selectedClips = AihatUtils.getSelectedObjects(getReferenceBean().getCurrentDtoList());
 			if(!AihatUtils.isEmpty(selectedClips)) {
 				for(ClipDto aClip : selectedClips) {
 					if(AihatUtils.getDtoIndex(aClip, featuredClips) < 0) {
 						featuredClips.add(aClip);
-						addClipView(aClip);
 					}
 				}
+				BeanUtils.redirect(generateRedirectLink(featuredClips));
 			}
 		} catch (Throwable err) {
 			handleGeneralError(err);
 		}
+		return null;
 	}
 
-	public void playOne(AjaxBehaviorEvent e) {
+	public synchronized String playOne() {
 		try {
 			Integer selectedClipId = Integer.parseInt(BeanUtils.getRequest().getParameter("selectedClipId"));
-			ClipDto selectedClip = getClipService().getClip(selectedClipId);
-			featuredClips = new ArrayList<ClipDto>();
-			featuredClips.add(selectedClip);
+			ClipDto clip = new ClipDto();
+			clip.setId(selectedClipId);
+			List<ClipDto> clipList = new ArrayList<ClipDto>();
+			clipList.add(clip);
 			resetCurrent();
-			addClipView(selectedClip);
+			BeanUtils.redirect(generateRedirectLink(clipList));
 		} catch (Throwable err) {
 			handleGeneralError(err);
 		}
+		return null;
 	}
 	
-	public synchronized void addOne(AjaxBehaviorEvent e) {
+	public synchronized String addOne() {
 		try {
 			Integer selectedClipId = Integer.parseInt(BeanUtils.getRequest().getParameter("selectedClipId"));
-			ClipDto selectedClip = getClipService().getClip(selectedClipId);
+			ClipDto selectedClip = new ClipDto();
+			selectedClip.setId(selectedClipId);
 			if(AihatUtils.getDtoIndex(selectedClip, featuredClips) < 0) {
 				featuredClips.add(selectedClip);
-				addClipView(selectedClip);
 			}
+			BeanUtils.redirect(generateRedirectLink(featuredClips));
 		} catch (Throwable err) {
 			handleGeneralError(err);
 		}
+		return null;
 	}
 	
-	public synchronized void removeOne(AjaxBehaviorEvent e) {
+	public synchronized String removeOne() {
 		try {
 			Integer selectedClipId = Integer.parseInt(BeanUtils.getRequest().getParameter("selectedClipId"));
 			int index = AihatUtils.getDtoIndex(selectedClipId, featuredClips);
@@ -156,18 +150,22 @@ public class FeaturedClipsBean extends BaseClientBean {
 				resetCurrent();
 			}
 			featuredClips.remove(index);
+			BeanUtils.redirect(generateRedirectLink(featuredClips));
 		} catch (Throwable err) {
 			handleGeneralError(err);
 		}
+		return null;
 	}
 	
-	public synchronized void removeAll(AjaxBehaviorEvent e) {
+	public synchronized String removeAll() {
 		try {
 			featuredClips = new ArrayList<ClipDto>();
 			resetCurrent();
+			BeanUtils.redirect(BeanUtils.getConfig("server"));
 		} catch (Throwable err) {
 			handleGeneralError(err);
 		}
+		return null;
 	}
 	
 	private void addClipView(ClipDto clip) {

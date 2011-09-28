@@ -61,17 +61,15 @@
 					</table>
 				</td>
 				<td rowspan="2" class="nohover" style="width:1%">
-					<h:commandLink onclick="slideToFeaturedClips(); updateCurrentPlaybackPos();">
+					<h:commandLink onclick="slideToFeaturedClips(); updateCurrentPlaybackPos();" action="#{featuredClipsBean.playOne}">
 						<f:param name="selectedClipId" value="#{aClip.id}"/>
-						<f:ajax event="click" execute=":featuredClips" render=":featuredClips" listener="#{featuredClipsBean.playOne}"/>
 						<h:graphicImage url="#{aClip.thumbnailLink}" height="62"/>
 					</h:commandLink>
 				</td>
 				<td>
 					<h:panelGrid columns="2">
-						<h:commandLink onclick="slideToFeaturedClips(); updateCurrentPlaybackPos();">
+						<h:commandLink onclick="slideToFeaturedClips(); updateCurrentPlaybackPos();" action="#{featuredClipsBean.playOne}">
 							<f:param name="selectedClipId" value="#{aClip.id}"/>
-							<f:ajax event="click" execute=":featuredClips" render=":featuredClips" listener="#{featuredClipsBean.playOne}"/>
 							<h:outputText value="#{aClip.title}" styleClass="style017"/>
 						</h:commandLink>
 						<h:graphicImage url="#{config.server}/img/client/hd.png" rendered="#{aClip.official}"/>
@@ -165,10 +163,9 @@
 								</h:commandLink>
 							</td>
 							<td style="width:20px" align="center">
-								<h:commandButton onclick="slideToFeaturedClips();updateCurrentPlaybackPos();" styleClass="addBtn">
+								<h:commandButton onclick="slideToFeaturedClips();updateCurrentPlaybackPos();" styleClass="addBtn" action="#{featuredClipsBean.addOne}">
 									<f:param name="selectedClipId" value="#{aClip.id}"/>
 									<f:param name="referenceBeanName" value="#{bean.beanName}"/>
-									<f:ajax event="click" execute=":featuredClips" render=":featuredClips" listener="#{featuredClipsBean.addOne}"/>
 								</h:commandButton>
 							</td>
 						</tr>
