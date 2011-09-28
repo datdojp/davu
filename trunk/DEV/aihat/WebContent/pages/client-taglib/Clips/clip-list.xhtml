@@ -79,40 +79,49 @@
 					
 				</td>
 				<td>
-					<c:forEach var="aSinger" items="#{aClip.singers}">
-						<h:commandLink onclick="slideToDetail();">
-							<f:param name="singerId" value="#{aSinger.id}"/>
-							<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showSingerDetail}"/>
-							<h:outputText value="#{aSinger.name}" styleClass="style014"/>
-							<h:outputText value="(#{msg.CU0021})" rendered="#{aSinger.followed}" styleClass="style014"/>
-						</h:commandLink>
-						<br/>
-					</c:forEach>
+					<div>
+						<h:panelGrid columns="1">
+							<c:forEach var="aSinger" items="#{aClip.singers}">
+								<h:commandLink onclick="slideToDetail();">
+									<f:param name="singerId" value="#{aSinger.id}"/>
+									<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showSingerDetail}"/>
+									<h:outputText value="#{aSinger.name}" styleClass="style014"/>
+									<h:outputText value="(#{msg.CU0021})" rendered="#{aSinger.followed}" styleClass="style014"/>
+								</h:commandLink>
+							</c:forEach>
+						</h:panelGrid>
+					</div>
 				</td>
 				<td>
-					<c:forEach var="aComposer" items="#{aClip.composers}">
-						<h:commandLink onclick="slideToDetail();" >
-							<f:param name="composerId" value="#{aComposer.id}"/>
-							<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showComposerDetail}"/>
-							<h:outputText value="#{aComposer.name}" styleClass="style014"/>
-						</h:commandLink>
-						<br/>
-					</c:forEach>
+					<div>
+						<h:panelGrid columns="1">
+							<c:forEach var="aComposer" items="#{aClip.composers}">
+								<h:commandLink onclick="slideToDetail();" >
+									<f:param name="composerId" value="#{aComposer.id}"/>
+									<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showComposerDetail}"/>
+									<h:outputText value="#{aComposer.name}" styleClass="style014"/>
+								</h:commandLink>
+							</c:forEach>
+						</h:panelGrid>
+					</div>
 				</td>
 				<td>
-					<c:forEach var="aGenre" items="#{aClip.genres}">
-						<h:commandLink rendered="#{utilsBean.currentLanguage eq 'en'}" onclick="slideToDetail();">
-							<f:param name="genreId" value="#{aGenre.id}"/>
-							<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showGenreDetail}"/>
-							<h:outputText value="#{aGenre.nameEn}" styleClass="style014"/>
-						</h:commandLink>
-						<h:commandLink rendered="#{utilsBean.currentLanguage eq 'vi'}" onclick="slideToDetail();" styleClass="style014">
-							<f:param name="genreId" value="#{aGenre.id}"/>
-							<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showGenreDetail}"/>
-							<h:outputText value="#{aGenre.nameVi}" styleClass="style014"/>
-						</h:commandLink>
-						<br/>
-					</c:forEach>
+					<div>
+						<h:panelGrid columns="1">
+							<c:forEach var="aGenre" items="#{aClip.genres}">
+								<h:commandLink rendered="#{utilsBean.currentLanguage eq 'en'}" onclick="slideToDetail();">
+									<f:param name="genreId" value="#{aGenre.id}"/>
+									<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showGenreDetail}"/>
+									<h:outputText value="#{aGenre.nameEn}" styleClass="style014"/>
+								</h:commandLink>
+								<h:commandLink rendered="#{utilsBean.currentLanguage eq 'vi'}" onclick="slideToDetail();" styleClass="style014">
+									<f:param name="genreId" value="#{aGenre.id}"/>
+									<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showGenreDetail}"/>
+									<h:outputText value="#{aGenre.nameVi}" styleClass="style014"/>
+								</h:commandLink>
+							</c:forEach>
+						</h:panelGrid>
+					</div>
 				</td>
 				<td>
 					<h:commandLink onclick="slideToDetail();">

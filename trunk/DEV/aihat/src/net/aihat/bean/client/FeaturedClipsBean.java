@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 public class FeaturedClipsBean extends BaseClientBean {
 	private static final String PERMANENT_LINK_PARAM_CLIPID = "perlink_clipid";
 	private static final String PERMANENT_LINK_PARAM_PLAYLISTID = "perlink_playlistid";
+	private static final String PARAM_CLIPIDS = "clipids";
 	
 	public FeaturedClipsBean() {
 		logger = Logger.getLogger(FeaturedClipsBean.class);
@@ -43,16 +44,26 @@ public class FeaturedClipsBean extends BaseClientBean {
 	
 	public List<ClipDto> getFeaturedClips() {
 		//check if this is a permanent link
-		String strClipId = BeanUtils.getRequest().getParameter(PERMANENT_LINK_PARAM_CLIPID);
-		String strPlaylistId = BeanUtils.getRequest().getParameter(PERMANENT_LINK_PARAM_PLAYLISTID);
-		if(!AihatUtils.isEmpty(strClipId)) {
-			Integer clipId = Integer.parseInt(strClipId);
+		String strClipIds = BeanUtils.getRequest().getParameter(PARAM_CLIPIDS);
+		String strPermClipId = BeanUtils.getRequest().getParameter(PERMANENT_LINK_PARAM_CLIPID);
+		String strPermPlaylistId = BeanUtils.getRequest().getParameter(PERMANENT_LINK_PARAM_PLAYLISTID);
+		if(!AihatUtils.isEmpty(strClipIds)) {
+			String[] splitted = strClipIds.split(",");
+			featuredClips = new ArrayList<ClipDto>();
+			for(String anStrId : splitted) {
+				Integer anId = Integer.parseInt(anStrId);
+				featuredClips.add(getClipService().getClip(anId));
+			}
+			addClipView(featuredClips);
+		}
+		if(!AihatUtils.isEmpty(strPermClipId)) {
+			Integer clipId = Integer.parseInt(strPermClipId);
 			ClipDto clipDto = getClipService().getClip(clipId);
 			featuredClips = new ArrayList<ClipDto>();
 			featuredClips.add(clipDto);
 			addClipView(clipDto);
-		} else if(!AihatUtils.isEmpty(strPlaylistId)) {
-			Integer playlistId = Integer.parseInt(strPlaylistId);
+		} else if(!AihatUtils.isEmpty(strPermPlaylistId)) {
+			Integer playlistId = Integer.parseInt(strPermPlaylistId);
 			featuredClips = getSearchService().searchClips(null, null, null, null, null, playlistId, null, 
 					BeanUtils.getLogginUserId(), null, null, null, null, false, null, null).getResults();
 			addClipView(featuredClips);
@@ -72,19 +83,28 @@ public class FeaturedClipsBean extends BaseClientBean {
 	/**
 	 * PLAY & ADD 
 	 */
-	public synchronized void play(AjaxBehaviorEvent e) {
-		try {
-			List selectedClips = AihatUtils.getSelectedObjects(getReferenceBean().getCurrentDtoList()); 
-			if(!AihatUtils.isEmpty(selectedClips)) {
-				featuredClips = selectedClips;
-				resetCurrent();
-				addClipView(selectedClips);
-			}
-		} catch (Throwable err) {
-			handleGeneralError(err);
-		}
-	}
+//	public synchronized void play(AjaxBehaviorEvent e) {
+//		try {
+//			List selectedClips = AihatUtils.getSelectedObjects(getReferenceBean().getCurrentDtoList()); 
+//			if(!AihatUtils.isEmpty(selectedClips)) {
+//				featuredClips = selectedClips;
+//				resetCurrent();
+//				addClipView(selectedClips);
+//			}
+//		} catch (Throwable err) {
+//			handleGeneralError(err);
+//		}
+//	}
 	
+	public synchronized String play() {
+		List selectedClips = AihatUtils.getSelectedObjects(getReferenceBean().getCurrentDtoList()); 
+		if(!AihatUtils.isEmpty(selectedClips)) {
+			resetCurrent();
+			addClipView(selectedClips);
+			BeanUtils.redirect(generateRedirectLink(selectedClips));
+		}
+		return null;
+	}
 	public synchronized void add(AjaxBehaviorEvent e) {
 		try {
 			List<ClipDto> selectedClips = AihatUtils.getSelectedObjects(getReferenceBean().getCurrentDtoList());
@@ -167,6 +187,16 @@ public class FeaturedClipsBean extends BaseClientBean {
 		}
 		UserDto profile = BeanUtils.getUserProfileBean().getProfile();
 		getClipService().addView(clipIds, profile!=null?profile.getId():null);
+	}
+	private String generateRedirectLink(List<ClipDto> clips) {
+		String result = "";
+		for(ClipDto aClip : clips) {
+			if(!AihatUtils.isEmpty(result)) {
+				result = result + ",";
+			}
+			result = result + aClip.getId();
+		}
+		return BeanUtils.getConfig("server") + "pages/client/Zentai.jsf?" + PARAM_CLIPIDS + "=" + result;
 	}
 	/**
 	 * END OF PLAY & ADD 
