@@ -22,8 +22,7 @@
 			<div style="vertical-align:middle;float: right;" align="center">
 				<client:button>
 					<ui:define name="button-body">
-						<h:commandButton value="#{msg.remove_all}">
-							<f:ajax event="click" render="@form" listener="#{featuredClipsBean.removeAll}"/>
+						<h:commandButton value="#{msg.remove_all}" action="#{featuredClipsBean.removeAll}">
 						</h:commandButton>
 					</ui:define>
 				</client:button>
@@ -168,9 +167,8 @@
 												onmouseover="showClipDetail(#{aClip.id})"
 												onmouseout="showCurrentClipDetail()"/>
 										<div class="removeBtn" align="center" style="position:relative; bottom:80px;left:60px;">
-											<h:commandButton value="x" onclick="updateCurrentPlaybackPos();">
-													<f:param name="selectedClipId" value="#{aClip.id}"/>
-													<f:ajax event="click" execute="@form" render="@form" listener="#{featuredClipsBean.removeOne}"/>
+											<h:commandButton value="x" onclick="updateCurrentPlaybackPos();" action="#{featuredClipsBean.removeOne}">
+												<f:param name="selectedClipId" value="#{aClip.id}"/>
 											</h:commandButton>
 										</div>
 									</div>

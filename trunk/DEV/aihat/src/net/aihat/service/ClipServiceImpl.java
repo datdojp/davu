@@ -118,4 +118,15 @@ public class ClipServiceImpl extends BaseService implements ClipService {
 		user.setId(userId);
 		getClipDao().deleteUserLikeClip(clip, user);
 	}
+
+	@Transactional(rollbackFor=DataAccessException.class)
+	public List<ClipDto> getClips(List<Integer> ids) throws DataAccessException {
+		List<ClipDto> results = new ArrayList<ClipDto>();
+		for(Integer anId : ids) {
+			if(AihatUtils.isValidId(anId)) {
+				results.add(getClipDao().get(anId));
+			}
+		}
+		return results;
+	}
 }
