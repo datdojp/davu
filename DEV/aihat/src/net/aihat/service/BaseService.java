@@ -5,6 +5,7 @@ import java.io.Serializable;
 import net.aihat.dao.ClipDao;
 import net.aihat.dao.ComposerDao;
 import net.aihat.dao.FailedSearchDao;
+import net.aihat.dao.FeaturedClipDao;
 import net.aihat.dao.GenreDao;
 import net.aihat.dao.PasswordDao;
 import net.aihat.dao.PlaylistDao;
@@ -20,7 +21,9 @@ public abstract class BaseService implements Serializable {
 	private PasswordDao passwordDao;
 	private FailedSearchDao failedSearchDao;
 	private PlaylistDao playlistDao;
+	private FeaturedClipDao featuredClipDao;
 	
+	//getter setter
 	public ClipDao getClipDao() {
 		return clipDao;
 	}
@@ -83,5 +86,13 @@ public abstract class BaseService implements Serializable {
 
 	public void setPlaylistDao(PlaylistDao playlistDao) {
 		this.playlistDao = playlistDao;
+	}
+
+	public FeaturedClipDao getFeaturedClipDao() {
+		return featuredClipDao;
+	}
+
+	public void setFeaturedClipDao(FeaturedClipDao featuredClipDao) {
+		this.featuredClipDao = featuredClipDao;
 	}
 }

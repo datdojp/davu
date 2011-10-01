@@ -18,4 +18,5 @@
 	<bean id="passwordDao" class="net.aihat.dao.PasswordDaoImpl" parent="baseDao"/>
 	<bean id="failedSearchDao" class="net.aihat.dao.FailedSearchDaoImpl" parent="baseDao"/>
 	<bean id="playlistDao" class="net.aihat.dao.PlaylistDaoImpl" parent="baseDao"/>
+	<bean id="featuredClipDao" class="net.aihat.dao.FeaturedClipDaoImpl" parent="baseDao"/>
 </beans>		

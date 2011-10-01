@@ -21,6 +21,7 @@ public abstract class BaseBean implements Serializable {
 	
 	private ConfigurationService configurationService;
 	
+	protected boolean isInitialized = false;
 	public abstract String init();
 	public abstract String getBeanName();
 	
@@ -82,5 +83,10 @@ public abstract class BaseBean implements Serializable {
 	public void setConfigurationService(ConfigurationService configurationService) {
 		this.configurationService = configurationService;
 	}
-	
+	public boolean isInitialized() {
+		return isInitialized;
+	}
+	public void setInitialized(boolean isInitialized) {
+		this.isInitialized = isInitialized;
+	}
 }

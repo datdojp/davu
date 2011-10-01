@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="featured-clip">
+	<insert id="insertFeaturedClip" parameterClass="net.aihat.dto.FeaturedClipDto">
+		INSERT INTO featured_clip(clip_id, `order`)
+		VALUES (#clip.id#, #order#);
+	</insert>
+	<select id="searchFeaturedClip" resultClass="net.aihat.dto.FeaturedClipDto">
+		SELECT
+			clip_id as `clip.id`,
+			`order`
+		FROM featured_clip
+		ORDER BY `order`
+	</select>
+	<update id="updateFeaturedClip" parameterClass="net.aihat.dto.FeaturedClipDto">
+		UPDATE featured_clip
+		SET `order` = #order#
+		WHERE clip_id = #clip.id#
+	</update>
+	<delete id="deleteFeaturedClip" parameterClass="net.aihat.dto.FeaturedClipDto">
+		DELETE FROM featured_clip
+		WHERE clip_id = #clip.id#
+	</delete>
+</sqlMap>

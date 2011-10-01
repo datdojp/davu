@@ -6,6 +6,7 @@ import net.aihat.bean.BaseBean;
 import net.aihat.service.ClipService;
 import net.aihat.service.ComposerService;
 import net.aihat.service.FailedSearchService;
+import net.aihat.service.FeaturedClipService;
 import net.aihat.service.GenreService;
 import net.aihat.service.PlaylistService;
 import net.aihat.service.SearchService;
@@ -24,9 +25,9 @@ public abstract class BaseClientBean extends BaseBean {
 	private GenreService genreService;
 	private UserService userService;
 	private FailedSearchService failedSearchService;
+	private FeaturedClipService featuredClipService;
 
 	//init
-	private boolean isInitialized = false;
 	public String init() {
 		isInitialized = true;
 		return null;
@@ -95,17 +96,17 @@ public abstract class BaseClientBean extends BaseBean {
 	public String getReferenceBeanName() {
 		return referenceBeanName;
 	}
-	public boolean isInitialized() {
-		return isInitialized;
-	}
-	public void setInitialized(boolean isInitialized) {
-		this.isInitialized = isInitialized;
-	}
 	public FailedSearchService getFailedSearchService() {
 		return failedSearchService;
 	}
 	public void setFailedSearchService(FailedSearchService failedSearchService) {
 		this.failedSearchService = failedSearchService;
+	}
+	public FeaturedClipService getFeaturedClipService() {
+		return featuredClipService;
+	}
+	public void setFeaturedClipService(FeaturedClipService featuredClipService) {
+		this.featuredClipService = featuredClipService;
 	}
 	
 }

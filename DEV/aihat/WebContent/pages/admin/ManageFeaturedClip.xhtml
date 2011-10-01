@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:admin="http://www.aihat.net/admin"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="admin-template.xhtml">
+	<ui:param name="title" value="Manage Featured Clip" />
+	<ui:param name="mainBean" value="#{manageFeaturedClipBean}"/>
+	<ui:define name="pageName">
+		<h:outputText value="FEATURED CLIPS"/>
+	</ui:define>
+	<ui:define name="body">
+		<h:form>
+			<h:panelGrid columns="2">
+				<h:outputText value="Clip ID"></h:outputText>
+				<h:inputText value="#{manageFeaturedClipBean.newFeaturedClip.clip.id}"></h:inputText>
+				<h:outputText value="Order"></h:outputText>
+				<h:inputText value="#{manageFeaturedClipBean.newFeaturedClip.order}"></h:inputText>
+			</h:panelGrid>
+			<h:commandButton value="Add" action="#{manageFeaturedClipBean.insert}"></h:commandButton>
+			<h:panelGrid columns="10" border="1">
+				<h:outputText value=""></h:outputText>
+				<h:outputText value=""></h:outputText>
+				<h:outputText value="ID"></h:outputText>
+				<h:outputText value="TITLE"></h:outputText>
+				<h:outputText value="LINK"></h:outputText>
+				<h:outputText value="OFFICIAL"></h:outputText>
+				<h:outputText value="VIEWS"></h:outputText>
+				<h:outputText value="LIKES"></h:outputText>
+				<h:outputText value="UPLOADED AT"></h:outputText>
+				<h:outputText value="UPLOADER"></h:outputText>
+				<c:forEach var="aFC" items="#{manageFeaturedClipBean.featuredClips}">
+					<h:commandButton value="x" action="#{manageFeaturedClipBean.delete}">
+						<f:param name="deletedClipId" value="#{aFC.clip.id}"></f:param>
+					</h:commandButton>
+					
+					<h:inputText value="#{aFC.order}" style="width:30px;"></h:inputText>
+					
+					<h:outputText value="#{aFC.clip.id}"></h:outputText>
+					
+					<h:outputText value="#{aFC.clip.title}"></h:outputText>
+					
+					<h:outputText value="#{aFC.clip.link}"></h:outputText>
+					
+					<h:outputText value="yes" rendered="#{aFC.clip.official}"></h:outputText>
+					<h:outputText rendered="#{not aFC.clip.official}"></h:outputText>
+					
+					<h:outputText value="#{aFC.clip.nViews}"></h:outputText>
+					
+					<h:outputText value="#{aFC.clip.nFans}"></h:outputText>
+					
+					<h:outputText value="#{aFC.clip.createdTime}"></h:outputText>
+					<h:outputText value="#{aFC.clip.user.mail}"></h:outputText>
+				</c:forEach>
+			</h:panelGrid>
+			<h:commandButton value="Update" action="#{manageFeaturedClipBean.update}"></h:commandButton>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

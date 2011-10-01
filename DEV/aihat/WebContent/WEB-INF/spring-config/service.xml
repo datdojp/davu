@@ -28,6 +28,9 @@
 		<property name="playlistDao">
 			<ref bean="playlistDao"/>
 		</property>
+		<property name="featuredClipDao">
+			<ref bean="featuredClipDao"/>
+		</property>
 	</bean>
 	<bean id="clipService" class="net.aihat.service.ClipServiceImpl" parent="baseService">
 	</bean>
@@ -59,6 +62,8 @@
 		</property>
 	</bean>
 	<bean id="playlistService" class="net.aihat.service.PlaylistServiceImpl" parent="baseService"/>
+	<bean id="featuredClipService" class="net.aihat.service.FeaturedClipServiceImpl" parent="baseService"/>
+	
 	<bean id="configurationService" class="net.aihat.service.ConfigurationService">
 		<property name="imageBackupFolder">
 			<value>${service.imageBackupFolder}</value>
