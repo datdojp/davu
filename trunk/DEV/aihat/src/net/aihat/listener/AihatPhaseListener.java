@@ -3,10 +3,12 @@ package net.aihat.listener;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
+
+import net.aihat.bean.BaseBean;
 import net.aihat.bean.UserProfileBean;
-import net.aihat.bean.client.BaseClientBean;
 import net.aihat.utils.AihatUtils;
 import net.aihat.utils.BeanUtils;
+
 import org.apache.log4j.Logger;
 
 public class AihatPhaseListener implements PhaseListener {
@@ -16,7 +18,8 @@ public class AihatPhaseListener implements PhaseListener {
 		"detailBean",
 		"featuredClipsBean",
 		"myProfileBean",
-		"zentaiBean"
+		"zentaiBean",
+		"manageFeaturedClipBean"
 	};
 	
 	public void afterPhase(PhaseEvent event) {
@@ -35,7 +38,7 @@ public class AihatPhaseListener implements PhaseListener {
 
 	public void beforePhase(PhaseEvent event) {
 		for(String aBeanName : INIT_REQUIRED_CLIENT_BEANS) {
-			BaseClientBean bean = (BaseClientBean) BeanUtils.getContextBean(aBeanName);
+			BaseBean bean = (BaseBean) BeanUtils.getContextBean(aBeanName);
 			if(!bean.isInitialized()) {
 				bean.init();
 			}

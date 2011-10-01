@@ -52,6 +52,15 @@
 			<value>#{clipService}</value>
 		</managed-property>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>manageFeaturedClipBean</managed-bean-name>
+		<managed-bean-class>net.aihat.bean.admin.clip.ManageFeaturedClipBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>featuredClipService</property-name>
+			<value>#{featuredClipService}</value>
+		</managed-property>
+	</managed-bean>
 	
 	<managed-bean>
 		<managed-bean-name>manageClipUploadBean</managed-bean-name>
@@ -387,6 +396,10 @@
 		<managed-property>
 			<property-name>userService</property-name>
 			<value>#{userService}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>featuredClipService</property-name>
+			<value>#{featuredClipService}</value>
 		</managed-property>
 	</managed-bean>
 	

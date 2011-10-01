@@ -6,6 +6,7 @@ import java.util.List;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import net.aihat.dto.ClipDto;
+import net.aihat.dto.FeaturedClipDto;
 import net.aihat.dto.PlaylistDto;
 import net.aihat.dto.UserDto;
 import net.aihat.utils.AihatUtils;
@@ -67,7 +68,17 @@ public class FeaturedClipsBean extends BaseClientBean {
 			addClipView(featuredClips);
 		} else {
 			if(AihatUtils.isEmpty(featuredClips)) {
-				featuredClips = getClipService().getFeaturedClips(getConfigurationService().getnFeaturedClips());
+				List<FeaturedClipDto> fcs = getFeaturedClipService().getAllFeaturedClips();
+				if(!AihatUtils.isEmpty(fcs)) {
+					//GET FROM SETTING
+					featuredClips = new ArrayList<ClipDto>();
+					for(FeaturedClipDto aFC : fcs) {
+						featuredClips.add(aFC.getClip());
+					}
+				} else {
+					//DEFAULT
+					featuredClips = getClipService().getFeaturedClips(getConfigurationService().getnFeaturedClips());
+				}
 			}
 		}
 		
