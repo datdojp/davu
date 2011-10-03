@@ -49,7 +49,8 @@ function showDlgCreateOrAddToMyPlaylists(formId) {
 	} else {
 		mapFormDialog[formId] =
 			$("#" + formId).find(".dlgCreateOrAddToMyPlaylists").dialog({
-				width:500,
+				width:640,
+				height: $(window).height(),
 				modal:true,
 				draggable:true,
 				resizable:true,
