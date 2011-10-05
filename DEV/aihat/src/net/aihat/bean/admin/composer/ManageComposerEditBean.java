@@ -3,6 +3,7 @@ package net.aihat.bean.admin.composer;
 import net.aihat.bean.admin.clip.ManageClipBean;
 import net.aihat.bean.admin.clip.ManageClipUploadBean;
 import net.aihat.dto.ComposerDto;
+import net.aihat.dto.UserDto;
 import net.aihat.utils.AihatConstants;
 import net.aihat.utils.AihatUtils;
 import net.aihat.utils.BeanUtils;
@@ -27,6 +28,14 @@ public class ManageComposerEditBean extends ComposerDetailBaseBean {
 		if(AihatUtils.isValidId(composerId)) {
 			try {
 				setComposer(getComposerService().getComposer(composerId));
+				
+				//check if the composer belongs to the current user
+				UserDto profile = BeanUtils.getUserProfileBean().getProfile();
+				if(!profile.getAdmin() && !profile.getId().equals(getComposer().getUser().getId())) {
+					ManageComposerBean manageComposerBean = (ManageComposerBean) BeanUtils.getContextBean("manageComposerBean");
+					manageComposerBean.addErrorMessage("You can't edit composer that belongs to other administrator/moderator");
+					return null;
+				}
 			} catch (DataAccessException e) {
 				ComposerDto logComposer = new ComposerDto();
 				logComposer.setId(composerId);

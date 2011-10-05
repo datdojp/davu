@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.aihat.bean.admin.DataTableCareBaseBean;
 import net.aihat.dto.ComposerDto;
+import net.aihat.dto.UserDto;
 import net.aihat.service.ComposerService;
 import net.aihat.utils.AihatConstants;
 import net.aihat.utils.AihatUtils;
@@ -64,6 +65,15 @@ public class ManageComposerBean extends DataTableCareBaseBean {
 	
 	public synchronized String delete() {
 		List<ComposerDto> deleteComposers = getSelectedObjects();
+		
+		//check if deleted composer is owned by the user
+		UserDto profile = BeanUtils.getUserProfileBean().getProfile();
+		for(ComposerDto aComposer : deleteComposers) {
+			if(!profile.getAdmin() && !profile.getId().equals(aComposer.getUser().getId())) {
+				addErrorMessage("You can't delete composer that belongs to other administrator/moderator");
+				return null;
+			}
+		}
 		
 		if(!AihatUtils.isEmpty(deleteComposers)) {
 			try {

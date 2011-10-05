@@ -11,6 +11,7 @@ public class UserDto extends BaseDto {
 	private Date lastLogin;
 	private String language;
 	private Boolean admin;
+	private Boolean mod;
 	private String image;
 	private Integer nClips;
 	private Integer nSingers;
@@ -37,6 +38,10 @@ public class UserDto extends BaseDto {
 			result = result + "title:'" + getMail() + "' ";
 		}
 		return result;
+	}
+	
+	public boolean isAdminOrMod() {
+		return Boolean.TRUE.equals(getAdmin()) || Boolean.TRUE.equals(getMod());
 	}
 	
 	//getter setter
@@ -164,6 +169,14 @@ public class UserDto extends BaseDto {
 
 	public void setnFollowers(Integer nFollowers) {
 		this.nFollowers = nFollowers;
+	}
+
+	public Boolean getMod() {
+		return mod;
+	}
+
+	public void setMod(Boolean mod) {
+		this.mod = mod;
 	}
 	
 	

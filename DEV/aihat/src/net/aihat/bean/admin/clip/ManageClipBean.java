@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.aihat.bean.admin.DataTableCareBaseBean;
 import net.aihat.dto.ClipDto;
+import net.aihat.dto.UserDto;
 import net.aihat.service.ClipService;
 import net.aihat.utils.AihatConstants;
 import net.aihat.utils.AihatUtils;
@@ -90,6 +91,15 @@ public class ManageClipBean extends DataTableCareBaseBean {
 	
 	public synchronized String delete() {
 		List<ClipDto> deletedClips = getSelectedObjects();
+		
+		//check if deleted clips is owned by the user
+		UserDto profile = BeanUtils.getUserProfileBean().getProfile();
+		for(ClipDto aClip : deletedClips) {
+			if(!profile.getAdmin() && !profile.getId().equals(aClip.getUser().getId())) {
+				addErrorMessage("You can't delete clip that belongs to other administrator/moderator");
+				return null;
+			}
+		}
 		
 		if(!AihatUtils.isEmpty(deletedClips)) {
 			try {

@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.aihat.bean.admin.DataTableCareBaseBean;
 import net.aihat.dto.SingerDto;
+import net.aihat.dto.UserDto;
 import net.aihat.service.SingerService;
 import net.aihat.utils.AihatConstants;
 import net.aihat.utils.AihatUtils;
@@ -64,6 +65,15 @@ public class ManageSingerBean extends DataTableCareBaseBean {
 	
 	public String delete() {
 		List<SingerDto> deleteSingers = getSelectedObjects();
+		
+		//check if deleted singer is owned by the user
+		UserDto profile = BeanUtils.getUserProfileBean().getProfile();
+		for(SingerDto aSinger : deleteSingers) {
+			if(!profile.getAdmin() && !profile.getId().equals(aSinger.getUser().getId())) {
+				addErrorMessage("You can't delete singer that belongs to other administrator/moderator");
+				return null;
+			}
+		}
 		
 		if(!AihatUtils.isEmpty(deleteSingers)) {
 			try {
