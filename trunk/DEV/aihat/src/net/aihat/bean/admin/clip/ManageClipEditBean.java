@@ -1,6 +1,7 @@
 package net.aihat.bean.admin.clip;
 
 import net.aihat.dto.ClipDto;
+import net.aihat.dto.UserDto;
 import net.aihat.utils.AihatUtils;
 import net.aihat.utils.BeanUtils;
 
@@ -24,6 +25,14 @@ public class ManageClipEditBean extends ClipDetailBaseBean {
 		if(AihatUtils.isValidId(clipId)) {
 			try {
 				setClip(getClipService().getClip(clipId));
+				
+				//check if the clip belongs to the current user
+				UserDto profile = BeanUtils.getUserProfileBean().getProfile();
+				if(!profile.getAdmin() && !profile.getId().equals(getClip().getUser().getId())) {
+					ManageClipBean manageClipBean = (ManageClipBean) BeanUtils.getContextBean("manageClipBean");
+					manageClipBean.addErrorMessage("You can't edit clip that belongs to other administrator/moderator");
+					return null;
+				}
 				
 				//set singers info
 				setSingerId_1(getClip().getSingers().get(0).getId());

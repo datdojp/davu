@@ -95,7 +95,7 @@ public class ClipsBean extends MultiTabPagingBean {
 			}
 			if(!isResultFound) {
 				addErrorMessage(BeanUtils.getBundleMsg("CM0012"));
-				if(!BeanUtils.getUserProfileBean().getLoggedIn() || !BeanUtils.getUserProfileBean().getProfile().getAdmin()) {
+				if(!BeanUtils.getUserProfileBean().getLoggedIn() || !BeanUtils.getUserProfileBean().getProfile().isAdminOrMod()) {
 					getFailedSearchService().logFailedSearch(searchKeyword, BeanUtils.getLogginUserId());	
 				}
 			}

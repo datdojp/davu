@@ -83,7 +83,7 @@ public class UserProfileBean extends BaseClientBean {
 	
 				language = profile.getLanguage();
 				
-				if(profile.getAdmin()) {
+				if(profile.isAdminOrMod()) {
 					BeanUtils.navigate("adminHomePage");
 				} else {
 					MyProfileBean myProfileBean = (MyProfileBean) BeanUtils.getContextBean("myProfileBean");

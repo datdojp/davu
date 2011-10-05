@@ -3,6 +3,7 @@ package net.aihat.bean.admin.singer;
 import net.aihat.bean.admin.clip.ManageClipBean;
 import net.aihat.bean.admin.clip.ManageClipUploadBean;
 import net.aihat.dto.SingerDto;
+import net.aihat.dto.UserDto;
 import net.aihat.utils.AihatConstants;
 import net.aihat.utils.AihatUtils;
 import net.aihat.utils.BeanUtils;
@@ -27,6 +28,13 @@ public class ManageSingerEditBean extends SingerDetailBaseBean {
 			try {
 				setSinger(getSingerService().getSinger(singerId));
 
+				//check if the singer belongs to the current user
+				UserDto profile = BeanUtils.getUserProfileBean().getProfile();
+				if(!profile.getAdmin() && !profile.getId().equals(getSinger().getUser().getId())) {
+					ManageSingerBean manageSingerBean = (ManageSingerBean) BeanUtils.getContextBean("manageSingerBean");
+					manageSingerBean.addErrorMessage("You can't edit singer that belongs to other administrator/moderator");
+					return null;
+				}
 			} catch (DataAccessException e) {
 				SingerDto logSinger = new SingerDto();
 				logSinger.setId(singerId);

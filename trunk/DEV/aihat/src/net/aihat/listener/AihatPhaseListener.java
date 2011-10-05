@@ -27,9 +27,9 @@ public class AihatPhaseListener implements PhaseListener {
 		//TODO big security hole
 		if(!AihatUtils.isEmpty(uri)) {
 			//admin authentication
-			if(!AihatUtils.isEmpty(uri) && uri.indexOf("pages/admin") >= 0) {
+			if(uri.indexOf("pages/admin") >= 0) {
 				UserProfileBean userProfileBean = BeanUtils.getUserProfileBean();
-				if(userProfileBean == null || userProfileBean.getProfile() == null || !userProfileBean.getProfile().getAdmin()) {
+				if(userProfileBean == null || userProfileBean.getProfile() == null || !userProfileBean.getProfile().isAdminOrMod()) {
 					BeanUtils.navigate("adminAuthFailure");
 				}
 			}

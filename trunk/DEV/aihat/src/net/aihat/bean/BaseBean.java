@@ -33,16 +33,16 @@ public abstract class BaseBean implements Serializable {
 	
 	//messages
 	private List<AihatMessage> messages = new ArrayList<AihatMessage>();
-	protected void addMessage(String msgContent, String msgType) {
+	public void addMessage(String msgContent, String msgType) {
 		messages.add(new AihatMessage(msgContent, msgType));
 	}
-	protected void addWarningMessage(String msgContent) {
+	public void addWarningMessage(String msgContent) {
 		addMessage(msgContent, AihatMessage.TYPE_WARNING);
 	}
-	protected void addInfoMessage(String msgContent) {
+	public void addInfoMessage(String msgContent) {
 		addMessage(msgContent, AihatMessage.TYPE_INFO);
 	}
-	protected void addErrorMessage(String msgContent) {
+	public void addErrorMessage(String msgContent) {
 		addMessage(msgContent, AihatMessage.TYPE_ERROR);
 	}
 	public List<AihatMessage> getMessages() {
