@@ -6,7 +6,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:admin="http://www.aihat.net/admin">
+      xmlns:admin="http://www.aihat.net/admin"
+      xmlns:t="http://myfaces.apache.org/tomahawk">
 <f:view>
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -25,15 +26,55 @@
 		<h:commandLink value="Logout" action="#{userProfileBean.logoutForAdmin}"/>
 	</h:form>
 	<br/>
-	<a href="#{config.server}/pages/admin/ManageClip.jsf">CLIPS</a>
-	<a href="#{config.server}/pages/admin/ManageFeaturedClip.jsf">FEATURED-CLIP</a>
-	<a href="#{config.server}/pages/admin/ManageSinger.jsf">SINGERS</a>
-	<a href="#{config.server}/pages/admin/ManageComposer.jsf">COMPOSERS</a>
-	<a href="#{config.server}/pages/admin/ManageGenre.jsf">GENRES</a>
-	<a href="#{config.server}/pages/admin/ManageUser.jsf">USERS</a>
-	<a href="#{config.server}/pages/admin/ManageFailedSearch.jsf">FAILED-SEARCHES</a>
-	<a href="#{config.server}/pages/admin/ManageBadClipReport.jsf">BAD-CLIP-REPORTS</a>
-	<a href="#{config.server}/pages/admin/AutoImport.jsf">AUTO-IMPORT</a>
+	<table cellspacing="5">
+		<tr>
+			<td>
+				<t:div>
+					<a href="#{config.server}/pages/admin/ManageClip.jsf">CLIPS</a>
+				</t:div>
+			</td>
+			<td>
+				<t:div rendered="#{userProfileBean.profile.admin}">
+					<a href="#{config.server}/pages/admin/ManageFeaturedClip.jsf">FEATURED-CLIP</a>
+				</t:div>
+			</td>
+			<td>
+				<t:div>
+					<a href="#{config.server}/pages/admin/ManageSinger.jsf">SINGERS</a>
+				</t:div>
+			</td>
+			<td>
+				<t:div>
+					<a href="#{config.server}/pages/admin/ManageComposer.jsf">COMPOSERS</a>
+				</t:div>
+			</td>
+			<td>
+				<t:div rendered="#{userProfileBean.profile.admin}">
+					<a href="#{config.server}/pages/admin/ManageGenre.jsf">GENRES</a>
+				</t:div>
+			</td>
+			<td>
+				<t:div rendered="#{userProfileBean.profile.admin}">
+					<a href="#{config.server}/pages/admin/ManageUser.jsf">USERS</a>
+				</t:div>
+			</td>
+			<td>
+				<t:div rendered="#{userProfileBean.profile.admin}">
+					<a href="#{config.server}/pages/admin/ManageFailedSearch.jsf">FAILED-SEARCHES</a>
+				</t:div>
+			</td>
+			<td>
+				<t:div rendered="#{userProfileBean.profile.admin}">
+					<a href="#{config.server}/pages/admin/ManageBadClipReport.jsf">BAD-CLIP-REPORTS</a>
+				</t:div>
+			</td>
+			<td>
+				<t:div>
+					<a href="#{config.server}/pages/admin/AutoImport.jsf">AUTO-IMPORT</a>
+				</t:div>
+			</td>
+		</tr>
+	</table>
 	<br/>
 	<br/>
 	<ui:insert name="pageName"/>
