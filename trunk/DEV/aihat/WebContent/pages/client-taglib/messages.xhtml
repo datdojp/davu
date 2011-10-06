@@ -8,8 +8,12 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 <ui:composition>
+	<div id="#{formId}_msgDialog" title="#{msg.client_message_title}">
+		<p>
+		</p>
+	</div>
 	<script>
-		var #{formId}_zentaiMessage = "#{bean.firstMessageContent}";
+		var #{formId}_zentaiMessage = "#{clientMessageBean.firstMessageContent}";
 		if(#{formId}_zentaiMessage != "") {
 			$("##{formId}_msgDialog").find("p").html(#{formId}_zentaiMessage);
 			$("##{formId}_msgDialog").dialog({
@@ -23,9 +27,5 @@
 			});
 		}
 	</script>
-	<div id="#{formId}_msgDialog" title="#{msg.client_message_title}">
-		<p>
-		</p>
-	</div>
 </ui:composition>
 </html>
