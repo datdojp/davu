@@ -38,32 +38,51 @@
 						</ui:define>
 					</client:button>
 			  		<div class="dlgCreateOrAddToMyPlaylists" style="display:none;overflow: scroll;" title="#{msg.client_clips_add_to_my_playlist}">
-			  			<h:panelGrid columns="1">
-							<h:panelGrid columns="2">
-								<h:outputText value="#{msg.client_clips_popup_myplaylist_create_1}"/>
-								<input type="text" value="#{zentaiBean.newPlaylistTitle}" onchange="onchangeNewPlaylistTitle(this, '#{formId}');"/>
-								<h:outputText value="#{msg.playlist_detail}"/>
-								<textarea cols="50" rows="5" text="#{zentaiBean.newPlaylistDescription}" onchange="onchangeNewPlaylistDescription(this, '#{formId}');"></textarea>
-								<h:outputText/>
-								<h:commandButton value="#{msg.client_clips_popup_myplaylist_create_2}"
-											onclick="onclickCreateOrAddToMyPlaylists('#{formId}');return false;">
-								</h:commandButton>
-							</h:panelGrid>
-							<br/>
-							<h:outputText value="#{msg.client_clips_popup_myplaylist_create_3}"/> 
-							<br/>
-							<h:dataTable var="aPlaylist" value="#{zentaiBean.myPlaylists}">
-								<h:column>
-									<input type="checkbox" onchange="onchangeSelectPlaylist(this, '#{formId}', '#{aPlaylist.id}');"/>
-								</h:column>
-								<h:column>
-									<h:outputText value="#{aPlaylist.name}"/>
-								</h:column>
-							</h:dataTable>
-							<h:commandButton value="#{msg.client_clips_popup_myplaylist_add}"
-										onclick="onclickAddClipsToSelectedPlaylists('#{formId}');return false;">
-							</h:commandButton>
-						</h:panelGrid>
+			  			<table style="width: 100%" border="0" cellpadding="5" cellspacing="5">
+			  				<tr><td>
+		  						<h:outputText value="#{msg.client_clips_popup_myplaylist_create_1}" styleClass="style017"/>
+		  					</td></tr>
+							<tr><td>
+								<input type="text" value="#{zentaiBean.newPlaylistTitle}" onchange="onchangeNewPlaylistTitle(this, '#{formId}');"
+									style="width:100%" styleClass="style004"/>
+							</td></tr>					
+							<tr><td>
+								<h:outputText value="#{msg.playlist_detail}" styleClass="style017"/>
+							</td></tr>	
+							<tr><td>
+								<textarea cols="50" rows="5" text="#{zentaiBean.newPlaylistDescription}" onchange="onchangeNewPlaylistDescription(this, '#{formId}');"
+									style="width:100%" styleClass="style004"></textarea>
+							</td></tr>
+							<tr><td>
+								<div style="width: 80px">
+									<client:button>
+										<ui:define name="button-body">
+											<h:commandButton value="#{msg.client_clips_popup_myplaylist_create_2}"
+														onclick="onclickCreateOrAddToMyPlaylists('#{formId}');return false;"/>
+										</ui:define>
+									</client:button>
+								</div>
+							</td></tr>
+						</table>
+						<hr/>
+						<h:outputText value="#{msg.client_clips_popup_myplaylist_create_3}" styleClass="style017"/> 
+						<br/>
+						<h:dataTable var="aPlaylist" value="#{zentaiBean.myPlaylists}" style="margin-left:10px">
+							<h:column>
+								<input type="checkbox" onchange="onchangeSelectPlaylist(this, '#{formId}', '#{aPlaylist.id}');"/>
+							</h:column>
+							<h:column>
+								<h:outputText value="#{aPlaylist.name}" styleClass="style014"/>
+							</h:column>
+						</h:dataTable>
+						<div style="width: 80px">
+							<client:button>
+								<ui:define name="button-body">
+											<h:commandButton value="#{msg.client_clips_popup_myplaylist_add}"
+														onclick="onclickAddClipsToSelectedPlaylists('#{formId}');return false;"/>
+								</ui:define>
+							</client:button>
+						</div>
 			  		</div>
 			  		<h:inputText style="display:none;" styleClass="hdnNewPlaylistTitle" value="#{zentaiBean.newPlaylistTitle}"/>
 			  		<h:inputTextarea style="display:none;" styleClass="hdnNewPlaylistDescription" value="#{zentaiBean.newPlaylistDescription}"></h:inputTextarea>
