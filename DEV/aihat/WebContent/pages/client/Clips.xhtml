@@ -146,9 +146,7 @@
 				</tr>
 			</table>
 		</t:div>
-		<client:messages formId="clips" bean="#{clipsBean}"/>
-		<client:messages formId="clips" bean="#{zentaiBean}"/>
-		<client:messages formId="clips" bean="#{detailBean}"/>
+		<client:messages formId="clips"/>
 		<c:if test="#{clipsBean.focusSearchKeyword}">
 			<script>
 				$(".searchKeywordInput").focus();

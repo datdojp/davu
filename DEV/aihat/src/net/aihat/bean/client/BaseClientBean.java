@@ -50,10 +50,17 @@ public abstract class BaseClientBean extends BaseBean {
 		addErrorMessage(BeanUtils.getBundleMsg("CM0000"));
 	}
 	
+	//override
+	public void addMessage(String msgContent, String msgType) {
+		ClientMessageBean clientMessageBean = (ClientMessageBean) BeanUtils.getContextBean("clientMessageBean");
+		clientMessageBean.addMessage(msgContent, msgType);
+	}
+	
 	//getter setter
 	public ClipService getClipService() {
 		return clipService;
 	}
+	
 	public void setClipService(ClipService clipService) {
 		this.clipService = clipService;
 	}

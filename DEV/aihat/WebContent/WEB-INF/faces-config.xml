@@ -20,6 +20,11 @@
 		</managed-property>
 	</managed-bean>
 	
+	<managed-bean>
+		<managed-bean-name>clientMessageBean</managed-bean-name>
+		<managed-bean-class>net.aihat.bean.client.ClientMessageBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
 	
 	<managed-bean>
 		<managed-bean-name>utilsBean</managed-bean-name>
