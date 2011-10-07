@@ -62,6 +62,25 @@ public class DetailBean extends BaseClientBean implements PagingBean {
 	public String getBeanName() {
 		return "detailBean";
 	}
+	public List<ClipDto> getAllReferenceDtos() {
+		if(SINGER.equals(objectType)) {
+			return
+				getSearchService().searchClips(null, null, singerDetail.getId(), null, null, null, null, BeanUtils.getLogginUserId(), null, null, new SortCriterion("title", SortCriterion.ORDER_ASCENDING), null, false, null, null).getResults();
+		} else if(COMPOSER.equals(objectType)) {
+			return 
+				getSearchService().searchClips(null, null, null, composerDetail.getId(), null, null, null, BeanUtils.getLogginUserId(), null, null, new SortCriterion("title", SortCriterion.ORDER_ASCENDING), null, false, null, null).getResults();
+		} else if(PLAYLIST.equals(objectType)) {
+			return
+				getSearchService().searchClips(null, null, null, null, null, playlistDetail.getId(), null, BeanUtils.getLogginUserId(), null, null, new SortCriterion("orderInPlaylist", SortCriterion.ORDER_ASCENDING), null, false, null, null).getResults();
+		} else if(GENRE.equals(objectType)) {
+			return
+				getSearchService().searchClips(null, null, null, null, genreDetail.getId(), null, null, BeanUtils.getLogginUserId(), null, null, new SortCriterion("title", SortCriterion.ORDER_ASCENDING), null, false, null, null).getResults();
+		} else if(USER.equals(objectType)) {
+			return
+				getSearchService().searchClips(null, null, null, null, null, null, userDetail.getMail(), BeanUtils.getLogginUserId(), null, null, new SortCriterion("title", SortCriterion.ORDER_ASCENDING), null, false, null, null).getResults();
+		}
+		return new ArrayList<ClipDto>();
+	}
 	/**
 	 * END OF MISC
 	 */

@@ -184,5 +184,10 @@
 	<script>
 		selectOnChange_item('#{formId}', 'selectHeader', 'selectClipCheckBox');
 	</script>
+	<script>
+	    try{
+	        FB.XFBML.parse(); 
+	    }catch(ex){}
+	</script>
 </ui:composition>
 </html>

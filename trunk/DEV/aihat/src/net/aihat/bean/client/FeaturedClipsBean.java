@@ -12,6 +12,7 @@ import net.aihat.dto.UserDto;
 import net.aihat.utils.AihatUtils;
 import net.aihat.utils.BeanUtils;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 public class FeaturedClipsBean extends BaseClientBean {
@@ -98,10 +99,28 @@ public class FeaturedClipsBean extends BaseClientBean {
 			if(!AihatUtils.isEmpty(selectedClips)) {
 				resetCurrent();
 				BeanUtils.redirect(generateRedirectLink(selectedClips));
+			} else {
+				addErrorMessage(BeanUtils.getBundleMsg("please_select_clip"));
+				BeanUtils.redirect(generateRedirectLink(featuredClips));
 			}
 		} catch (Throwable err) {
 			handleGeneralError(err);
 		}
+		return null;
+	}
+	
+	//only for detail page
+	public synchronized String playAll() {
+		DetailBean detailBean = (DetailBean) BeanUtils.getContextBean("detailBean");
+		if(detailBean.getReferenceDtosCount() > Long.parseLong(BeanUtils.getConfig("client.maxClipsForPlayAll"))) {
+			addErrorMessage(StringUtils.replace(
+					BeanUtils.getBundleMsg("too_many_clips_selected_to_play"), "{0}", BeanUtils.getConfig("client.maxClipsForPlayAll")));
+			return null;
+		}
+		
+		resetCurrent();
+		BeanUtils.redirect(generateRedirectLink(detailBean.getAllReferenceDtos()));
+		
 		return null;
 	}
 	
@@ -114,6 +133,9 @@ public class FeaturedClipsBean extends BaseClientBean {
 						featuredClips.add(aClip);
 					}
 				}
+				BeanUtils.redirect(generateRedirectLink(featuredClips));
+			} else {
+				addErrorMessage(BeanUtils.getBundleMsg("please_select_clip"));
 				BeanUtils.redirect(generateRedirectLink(featuredClips));
 			}
 		} catch (Throwable err) {

@@ -30,6 +30,17 @@
 				</client:button>
 			</td>
 			<td>
+				<t:div rendered="#{displayPlayAll}">
+					<client:button>
+						<ui:define name="button-body">
+							<h:commandButton value="#{msg.play_all}" onclick="slideToFeaturedClips();updateCurrentPlaybackPos();" action="#{featuredClipsBean.playAll}">
+								<f:param name="referenceBeanName" value="#{bean.beanName}"/>
+							</h:commandButton>
+						</ui:define>
+					</client:button>
+				</t:div>
+			</td>
+			<td>
 				<t:div rendered="#{userProfileBean.loggedIn}">
 					<client:button>
 						<ui:define name="button-body">
