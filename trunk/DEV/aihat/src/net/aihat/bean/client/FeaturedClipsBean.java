@@ -1,13 +1,14 @@
 package net.aihat.bean.client;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.event.AjaxBehaviorEvent;
 
+import net.aihat.dto.ClipCommentDto;
 import net.aihat.dto.ClipDto;
 import net.aihat.dto.FeaturedClipDto;
-import net.aihat.dto.PlaylistDto;
 import net.aihat.dto.UserDto;
 import net.aihat.utils.AihatUtils;
 import net.aihat.utils.BeanUtils;
@@ -235,6 +236,42 @@ public class FeaturedClipsBean extends BaseClientBean {
 	 * END OF PLAY & ADD 
 	 */
 	
+	/**
+	 * COMMENT
+	 */
+	private List<ClipCommentDto> currentClipComments;
+	private String commentContent;
+	public synchronized void addComment(AjaxBehaviorEvent event) {
+		ClipCommentDto clipComment = getClipCommentService().addNewComment(BeanUtils.getLogginUserId(), currentClipId, commentContent);
+		BeanUtils.getUtilsBean().getLatestCommentTime().put(currentClipId, clipComment.getTime());
+	}
+	public synchronized void loadComments(AjaxBehaviorEvent event) {
+		currentClipComments = getClipCommentService().getAllCommentOfClip(currentClipId);
+		if(!AihatUtils.isEmpty(currentClipComments)) {
+			BeanUtils.getUtilsBean().getLatestCommentTime().put(currentClipId, 
+					currentClipComments.get(currentClipComments.size()-1).getTime());
+		}
+	}
+	public synchronized void refreshComments(AjaxBehaviorEvent event) {
+		if(AihatUtils.isValidId(currentClipId)) {
+			if(AihatUtils.isEmpty(currentClipComments)) {
+				if(BeanUtils.getUtilsBean().getLatestCommentTime().get(currentClipId) != null) {
+					currentClipComments = getClipCommentService().getAllCommentOfClip(currentClipId);
+				}
+			} else {
+				Date currentLatestCommentTime = currentClipComments.get(currentClipComments.size() - 1).getTime();
+				Date appLatestCommentTime = BeanUtils.getUtilsBean().getLatestCommentTime().get(currentClipId);
+				if(currentLatestCommentTime.before(appLatestCommentTime)) {
+					currentClipComments.addAll(getClipCommentService().getCommentOfClipAfter(currentClipId, appLatestCommentTime));
+				}
+			}
+		}
+	}
+	
+	/**
+	 * END OF COMMENT
+	 */
+	
 	//getter setter
 	public void setFeaturedClips(List<ClipDto> featuredClips) {
 		this.featuredClips = featuredClips;
@@ -263,4 +300,21 @@ public class FeaturedClipsBean extends BaseClientBean {
 	public void setCurrentClipId(Integer currentClipId) {
 		this.currentClipId = currentClipId;
 	}
+
+	public List<ClipCommentDto> getCurrentClipComments() {
+		return currentClipComments;
+	}
+
+	public void setCurrentClipComments(List<ClipCommentDto> currentClipComments) {
+		this.currentClipComments = currentClipComments;
+	}
+
+	public String getCommentContent() {
+		return commentContent;
+	}
+
+	public void setCommentContent(String commentContent) {
+		this.commentContent = commentContent;
+	}
+	
 }

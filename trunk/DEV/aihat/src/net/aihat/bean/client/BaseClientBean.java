@@ -3,6 +3,7 @@ package net.aihat.bean.client;
 import java.util.List;
 
 import net.aihat.bean.BaseBean;
+import net.aihat.service.ClipCommentService;
 import net.aihat.service.ClipService;
 import net.aihat.service.ComposerService;
 import net.aihat.service.FailedSearchService;
@@ -26,6 +27,7 @@ public abstract class BaseClientBean extends BaseBean {
 	private UserService userService;
 	private FailedSearchService failedSearchService;
 	private FeaturedClipService featuredClipService;
+	private ClipCommentService clipCommentService;
 
 	//init
 	public String init() {
@@ -114,6 +116,12 @@ public abstract class BaseClientBean extends BaseBean {
 	}
 	public void setFeaturedClipService(FeaturedClipService featuredClipService) {
 		this.featuredClipService = featuredClipService;
+	}
+	public ClipCommentService getClipCommentService() {
+		return clipCommentService;
+	}
+	public void setClipCommentService(ClipCommentService clipCommentService) {
+		this.clipCommentService = clipCommentService;
 	}
 	
 }

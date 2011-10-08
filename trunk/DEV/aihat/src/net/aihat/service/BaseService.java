@@ -2,6 +2,7 @@ package net.aihat.service;
 
 import java.io.Serializable;
 
+import net.aihat.dao.ClipCommentDao;
 import net.aihat.dao.ClipDao;
 import net.aihat.dao.ComposerDao;
 import net.aihat.dao.FailedSearchDao;
@@ -22,6 +23,7 @@ public abstract class BaseService implements Serializable {
 	private FailedSearchDao failedSearchDao;
 	private PlaylistDao playlistDao;
 	private FeaturedClipDao featuredClipDao;
+	private ClipCommentDao clipCommentDao;
 	
 	//getter setter
 	public ClipDao getClipDao() {
@@ -95,4 +97,13 @@ public abstract class BaseService implements Serializable {
 	public void setFeaturedClipDao(FeaturedClipDao featuredClipDao) {
 		this.featuredClipDao = featuredClipDao;
 	}
+
+	public ClipCommentDao getClipCommentDao() {
+		return clipCommentDao;
+	}
+
+	public void setClipCommentDao(ClipCommentDao clipCommentDao) {
+		this.clipCommentDao = clipCommentDao;
+	}
+	
 }

@@ -29,7 +29,9 @@ public class AihatConstants {
 	
 	//date format
 	public static final SimpleDateFormat SDF_YYYYMMDD = new SimpleDateFormat("yyyyMMdd");
+	public static final SimpleDateFormat SDF_YYYYMMDD_HHMMSS_SSS = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 	static {
 		SDF_YYYYMMDD.setLenient(false);
+		SDF_YYYYMMDD_HHMMSS_SSS.setLenient(false);
 	}
 }

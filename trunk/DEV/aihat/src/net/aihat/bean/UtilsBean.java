@@ -1,6 +1,9 @@
 package net.aihat.bean;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.aihat.dto.ComposerDto;
 import net.aihat.dto.GenreDto;
@@ -31,6 +34,8 @@ public class UtilsBean extends BaseBean {
 	private List<SingerDto> tempSingerList;
 	private List<ComposerDto> tempComposerList;
 	private List<GenreDto> tempGenreList;
+	
+	private Map<Integer,Date> latestCommentTime = new HashMap<Integer, Date>();
 	
 	public String init() {
 		return null;
@@ -112,4 +117,13 @@ public class UtilsBean extends BaseBean {
 	public void setTempGenreList(List<GenreDto> tempGenreList) {
 		this.tempGenreList = tempGenreList;
 	}
+
+	public synchronized Map<Integer, Date> getLatestCommentTime() {
+		return latestCommentTime;
+	}
+
+	public synchronized void setLatestCommentTime(Map<Integer, Date> latestCommentTime) {
+		this.latestCommentTime = latestCommentTime;
+	}
+	
 }
