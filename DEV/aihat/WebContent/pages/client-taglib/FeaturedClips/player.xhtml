@@ -246,6 +246,7 @@
 				}
 				currentLink = link;
 				$("#featuredClips").find(".currentEmbeddedLink").val(link);
+				$("#featuredClips").find(".currentPlaybackPos").val(0);
 				$("#featuredClips").find(".currentClipId").val(clipList[getIndexFromLink(link)].id);
 				$("#featuredClips").find(".syncCurrent").click();
 				if(playbackPos > 0) {

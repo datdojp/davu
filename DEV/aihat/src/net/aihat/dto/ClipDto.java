@@ -13,6 +13,7 @@ public class ClipDto extends BaseUserCareDto {
 	private Boolean official;
 	private Integer nViews;
 	private Integer nFans;
+	private List<ClipCommentDto> comments;
 	
 	//this field is to determine that singer is liked by current logged-in user
 	private Boolean liked = Boolean.FALSE;
@@ -120,5 +121,11 @@ public class ClipDto extends BaseUserCareDto {
 	}
 	public void setOrderInPlaylist(Integer orderInPlaylist) {
 		this.orderInPlaylist = orderInPlaylist;
+	}
+	public List<ClipCommentDto> getComments() {
+		return comments;
+	}
+	public void setComments(List<ClipCommentDto> comments) {
+		this.comments = comments;
 	}
 }

@@ -11,4 +11,5 @@
 	<sqlMap resource="net/aihat/sqlmap/failed-search.xml"/>
 	<sqlMap resource="net/aihat/sqlmap/playlist.xml"/>
 	<sqlMap resource="net/aihat/sqlmap/featured-clip.xml"/>
+	<sqlMap resource="net/aihat/sqlmap/comment.xml"/>
 </sqlMapConfig>

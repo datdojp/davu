@@ -57,6 +57,10 @@ public class BeanUtils {
 		return (UserProfileBean) getContextBean("userProfileBean");
 	}
 	
+	public static UtilsBean getUtilsBean() {
+		return (UtilsBean) getContextBean("utilsBean");
+	}
+	
 	public static Integer getLogginUserId() {
 		UserDto user = getUserProfileBean().getProfile();
 		Integer userId = null;

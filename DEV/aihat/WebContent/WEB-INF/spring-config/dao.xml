@@ -19,4 +19,5 @@
 	<bean id="failedSearchDao" class="net.aihat.dao.FailedSearchDaoImpl" parent="baseDao"/>
 	<bean id="playlistDao" class="net.aihat.dao.PlaylistDaoImpl" parent="baseDao"/>
 	<bean id="featuredClipDao" class="net.aihat.dao.FeaturedClipDaoImpl" parent="baseDao"/>
+	<bean id="clipCommentDao" class="net.aihat.dao.ClipCommentDaoImpl" parent="baseDao"/>
 </beans>		

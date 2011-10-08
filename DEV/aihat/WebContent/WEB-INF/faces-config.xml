@@ -406,6 +406,10 @@
 			<property-name>featuredClipService</property-name>
 			<value>#{featuredClipService}</value>
 		</managed-property>
+		<managed-property>
+			<property-name>clipCommentService</property-name>
+			<value>#{clipCommentService}</value>
+		</managed-property>
 	</managed-bean>
 	
 	<managed-bean>
