@@ -7,336 +7,375 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:client="http://www.aihat.net/client"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:fb="http://www.facebook.com">
 <ui:composition>
-	<h:inputText id="currentEmbeddedLink" value="#{featuredClipsBean.currentEmbeddedLink}" styleClass="currentEmbeddedLink" style="display:none;"/>
-	<h:inputText id="currentPlaybackPos" value="#{featuredClipsBean.currentPlaybackPos}" styleClass="currentPlaybackPos" style="display:none;"/>
-	<h:commandButton styleClass="syncCurrentPlayback" style="display:none">
-		<f:ajax event="click" execute="currentEmbeddedLink currentPlaybackPos" listener="#{featuredClipsBean.syncCurrentPlayback}"/>
-	</h:commandButton>
-	
-	<div id="ytwrapper"></div>
-	
-	<div style="width: 100%; position: absolute; bottom: 0px;">
-		<div style="width:100%;height:35px;" class="clipBriefDetailTop">
-			<div style="vertical-align:middle;float: right;" align="center">
-				<client:button>
-					<ui:define name="button-body">
-						<h:commandButton value="#{msg.remove_all}" action="#{featuredClipsBean.removeAll}">
-						</h:commandButton>
-					</ui:define>
-				</client:button>
-			</div>
-			<div align="center" style="float: left;padding-left:50px;">
-				<c:forEach items="#{clips}" var="aClip">
-					<div class="detail detail#{aClip.id}" style="display: none; width:100%; padding-top: 3px;">
-						<span style="color: #0182d7; font-weight: bold;">
-							#{aClip.title}
-							&nbsp;
-						</span>
-						
-						<span style="color: ghostWhite;">
-							-
-							&nbsp;
-						</span>
-						
-						<ui:repeat var="aSinger" value="#{aClip.singers}">
-							<h:commandLink onclick="slideToDetail();">
-								<f:param name="singerId" value="#{aSinger.id}"/>
-								<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showSingerDetail}"/>
-								<span style="color: #d76b01;">
-									#{aSinger.name}
-								</span>
-							</h:commandLink>
-							&nbsp;
-						</ui:repeat>
-						
-						<span style="color: ghostWhite;">
-							-
-							&nbsp;
-						</span>
-						
-						<ui:repeat var="aComposer" value="#{aClip.composers}">
-							<h:commandLink onclick="slideToDetail();">
-								<f:param name="composerId" value="#{aComposer.id}"/>
-								<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showComposerDetail}"/>
-								<span style="color: #d76b01">
-									#{aComposer.name} 
-								</span>
-							</h:commandLink>
-						</ui:repeat>
-						&nbsp;
-
-						<span style="color: ghostWhite;">
-							-
-							&nbsp;
-						</span>
-						
-						<ui:repeat var="aGenre" value="#{aClip.genres}">
-							<h:commandLink rendered="#{utilsBean.currentLanguage eq 'en'}" onclick="slideToDetail();">
-								<f:param name="genreId" value="#{aGenre.id}"/>
-								<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showGenreDetail}"/>
-								<span style="color: #d76b01">
-									#{aGenre.nameEn}	
-								</span>
-							</h:commandLink>
-							<h:commandLink rendered="#{utilsBean.currentLanguage eq 'vi'}" onclick="slideToDetail();">
-								<f:param name="genreId" value="#{aGenre.id}"/>
-								<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showGenreDetail}"/>
-								<span style="color: #d76b01">
-									#{aGenre.nameVi} 
-								</span>
-							</h:commandLink>
-							&nbsp;
-						</ui:repeat>
-						
-						<span style="color: ghostWhite;">
-							-
-							&nbsp;
-						</span>
-						
-						<h:commandLink onclick="slideToDetail();">
-							<f:param name="userId" value="#{aClip.user.id}"/>
-							<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showUserDetail}"/>
-							<span style="color: #d76b01;">
-								#{aClip.user.name}
-							</span>
-						</h:commandLink>
-						&nbsp;
-						
-						<span style="color: ghostWhite;">
-							-
-							&nbsp;
-						</span>
-						
-						<span style="color: ghostWhite;">
-							<h:outputText value="#{aClip.nFans}"/> 
-						</span>
-						<span style="color: #d76b01">
-							<h:outputText value="#{msg.client_clips_peopleLiked}"/>
-						</span>
-						
-						<span style="color: ghostWhite;">
-							<h:outputText value="#{aClip.nViews}"/> 
-						</span>
-						<span style="color: #d76b01">
-							<h:outputText value="#{msg.client_clips_peopleViewed}"/>
-						</span>
-						
-						<span style="float:right;display: none">
-							<h:form>
+	<table cellpadding="0" cellspacing="0" border="0" style="width: 100%">
+		<tr>
+			<td align="center">
+				<h:form id="featuredClips_funcs">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<tr>
+							<td align="center">
+								<fb:like href="#{config.server}/pages/client/Zentai.jsf?perlink_clipid=#{featuredClipsBean.currentClipId}" layout="button_count"></fb:like>
+							</td>
+						</tr>
+						<tr>
+							<td align="center">
+								<h:commandButton value="#{msg.share}"
+										onclick="prompt('', '#{config.server}/pages/client/Zentai.jsf?perlink_clipid=#{featuredClipsBean.currentClipId}');return false;"
+										styleClass="shareBtn">
+								</h:commandButton>
+							</td>
+						</tr>
+						<tr>
+							<td align="center">
 								<h:commandLink rendered="#{not aClip.liked}">
-									<f:param name="clipId" value="#{aClip.id}"/>
+									<f:param name="clipId" value="#{featuredClipsBean.currentClipId}"/>
 									<f:param name="referenceBeanName" value="#{featuredClipsBean.beanName}"/>
 									<f:ajax event="click" render="@form" listener="#{zentaiBean.likeClip}"/>
 									<h:graphicImage url="#{config.server}/img/client/like.png"/>
 									<h:outputText value="#{msg.like}" styleClass="like"/>
 								</h:commandLink>
 								<h:commandLink rendered="#{aClip.liked}">
-									<f:param name="clipId" value="#{aClip.id}"/>
+									<f:param name="clipId" value="#{featuredClipsBean.currentClipId}"/>
 									<f:param name="referenceBeanName" value="#{featuredClipsBean.beanName}"/>
 									<f:ajax event="click" render="@form" listener="#{zentaiBean.unlikeClip}"/>
 									<h:graphicImage url="#{config.server}/img/client/unlike.png"/>
 									<h:outputText value="#{msg.like}" styleClass="unlike"/>
 								</h:commandLink>
-								<client:messages formId="featuredClips_like"/>
-							</h:form>
-						</span>
-					</div>
-				</c:forEach>
-			</div>
-		</div>
-		<table cellpadding="0" cellspacing="0">
-			<tr>
-				<td>
-					<div class="featureclips-nav-left" onclick="featuredClipsNav(-1)">
-					</div>
-				</td>
-				<td>
-					<div style="overflow:hidden;" class="slider">
-						<table>
-							<tr style="float: left; height: 83px;">
-							<c:forEach items="#{clips}" var="aClip">
-								<td style="overflow: hidden;">
-									<div id="post#{aClip.id}">
-										<h:graphicImage
-												url="#{aClip.thumbnailLink}"
-												onclick="loadClip('#{aClip.embeddedLink}', 0);"
-												styleClass="reflect clipThumbnail thumbnail#{aClip.id}"
-												width="80"
-												onmouseover="showClipDetail(#{aClip.id})"
-												onmouseout="showCurrentClipDetail()"/>
-										<div class="removeBtn" align="center" style="position:relative; bottom:80px;left:60px;">
-											<h:commandButton value="x" onclick="updateCurrentPlaybackPos();" action="#{featuredClipsBean.removeOne}">
-												<f:param name="selectedClipId" value="#{aClip.id}"/>
-											</h:commandButton>
-										</div>
-									</div>
-								</td>
-							</c:forEach>
-							</tr>
-						</table>
-					</div>
-				</td>
-				<td>
-					<div class="featureclips-nav-right" onclick="featuredClipsNav(1)">
-					</div>
-				</td>
-			</tr>
-		</table>
-		<script>
-			var sliderWidth = $(window).width()-36*2;
-			sliderWidth = sliderWidth - sliderWidth % 85;
-			var nVisibleClipsOnSlider = sliderWidth / 85;
-			var NAV_BY = 3;
-			var slider = $("#featuredClips").find(".slider");
-			slider.css({width:sliderWidth});
-		</script>
-	</div>
+							</td>
+						</tr>
+					</table>
+					<client:messages formId="featuredClips_funcs"/>
+					<script>
+					    try{
+					        FB.XFBML.parse(); 
+					    }catch(ex){}
+					</script>
+				</h:form>
+			</td>
+			<td>
+				<div id="ytwrapper"></div>
+			</td>
+			<td>
+			</td>
+		</tr>
+	</table>
 	
-	<script>
-		var ytplayer;
-		var currentInterval;
-		var currentLink;
-		var clipList = [];
-		var clipStartTime;
-		<c:forEach items="#{clips}" var="aClip">
-			clipList.push({id:"#{aClip.id}", title:"#{aClip.titleEscapeDoubleQuote}", link:"#{aClip.embeddedLink}"});
-		</c:forEach>
-
-		var tempPlaybackPos = 0;
-		var needSeekTo = false;
+	<h:form id="featuredClips">
+		<h:inputText id="currentClipId" value="#{featuredClipsBean.currentClipId}" styleClass="currentClipId" style="display:none;"/>
+		<h:inputText id="currentEmbeddedLink" value="#{featuredClipsBean.currentEmbeddedLink}" styleClass="currentEmbeddedLink" style="display:none;"/>
+		<h:inputText id="currentPlaybackPos" value="#{featuredClipsBean.currentPlaybackPos}" styleClass="currentPlaybackPos" style="display:none;"/>
+		<h:commandButton styleClass="syncCurrent" style="display:none">
+			<f:ajax event="click" execute="currentClipId currentEmbeddedLink currentPlaybackPos" render=":featuredClips_funcs" listener="#{featuredClipsBean.syncCurrent}"/>
+		</h:commandButton>
+		<div style="width: 100%; position: absolute; bottom: 0px;">
+			<div style="width:100%;height:35px;" class="clipBriefDetailTop">
+				<div style="vertical-align:middle;float: right;" align="center">
+					<client:button>
+						<ui:define name="button-body">
+							<h:commandButton value="#{msg.remove_all}" action="#{featuredClipsBean.removeAll}">
+							</h:commandButton>
+						</ui:define>
+					</client:button>
+				</div>
+				<div align="center" style="float: left;padding-left:50px;">
+					<c:forEach items="#{clips}" var="aClip">
+						<div class="detail detail#{aClip.id}" style="display: none; width:100%; padding-top: 3px;">
+							<span style="color: #0182d7; font-weight: bold;">
+								#{aClip.title}
+								&nbsp;
+							</span>
+							
+							<span style="color: ghostWhite;">
+								-
+								&nbsp;
+							</span>
+							
+							<ui:repeat var="aSinger" value="#{aClip.singers}">
+								<h:commandLink onclick="slideToDetail();">
+									<f:param name="singerId" value="#{aSinger.id}"/>
+									<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showSingerDetail}"/>
+									<span style="color: #d76b01;">
+										#{aSinger.name}
+									</span>
+								</h:commandLink>
+								&nbsp;
+							</ui:repeat>
+							
+							<span style="color: ghostWhite;">
+								-
+								&nbsp;
+							</span>
+							
+							<ui:repeat var="aComposer" value="#{aClip.composers}">
+								<h:commandLink onclick="slideToDetail();">
+									<f:param name="composerId" value="#{aComposer.id}"/>
+									<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showComposerDetail}"/>
+									<span style="color: #d76b01">
+										#{aComposer.name} 
+									</span>
+								</h:commandLink>
+							</ui:repeat>
+							&nbsp;
+	
+							<span style="color: ghostWhite;">
+								-
+								&nbsp;
+							</span>
+							
+							<ui:repeat var="aGenre" value="#{aClip.genres}">
+								<h:commandLink rendered="#{utilsBean.currentLanguage eq 'en'}" onclick="slideToDetail();">
+									<f:param name="genreId" value="#{aGenre.id}"/>
+									<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showGenreDetail}"/>
+									<span style="color: #d76b01">
+										#{aGenre.nameEn}	
+									</span>
+								</h:commandLink>
+								<h:commandLink rendered="#{utilsBean.currentLanguage eq 'vi'}" onclick="slideToDetail();">
+									<f:param name="genreId" value="#{aGenre.id}"/>
+									<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showGenreDetail}"/>
+									<span style="color: #d76b01">
+										#{aGenre.nameVi} 
+									</span>
+								</h:commandLink>
+								&nbsp;
+							</ui:repeat>
+							
+							<span style="color: ghostWhite;">
+								-
+								&nbsp;
+							</span>
+							
+							<h:commandLink onclick="slideToDetail();">
+								<f:param name="userId" value="#{aClip.user.id}"/>
+								<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showUserDetail}"/>
+								<span style="color: #d76b01;">
+									#{aClip.user.name}
+								</span>
+							</h:commandLink>
+							&nbsp;
+							
+							<span style="color: ghostWhite;">
+								-
+								&nbsp;
+							</span>
+							
+							<span style="color: ghostWhite;">
+								<h:outputText value="#{aClip.nFans}"/> 
+							</span>
+							<span style="color: #d76b01">
+								<h:outputText value="#{msg.client_clips_peopleLiked}"/>
+							</span>
+							
+							<span style="color: ghostWhite;">
+								<h:outputText value="#{aClip.nViews}"/> 
+							</span>
+							<span style="color: #d76b01">
+								<h:outputText value="#{msg.client_clips_peopleViewed}"/>
+							</span>
+						</div>
+					</c:forEach>
+				</div>
+			</div>
+			<table cellpadding="0" cellspacing="0">
+				<tr>
+					<td>
+						<div class="featureclips-nav-left" onclick="featuredClipsNav(-1)">
+						</div>
+					</td>
+					<td>
+						<div style="overflow:hidden;" class="slider">
+							<table>
+								<tr style="float: left; height: 83px;">
+								<c:forEach items="#{clips}" var="aClip">
+									<td style="overflow: hidden;">
+										<div id="post#{aClip.id}">
+											<h:graphicImage
+													url="#{aClip.thumbnailLink}"
+													onclick="loadClip('#{aClip.embeddedLink}', 0);"
+													styleClass="reflect clipThumbnail thumbnail#{aClip.id}"
+													width="80"
+													onmouseover="showClipDetail(#{aClip.id})"
+													onmouseout="showCurrentClipDetail()"/>
+											<div class="removeBtn" align="center" style="position:relative; bottom:80px;left:60px;">
+												<h:commandButton value="x" onclick="updateCurrentPlaybackPos();" action="#{featuredClipsBean.removeOne}">
+													<f:param name="selectedClipId" value="#{aClip.id}"/>
+												</h:commandButton>
+											</div>
+										</div>
+									</td>
+								</c:forEach>
+								</tr>
+							</table>
+						</div>
+					</td>
+					<td>
+						<div class="featureclips-nav-right" onclick="featuredClipsNav(1)">
+						</div>
+					</td>
+				</tr>
+			</table>
+			<script>
+				var sliderWidth = $(window).width()-36*2;
+				sliderWidth = sliderWidth - sliderWidth % 85;
+				var nVisibleClipsOnSlider = sliderWidth / 85;
+				var NAV_BY = 3;
+				var slider = $("#featuredClips").find(".slider");
+				slider.css({width:sliderWidth});
+			</script>
+		</div>
 		
-		function loadClip(link, playbackPos) {
-			if(link == '' || !isLinkExistingInList(link)) {
-				link = clipList[0].link;
-			}
-			currentLink = link;
-			$("#featuredClips").find(".currentEmbeddedLink").val(link);
-			$("#featuredClips").find(".syncCurrentPlayback").click();
-			if(playbackPos > 0) {
-				needSeekTo = true;
-				tempPlaybackPos = playbackPos;
-			}
-
-			//switch playing css
-			$("#featuredClips").find(".playing").removeClass("playing");
-			$("#featuredClips").find(".thumbnail" + clipList[getIndexFromLink(link)].id).addClass("playing");
-			$("#featuredClips").find(".playing").css("width", "84px");
-
-			//display detail
-			$("#featuredClips").find(".detail").css("display", "none");
-			$("#featuredClips").find(".detail" + clipList[getIndexFromLink(link)].id).css("display", "");
+		<script>
+			var ytplayer;
+			var currentInterval;
+			var currentLink;
+			var clipList = [];
+			var clipStartTime;
+			<c:forEach items="#{clips}" var="aClip">
+				clipList.push({id:"#{aClip.id}", title:"#{aClip.titleEscapeDoubleQuote}", link:"#{aClip.embeddedLink}"});
+			</c:forEach>
+	
+			var tempPlaybackPos = 0;
+			var needSeekTo = false;
 			
-			//add the div for embedded youtube
-			$("#ytwrapper").html([
-				"&lt;div id='ytapiplayer'&gt;",
-					"LOADING.......",
-				"&lt;/div&gt;"
-			].join(""));
+			function loadClip(link, playbackPos) {
+				if(link == '' || !isLinkExistingInList(link)) {
+					link = clipList[0].link;
+				}
+				currentLink = link;
+				$("#featuredClips").find(".currentEmbeddedLink").val(link);
+				$("#featuredClips").find(".currentClipId").val(clipList[getIndexFromLink(link)].id);
+				$("#featuredClips").find(".syncCurrent").click();
+				if(playbackPos > 0) {
+					needSeekTo = true;
+					tempPlaybackPos = playbackPos;
+				}
+	
+				//switch playing css
+				$("#featuredClips").find(".playing").removeClass("playing");
+				$("#featuredClips").find(".thumbnail" + clipList[getIndexFromLink(link)].id).addClass("playing");
+				$("#featuredClips").find(".playing").css("width", "84px");
+	
+				//display detail
+				$("#featuredClips").find(".detail").css("display", "none");
+				$("#featuredClips").find(".detail" + clipList[getIndexFromLink(link)].id).css("display", "");
+
+				//display functions of a clip
+				$("#featuredClips_funcs").find(".func_for_clip").css("display", "none");
+				$("#featuredClips_funcs").find(".func_for_clip" + clipList[getIndexFromLink(link)].id).css("display", "");
+				
+				//add the div for embedded youtube
+				$("#ytwrapper").html([
+					"&lt;div id='ytapiplayer'&gt;",
+						"LOADING.......",
+					"&lt;/div&gt;"
+				].join(""));
+				
+				//embed youtube
+				var params = { allowScriptAccess: "always", allowFullScreen:"true", wmode:"transparent"};
+			    var atts = { id: "myytplayer" };
+			    var height = $(window).height() - 99 - 122;
+			    var width = Math.round(height*640/390);
+			    swfobject.embedSWF(link + "?enablejsapi=1&amp;fs=1&amp;playerapiid=ytplayer&amp;autoplay=1&amp;version=3&amp;showinfo=0",
+			                       "ytapiplayer", "" + width, "" + height, "8", null, null, params, atts);
+			}
+	
+			function updateCurrentPlaybackPos() {
+				$("#featuredClips").find(".currentPlaybackPos").val(ytplayer.getCurrentTime());
+				$("#featuredClips").find(".syncCurrent").click();
+			}
 			
-			//embed youtube
-			var params = { allowScriptAccess: "always", allowFullScreen:"true"};
-		    var atts = { id: "myytplayer" };
-		    var height = $(window).height() - 99 - 122;
-		    var width = Math.round(height*640/390);
-		    swfobject.embedSWF(link + "?enablejsapi=1&amp;fs=1&amp;playerapiid=ytplayer&amp;autoplay=1&amp;version=3&amp;showinfo=0",
-		                       "ytapiplayer", "" + width, "" + height, "8", null, null, params, atts);
-		}
-
-		function updateCurrentPlaybackPos() {
-			$("#featuredClips").find(".currentPlaybackPos").val(ytplayer.getCurrentTime());
-			$("#featuredClips").find(".syncCurrentPlayback").click();
-		}
-		
-		function isLinkExistingInList(link) {
-			return getIndexFromLink(link) >= 0;
-		}
-
-		function getIndexFromLink(link) {
-			for(var i = 0; i &lt; clipList.length;i++) {
-				if(clipList[i].link == link) {
-					return i;
-				} 
+			function isLinkExistingInList(link) {
+				return getIndexFromLink(link) >= 0;
 			}
-			return -1;
-		}
-		
-		function onYouTubePlayerReady(playerId) {
-			  ytplayer = document.getElementById("myytplayer");
-			  ytplayer.addEventListener("onStateChange", "onytplayerStateChange");
-			  currentInterval = setInterval(checkVideoEnds, PLAYER_INTERVAL);
-			  clipStartTime = (new Date()).getTime();
-		}
-
-		function onytplayerStateChange(newState) {
-			if(newState == 1 &amp;&amp; needSeekTo) {
-				ytplayer.seekTo(tempPlaybackPos, true);
-				needSeekTo = false;
+	
+			function getIndexFromLink(link) {
+				for(var i = 0; i &lt; clipList.length;i++) {
+					if(clipList[i].link == link) {
+						return i;
+					} 
+				}
+				return -1;
 			}
-		}
-		
-		function checkVideoEnds() {
-			/*
-			if(ytplayer.getCurrentTime() &gt;= ytplayer.getDuration() ||
-					((new Date()).getTime() - clipStartTime &gt; 3000 &amp;&amp; ytplayer.getVideoBytesLoaded() &lt; 0)) {
-			*/
-			/*
-			if(ytplayer.getCurrentTime() &gt;= ytplayer.getDuration()) {
-			*/
-			if(ytplayer.getPlayerState() == 0) {
-				//stop the video
-				ytplayer.stopVideo();
-				
-				//stop the interval
-				clearInterval(currentInterval);
-				
-				//clear the current embedded youtube
-				$("#ytwrapper").html("");
-				
-				//load the next clip
-				loadClip(getNextClipLink(), 0);
+			
+			function onYouTubePlayerReady(playerId) {
+				  ytplayer = document.getElementById("myytplayer");
+				  ytplayer.addEventListener("onStateChange", "onytplayerStateChange");
+				  currentInterval = setInterval(checkVideoEnds, PLAYER_INTERVAL);
+				  clipStartTime = (new Date()).getTime();
 			}
-		}
-
-		function getNextClipLink() {
-			for(var i = 0; i &lt; clipList.length; i++) {
-				if(currentLink == clipList[i].link) {
-					return clipList[(i+1) % clipList.length].link;
+	
+			function onytplayerStateChange(newState) {
+				if(newState == 1 &amp;&amp; needSeekTo) {
+					ytplayer.seekTo(tempPlaybackPos, true);
+					needSeekTo = false;
 				}
 			}
-		}
-		
-		//load the first clip
-		loadClip('#{featuredClipsBean.currentEmbeddedLink}', #{featuredClipsBean.currentPlaybackPos});
-		
-		// AUTOLOAD CODE BLOCK (MAY BE CHANGED OR REMOVED)
-		jQuery(function($) {
-			$("img.reflect").reflect({/* Put custom options here */});
-			$("img.reflected").css("border", "");
-		});
-
-		//nav
-		var currentVisibleIdx = 0;
-		function featuredClipsNav(leftRight) {
-			if(leftRight == -1) {
-				currentVisibleIdx = Math.max(0, currentVisibleIdx - NAV_BY);
-			} else if (leftRight == 1) {
-				currentVisibleIdx = Math.min(clipList.length-nVisibleClipsOnSlider, currentVisibleIdx + NAV_BY);
-			} else {
-				return;
+			
+			function checkVideoEnds() {
+				/*
+				if(ytplayer.getCurrentTime() &gt;= ytplayer.getDuration() ||
+						((new Date()).getTime() - clipStartTime &gt; 3000 &amp;&amp; ytplayer.getVideoBytesLoaded() &lt; 0)) {
+				*/
+				/*
+				if(ytplayer.getCurrentTime() &gt;= ytplayer.getDuration()) {
+				*/
+				if(ytplayer.getPlayerState() == 0) {
+					//stop the video
+					ytplayer.stopVideo();
+					
+					//stop the interval
+					clearInterval(currentInterval);
+					
+					//clear the current embedded youtube
+					$("#ytwrapper").html("");
+					
+					//load the next clip
+					loadClip(getNextClipLink(), 0);
+				}
 			}
-			slider.scrollTo("#post" + clipList[currentVisibleIdx].id, 400);
-		}
-		
-		function showClipDetail(clipId) {
-			$("#featuredClips").find(".detail").hide();
-			$("#featuredClips").find(".detail" + clipId).show();
-		}
-		function showCurrentClipDetail() {
-			$("#featuredClips").find(".detail").hide();
-			$("#featuredClips").find(".detail" + clipList[getIndexFromLink(currentLink)].id).show();
-		}
-	</script>
+	
+			function getNextClipLink() {
+				for(var i = 0; i &lt; clipList.length; i++) {
+					if(currentLink == clipList[i].link) {
+						return clipList[(i+1) % clipList.length].link;
+					}
+				}
+			}
+			
+			//load the first clip
+			loadClip('#{featuredClipsBean.currentEmbeddedLink}', #{featuredClipsBean.currentPlaybackPos});
+			
+			// AUTOLOAD CODE BLOCK (MAY BE CHANGED OR REMOVED)
+			jQuery(function($) {
+				$("img.reflect").reflect({/* Put custom options here */});
+				$("img.reflected").css("border", "");
+			});
+	
+			//nav
+			var currentVisibleIdx = 0;
+			function featuredClipsNav(leftRight) {
+				if(leftRight == -1) {
+					currentVisibleIdx = Math.max(0, currentVisibleIdx - NAV_BY);
+				} else if (leftRight == 1) {
+					currentVisibleIdx = Math.min(clipList.length-nVisibleClipsOnSlider, currentVisibleIdx + NAV_BY);
+				} else {
+					return;
+				}
+				slider.scrollTo("#post" + clipList[currentVisibleIdx].id, 400);
+			}
+			
+			function showClipDetail(clipId) {
+				$("#featuredClips").find(".detail").hide();
+				$("#featuredClips").find(".detail" + clipId).show();
+			}
+			function showCurrentClipDetail() {
+				$("#featuredClips").find(".detail").hide();
+				$("#featuredClips").find(".detail" + clipList[getIndexFromLink(currentLink)].id).show();
+			}
+		</script>
+	</h:form>
 </ui:composition>
 </html>

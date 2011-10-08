@@ -9,10 +9,6 @@
 	xmlns:client="http://www.aihat.net/client"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 <ui:composition>
-	<h:form id="featuredClips">
-		<c:set var="featuredClips" value="#{featuredClipsBean.featuredClips}"
-			scope="view" />
-		<client:player id="featuredClipPlayer" clips="#{featuredClips}"/>
-	</h:form>
+	<client:player id="featuredClipPlayer" clips="#{featuredClipsBean.featuredClips}"/>
 </ui:composition>
 </html>

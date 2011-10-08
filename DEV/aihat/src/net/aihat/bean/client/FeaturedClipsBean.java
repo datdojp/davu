@@ -36,12 +36,14 @@ public class FeaturedClipsBean extends BaseClientBean {
 	private List<ClipDto> featuredClips = new ArrayList<ClipDto>();
 	private String currentEmbeddedLink;
 	private double currentPlaybackPos;
+	private Integer currentClipId;
 	private void resetCurrent() {
+		currentClipId = null;
 		currentEmbeddedLink = null;
 		currentPlaybackPos = 0;
 	}
 	
-	public synchronized void syncCurrentPlayback(AjaxBehaviorEvent e) {
+	public synchronized void syncCurrent(AjaxBehaviorEvent e) {
 	}
 	
 	public List<ClipDto> getFeaturedClips() {
@@ -254,5 +256,11 @@ public class FeaturedClipsBean extends BaseClientBean {
 		this.currentPlaybackPos = currentPlaybackPos;
 	}
 
-	
+	public Integer getCurrentClipId() {
+		return currentClipId;
+	}
+
+	public void setCurrentClipId(Integer currentClipId) {
+		this.currentClipId = currentClipId;
+	}
 }
