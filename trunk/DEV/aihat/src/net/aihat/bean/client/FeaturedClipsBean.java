@@ -38,13 +38,20 @@ public class FeaturedClipsBean extends BaseClientBean {
 	private String currentEmbeddedLink;
 	private double currentPlaybackPos;
 	private Integer currentClipId;
+	private ClipDto currentClip;
 	private void resetCurrent() {
 		currentClipId = null;
 		currentEmbeddedLink = null;
 		currentPlaybackPos = 0;
+		currentClip = null;
 	}
 	
-	public synchronized void syncCurrent(AjaxBehaviorEvent e) {
+	public synchronized void syncAtLoad(AjaxBehaviorEvent e) {
+		currentClip = (ClipDto) AihatUtils.getDtoFromList(currentClipId, featuredClips);
+		currentPlaybackPos = 0;
+		loadComments();
+	}
+	public synchronized void syncPlaybackPos(AjaxBehaviorEvent e) {
 	}
 	
 	public List<ClipDto> getFeaturedClips() {
@@ -239,28 +246,36 @@ public class FeaturedClipsBean extends BaseClientBean {
 	/**
 	 * COMMENT
 	 */
-	private List<ClipCommentDto> currentClipComments;
+	private List<ClipCommentDto> currentClipComments = new ArrayList<ClipCommentDto>();
 	private String commentContent;
 	public synchronized void addComment(AjaxBehaviorEvent event) {
-		ClipCommentDto clipComment = getClipCommentService().addNewComment(BeanUtils.getLogginUserId(), currentClipId, commentContent);
-		BeanUtils.getUtilsBean().getLatestCommentTime().put(currentClipId, clipComment.getTime());
+		Integer userId;
+		if(BeanUtils.getUserProfileBean().getLoggedIn()) {
+			userId = BeanUtils.getLogginUserId();
+		} else {
+			userId = Integer.parseInt(BeanUtils.getConfig("guestId"));
+		}
+		ClipCommentDto clipComment = getClipCommentService().addNewComment(userId, currentClipId, commentContent);
+		BeanUtils.getLatestCommentTime().put(currentClipId, clipComment.getTime());
+		currentClipComments.add(clipComment);
+		commentContent = "";
 	}
-	public synchronized void loadComments(AjaxBehaviorEvent event) {
+	private synchronized void loadComments() {
 		currentClipComments = getClipCommentService().getAllCommentOfClip(currentClipId);
 		if(!AihatUtils.isEmpty(currentClipComments)) {
-			BeanUtils.getUtilsBean().getLatestCommentTime().put(currentClipId, 
+			BeanUtils.getLatestCommentTime().put(currentClipId, 
 					currentClipComments.get(currentClipComments.size()-1).getTime());
 		}
 	}
 	public synchronized void refreshComments(AjaxBehaviorEvent event) {
 		if(AihatUtils.isValidId(currentClipId)) {
 			if(AihatUtils.isEmpty(currentClipComments)) {
-				if(BeanUtils.getUtilsBean().getLatestCommentTime().get(currentClipId) != null) {
+				if(BeanUtils.getLatestCommentTime().get(currentClipId) != null) {
 					currentClipComments = getClipCommentService().getAllCommentOfClip(currentClipId);
 				}
 			} else {
 				Date currentLatestCommentTime = currentClipComments.get(currentClipComments.size() - 1).getTime();
-				Date appLatestCommentTime = BeanUtils.getUtilsBean().getLatestCommentTime().get(currentClipId);
+				Date appLatestCommentTime = BeanUtils.getLatestCommentTime().get(currentClipId);
 				if(currentLatestCommentTime.before(appLatestCommentTime)) {
 					currentClipComments.addAll(getClipCommentService().getCommentOfClipAfter(currentClipId, appLatestCommentTime));
 				}
@@ -315,6 +330,14 @@ public class FeaturedClipsBean extends BaseClientBean {
 
 	public void setCommentContent(String commentContent) {
 		this.commentContent = commentContent;
+	}
+
+	public ClipDto getCurrentClip() {
+		return currentClip;
+	}
+
+	public void setCurrentClip(ClipDto currentClip) {
+		this.currentClip = currentClip;
 	}
 	
 }

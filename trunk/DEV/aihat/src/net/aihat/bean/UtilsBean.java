@@ -35,8 +35,6 @@ public class UtilsBean extends BaseBean {
 	private List<ComposerDto> tempComposerList;
 	private List<GenreDto> tempGenreList;
 	
-	private Map<Integer,Date> latestCommentTime = new HashMap<Integer, Date>();
-	
 	public String init() {
 		return null;
 	}
@@ -117,13 +115,4 @@ public class UtilsBean extends BaseBean {
 	public void setTempGenreList(List<GenreDto> tempGenreList) {
 		this.tempGenreList = tempGenreList;
 	}
-
-	public synchronized Map<Integer, Date> getLatestCommentTime() {
-		return latestCommentTime;
-	}
-
-	public synchronized void setLatestCommentTime(Map<Integer, Date> latestCommentTime) {
-		this.latestCommentTime = latestCommentTime;
-	}
-	
 }

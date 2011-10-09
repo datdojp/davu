@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="comment">
-	<select id="searchCommentOfClip" parameterClass="net.aihat.criteria.ClipCommentSearchCriteria" resultClass="net.aiha.dto.ClipCommentDto">
+	<select id="searchCommentOfClip" parameterClass="net.aihat.criteria.ClipCommentSearchCriteria" resultClass="net.aihat.dto.ClipCommentDto">
 		SELECT
 			ucc.user_id as `user.id`,
 			u.name as `user.name`,
@@ -13,6 +13,9 @@
 		WHERE
 			ucc.user_id = u.id
 			<dynamic>
+				<isNotNull property="id" prepend="AND">
+					ucc.id = #id#
+				</isNotNull>
 				<isNotNull property="user.id" prepend="AND">
 					ucc.user_id = #user.id#
 				</isNotNull>
@@ -26,18 +29,24 @@
 					ucc.time AFTER #fromTime#
 				</isNotEmpty>
 			</dynamic>
-			ucc.clip_id = #value#
 		ORDER BY `time` asc
 	</select>
-	<insert id="insertCommentOfClip" parameterClass="net.aiha.dto.ClipCommentDto">
+	<insert id="insertCommentOfClip" parameterClass="net.aihat.dto.ClipCommentDto">
 		INSERT INTO user_comment_clip(user_id, clip_id, time, content)
 		VALUES (#user.id#, #clip.id#, NOW(), #content#)
 	</insert>
-	<delete id="deleteCommentOfClip" parameterClass="net.aiha.dto.ClipCommentDto">
+	<delete id="deleteCommentOfClip" parameterClass="int">
 		DELETE FROM user_comment_clip
 		WHERE
-			user_id = #user.id# AND
-			clip_id = #clip.id# AND
-			time = #time#
+			id = #id#
 	</delete>
+	<select id="getClipCommentTimeAndUserName" parameterClass="int" resultClass="net.aihat.dto.ClipCommentDto">
+		SELECT 
+			ucc.`time` as `time`,
+			u.name as `user.name`
+		FROM user_comment_clip ucc, user u
+		WHERE
+			ucc.user_id = u.id AND
+			ucc.id = #id#
+	</select>
 </sqlMap>

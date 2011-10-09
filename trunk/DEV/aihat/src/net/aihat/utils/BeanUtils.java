@@ -2,8 +2,10 @@ package net.aihat.utils;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
@@ -55,10 +57,6 @@ public class BeanUtils {
 	
 	public static UserProfileBean getUserProfileBean() {
 		return (UserProfileBean) getContextBean("userProfileBean");
-	}
-	
-	public static UtilsBean getUtilsBean() {
-		return (UtilsBean) getContextBean("utilsBean");
 	}
 	
 	public static Integer getLogginUserId() {
@@ -140,5 +138,11 @@ public class BeanUtils {
 		}
 		List aihat = (List) getRequest().getSession().getAttribute("aihat-viewed-clipid");
 		return aihat.contains(obj);
+	}
+	
+	private static Map<Integer,Date> latestCommentTime = new HashMap<Integer, Date>();
+
+	public synchronized static Map<Integer, Date> getLatestCommentTime() {
+		return latestCommentTime;
 	}
 }

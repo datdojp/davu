@@ -41,14 +41,8 @@ public class ClipCommentServiceImpl extends BaseService implements ClipCommentSe
 	}
 
 	@Transactional(rollbackFor=DataAccessException.class)
-	public void deleteComment(int userId, int clipId, Date time) throws DataAccessException {
-		ClipCommentDto clipComment = new ClipCommentDto();
-		clipComment.setUser(new UserDto());
-		clipComment.getUser().setId(userId);
-		clipComment.setClip(new ClipDto());
-		clipComment.getClip().setId(clipId);
-		clipComment.setTime(time);
-		getClipCommentDao().delete(clipComment);
+	public void deleteComment(int id) throws DataAccessException {
+		getClipCommentDao().delete(id);
 	}
 
 }

@@ -97,10 +97,10 @@
   PATH="/pages/user/LoginFailed.jsf" SHAPE="304,689,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#pages#user#Blocked.jsf"
   PATH="/pages/user/Blocked.jsf" SHAPE="304,33,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM NAME="rules:#pages#admin#ManageClip.jsf"
-  PATH="/pages/admin/ManageClip.jsf" SHAPE="304,913,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#pages#admin#EditSinger.jsf"
   PATH="/pages/admin/EditSinger.jsf" SHAPE="304,1249,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#admin#ManageClip.jsf"
+  PATH="/pages/admin/ManageClip.jsf" SHAPE="304,913,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#pages#admin#HomePage.jsf"
   PATH="/pages/admin/HomePage.jsf" SHAPE="304,1137,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#pages#admin#ManageSinger.jsf"
