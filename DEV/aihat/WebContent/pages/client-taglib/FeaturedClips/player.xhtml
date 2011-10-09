@@ -30,14 +30,14 @@
 						</tr>
 						<tr>
 							<td align="center">
-								<h:commandLink rendered="#{not aClip.liked}">
+								<h:commandLink rendered="#{not featuredClipsBean.currentClip.liked}">
 									<f:param name="clipId" value="#{featuredClipsBean.currentClipId}"/>
 									<f:param name="referenceBeanName" value="#{featuredClipsBean.beanName}"/>
 									<f:ajax event="click" render="@form" listener="#{zentaiBean.likeClip}"/>
 									<h:graphicImage url="#{config.server}/img/client/like.png"/>
 									<h:outputText value="#{msg.like}" styleClass="like"/>
 								</h:commandLink>
-								<h:commandLink rendered="#{aClip.liked}">
+								<h:commandLink rendered="#{featuredClipsBean.currentClip.liked}">
 									<f:param name="clipId" value="#{featuredClipsBean.currentClipId}"/>
 									<f:param name="referenceBeanName" value="#{featuredClipsBean.beanName}"/>
 									<f:ajax event="click" render="@form" listener="#{zentaiBean.unlikeClip}"/>
@@ -59,6 +59,40 @@
 				<div id="ytwrapper"></div>
 			</td>
 			<td>
+				<table cellpadding="0" cellspacing="0" border="0">
+					<tr>
+						<td>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:form id="featuredClips_comments">
+								<div style="overflow: scroll;width: 100%" class="commentsBox">
+									<c:forEach var="aComment" items="#{featuredClipsBean.currentClipComments}">
+										<span style="width: 100%">
+											#{aComment.user.name}
+											(
+											<i>
+												<h:outputText value="#{aComment.time}">
+													<f:convertDateTime pattern="yyyy.MM.dd HH:mm:ss"/>
+												</h:outputText>
+											</i>
+											)
+											: #{aComment.content}
+										</span>
+										<br></br>
+									</c:forEach>
+								</div>
+								<h:panelGrid columns="2">
+									<h:inputText value="#{featuredClipsBean.commentContent}"/>
+									<h:commandButton value="TODO">
+										<f:ajax event="click" execute="@form" render="@form" listener="#{featuredClipsBean.addComment}"/>
+									</h:commandButton>
+								</h:panelGrid>
+							</h:form>
+						</td>
+					</tr>
+				</table>
 			</td>
 		</tr>
 	</table>
@@ -67,8 +101,11 @@
 		<h:inputText id="currentClipId" value="#{featuredClipsBean.currentClipId}" styleClass="currentClipId" style="display:none;"/>
 		<h:inputText id="currentEmbeddedLink" value="#{featuredClipsBean.currentEmbeddedLink}" styleClass="currentEmbeddedLink" style="display:none;"/>
 		<h:inputText id="currentPlaybackPos" value="#{featuredClipsBean.currentPlaybackPos}" styleClass="currentPlaybackPos" style="display:none;"/>
-		<h:commandButton styleClass="syncCurrent" style="display:none">
-			<f:ajax event="click" execute="currentClipId currentEmbeddedLink currentPlaybackPos" render=":featuredClips_funcs" listener="#{featuredClipsBean.syncCurrent}"/>
+		<h:commandButton styleClass="syncAtLoad" style="display:none">
+			<f:ajax event="click" execute="currentClipId currentEmbeddedLink" render=":featuredClips_funcs :featuredClips_comments" listener="#{featuredClipsBean.syncAtLoad}"/>
+		</h:commandButton>
+		<h:commandButton styleClass="syncPlaybackPos" style="display:none">
+			<f:ajax event="click" execute="currentPlaybackPos" listener="#{featuredClipsBean.syncPlaybackPos}"/>
 		</h:commandButton>
 		<div style="width: 100%; position: absolute; bottom: 0px;">
 			<div style="width:100%;height:35px;" class="clipBriefDetailTop">
@@ -248,7 +285,7 @@
 				$("#featuredClips").find(".currentEmbeddedLink").val(link);
 				$("#featuredClips").find(".currentPlaybackPos").val(0);
 				$("#featuredClips").find(".currentClipId").val(clipList[getIndexFromLink(link)].id);
-				$("#featuredClips").find(".syncCurrent").click();
+				$("#featuredClips").find(".syncAtLoad").click();
 				if(playbackPos > 0) {
 					needSeekTo = true;
 					tempPlaybackPos = playbackPos;
@@ -285,7 +322,7 @@
 	
 			function updateCurrentPlaybackPos() {
 				$("#featuredClips").find(".currentPlaybackPos").val(ytplayer.getCurrentTime());
-				$("#featuredClips").find(".syncCurrent").click();
+				$("#featuredClips").find(".syncPlaybackPos").click();
 			}
 			
 			function isLinkExistingInList(link) {
@@ -347,7 +384,9 @@
 			}
 			
 			//load the first clip
-			loadClip('#{featuredClipsBean.currentEmbeddedLink}', #{featuredClipsBean.currentPlaybackPos});
+			$(window).ready(function() {
+				loadClip('#{featuredClipsBean.currentEmbeddedLink}', #{featuredClipsBean.currentPlaybackPos});
+			});
 			
 			// AUTOLOAD CODE BLOCK (MAY BE CHANGED OR REMOVED)
 			jQuery(function($) {
