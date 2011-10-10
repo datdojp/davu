@@ -93,6 +93,12 @@ public class FeaturedClipsBean extends BaseClientBean {
 			}
 		}
 		
+		if(currentClipId == null && !AihatUtils.isEmpty(featuredClips)) {
+			currentClip = featuredClips.get(0);
+			currentClipId = currentClip.getId();
+			currentEmbeddedLink = currentClip.getEmbeddedLink();
+		}
+		
 		return featuredClips;
 	}
 	
@@ -247,6 +253,7 @@ public class FeaturedClipsBean extends BaseClientBean {
 	 * COMMENT
 	 */
 	private List<ClipCommentDto> currentClipComments = new ArrayList<ClipCommentDto>();
+	private Date latestCommentUpdatedAt;
 	private String commentContent;
 	public synchronized void addComment(AjaxBehaviorEvent event) {
 		Integer userId;
@@ -256,30 +263,20 @@ public class FeaturedClipsBean extends BaseClientBean {
 			userId = Integer.parseInt(BeanUtils.getConfig("guestId"));
 		}
 		ClipCommentDto clipComment = getClipCommentService().addNewComment(userId, currentClipId, commentContent);
-		BeanUtils.getLatestCommentTime().put(currentClipId, clipComment.getTime());
 		currentClipComments.add(clipComment);
 		commentContent = "";
 	}
 	private synchronized void loadComments() {
 		currentClipComments = getClipCommentService().getAllCommentOfClip(currentClipId);
 		if(!AihatUtils.isEmpty(currentClipComments)) {
-			BeanUtils.getLatestCommentTime().put(currentClipId, 
-					currentClipComments.get(currentClipComments.size()-1).getTime());
+			latestCommentUpdatedAt = currentClipComments.get(0).getTime();
 		}
 	}
 	public synchronized void refreshComments(AjaxBehaviorEvent event) {
-		if(AihatUtils.isValidId(currentClipId)) {
-			if(AihatUtils.isEmpty(currentClipComments)) {
-				if(BeanUtils.getLatestCommentTime().get(currentClipId) != null) {
-					currentClipComments = getClipCommentService().getAllCommentOfClip(currentClipId);
-				}
-			} else {
-				Date currentLatestCommentTime = currentClipComments.get(currentClipComments.size() - 1).getTime();
-				Date appLatestCommentTime = BeanUtils.getLatestCommentTime().get(currentClipId);
-				if(currentLatestCommentTime.before(appLatestCommentTime)) {
-					currentClipComments.addAll(getClipCommentService().getCommentOfClipAfter(currentClipId, appLatestCommentTime));
-				}
-			}
+		if(AihatUtils.isEmpty(currentClipComments)) {
+			loadComments();
+		} else {
+			currentClipComments.addAll(getClipCommentService().getCommentOfClipAfter(currentClipId, latestCommentUpdatedAt));
 		}
 	}
 	

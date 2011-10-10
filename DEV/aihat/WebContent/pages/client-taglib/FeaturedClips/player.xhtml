@@ -65,9 +65,9 @@
 						</td>
 					</tr>
 					<tr>
-						<td>
+						<td style="height: 50%">
 							<h:form id="featuredClips_comments">
-								<div style="overflow: scroll;width: 100%" class="commentsBox">
+								<t:div id="allComments" style="overflow: scroll;width: 100%;height:200px" styleClass="commentsBox">
 									<c:forEach var="aComment" items="#{featuredClipsBean.currentClipComments}">
 										<span style="width: 100%">
 											#{aComment.user.name}
@@ -82,13 +82,16 @@
 										</span>
 										<br></br>
 									</c:forEach>
-								</div>
+								</t:div>
 								<h:panelGrid columns="2">
 									<h:inputText value="#{featuredClipsBean.commentContent}"/>
-									<h:commandButton value="TODO">
+									<h:commandButton value="#{msg.post_comment}">
 										<f:ajax event="click" execute="@form" render="@form" listener="#{featuredClipsBean.addComment}"/>
 									</h:commandButton>
 								</h:panelGrid>
+								<h:commandButton style="display:none" styleClass="refreshComments">
+									<f:ajax event="click" render=":featuredClips_comments:allComments" listener="#{featuredClipsBean.refreshComments}"/>
+								</h:commandButton>
 							</h:form>
 						</td>
 					</tr>
@@ -353,13 +356,6 @@
 			}
 			
 			function checkVideoEnds() {
-				/*
-				if(ytplayer.getCurrentTime() &gt;= ytplayer.getDuration() ||
-						((new Date()).getTime() - clipStartTime &gt; 3000 &amp;&amp; ytplayer.getVideoBytesLoaded() &lt; 0)) {
-				*/
-				/*
-				if(ytplayer.getCurrentTime() &gt;= ytplayer.getDuration()) {
-				*/
 				if(ytplayer.getPlayerState() == 0) {
 					//stop the video
 					ytplayer.stopVideo();
@@ -414,6 +410,13 @@
 			function showCurrentClipDetail() {
 				$("#featuredClips").find(".detail").hide();
 				$("#featuredClips").find(".detail" + clipList[getIndexFromLink(currentLink)].id).show();
+			}
+
+			//auto-poll comments
+			setInterval(refreshComments, #{config.autoPollCommentInterval});
+
+			function refreshComments() {
+				$("#featuredClips_comments").find(".refreshComments").click();
 			}
 		</script>
 	</h:form>

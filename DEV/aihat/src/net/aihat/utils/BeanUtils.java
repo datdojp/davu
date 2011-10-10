@@ -139,10 +139,4 @@ public class BeanUtils {
 		List aihat = (List) getRequest().getSession().getAttribute("aihat-viewed-clipid");
 		return aihat.contains(obj);
 	}
-	
-	private static Map<Integer,Date> latestCommentTime = new HashMap<Integer, Date>();
-
-	public synchronized static Map<Integer, Date> getLatestCommentTime() {
-		return latestCommentTime;
-	}
 }
