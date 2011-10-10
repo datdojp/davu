@@ -23,10 +23,10 @@
 					ucc.clip_id = #clip.id#
 				</isNotNull>
 				<isNotEmpty property="time" prepend="AND">
-					ucc.time = #time#
+					ucc.`time` = #time#
 				</isNotEmpty>
 				<isNotEmpty property="fromTime" prepend="AND">
-					ucc.time AFTER #fromTime#
+					ucc.`time` > #fromTime#
 				</isNotEmpty>
 			</dynamic>
 		ORDER BY `time` asc
