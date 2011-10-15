@@ -62,6 +62,24 @@
 				<table cellpadding="0" cellspacing="0" border="0">
 					<tr>
 						<td>
+							<h:form id="featuredClips_relatedClips">
+								<div style="overflow: scroll; width: 500px">
+									<table>
+										<tr style="float: left; height: 63px;">
+										<c:forEach items="#{featuredClipsBean.currentRelatedClips}" var="aClip">
+											<td style="overflow: hidden;">
+												<div id="post#{aClip.id}">
+													<h:commandLink action="#{featuredClipsBean.playOne}">
+														<f:param name="selectedClipId" value="#{aClip.id}"/>
+														<h:graphicImage url="#{aClip.thumbnailLink}" width="60"/>
+													</h:commandLink>
+												</div>
+											</td>
+										</c:forEach>
+										</tr>
+									</table>
+								</div>
+							</h:form>
 						</td>
 					</tr>
 					<tr>
@@ -105,7 +123,7 @@
 		<h:inputText id="currentEmbeddedLink" value="#{featuredClipsBean.currentEmbeddedLink}" styleClass="currentEmbeddedLink" style="display:none;"/>
 		<h:inputText id="currentPlaybackPos" value="#{featuredClipsBean.currentPlaybackPos}" styleClass="currentPlaybackPos" style="display:none;"/>
 		<h:commandButton styleClass="syncAtLoad" style="display:none">
-			<f:ajax event="click" execute="currentClipId currentEmbeddedLink" render=":featuredClips_funcs :featuredClips_comments" listener="#{featuredClipsBean.syncAtLoad}"/>
+			<f:ajax event="click" execute="currentClipId currentEmbeddedLink" render=":featuredClips_funcs :featuredClips_comments :featuredClips_relatedClips" listener="#{featuredClipsBean.syncAtLoad}"/>
 		</h:commandButton>
 		<h:commandButton styleClass="syncPlaybackPos" style="display:none">
 			<f:ajax event="click" execute="currentPlaybackPos" listener="#{featuredClipsBean.syncPlaybackPos}"/>
@@ -402,7 +420,6 @@
 				}
 				slider.scrollTo("#post" + clipList[currentVisibleIdx].id, 400);
 			}
-			
 			function showClipDetail(clipId) {
 				$("#featuredClips").find(".detail").hide();
 				$("#featuredClips").find(".detail" + clipId).show();

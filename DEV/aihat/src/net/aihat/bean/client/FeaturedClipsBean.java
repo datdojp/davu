@@ -39,6 +39,7 @@ public class FeaturedClipsBean extends BaseClientBean {
 	private double currentPlaybackPos;
 	private Integer currentClipId;
 	private ClipDto currentClip;
+	private List<ClipDto> currentRelatedClips;
 	private void resetCurrent() {
 		currentClipId = null;
 		currentEmbeddedLink = null;
@@ -49,6 +50,8 @@ public class FeaturedClipsBean extends BaseClientBean {
 	public synchronized void syncAtLoad(AjaxBehaviorEvent e) {
 		currentClip = (ClipDto) AihatUtils.getDtoFromList(currentClipId, featuredClips);
 		currentPlaybackPos = 0;
+		currentRelatedClips = getClipService().getRelatedClips(currentClipId, 
+				Integer.parseInt(BeanUtils.getConfig("client.nRelatedClips")), BeanUtils.getLogginUserId());
 		loadComments();
 	}
 	public synchronized void syncPlaybackPos(AjaxBehaviorEvent e) {
@@ -335,6 +338,14 @@ public class FeaturedClipsBean extends BaseClientBean {
 
 	public void setCurrentClip(ClipDto currentClip) {
 		this.currentClip = currentClip;
+	}
+
+	public List<ClipDto> getCurrentRelatedClips() {
+		return currentRelatedClips;
+	}
+
+	public void setCurrentRelatedClips(List<ClipDto> currentRelatedClips) {
+		this.currentRelatedClips = currentRelatedClips;
 	}
 	
 }
