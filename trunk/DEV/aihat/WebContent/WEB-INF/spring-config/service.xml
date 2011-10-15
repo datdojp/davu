@@ -36,6 +36,9 @@
 		</property>
 	</bean>
 	<bean id="clipService" class="net.aihat.service.ClipServiceImpl" parent="baseService">
+		<property name="searchService">
+			<ref bean="searchService"/>
+		</property>
 	</bean>
 	<bean id="searchService" class="net.aihat.service.SearchServiceImpl" parent="baseService">
 	</bean>

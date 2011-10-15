@@ -3,6 +3,7 @@ package net.aihat.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.aihat.criteria.PagingCriterion;
 import net.aihat.dto.ClipDto;
 import net.aihat.dto.ComposerDto;
 import net.aihat.dto.GenreDto;
@@ -14,6 +15,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
 public class ClipServiceImpl extends BaseService implements ClipService {
+	private SearchService searchService;
+	
 	@Transactional(rollbackFor=DataAccessException.class)
 	public List<ClipDto> getFeaturedClips(int nFeaturedClips) throws DataAccessException {
 		return getClipDao().getMostLiked(nFeaturedClips);
@@ -128,5 +131,36 @@ public class ClipServiceImpl extends BaseService implements ClipService {
 			}
 		}
 		return results;
+	}
+
+	@Transactional(rollbackFor=DataAccessException.class)
+	public List<ClipDto> getRelatedClips(int clipId, int nClips, Integer logginedUserId) throws DataAccessException {
+		ClipDto clip = getClipDao().get(clipId);
+		PagingCriterion pagingCriterion;
+		pagingCriterion = new PagingCriterion();
+		pagingCriterion.setOffset(0l);
+		List<ClipDto> results = new ArrayList<ClipDto>();
+		
+		//first, get from the same singer
+		pagingCriterion.setRowCount((long)nClips);
+		results = searchService.searchClips(null, null, clip.getSingers().get(0).getId(), null, null, null, null, 
+				logginedUserId, null, null, null, pagingCriterion, false, null, null).getResults();
+		
+		//if not enough, search from the same genre
+		if(results.size() < nClips) {
+			pagingCriterion.setRowCount((long)nClips - results.size());
+			results.addAll(searchService.searchClips(null, null, null, null, clip.getGenres().get(0).getId(), null, null, 
+					logginedUserId, null, null, null, pagingCriterion, false, null, null).getResults());
+		}
+		
+		return results;
+	}
+
+	public SearchService getSearchService() {
+		return searchService;
+	}
+
+	public void setSearchService(SearchService searchService) {
+		this.searchService = searchService;
 	}
 }
