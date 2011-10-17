@@ -29,7 +29,7 @@
 					ucc.`time` > #fromTime#
 				</isNotEmpty>
 			</dynamic>
-		ORDER BY `time` asc
+		ORDER BY `time` desc
 	</select>
 	<insert id="insertCommentOfClip" parameterClass="net.aihat.dto.ClipCommentDto">
 		INSERT INTO user_comment_clip(user_id, clip_id, time, content)

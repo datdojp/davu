@@ -37,6 +37,38 @@ public class ClipDto extends BaseUserCareDto {
 		}
 	}
 	
+	//utils
+	public String getAllSingersForDisplay() {
+		String result = "";
+		if(!AihatUtils.isEmpty(singers)) {
+			boolean isFirst = true;
+			for(SingerDto aSinger : singers) {
+				if(aSinger != null) {
+					if(!isFirst) {
+						result += ", ";
+					}
+					result += aSinger.getName();
+				}
+			}
+		}
+		return result;
+	}
+	public String getAllComposersForDisplay() {
+		String result = "";
+		if(!AihatUtils.isEmpty(composers)) {
+			boolean isFirst = true;
+			for(ComposerDto aComposer : composers) {
+				if(aComposer != null) {
+					if(!isFirst) {
+						result += ", ";
+					}
+					result += aComposer.getName();
+				}
+			}
+		}
+		return result;
+	}
+	
 	//getters, setters
 	public String getTitle() {
 		return title;

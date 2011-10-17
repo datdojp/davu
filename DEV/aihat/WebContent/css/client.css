@@ -422,3 +422,10 @@ a :HOVER {
 	color: black;
 	font-size: 9pt;
 }
+
+.relatedClipInfoBox {
+	border: thin solid red;
+	background-color: yellow;
+	color: black;
+	font-size: 11pt;
+}
