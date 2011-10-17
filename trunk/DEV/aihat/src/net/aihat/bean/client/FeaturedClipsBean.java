@@ -266,7 +266,7 @@ public class FeaturedClipsBean extends BaseClientBean {
 			userId = Integer.parseInt(BeanUtils.getConfig("guestId"));
 		}
 		ClipCommentDto clipComment = getClipCommentService().addNewComment(userId, currentClipId, commentContent);
-		currentClipComments.add(clipComment);
+		currentClipComments.add(0, clipComment);
 		commentContent = "";
 	}
 	private synchronized void loadComments() {

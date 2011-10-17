@@ -122,6 +122,9 @@ public class ClipsBean extends MultiTabPagingBean {
 		searchKeyword = null;
 		search(e);
 		focusSearchKeyword = true;
+		
+		ZentaiBean zentaiBean = (ZentaiBean) BeanUtils.getContextBean("zentaiBean");
+		zentaiBean.setPageName("Clips");
 	}
 	
 	/**

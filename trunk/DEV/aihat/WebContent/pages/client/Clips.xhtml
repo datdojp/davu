@@ -33,7 +33,7 @@
 												<client:button>
 													<ui:define name="button-body">
 														<h:commandButton value="#{msg.CU0048}" styleClass="searchBtn">
-															<f:ajax event="click" execute="@form" render="@form" listener="#{clipsBean.search}" />
+															<f:ajax event="click" execute="@form" render="@form :featuredClips_search" listener="#{clipsBean.search}" />
 														</h:commandButton>
 													</ui:define>
 												</client:button>
@@ -42,8 +42,8 @@
 												<t:div rendered="#{not empty clipsBean.searchKeyword}">
 													<client:button>
 														<ui:define name="button-body">
-															<h:commandButton value="#{msg.remove_search}">
-																<f:ajax event="click" execute="@form" render="@form" listener="#{clipsBean.removeSearch}" />
+															<h:commandButton value="#{msg.remove_search}" onclick="slideToClips()">
+																<f:ajax event="click" execute="@form" render="@form :featuredClips_search" listener="#{clipsBean.removeSearch}" />
 															</h:commandButton>
 														</ui:define>
 													</client:button>
@@ -150,6 +150,11 @@
 		<c:if test="#{clipsBean.focusSearchKeyword}">
 			<script>
 				$(".searchKeywordInput").focus();
+			</script>
+		</c:if>
+		<c:if test="#{zentaiBean.pageName eq 'Clips'}">
+			<script>
+				slideToClips();
 			</script>
 		</c:if>
 	</h:form>
