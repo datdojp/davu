@@ -26,10 +26,6 @@ public class ManageSingerBean extends DataTableCareBaseBean {
 	private String userMailCriterion;
 	private SingerService singerService;
 	
-	public synchronized String init() {
-		return null;
-	}
-	
 	public synchronized String search() {
 		if(!AihatUtils.isValidId(getIdCriterion())) {
 			setIdCriterion(null);

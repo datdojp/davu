@@ -22,6 +22,8 @@ public class ManageSingerEditBean extends SingerDetailBaseBean {
 	private Integer singerId;
 
 	public synchronized String init() {
+		super.init();
+		
 		cleanAllFields();
 
 		if(AihatUtils.isValidId(singerId)) {

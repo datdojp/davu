@@ -28,7 +28,7 @@ public class RegisterBean extends BaseClientBean {
 	public String getBeanName() {
 		return "registerBean";
 	}
-	public String init() {
+	public synchronized String init() {
 		super.init();
 		cleanAllFields();
 		return null;

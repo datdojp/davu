@@ -26,10 +26,6 @@ public class ManageComposerBean extends DataTableCareBaseBean {
 	private String userMailCriterion;
 	private ComposerService composerService;
 	
-	public String init() {
-		return null;
-	}
-	
 	public synchronized String search() {
 		if(!AihatUtils.isValidId(getIdCriterion())) {
 			setIdCriterion(null);

@@ -35,10 +35,6 @@ public class UtilsBean extends BaseBean {
 	private List<ComposerDto> tempComposerList;
 	private List<GenreDto> tempGenreList;
 	
-	public String init() {
-		return null;
-	}
-	
 	//utils
 	public List<SingerDto> getAllSingers() {
 		if(tempSingerList == null) {

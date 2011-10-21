@@ -21,7 +21,7 @@ public abstract class MultiTabPagingBean extends BaseClientBean implements Pagin
 	protected abstract void initTabPagingMap();
 	protected abstract void initTabDataMap();
 	protected abstract void initTabDataCountMap();
-	public String init() {
+	public synchronized String init() {
 		super.init();
 		initTabPagingMap();
 		initTabDataMap();

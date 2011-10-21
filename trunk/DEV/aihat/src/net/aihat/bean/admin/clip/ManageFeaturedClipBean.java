@@ -27,7 +27,8 @@ public class ManageFeaturedClipBean extends BaseBean {
 	private FeaturedClipDto newFeaturedClip = new FeaturedClipDto();
 	
 	//action
-	public String init() {
+	public synchronized String init() {
+		super.init();
 		featuredClips = getFeaturedClipService().getAllFeaturedClips();
 		return "/pages/admin/ManageFeaturedClip";
 	}

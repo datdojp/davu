@@ -50,7 +50,7 @@ public class MyProfileBean extends MultiTabPagingBean {
 	private String newPassword;
 	private String confirmNewPassword;
 	
-	public String init() {
+	public synchronized String init() {
 		super.init();
 		if(BeanUtils.getUserProfileBean().getLoggedIn()) {
 			reselectCurrentTab();

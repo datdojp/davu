@@ -55,10 +55,6 @@ public class DetailBean extends BaseClientBean implements PagingBean {
 	protected List getCurrentDtoList() {
 		return referenceDtos;
 	}
-	public String init() {
-		super.init();
-		return null;
-	}
 	public String getBeanName() {
 		return "detailBean";
 	}

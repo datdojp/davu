@@ -20,6 +20,8 @@ public class ManageClipEditBean extends ClipDetailBaseBean {
 	private Integer clipId;
 	
 	public synchronized String init() {
+		super.init();
+		
 		cleanAllFields();
 		
 		if(AihatUtils.isValidId(clipId)) {

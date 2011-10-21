@@ -12,10 +12,6 @@ public class ManageGenreCreateBean extends GenreDetailBaseBean {
 		return "manageGenreCreateBean";
 	}
 	
-	public synchronized String init() {
-		return null;
-	}
-	
 	public synchronized String create() {
 		storeGenre();
 		BeanUtils.reloadPage();
