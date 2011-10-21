@@ -32,10 +32,6 @@ public class UserProfileBean extends BaseClientBean {
 	private UserDto profile;
 	private UserService userService;
 	
-	public String init() {
-		return null;
-	}
-	
 	public String getLanguageBundle() {
 		//set default language if it is not defined
 		if(AihatUtils.isEmpty(language)) {

@@ -34,9 +34,11 @@
 				</t:div>
 			</td>
 			<td>
-				<t:div rendered="#{userProfileBean.profile.admin}">
-					<a href="#{config.server}/pages/admin/ManageFeaturedClip.jsf">FEATURED-CLIP</a>
-				</t:div>
+				<h:form>
+					<t:div rendered="#{userProfileBean.profile.admin}">
+						<h:commandLink value="FEATURED-CLIP" action="#{manageFeaturedClipBean.init}"/>
+					</t:div>
+				</h:form>
 			</td>
 			<td>
 				<t:div>

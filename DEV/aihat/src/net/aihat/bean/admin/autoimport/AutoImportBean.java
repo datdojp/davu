@@ -30,10 +30,6 @@ public class AutoImportBean extends BaseBean {
 
 	private AutoImportService autoImportService;
 
-	public synchronized String init() {
-		return null;
-	}
-	
 	public synchronized String upload() {
 		try {
 			//save the uploaded file to a temp file

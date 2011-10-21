@@ -28,12 +28,6 @@ public abstract class BaseClientBean extends BaseBean {
 	private FailedSearchService failedSearchService;
 	private FeaturedClipService featuredClipService;
 	private ClipCommentService clipCommentService;
-
-	//init
-	public String init() {
-		isInitialized = true;
-		return null;
-	}
 	
 	//name of the bean that call method of this bean by ajax or direct request
 	protected String referenceBeanName;

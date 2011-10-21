@@ -22,7 +22,6 @@ public class ManageFailedSearchBean extends BaseBean {
 	/**
 	 * INHERITED METHODS
 	 */
-	public synchronized String init() {return null;}
 	public String getBeanName() {
 		return "managedFailedSearch";
 	}

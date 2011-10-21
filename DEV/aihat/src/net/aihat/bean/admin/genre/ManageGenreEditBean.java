@@ -21,6 +21,8 @@ public class ManageGenreEditBean extends GenreDetailBaseBean {
 	private Integer genreId;
 
 	public synchronized String init() {
+		super.init();
+		
 		cleanAllFields();
 
 		if(AihatUtils.isValidId(genreId)) {

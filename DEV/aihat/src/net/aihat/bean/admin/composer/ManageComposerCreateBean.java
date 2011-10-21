@@ -12,11 +12,6 @@ public class ManageComposerCreateBean extends ComposerDetailBaseBean {
 		return "manageComposerCreateBean";
 	}
 	
-	
-	public String init() {
-		return null;
-	}
-	
 	public synchronized String create() {
 		storeComposer();
 		BeanUtils.reloadPage();

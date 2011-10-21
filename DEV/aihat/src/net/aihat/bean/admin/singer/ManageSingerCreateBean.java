@@ -13,11 +13,6 @@ public class ManageSingerCreateBean extends SingerDetailBaseBean {
 		return "manageSingerCreateBean";
 	}
 	
-	
-	public synchronized String init() {
-		return null;
-	}
-	
 	public synchronized String create() {
 		storeSinger();
 		BeanUtils.reloadPage();

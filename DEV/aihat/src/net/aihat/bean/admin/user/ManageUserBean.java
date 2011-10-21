@@ -31,10 +31,6 @@ public class ManageUserBean extends DataTableCareBaseBean {
 	
 	private UserService userService;
 	
-	public synchronized String init() {
-		return null;
-	}
-	
 	public synchronized String search() {
 		if(!AihatUtils.isValidId(getIdCriterion())) {
 			setIdCriterion(null);

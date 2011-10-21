@@ -15,11 +15,6 @@ public class ManageClipUploadBean extends ClipDetailBaseBean {
 		return "manageClipUploadBean";
 	}
 	
-
-	public String init() {
-		return null;
-	}
-	
 	public synchronized String upload() {
 		storeRelatedDtos();
 		

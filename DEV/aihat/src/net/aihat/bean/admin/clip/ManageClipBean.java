@@ -30,10 +30,6 @@ public class ManageClipBean extends DataTableCareBaseBean {
 	private int officialCriterion;
 	private boolean hasDuplicateCriterion;
 	
-	public String init() {
-		return null;
-	}
-	
 	public synchronized String search() {
 		if(!AihatUtils.isValidId(getIdCriterion())) {
 			setIdCriterion(null);

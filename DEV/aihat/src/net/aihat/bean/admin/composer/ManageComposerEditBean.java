@@ -23,6 +23,7 @@ public class ManageComposerEditBean extends ComposerDetailBaseBean {
 	private Integer composerId;
 
 	public synchronized String init() {
+		super.init();
 		cleanAllFields();
 
 		if(AihatUtils.isValidId(composerId)) {

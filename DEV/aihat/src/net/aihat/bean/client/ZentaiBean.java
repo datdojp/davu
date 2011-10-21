@@ -25,10 +25,6 @@ public class ZentaiBean extends BaseClientBean {
 	protected List getCurrentDtoList() {
 		return null;
 	}
-	public String init() {
-		super.init();
-		return null;
-	}
 	
 	//current pagename, used for synchronous loading
 	private String pageName;

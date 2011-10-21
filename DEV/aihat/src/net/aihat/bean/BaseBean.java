@@ -22,7 +22,10 @@ public abstract class BaseBean implements Serializable {
 	private ConfigurationService configurationService;
 	
 	protected boolean isInitialized = false;
-	public abstract String init();
+	public synchronized String init() {
+		isInitialized = true;
+		return null;
+	}
 	public abstract String getBeanName();
 	
 	//utils

@@ -28,11 +28,6 @@ public class FeaturedClipsBean extends BaseClientBean {
 	public String getBeanName() {
 		return "featuredClipsBean";
 	}
-	
-	public String init() {
-		super.init();
-		return null;
-	}
 
 	private List<ClipDto> featuredClips = new ArrayList<ClipDto>();
 	private String currentEmbeddedLink;
