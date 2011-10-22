@@ -8,6 +8,7 @@ import net.aihat.dao.ComposerDao;
 import net.aihat.dao.FailedSearchDao;
 import net.aihat.dao.FeaturedClipDao;
 import net.aihat.dao.GenreDao;
+import net.aihat.dao.HomepageTabDao;
 import net.aihat.dao.PasswordDao;
 import net.aihat.dao.PlaylistDao;
 import net.aihat.dao.SingerDao;
@@ -24,6 +25,7 @@ public abstract class BaseService implements Serializable {
 	private PlaylistDao playlistDao;
 	private FeaturedClipDao featuredClipDao;
 	private ClipCommentDao clipCommentDao;
+	private HomepageTabDao homepageTabDao;
 	
 	//getter setter
 	public ClipDao getClipDao() {
@@ -104,6 +106,14 @@ public abstract class BaseService implements Serializable {
 
 	public void setClipCommentDao(ClipCommentDao clipCommentDao) {
 		this.clipCommentDao = clipCommentDao;
+	}
+
+	public HomepageTabDao getHomepageTabDao() {
+		return homepageTabDao;
+	}
+
+	public void setHomepageTabDao(HomepageTabDao homepageTabDao) {
+		this.homepageTabDao = homepageTabDao;
 	}
 	
 }

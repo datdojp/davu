@@ -20,4 +20,5 @@
 	<bean id="playlistDao" class="net.aihat.dao.PlaylistDaoImpl" parent="baseDao"/>
 	<bean id="featuredClipDao" class="net.aihat.dao.FeaturedClipDaoImpl" parent="baseDao"/>
 	<bean id="clipCommentDao" class="net.aihat.dao.ClipCommentDaoImpl" parent="baseDao"/>
+	<bean id="homepageTabDao" class="net.aihat.dao.HomepageTabDaoImpl" parent="baseDao"/>
 </beans>		

@@ -34,6 +34,9 @@
 		<property name="clipCommentDao">
 			<ref bean="clipCommentDao"/>
 		</property>
+		<property name="homepageTabDao">
+			<ref bean="homepageTabDao"/>
+		</property>
 	</bean>
 	<bean id="clipService" class="net.aihat.service.ClipServiceImpl" parent="baseService">
 		<property name="searchService">
