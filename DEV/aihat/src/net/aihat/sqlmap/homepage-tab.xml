@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="homepage-tab">
+	<select id="selectAllHomepageTabs" resultClass="net.aihat.dto.HomepageTabDto">
+		SELECT
+			h.id as id,
+			`order` as `order`,
+			title_vi as titleVi,
+			title_en as titleEn,
+			genres as genres,
+			top_singers as topSingers,
+			top_playlists as topPlaylits,
+			recommended_clips as recommendClips,
+			top_uploaders as topUploaders
+		FROM homepage_tab h
+	</select>
+</sqlMap>

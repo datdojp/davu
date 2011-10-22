@@ -251,7 +251,8 @@ public class FeaturedClipsBean extends BaseClientBean {
 	 * COMMENT
 	 */
 	private List<ClipCommentDto> currentClipComments = new ArrayList<ClipCommentDto>();
-	private Date latestCommentUpdatedAt;
+	//TODO improve smart-comment-pole
+//	private Date latestCommentUpdatedAt;
 	private String commentContent;
 	public synchronized void addComment(AjaxBehaviorEvent event) {
 		Integer userId;
@@ -266,16 +267,19 @@ public class FeaturedClipsBean extends BaseClientBean {
 	}
 	private synchronized void loadComments() {
 		currentClipComments = getClipCommentService().getAllCommentOfClip(currentClipId);
-		if(!AihatUtils.isEmpty(currentClipComments)) {
-			latestCommentUpdatedAt = currentClipComments.get(0).getTime();
-		}
+		//TODO improve smart-comment-pole
+//		if(!AihatUtils.isEmpty(currentClipComments)) {
+//			latestCommentUpdatedAt = currentClipComments.get(0).getTime();
+//		}
 	}
 	public synchronized void refreshComments(AjaxBehaviorEvent event) {
-		if(AihatUtils.isEmpty(currentClipComments)) {
-			loadComments();
-		} else {
-			currentClipComments.addAll(getClipCommentService().getCommentOfClipAfter(currentClipId, latestCommentUpdatedAt));
-		}
+		//TODO improve smart-comment-pole
+//		if(AihatUtils.isEmpty(currentClipComments)) {
+//			loadComments();
+//		} else {
+//			currentClipComments.addAll(getClipCommentService().getCommentOfClipAfter(currentClipId, latestCommentUpdatedAt));
+//		}
+		loadComments();
 	}
 	
 	/**

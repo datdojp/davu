@@ -1,6 +1,7 @@
 package net.aihat.criteria;
 
 import java.io.Serializable;
+import java.util.List;
 
 public abstract class BaseCriteria implements Serializable, Cloneable {
 	public Object clone() {
@@ -12,6 +13,7 @@ public abstract class BaseCriteria implements Serializable, Cloneable {
 	}
 	
 	private Integer id;
+	private List<Integer> ids;
 	private SortCriterion sortCriterion;
 	private PagingCriterion pagingCriterion;
 	private boolean forCounting;
@@ -46,5 +48,13 @@ public abstract class BaseCriteria implements Serializable, Cloneable {
 
 	public void setForCounting(boolean forCounting) {
 		this.forCounting = forCounting;
+	}
+
+	public List<Integer> getIds() {
+		return ids;
+	}
+
+	public void setIds(List<Integer> ids) {
+		this.ids = ids;
 	}
 }
