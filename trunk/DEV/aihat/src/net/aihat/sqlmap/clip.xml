@@ -156,6 +156,12 @@
 					)
 				)
 			</isNotNull>
+			<isEmpty property="ids" prepend="AND">
+				c.id in
+				<iterate open="(" close=")" conjunction=",">
+					#ids[]#
+				</iterate>
+			</isEmpty>
 		</dynamic>
 		<include refid="commonSorting"/>
 		<include refid="commonPaging"/>

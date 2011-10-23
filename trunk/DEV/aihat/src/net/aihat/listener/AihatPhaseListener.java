@@ -18,7 +18,8 @@ public class AihatPhaseListener implements PhaseListener {
 		"detailBean",
 		"featuredClipsBean",
 		"myProfileBean",
-		"zentaiBean"
+		"zentaiBean",
+		"homepageBean"
 	};
 	
 	public void afterPhase(PhaseEvent event) {

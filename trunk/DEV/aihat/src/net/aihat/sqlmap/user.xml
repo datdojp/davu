@@ -77,6 +77,12 @@
 					WHERE _ufu.followed = u.id AND _ufu.following = #followedBy#
 				)
 			</isNotNull>
+			<isEmpty property="ids" prepend="AND">
+				u.id in
+				<iterate open="(" close=")" conjunction=",">
+					#ids[]#
+				</iterate>
+			</isEmpty>
 		</dynamic>
 		<include refid="commonSorting"/>
 		<include refid="commonPaging"/>
