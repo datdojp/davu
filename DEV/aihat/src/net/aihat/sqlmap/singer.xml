@@ -23,7 +23,21 @@
 				WHERE cs_.singer_id = s.id AND cs_.clip_id = c_.id AND NOT c_.deleted
 			) as nClips,
 			(SELECT count(*) FROM user_like_singer uls_ WHERE uls_.singer_id = s.id) as nFans,
-			(SELECT count(*) FROM user_follow_singer ufs_ WHERE ufs_.singer_id = s.id) as nFollowers
+			(SELECT count(*) FROM user_follow_singer ufs_ WHERE ufs_.singer_id = s.id) as nFollowers,
+			(
+				SELECT count(*)
+				FROM user_view_clip uvc_
+				WHERE
+					EXISTS (
+						SELECT *
+						FROM clip_singer cs_
+						WHERE
+							cs_.clip_id = uvc_id AND
+							cs_.singer_id = s.id
+					)
+			) as nViews
+			
+			
 	</sql>
 	<sql id="singerCommonFrom">
 		FROM singer s, user u
@@ -54,6 +68,12 @@
 					WHERE _ufs.singer_id = s.id AND _ufs.user_id = #followedBy#
 				)
 			</isNotNull>
+			<isEmpty property="ids" prepend="AND">
+				s.id in
+				<iterate open="(" close=")" conjunction=",">
+					#ids[]#
+				</iterate>
+			</isEmpty>
 		</dynamic>
 		<include refid="commonSorting"/>
 		<include refid="commonPaging"/>

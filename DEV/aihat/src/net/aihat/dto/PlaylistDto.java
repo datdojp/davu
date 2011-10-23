@@ -6,6 +6,7 @@ public class PlaylistDto extends BaseUserCareDto {
 	private Integer nClips;
 	private ClipDto mainClip;
 	private String description;
+	private Integer nViews;
 	
 	//not from DB
 	private boolean editable = false;
@@ -71,6 +72,16 @@ public class PlaylistDto extends BaseUserCareDto {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+
+	public Integer getnViews() {
+		return nViews;
+	}
+
+
+	public void setnViews(Integer nViews) {
+		this.nViews = nViews;
 	}
 	
 }

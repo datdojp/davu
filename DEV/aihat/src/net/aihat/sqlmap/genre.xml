@@ -26,14 +26,6 @@
 		WHERE
 			NOT g.deleted AND
 			g.user_id = u.id
-			<dynamic>
-				<isEmpty property="ids" prepend="AND">
-					g.id in
-					<iterate open="(" close=")" conjunction=",">
-						#ids[]#
-					</iterate>
-				</isEmpty>
-			</dynamic>
 	</sql>
 	<sql id="genreCommonSearchConditions">
 		<dynamic>
@@ -59,6 +51,12 @@
 			<isNotNull property="user.mail" prepend="AND">
 				u.mail = #user.mail#
 			</isNotNull>
+			<isEmpty property="ids" prepend="AND">
+				g.id in
+				<iterate open="(" close=")" conjunction=",">
+					#ids[]#
+				</iterate>
+			</isEmpty>
 		</dynamic>
 		<include refid="commonSorting"/>
 		<include refid="commonPaging"/>

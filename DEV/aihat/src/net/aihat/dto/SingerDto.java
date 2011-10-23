@@ -16,6 +16,7 @@ public class SingerDto extends BaseUserCareDto {
 	private Integer nClips;
 	private Integer nFans;
 	private Integer nFollowers;
+	private Integer nViews;
 	
 	//this field is to determine that singer is followed by current logged-in user
 	private Boolean followed = Boolean.FALSE;
@@ -129,6 +130,14 @@ public class SingerDto extends BaseUserCareDto {
 
 	public void setLiked(Boolean liked) {
 		this.liked = liked;
+	}
+
+	public Integer getnViews() {
+		return nViews;
+	}
+
+	public void setnViews(Integer nViews) {
+		this.nViews = nViews;
 	}
 	
 }
