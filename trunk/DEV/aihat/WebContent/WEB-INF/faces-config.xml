@@ -488,6 +488,19 @@
 		</managed-property>
 	</managed-bean>
 	
+	<managed-bean>
+		<managed-bean-name>homepageBean</managed-bean-name>
+		<managed-bean-class>net.aihat.bean.client.HomepageBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>homepageTabService</property-name>
+			<value>#{homepageTabService}</value>
+		</managed-property>
+	</managed-bean>
+		
+	</managed-bean>
+	HomepageBean
+	
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>

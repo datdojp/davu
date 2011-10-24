@@ -17,6 +17,9 @@ public class HomePageTabDto extends BaseDto {
 	private String topUploaders;
 	private List<UserDto> listTopUploaders;
 	
+	//transient
+	private boolean loaded = false;
+	
 	//TODO: implement it
 	public String forLog() {
 		// TODO Auto-generated method stub
@@ -127,4 +130,13 @@ public class HomePageTabDto extends BaseDto {
 	public void setListTopUploaders(List<UserDto> listTopUploaders) {
 		this.listTopUploaders = listTopUploaders;
 	}
+
+	public boolean isLoaded() {
+		return loaded;
+	}
+
+	public void setLoaded(boolean loaded) {
+		this.loaded = loaded;
+	}
+	
 }
