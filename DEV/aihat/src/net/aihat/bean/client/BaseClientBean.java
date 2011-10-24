@@ -9,6 +9,7 @@ import net.aihat.service.ComposerService;
 import net.aihat.service.FailedSearchService;
 import net.aihat.service.FeaturedClipService;
 import net.aihat.service.GenreService;
+import net.aihat.service.HomepageTabService;
 import net.aihat.service.PlaylistService;
 import net.aihat.service.SearchService;
 import net.aihat.service.SingerService;
@@ -28,6 +29,7 @@ public abstract class BaseClientBean extends BaseBean {
 	private FailedSearchService failedSearchService;
 	private FeaturedClipService featuredClipService;
 	private ClipCommentService clipCommentService;
+	private HomepageTabService homepageTabService;
 	
 	//name of the bean that call method of this bean by ajax or direct request
 	protected String referenceBeanName;
@@ -116,6 +118,12 @@ public abstract class BaseClientBean extends BaseBean {
 	}
 	public void setClipCommentService(ClipCommentService clipCommentService) {
 		this.clipCommentService = clipCommentService;
+	}
+	public HomepageTabService getHomepageTabService() {
+		return homepageTabService;
+	}
+	public void setHomepageTabService(HomepageTabService homepageTabService) {
+		this.homepageTabService = homepageTabService;
 	}
 	
 }
