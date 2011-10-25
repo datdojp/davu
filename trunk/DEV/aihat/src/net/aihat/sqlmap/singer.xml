@@ -68,12 +68,12 @@
 					WHERE _ufs.singer_id = s.id AND _ufs.user_id = #followedBy#
 				)
 			</isNotNull>
-			<isEmpty property="ids" prepend="AND">
+			<isNotEmpty property="ids" prepend="AND">
 				s.id in
 				<iterate open="(" close=")" conjunction=",">
 					#ids[]#
 				</iterate>
-			</isEmpty>
+			</isNotEmpty>
 		</dynamic>
 		<include refid="commonSorting"/>
 		<include refid="commonPaging"/>

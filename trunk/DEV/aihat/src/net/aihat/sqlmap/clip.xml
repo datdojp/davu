@@ -156,12 +156,24 @@
 					)
 				)
 			</isNotNull>
-			<isEmpty property="ids" prepend="AND">
+			<isNotEmpty property="ids" prepend="AND">
 				c.id in
 				<iterate open="(" close=")" conjunction=",">
 					#ids[]#
 				</iterate>
-			</isEmpty>
+			</isNotEmpty>
+			<isNotEmpty property="genreIds" prepend="AND">
+				EXISTS (
+					SELECT *
+					FROM clip_genre cg_
+					WHERE
+						cg_.clip_id = c.id AND
+						cg_.genre_id IN
+						<iterate open="(" close=")" conjunction=",">
+							#genreIds[]#
+						</iterate>
+				)
+			</isNotEmpty>
 		</dynamic>
 		<include refid="commonSorting"/>
 		<include refid="commonPaging"/>
