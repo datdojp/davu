@@ -46,7 +46,14 @@
 					ufu_.followed = u.id AND
 					ufu_.following = u_.id AND
 					NOT u_.deleted
-			) as nFollowers
+			) as nFollowers,
+			(
+				SELECT count(*)
+				FROM user_view_clip uvc_, clip c_
+				WHERE
+					uvc_.clip_id = c_.id AND
+					c_.user_id = u.id
+			) as nViews
 	</sql>
 	<sql id="userCommonFrom">
 		FROM user u, password p
@@ -77,12 +84,12 @@
 					WHERE _ufu.followed = u.id AND _ufu.following = #followedBy#
 				)
 			</isNotNull>
-			<isEmpty property="ids" prepend="AND">
+			<isNotEmpty property="ids" prepend="AND">
 				u.id in
 				<iterate open="(" close=")" conjunction=",">
 					#ids[]#
 				</iterate>
-			</isEmpty>
+			</isNotEmpty>
 		</dynamic>
 		<include refid="commonSorting"/>
 		<include refid="commonPaging"/>

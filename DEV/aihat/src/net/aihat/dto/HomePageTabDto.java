@@ -19,6 +19,8 @@ public class HomePageTabDto extends BaseDto {
 	
 	//transient
 	private boolean loaded = false;
+	private List<ClipDto> listTopViewClips;
+	private List<ClipDto> listNewUploadedClips;
 	
 	//TODO: implement it
 	public String forLog() {
@@ -137,6 +139,22 @@ public class HomePageTabDto extends BaseDto {
 
 	public void setLoaded(boolean loaded) {
 		this.loaded = loaded;
+	}
+
+	public List<ClipDto> getListTopViewClips() {
+		return listTopViewClips;
+	}
+
+	public void setListTopViewClips(List<ClipDto> listTopViewClips) {
+		this.listTopViewClips = listTopViewClips;
+	}
+
+	public List<ClipDto> getListNewUploadedClips() {
+		return listNewUploadedClips;
+	}
+
+	public void setListNewUploadedClips(List<ClipDto> listNewUploadedClips) {
+		this.listNewUploadedClips = listNewUploadedClips;
 	}
 	
 }

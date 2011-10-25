@@ -1,5 +1,7 @@
 package net.aihat.criteria;
 
+import java.util.List;
+
 import net.aihat.dto.ComposerDto;
 import net.aihat.dto.GenreDto;
 import net.aihat.dto.PlaylistDto;
@@ -17,6 +19,7 @@ public class ClipSearchCriteria extends BaseCriteria {
 	private Boolean hasDuplicate;
 	private UserDto likedBy;
 	private UserDto notifiedUser;
+	private List<Integer> genreIds;
 	
 	//getter setter
 	public String getTitle() {
@@ -83,5 +86,11 @@ public class ClipSearchCriteria extends BaseCriteria {
 	public void setNotifiedUser(UserDto notifiedUser) {
 		this.notifiedUser = notifiedUser;
 	}
-	
+	public List<Integer> getGenreIds() {
+		return genreIds;
+	}
+	public void setGenreIds(List<Integer> genreIds) {
+		this.genreIds = genreIds;
+	}
+		
 }

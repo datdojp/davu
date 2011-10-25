@@ -13,6 +13,7 @@ import net.aihat.criteria.UserSearchCriteria;
 import net.aihat.dto.HomePageTabDto;
 import net.aihat.utils.AihatUtils;
 import net.aihat.utils.BeanUtils;
+
 import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,8 @@ public class HomepageTabServiceImpl extends BaseService implements HomepageTabSe
 	@Transactional(rollbackFor=DataAccessException.class)
 	public HomePageTabDto loadHomepageTabContent(HomePageTabDto homePageTab) throws DataAccessException {
 		if(homePageTab != null) {
+			List<Integer> genreIds = new ArrayList<Integer>();
+			
 			//load listGenres
 			if(!AihatUtils.isEmpty(homePageTab.getGenres())) {
 				String[] splitted = homePageTab.getGenres().split(" ");
@@ -35,49 +38,35 @@ public class HomepageTabServiceImpl extends BaseService implements HomepageTabSe
 						criteria.getIds().add(Integer.parseInt(aGenreId));
 					}
 				}
-				
+				genreIds.addAll(criteria.getIds());
 				homePageTab.setListGenres(getGenreDao().search(criteria).getResults());
 			}
 			
 			//load listTopSingers
-			SingerSearchCriteria singerSearchCriteria = new SingerSearchCriteria();
 			if(!AihatUtils.isEmpty(homePageTab.getTopSingers())) {
 				String[] splitted = homePageTab.getTopSingers().split(" ");
+				SingerSearchCriteria singerSearchCriteria = new SingerSearchCriteria();
 				singerSearchCriteria.setIds(new ArrayList<Integer>());
 				for(String aSingerId : splitted) {
 					if(!AihatUtils.isEmpty(aSingerId)) {
 						singerSearchCriteria.getIds().add(Integer.parseInt(aSingerId));
 					}
 				}
-			} else {
-				singerSearchCriteria.setPagingCriterion(new PagingCriterion());
-				singerSearchCriteria.getPagingCriterion().setOffset(0l);
-				singerSearchCriteria.getPagingCriterion().setRowCount(Long.parseLong(BeanUtils.getConfig("client.homepage.nTopSingers")));
-				singerSearchCriteria.setSortCriterion(new SortCriterion());
-				singerSearchCriteria.getSortCriterion().setColumnName("nViews");
-				singerSearchCriteria.getSortCriterion().setOrder(SortCriterion.ORDER_DESCENDING);
+				homePageTab.setListTopSingers(getSingerDao().search(singerSearchCriteria).getResults());
 			}
-			homePageTab.setListTopSingers(getSingerDao().search(singerSearchCriteria).getResults());
 			
 			//load listTopPlaylists
-			PlaylistSearchCriteria playlistSearchCriteria = new PlaylistSearchCriteria();
 			if(!AihatUtils.isEmpty(homePageTab.getTopPlaylists())) {
 				String[] splitted = homePageTab.getTopPlaylists().split(" ");
+				PlaylistSearchCriteria playlistSearchCriteria = new PlaylistSearchCriteria();
 				playlistSearchCriteria.setIds(new ArrayList<Integer>());
 				for(String aPlaylistId : splitted) {
 					if(!AihatUtils.isEmpty(aPlaylistId)) {
 						playlistSearchCriteria.getIds().add(Integer.parseInt(aPlaylistId));
 					}
 				}
-			} else {
-				playlistSearchCriteria.setPagingCriterion(new PagingCriterion());
-				playlistSearchCriteria.getPagingCriterion().setOffset(0l);
-				playlistSearchCriteria.getPagingCriterion().setRowCount(Long.parseLong(BeanUtils.getConfig("playlistSearchCriteria")));
-				playlistSearchCriteria.setSortCriterion(new SortCriterion());
-				playlistSearchCriteria.getSortCriterion().setColumnName("nViews");
-				playlistSearchCriteria.getSortCriterion().setOrder(SortCriterion.ORDER_DESCENDING);
+				homePageTab.setListTopPlaylists(getPlaylistDao().search(playlistSearchCriteria).getResults());
 			}
-			homePageTab.setListTopPlaylists(getPlaylistDao().search(playlistSearchCriteria).getResults());
 			
 			//load listRecommendedClips
 			if(!AihatUtils.isEmpty(homePageTab.getRecommendedClips())) {
@@ -89,24 +78,42 @@ public class HomepageTabServiceImpl extends BaseService implements HomepageTabSe
 						clipSearchCriteria.getIds().add(Integer.parseInt(aRecommededClipId));
 					}
 				}
-				
 				homePageTab.setListRecommendedClips(getClipDao().search(clipSearchCriteria).getResults());
 			}
 			
 			//load listTopUploaders
-			UserSearchCriteria userSearchCriteria = new UserSearchCriteria();
 			if(!AihatUtils.isEmpty(homePageTab.getTopUploaders())) {
 				String[] splitted = homePageTab.getTopUploaders().split(" ");
+				UserSearchCriteria userSearchCriteria = new UserSearchCriteria();
 				userSearchCriteria.setIds(new ArrayList<Integer>());
 				for(String anUploaderId : splitted) {
 					userSearchCriteria.getIds().add(Integer.parseInt(anUploaderId));
 				}
-			} else {
-				userSearchCriteria.setPagingCriterion(new PagingCriterion());
-				userSearchCriteria.getPagingCriterion().setOffset(0l);
-				userSearchCriteria.getPagingCriterion().setRowCount(Long.parseLong(BeanUtils.getConfig("client.homepate.nTopUploaders")));
+				homePageTab.setListTopUploaders(getUserDao().search(userSearchCriteria).getResults());
 			}
-			homePageTab.setListTopUploaders(getUserDao().search(userSearchCriteria).getResults());
+			
+			
+			//load listTopViewClips
+			ClipSearchCriteria clipSearchCriteria = new ClipSearchCriteria();
+			clipSearchCriteria.setGenreIds(genreIds);
+			clipSearchCriteria.setPagingCriterion(new PagingCriterion());
+			clipSearchCriteria.getPagingCriterion().setOffset(0l);
+			clipSearchCriteria.getPagingCriterion().setRowCount(Long.parseLong(BeanUtils.getConfig("client.homepage.nTopViewClips")));
+			clipSearchCriteria.setSortCriterion(new SortCriterion());
+			clipSearchCriteria.getSortCriterion().setColumnName("nViews");
+			clipSearchCriteria.getSortCriterion().setOrder(SortCriterion.ORDER_DESCENDING);
+			homePageTab.setListTopViewClips(getClipDao().search(clipSearchCriteria).getResults());
+			
+			//load listNewUploadedClips
+			clipSearchCriteria = new ClipSearchCriteria();
+			clipSearchCriteria.setGenreIds(genreIds);
+			clipSearchCriteria.setPagingCriterion(new PagingCriterion());
+			clipSearchCriteria.getPagingCriterion().setOffset(0l);
+			clipSearchCriteria.getPagingCriterion().setRowCount(Long.parseLong(BeanUtils.getConfig("client.homepage.nNewUploadedClips")));
+			clipSearchCriteria.setSortCriterion(new SortCriterion());
+			clipSearchCriteria.getSortCriterion().setColumnName("createdTime");
+			clipSearchCriteria.getSortCriterion().setOrder(SortCriterion.ORDER_DESCENDING);
+			homePageTab.setListNewUploadedClips(getClipDao().search(clipSearchCriteria).getResults());
 		}
 		return homePageTab;
 	}

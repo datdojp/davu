@@ -202,6 +202,17 @@
 						<f:convertDateTime dateStyle="full" type="both"/>
 					</h:outputText>
 				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText value="VIEWS"/>
+							<admin:sort-button bean="#{manageUserBean}" colName="nViews"/>
+						</h:panelGrid>
+					</f:facet>
+					<h:outputText value="#{aUser.nViews}">
+					</h:outputText>
+				</h:column>
 			</h:dataTable>
 		</h:form>
 	</ui:define>

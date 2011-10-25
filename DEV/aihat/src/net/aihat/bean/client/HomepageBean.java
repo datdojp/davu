@@ -25,7 +25,10 @@ public class HomepageBean extends BaseClientBean {
 	
 	protected List getCurrentDtoList() {
 		List<ClipDto> results = new ArrayList<ClipDto>();
-		results.addAll(currentTab.getlist)
+		results.addAll(currentTab.getListTopViewClips());
+		results.addAll(currentTab.getListRecommendedClips());
+		results.addAll(currentTab.getListNewUploadedClips());
+		return results;
 	}
 
 	public String getBeanName() {

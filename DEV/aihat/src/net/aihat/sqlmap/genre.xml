@@ -51,12 +51,12 @@
 			<isNotNull property="user.mail" prepend="AND">
 				u.mail = #user.mail#
 			</isNotNull>
-			<isEmpty property="ids" prepend="AND">
+			<isNotEmpty property="ids" prepend="AND">
 				g.id in
 				<iterate open="(" close=")" conjunction=",">
 					#ids[]#
 				</iterate>
-			</isEmpty>
+			</isNotEmpty>
 		</dynamic>
 		<include refid="commonSorting"/>
 		<include refid="commonPaging"/>
