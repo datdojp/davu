@@ -19,41 +19,7 @@
 						</t:div>
 					</td>
 					<td align="left">
-						<table>
-							<tr>
-								<td>
-									<div class="style009" align="center">
-										<h:inputText value="#{clipsBean.searchKeyword}" styleClass="searchKeywordInput"/>
-									</div>
-								</td>
-								<td>
-									<table cellpadding="0" cellspacing="1">
-										<tr>
-											<td>
-												<client:button>
-													<ui:define name="button-body">
-														<h:commandButton value="#{msg.CU0048}" styleClass="searchBtn">
-															<f:ajax event="click" execute="@form" render="@form :featuredClips_search" listener="#{clipsBean.search}" />
-														</h:commandButton>
-													</ui:define>
-												</client:button>
-											</td>
-											<td>
-												<t:div rendered="#{not empty clipsBean.searchKeyword}">
-													<client:button>
-														<ui:define name="button-body">
-															<h:commandButton value="#{msg.remove_search}" onclick="slideToClips()">
-																<f:ajax event="click" execute="@form" render="@form :featuredClips_search" listener="#{clipsBean.removeSearch}" />
-															</h:commandButton>
-														</ui:define>
-													</client:button>
-												</t:div>
-											</td>
-										</tr>
-									</table>
-								</td>
-							</tr>
-						</table>
+						<client:search-panel showRemoveBtn="#{true}"/>
 					</td>
 				</tr>
 				<tr>

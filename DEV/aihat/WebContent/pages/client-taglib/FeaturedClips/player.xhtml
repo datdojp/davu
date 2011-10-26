@@ -20,24 +20,7 @@
 					<tr>
 						<td>
 							<h:form id="featuredClips_search">
-								<table>
-									<tr>
-										<td>
-											<div class="style009" align="center">
-												<h:inputText value="#{clipsBean.searchKeyword}" styleClass="searchKeywordInput"/>
-											</div>
-										</td>
-										<td>
-											<client:button>
-												<ui:define name="button-body">
-													<h:commandButton value="#{msg.CU0048}" styleClass="searchBtn" onclick="slideToClips()">
-														<f:ajax event="click" execute="@form" render="@form :clips" listener="#{clipsBean.search}" />
-													</h:commandButton>
-												</ui:define>
-											</client:button>
-										</td>
-									</tr>
-								</table>
+								<client:search-panel/>
 							</h:form>
 						</td>
 					</tr>
