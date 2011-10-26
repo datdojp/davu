@@ -22,7 +22,7 @@
 						<td>
 							<client:button>
 								<ui:define name="button-body">
-									<h:commandButton value="#{msg.CU0048}" styleClass="searchBtn">
+									<h:commandButton value="#{msg.CU0048}" styleClass="searchBtn" onclick="slideToClips()">
 										<f:ajax event="click" execute="@form" render=":clips :featuredClips_search" listener="#{clipsBean.search}" />
 									</h:commandButton>
 								</ui:define>
