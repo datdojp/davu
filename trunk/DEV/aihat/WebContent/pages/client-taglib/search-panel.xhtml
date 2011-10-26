@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:client="http://www.aihat.net/client">
+<ui:composition>
+	<table>
+		<tr>
+			<td>
+				<div class="style009" align="center">
+					<h:inputText value="#{clipsBean.searchKeyword}" styleClass="searchKeywordInput"/>
+				</div>
+			</td>
+			<td>
+				<table cellpadding="0" cellspacing="1">
+					<tr>
+						<td>
+							<client:button>
+								<ui:define name="button-body">
+									<h:commandButton value="#{msg.CU0048}" styleClass="searchBtn">
+										<f:ajax event="click" execute="@form" render=":clips :featuredClips_search" listener="#{clipsBean.search}" />
+									</h:commandButton>
+								</ui:define>
+							</client:button>
+						</td>
+						<td>
+							<t:div rendered="#{showRemoveBtn and not empty clipsBean.searchKeyword}">
+								<client:button>
+									<ui:define name="button-body">
+										<h:commandButton value="#{msg.remove_search}" onclick="slideToClips()">
+											<f:ajax event="click" execute="@form" render=":clips :featuredClips_search" listener="#{clipsBean.removeSearch}" />
+										</h:commandButton>
+									</ui:define>
+								</client:button>
+							</t:div>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</ui:composition>
+</html>

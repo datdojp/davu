@@ -68,4 +68,8 @@
 		<tag-name>button</tag-name>
 		<source>button-template.xhtml</source>
 	</tag>
+	<tag>
+		<tag-name>search-panel</tag-name>
+		<source>search-panel.xhtml</source>
+	</tag>
 </facelet-taglib>

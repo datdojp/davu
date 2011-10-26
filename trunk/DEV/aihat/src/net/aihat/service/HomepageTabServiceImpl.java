@@ -10,7 +10,7 @@ import net.aihat.criteria.PlaylistSearchCriteria;
 import net.aihat.criteria.SingerSearchCriteria;
 import net.aihat.criteria.SortCriterion;
 import net.aihat.criteria.UserSearchCriteria;
-import net.aihat.dto.HomePageTabDto;
+import net.aihat.dto.HomepageTabDto;
 import net.aihat.utils.AihatUtils;
 import net.aihat.utils.BeanUtils;
 
@@ -19,12 +19,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 public class HomepageTabServiceImpl extends BaseService implements HomepageTabService {
 	@Transactional(rollbackFor=DataAccessException.class)
-	public List<HomePageTabDto> getAllHomepageTab() throws DataAccessException {
+	public List<HomepageTabDto> getAllHomepageTab() throws DataAccessException {
 		return getHomepageTabDao().getAllHomepageTab();
 	}
 
 	@Transactional(rollbackFor=DataAccessException.class)
-	public HomePageTabDto loadHomepageTabContent(HomePageTabDto homePageTab) throws DataAccessException {
+	public HomepageTabDto loadHomepageTabContent(HomepageTabDto homePageTab) throws DataAccessException {
 		if(homePageTab != null) {
 			List<Integer> genreIds = new ArrayList<Integer>();
 			
@@ -115,6 +115,7 @@ public class HomepageTabServiceImpl extends BaseService implements HomepageTabSe
 			clipSearchCriteria.getSortCriterion().setOrder(SortCriterion.ORDER_DESCENDING);
 			homePageTab.setListNewUploadedClips(getClipDao().search(clipSearchCriteria).getResults());
 		}
+		homePageTab.setLoaded(true);
 		return homePageTab;
 	}
 

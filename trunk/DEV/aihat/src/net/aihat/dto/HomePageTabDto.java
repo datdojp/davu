@@ -2,7 +2,7 @@ package net.aihat.dto;
 
 import java.util.List;
 
-public class HomePageTabDto extends BaseDto {
+public class HomepageTabDto extends BaseDto {
 	private Integer order;
 	private String titleVi;
 	private String titleEn;

@@ -73,6 +73,7 @@
 	<bean id="playlistService" class="net.aihat.service.PlaylistServiceImpl" parent="baseService"/>
 	<bean id="featuredClipService" class="net.aihat.service.FeaturedClipServiceImpl" parent="baseService"/>
 	<bean id="clipCommentService" class="net.aihat.service.ClipCommentServiceImpl" parent="baseService"/>
+	<bean id="homepageTabService" class="net.aihat.service.HomepageTabServiceImpl" parent="baseService"/>
 	
 	<bean id="configurationService" class="net.aihat.service.ConfigurationService">
 		<property name="imageBackupFolder">

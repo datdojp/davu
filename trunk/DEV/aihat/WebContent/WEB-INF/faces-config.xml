@@ -497,9 +497,6 @@
 			<value>#{homepageTabService}</value>
 		</managed-property>
 	</managed-bean>
-		
-	</managed-bean>
-	HomepageBean
 	
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
