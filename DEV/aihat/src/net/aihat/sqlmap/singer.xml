@@ -32,7 +32,7 @@
 						SELECT *
 						FROM clip_singer cs_
 						WHERE
-							cs_.clip_id = uvc_id AND
+							cs_.clip_id = uvc_.clip_id AND
 							cs_.singer_id = s.id
 					)
 			) as nViews

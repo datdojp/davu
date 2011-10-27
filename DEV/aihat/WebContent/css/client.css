@@ -159,8 +159,7 @@ a :HOVER {
 	border-top: none;
 	border-right: 1px solid gray;
 }
-
-#clips .selected, #myProfile .selected {
+#homepage .selected, #clips .selected, #myProfile .selected {
 	font-weight: bold;
 	color: ghostWhite;
 	background-color: black;

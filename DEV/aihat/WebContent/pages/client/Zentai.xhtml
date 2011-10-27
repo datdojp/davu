@@ -24,6 +24,7 @@
 		var ALL_PAGES = 
 			[
 				"FeaturedClips",
+				"Homepage",
 				"Clips",
 				"Detail",
 				"MyProfile",
@@ -44,6 +45,10 @@
 			$("#slideTo" + page).click();
 			lightenPageLinkOnly(page);
 		}
+		function slideToHomepage() {
+			slideTo("Homepage");
+		}
+		
 		function slideToClips() {
 			slideTo("Clips");
 		}
@@ -109,6 +114,11 @@
 					<ui:include src="FeaturedClips.xhtml"/>
 				</ui:insert>
 			</div>
+			<div id="Homepage" class="page" align="center">
+				<ui:insert>
+					<ui:include src="Homepage.xhtml"/>
+				</ui:insert>
+			</div>
 			<div id="Clips" class="page" align="center">
 				<ui:insert>
 					<ui:include src="Clips.xhtml"/>
@@ -162,6 +172,24 @@
 										<td style="vertical-align: middle;">
 											<div>
 												<h:outputText value="#{msg.featured_clips}" styleClass="top-panel-text"/>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</a>
+						</t:div>
+					</td>
+					<td id="td_slideToHomepage" class="td_slideTo" style="opacity:0.5" >
+						<t:div>
+							<a id="slideToHomepage" href="#Homepage" class="pagelink" onclick="lightenPageLinkOnly('Homepage')">
+								<table cellpadding="0" cellspacing="0">
+									<tr>
+										<td>
+											<img src="#{config.server}/img/client/Homepage.png" />
+										</td>
+										<td style="vertical-align: middle;">
+											<div>
+												<h:outputText value="#{msg.homepage}" styleClass="top-panel-text"/>
 											</div>
 										</td>
 									</tr>

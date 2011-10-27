@@ -3,6 +3,8 @@ package net.aihat.bean.client;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.event.AjaxBehaviorEvent;
+
 import net.aihat.dto.ClipDto;
 import net.aihat.dto.HomepageTabDto;
 import net.aihat.utils.AihatUtils;
@@ -40,11 +42,28 @@ public class HomepageBean extends BaseClientBean {
 		return "homepageBean";
 	}
 	
-	public void switchTab() {
+	public void switchTab(AjaxBehaviorEvent e) {
 		Integer tabId = Integer.parseInt(BeanUtils.getRequest().getParameter("tabId"));
 		currentTab = (HomepageTabDto) AihatUtils.getDtoFromList(tabId, allTabs);
 		if(!currentTab.isLoaded()) {
 			getHomepageTabService().loadHomepageTabContent(currentTab);
 		}
 	}
+
+	public HomepageTabDto getCurrentTab() {
+		return currentTab;
+	}
+
+	public void setCurrentTab(HomepageTabDto currentTab) {
+		this.currentTab = currentTab;
+	}
+
+	public List<HomepageTabDto> getAllTabs() {
+		return allTabs;
+	}
+
+	public void setAllTabs(List<HomepageTabDto> allTabs) {
+		this.allTabs = allTabs;
+	}
+	
 }

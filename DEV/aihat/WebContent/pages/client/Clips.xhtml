@@ -19,7 +19,7 @@
 						</t:div>
 					</td>
 					<td align="left">
-						<client:search-panel showRemoveBtn="#{true}"/>
+						<client:search-panel formId="clips" showRemoveBtn="#{true}"/>
 					</td>
 				</tr>
 				<tr>
@@ -115,7 +115,7 @@
 		<client:messages formId="clips"/>
 		<c:if test="#{clipsBean.focusSearchKeyword}">
 			<script>
-				$(".searchKeywordInput").focus();
+				$("#clips").find(".searchKeywordInput").focus();
 			</script>
 		</c:if>
 		<c:if test="#{zentaiBean.pageName eq 'Clips'}">
