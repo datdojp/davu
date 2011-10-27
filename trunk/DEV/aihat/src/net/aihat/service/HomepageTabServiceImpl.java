@@ -2,7 +2,6 @@ package net.aihat.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import net.aihat.criteria.ClipSearchCriteria;
 import net.aihat.criteria.GenreSearchCriteria;
 import net.aihat.criteria.PagingCriterion;
@@ -13,14 +12,13 @@ import net.aihat.criteria.UserSearchCriteria;
 import net.aihat.dto.HomepageTabDto;
 import net.aihat.utils.AihatUtils;
 import net.aihat.utils.BeanUtils;
-
 import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
 public class HomepageTabServiceImpl extends BaseService implements HomepageTabService {
 	@Transactional(rollbackFor=DataAccessException.class)
 	public List<HomepageTabDto> getAllHomepageTab() throws DataAccessException {
-		return getHomepageTabDao().getAllHomepageTab();
+		return getHomepageTabDao().getAll();
 	}
 
 	@Transactional(rollbackFor=DataAccessException.class)
@@ -118,5 +116,9 @@ public class HomepageTabServiceImpl extends BaseService implements HomepageTabSe
 		homePageTab.setLoaded(true);
 		return homePageTab;
 	}
-
+	
+	@Transactional(rollbackFor=DataAccessException.class)	
+	public void deleteHomepageTab(int tabId) throws DataAccessException {
+		getHomepageTabDao().delete(id);
+	}
 }

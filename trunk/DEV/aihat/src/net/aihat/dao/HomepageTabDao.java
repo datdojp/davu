@@ -7,5 +7,6 @@ import net.aihat.dto.HomepageTabDto;
 import org.springframework.dao.DataAccessException;
 
 public interface HomepageTabDao {
-	public List<HomepageTabDto> getAllHomepageTab() throws DataAccessException;
+	public List<HomepageTabDto> getAll() throws DataAccessException;
+	public void delete(int id) throws DataAccessException;
 }

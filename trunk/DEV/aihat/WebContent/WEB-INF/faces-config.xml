@@ -66,7 +66,15 @@
 			<value>#{featuredClipService}</value>
 		</managed-property>
 	</managed-bean>
-	
+	<managed-bean>
+		<managed-bean-name>manageHomepageBean</managed-bean-name>
+		<managed-bean-class>net.aihat.bean.admin.homepage.ManageHomepageBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>homepageTabService</property-name>
+			<value>#{homepageTabService}</value>
+		</managed-property>
+	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>manageClipUploadBean</managed-bean-name>
 		<managed-bean-class>net.aihat.bean.admin.clip.ManageClipUploadBean</managed-bean-class>
