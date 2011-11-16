@@ -119,6 +119,6 @@ public class HomepageTabServiceImpl extends BaseService implements HomepageTabSe
 	
 	@Transactional(rollbackFor=DataAccessException.class)	
 	public void deleteHomepageTab(int tabId) throws DataAccessException {
-		getHomepageTabDao().delete(id);
+		getHomepageTabDao().delete(tabId);
 	}
 }
