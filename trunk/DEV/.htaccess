@@ -1,0 +1,7 @@
+RewriteEngine on
+RewriteCond %{HTTP_HOST}  aihat.vn
+RewriteRule ^(.*)$ http://aihat.vn:8080/aihat/ [R=permanent,L]
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST}  comayshop.com
+RewriteRule ^(.*)$ http://comayshop.com:8080/kohana/ [R=permanent,L]

@@ -13,7 +13,7 @@
 			recommended_clips as recommendClips,
 			top_uploaders as topUploaders
 		FROM homepage_tab h
-		ORDER BY order asc
+		ORDER BY `order` asc
 	</select>
 	<delete id="deleteHomepageTab" parameterClass="int">
 		DELETE FROM homepage_tab
