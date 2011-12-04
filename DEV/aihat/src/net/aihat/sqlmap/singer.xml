@@ -92,10 +92,9 @@
 			AND s.id = #id#
 	</select>
 	<select id="getSingerByName" parameterClass="string" resultClass="net.aihat.dto.SingerDto">
-		SELECT s.id as id
+		SELECT s.id as id, s.name as name
 		FROM singer s
-		WHERE NOT s.deleted AND s.name = #name#
-		LIMIT 1
+		WHERE NOT s.deleted AND s.name like #name#
 	</select>
 	<select id="searchSinger" parameterClass="net.aihat.criteria.SingerSearchCriteria" resultClass="net.aihat.dto.SingerDto">
 		<include refid="singerCommonSelect"/>

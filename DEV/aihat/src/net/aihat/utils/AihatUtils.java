@@ -153,4 +153,22 @@ public class AihatUtils {
 		}
 		return results;
 	}
+	
+	public static boolean isExactKeyword(String keyword) {
+		if(AihatUtils.isEmpty(keyword)) {
+			return false;
+		}
+		String trimmed = keyword.trim();
+		return "\"".equals(trimmed.substring(0, 1)) &&
+			"\"".equals(trimmed.substring(trimmed.length()-1, trimmed.length()));
+	}
+	
+	public static String getExactKeyword(String keyword) {
+		if(AihatUtils.isEmpty(keyword)) {
+			return keyword;
+		}
+		
+		String result = keyword.trim();
+		return result.substring(1, result.length()-1);
+	}
 }

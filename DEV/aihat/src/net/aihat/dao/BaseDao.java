@@ -24,7 +24,7 @@ public abstract class BaseDao extends SqlMapClientDaoSupport implements Serializ
 		if(result.indexOf(" ") >= 0) {
 			result = StringUtils.replace(result, " ", "% %");
 		}
-		result = result + "%";
+		result = "%" + result + "%";
 		return result;
 	}
 	
