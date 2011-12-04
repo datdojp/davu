@@ -19,7 +19,12 @@ public class ComposerDaoImpl extends BaseDao implements ComposerDao {
 		}
 		
 		ComposerSearchCriteria param = (ComposerSearchCriteria) criteria.clone();
-		param.setName(getSQLSearchableString(param.getName()));
+		if(AihatUtils.isExactKeyword(param.getName())) {
+			param.setName(AihatUtils.getExactKeyword(param.getName()));
+			param.setName(getSearchableString(param.getName()));
+		} else {
+			param.setName(getSQLSearchableString(param.getName()));
+		}
 		
 		if(criteria.isForCounting()) {
 			Long nResults = (Long) getSqlMapClientTemplate().queryForObject("countComposer", param);
@@ -32,6 +37,7 @@ public class ComposerDaoImpl extends BaseDao implements ComposerDao {
 	}
 
 	public ComposerDto insert(ComposerDto dto) throws DataAccessException {
+		dto.setName(dto.getName().trim());
 		dto.setNameSearch(getSearchableString(dto.getName()));
 //		dto.setNameGet(getGetableString(dto.getName()));
 		getSqlMapClientTemplate().insert("insertComposer", dto);

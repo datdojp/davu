@@ -24,7 +24,12 @@ public class SingerDaoImpl extends BaseDao implements SingerDao {
 		}
 		
 		SingerSearchCriteria param = (SingerSearchCriteria) criteria.clone();
-		param.setName(getSQLSearchableString(criteria.getName()));
+		if(AihatUtils.isExactKeyword(param.getName())) {
+			param.setName(AihatUtils.getExactKeyword(param.getName()));
+			param.setName(getSearchableString(param.getName()));
+		} else {
+			param.setName(getSQLSearchableString(param.getName()));
+		}
 		
 		if(criteria.isForCounting()) {
 			Long nResults = (Long) getSqlMapClientTemplate().queryForObject("countSinger", param);
@@ -36,6 +41,7 @@ public class SingerDaoImpl extends BaseDao implements SingerDao {
 	}
 
 	public SingerDto insert(SingerDto dto) throws DataAccessException {
+		dto.setName(dto.getName().trim());
 		dto.setNameSearch(getSearchableString(dto.getName()));
 		// dto.setNameGet(getGetableString(dto.getName()));
 		getSqlMapClientTemplate().insert("insertSinger", dto);
@@ -65,8 +71,17 @@ public class SingerDaoImpl extends BaseDao implements SingerDao {
 	}
 
 	public SingerDto getSingerByName(String name) throws DataAccessException {
-		return (SingerDto) getSqlMapClientTemplate().queryForObject(
+		List<SingerDto> results = getSqlMapClientTemplate().queryForList(
 				"getSingerByName", name);
+		
+		//we have to do this because in MySQL, it doesn't care about Vietnamese signs when comparing 2 string
+		for(SingerDto aSinger : results) {
+			if(aSinger.getName().equals(name)) {
+				return aSinger;
+			}
+		}
+		
+		return null;
 	}
 
 	public void insertUserFollowSinger(UserDto user, SingerDto singer) throws DataAccessException {

@@ -28,7 +28,12 @@ public class ClipDaoImpl extends BaseDao implements ClipDao {
 		}
 		
 		ClipSearchCriteria param = (ClipSearchCriteria) criteria.clone();
-		param.setTitle(getSQLSearchableString(param.getTitle()));
+		if(AihatUtils.isExactKeyword(param.getTitle())) {
+			param.setTitle(AihatUtils.getExactKeyword(param.getTitle()));
+			param.setTitle(getSearchableString(param.getTitle()));
+		} else {
+			param.setTitle(getSQLSearchableString(param.getTitle()));
+		}
 		
 		if(criteria.isForCounting()) {
 			Long nResults = (Long) getSqlMapClientTemplate().queryForObject("countClip", param);
@@ -47,6 +52,7 @@ public class ClipDaoImpl extends BaseDao implements ClipDao {
 	}
 
 	public ClipDto insert(ClipDto dto) throws DataAccessException {
+		dto.setTitle(dto.getTitle().trim());
 		dto.setTitleSearch(getSearchableString(dto.getTitle()));
 		getSqlMapClientTemplate().insert("insertClip", dto);
 		dto.setId(getLastInsertId());
