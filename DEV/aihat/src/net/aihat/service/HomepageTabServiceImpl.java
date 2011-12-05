@@ -28,7 +28,7 @@ public class HomepageTabServiceImpl extends BaseService implements HomepageTabSe
 			
 			//load listGenres
 			if(!AihatUtils.isEmpty(homePageTab.getGenres())) {
-				String[] splitted = homePageTab.getGenres().split(" ");
+				String[] splitted = homePageTab.getGenres().split(",");
 				GenreSearchCriteria criteria = new GenreSearchCriteria();
 				criteria.setIds(new ArrayList<Integer>());
 				for(String aGenreId : splitted) {
@@ -42,7 +42,7 @@ public class HomepageTabServiceImpl extends BaseService implements HomepageTabSe
 			
 			//load listTopSingers
 			if(!AihatUtils.isEmpty(homePageTab.getTopSingers())) {
-				String[] splitted = homePageTab.getTopSingers().split(" ");
+				String[] splitted = homePageTab.getTopSingers().split(",");
 				SingerSearchCriteria singerSearchCriteria = new SingerSearchCriteria();
 				singerSearchCriteria.setIds(new ArrayList<Integer>());
 				for(String aSingerId : splitted) {
@@ -55,7 +55,7 @@ public class HomepageTabServiceImpl extends BaseService implements HomepageTabSe
 			
 			//load listTopPlaylists
 			if(!AihatUtils.isEmpty(homePageTab.getTopPlaylists())) {
-				String[] splitted = homePageTab.getTopPlaylists().split(" ");
+				String[] splitted = homePageTab.getTopPlaylists().split(",");
 				PlaylistSearchCriteria playlistSearchCriteria = new PlaylistSearchCriteria();
 				playlistSearchCriteria.setIds(new ArrayList<Integer>());
 				for(String aPlaylistId : splitted) {
@@ -68,7 +68,7 @@ public class HomepageTabServiceImpl extends BaseService implements HomepageTabSe
 			
 			//load listRecommendedClips
 			if(!AihatUtils.isEmpty(homePageTab.getRecommendedClips())) {
-				String[] splitted = homePageTab.getRecommendedClips().split(" ");
+				String[] splitted = homePageTab.getRecommendedClips().split(",");
 				ClipSearchCriteria clipSearchCriteria = new ClipSearchCriteria();
 				clipSearchCriteria.setIds(new ArrayList<Integer>());
 				for(String aRecommededClipId : splitted) {
@@ -81,7 +81,7 @@ public class HomepageTabServiceImpl extends BaseService implements HomepageTabSe
 			
 			//load listTopUploaders
 			if(!AihatUtils.isEmpty(homePageTab.getTopUploaders())) {
-				String[] splitted = homePageTab.getTopUploaders().split(" ");
+				String[] splitted = homePageTab.getTopUploaders().split(",");
 				UserSearchCriteria userSearchCriteria = new UserSearchCriteria();
 				userSearchCriteria.setIds(new ArrayList<Integer>());
 				for(String anUploaderId : splitted) {
@@ -120,5 +120,29 @@ public class HomepageTabServiceImpl extends BaseService implements HomepageTabSe
 	@Transactional(rollbackFor=DataAccessException.class)	
 	public void deleteHomepageTab(int tabId) throws DataAccessException {
 		getHomepageTabDao().delete(tabId);
+	}
+
+	@Transactional(rollbackFor=DataAccessException.class)
+	public HomepageTabDto createOrUpdateHomepageTab(Integer id, Integer order, String titleVi,
+			String titleEn, String genres, String topSingers,
+			String topPlaylists, String recommendedClips, String topUploaders)
+			throws DataAccessException {
+		HomepageTabDto dto = new HomepageTabDto();
+		dto.setId(id);
+		dto.setOrder(order);
+		dto.setTitleVi(titleVi);
+		dto.setTitleEn(titleEn);
+		dto.setGenres(genres);
+		dto.setTopSingers(topSingers);
+		dto.setTopPlaylists(topPlaylists);
+		dto.setRecommendedClips(recommendedClips);
+		dto.setTopUploaders(topUploaders);
+		
+		if(id == null) {
+			return getHomepageTabDao().insert(dto);
+		} else {
+			getHomepageTabDao().update(dto);
+			return dto;
+		}
 	}
 }

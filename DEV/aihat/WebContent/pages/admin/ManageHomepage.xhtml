@@ -15,17 +15,67 @@
 	</ui:define>
 	<ui:define name="body">
 		<h:form>
+			<h:commandButton value="Create tab" action="#{manageHomepageBean.create}"/>
+			
 			<h:panelGrid columns="3" border="1">
 				<c:forEach var="aTab" items="#{manageHomepageBean.allTabs}">
-					<h:commandButton value="Delete" action="" onclick="return confirm('Do you really want to delete?');">
+					<h:commandButton value="Delete" action="#{manageHomepageBean.delete}" onclick="return confirm('Do you really want to delete?');">
 						<f:param name="tabId" value="#{aTab.id}"></f:param>
 					</h:commandButton>
+					<h:commandLink value="#{aTab.titleVi}" action="#{manageHomepageBean.edit}">
+						<f:param name="tabId" value="#{aTab.id}"></f:param>
+					</h:commandLink>
+					<h:outputText value="#{aTab.order}"></h:outputText>
 				</c:forEach>
 			</h:panelGrid>
-			<h:commandLink value="#{aTab.titleVi}" action="#{manageHomepageBean.edit}">
-				<f:param name="tabId" value="#{aTab.id}"></f:param>
-			</h:commandLink>
-			<h:outputText value="#{aTab.order}"></h:outputText>
+		</h:form>
+			<br/>
+			<br/>
+			<hr/>
+			<br/>
+			<br/>
+			
+		<h:form>	
+			<h:panelGrid columns="2" rendered="#{manageHomepageBean.action eq 'create' or manageHomepageBean.action eq 'edit'}">
+				<h:outputText value="Vietnamese title"/>
+				<h:inputText value="#{manageHomepageBean.titleVi}"
+					required="true" requiredMessage="Please input Vietnamese title."/>
+				
+				<h:outputText value="English title"/>
+				<h:inputText value="#{manageHomepageBean.titleEn}"
+					required="true" requiredMessage="Please input English title."/>
+				
+				<h:outputText value="Genres"/>
+				<h:inputText value="#{manageHomepageBean.genres}"
+					required="true" requiredMessage="Please input Genres."/>
+				
+				<h:outputText value="Top singers"/>
+				<h:inputText value="#{manageHomepageBean.topSingers}"
+					required="true" requiredMessage="Please input Top singers."/>
+				
+				<h:outputText value="Top playlists"/>
+				<h:inputText value="#{manageHomepageBean.topPlaylists}"
+					required="true" requiredMessage="Please input Top playlists."/>
+				
+				<h:outputText value="Recommended clips"/>
+				<h:inputText value="#{manageHomepageBean.recommendedClips}"
+					required="true" requiredMessage="Please input Recommended clips."/>
+				
+				<h:outputText value="Top uploaders"/>
+				<h:inputText value="#{manageHomepageBean.topUploaders}"
+					required="true" requiredMessage="Please input Top uploaders."/>
+				
+				<h:outputText value="Order"/>
+				<h:inputText value="#{manageHomepageBean.order}"
+					required="true" requiredMessage="Please input Order."/>
+				
+				<h:commandButton value="Save" action="#{manageHomepageBean.saveOrUpdate}" rendered="#{manageHomepageBean.action eq 'create'}"/>
+				<h:commandButton value="Update" action="#{manageHomepageBean.saveOrUpdate}" rendered="#{manageHomepageBean.action eq 'edit'}"/>
+				<h:commandButton value="Cancel" onclick="$('.cancelButton').click();return false;"/>
+			</h:panelGrid>
+		</h:form>
+		<h:form>
+			<h:commandButton action="#{manageHomepageBean.cancel}" style="display:none;" styleClass="cancelButton"/>
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -22,6 +22,7 @@ public class ManageHomepageBean extends BaseBean {
 	private String topPlaylists;
 	private String recommendedClips;
 	private String topUploaders;
+	
 	private String action;
 	
 	//service
@@ -46,8 +47,11 @@ public class ManageHomepageBean extends BaseBean {
 	//action
 	public synchronized String init() {
 		super.init();
-		allTabs = homepageTabService.getAllHomepageTab();
+		reloadTabs();
 		return "/pages/admin/ManageHomepage";
+	}
+	private void reloadTabs() {
+		allTabs = homepageTabService.getAllHomepageTab();
 	}
 	public synchronized String create() {
 		cleanAllFields();
@@ -57,6 +61,7 @@ public class ManageHomepageBean extends BaseBean {
 	public synchronized String edit() {
 		Integer tabId = Integer.parseInt(BeanUtils.getRequest().getParameter("tabId"));
 		HomepageTabDto tab = (HomepageTabDto) AihatUtils.getDtoFromList(tabId, allTabs);
+		id = tabId;
 		order = tab.getOrder();
 		titleVi = tab.getTitleVi();
 		titleEn = tab.getTitleEn();
@@ -82,6 +87,19 @@ public class ManageHomepageBean extends BaseBean {
 		
 		action = "delete";
 		
+		return null;
+	}
+	
+	public synchronized String saveOrUpdate() {
+		getHomepageTabService().createOrUpdateHomepageTab(id, order, titleVi, titleEn, genres, topSingers,
+				topPlaylists, recommendedClips, topUploaders);
+		action = null;
+		reloadTabs();
+		return null;
+	}
+	
+	public synchronized String cancel() {
+		action = null;
 		return null;
 	}
 	
