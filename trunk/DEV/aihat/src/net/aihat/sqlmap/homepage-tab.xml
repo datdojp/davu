@@ -4,14 +4,14 @@
 	<select id="selectAllHomepageTabs" resultClass="net.aihat.dto.HomepageTabDto">
 		SELECT
 			h.id as id,
-			`order` as `order`,
-			title_vi as titleVi,
-			title_en as titleEn,
-			genres as genres,
-			top_singers as topSingers,
-			top_playlists as topPlaylits,
-			recommended_clips as recommendClips,
-			top_uploaders as topUploaders
+			h.`order` as `order`,
+			h.title_vi as titleVi,
+			h.title_en as titleEn,
+			h.genres as genres,
+			h.top_singers as topSingers,
+			h.top_playlists as topPlaylists,
+			h.recommended_clips as recommendedClips,
+			h.top_uploaders as topUploaders
 		FROM homepage_tab h
 		ORDER BY `order` asc
 	</select>
@@ -19,4 +19,21 @@
 		DELETE FROM homepage_tab
 		WHERE id = #value#
 	</delete>
+	<insert id="insertHomepageTab" parameterClass="net.aihat.dto.HomepageTabDto">
+		INSERT INTO homepage_tab(`order`, title_vi, title_en, genres, top_singers, top_playlists, recommended_clips, top_uploaders)
+		VALUES (#order#,#titleVi#,#titleEn#,#genres#,#topSingers#,#topPlaylists#,#recommendedClips#,#topUploaders#)
+	</insert>
+	<update id="updateHomepageTab" parameterClass="net.aihat.dto.HomepageTabDto">
+		UPDATE homepage_tab
+		SET 
+			`order` = #order#, 
+			title_vi = #titleVi#, 
+			title_en = #titleEn#, 
+			genres = #genres#, 
+			top_singers = #topSingers#, 
+			top_playlists = #topPlaylists#, 
+			recommended_clips = #recommendedClips#, 
+			top_uploaders = #topUploaders#
+		WHERE id = #id#
+	</update>
 </sqlMap>

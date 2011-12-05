@@ -13,4 +13,13 @@ public class HomepageTabDaoImpl extends BaseDao implements HomepageTabDao {
 		getSqlMapClientTemplate().delete("deleteHomepageTab", id);
 	}
 
+	public HomepageTabDto insert(HomepageTabDto dto) throws DataAccessException {
+		getSqlMapClientTemplate().insert("insertHomepageTab", dto);
+		dto.setId(getLastInsertId());
+		return dto;
+	}
+
+	public void update(HomepageTabDto dto) throws DataAccessException {
+		getSqlMapClientTemplate().update("updateHomepageTab", dto);
+	}
 }
