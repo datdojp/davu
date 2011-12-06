@@ -70,7 +70,7 @@
 			</isNotNull>
 			<isNotEmpty property="ids" prepend="AND">
 				s.id in
-				<iterate open="(" close=")" conjunction=",">
+				<iterate open="(" close=")" conjunction="," property="ids">
 					#ids[]#
 				</iterate>
 			</isNotEmpty>
@@ -116,7 +116,7 @@
 		UPDATE singer
 		SET deleted = 1
 		WHERE id in
-		<iterate open="(" close=")" conjunction=",">
+		<iterate open="(" close=")" conjunction="," property="ids">
 			#ids[]#
 		</iterate>
 	</update>

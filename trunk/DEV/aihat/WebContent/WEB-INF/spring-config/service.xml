@@ -74,22 +74,4 @@
 	<bean id="featuredClipService" class="net.aihat.service.FeaturedClipServiceImpl" parent="baseService"/>
 	<bean id="clipCommentService" class="net.aihat.service.ClipCommentServiceImpl" parent="baseService"/>
 	<bean id="homepageTabService" class="net.aihat.service.HomepageTabServiceImpl" parent="baseService"/>
-	
-	<bean id="configurationService" class="net.aihat.service.ConfigurationService">
-		<property name="imageBackupFolder">
-			<value>${service.imageBackupFolder}</value>
-		</property>
-		<property name="nHomepageClips">
-			<value>${service.homepage.nClips}</value>
-		</property>
-		<property name="nFeaturedClips">
-			<value>${client.nFeaturedClips}</value>
-		</property>
-		<property name="nRowsPerPage">
-			<value>${client.nRowsPerPage}</value>
-		</property>
-		<property name="nFollowerToDisplay">
-			<value>${client.nFollowerToDisplay}</value>
-		</property>
-	</bean>
 </beans>

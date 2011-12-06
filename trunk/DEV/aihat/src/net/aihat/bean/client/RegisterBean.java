@@ -17,6 +17,7 @@ public class RegisterBean extends BaseClientBean {
 	public RegisterBean() {
 		logger = Logger.getLogger(RegisterBean.class);
 		cleanAllFields();
+		init();
 	}
 	
 	/**

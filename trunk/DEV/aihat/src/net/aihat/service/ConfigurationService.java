@@ -2,50 +2,45 @@ package net.aihat.service;
 
 import java.io.Serializable;
 
+import net.aihat.utils.BeanUtils;
+
 public class ConfigurationService implements Serializable {
-	public String imageBackupFolder;
-	public int nHomepageClips;
-	private int nFeaturedClips;
-	private long nRowsPerPage;
-	private long nFollowerToDisplay;
-
 	//getter setter
-	public String getImageBackupFolder() {
-		return imageBackupFolder;
+	public static String getImageBackupFolder() {
+		return BeanUtils.getConfig("service.imageBackupFolder");
 	}
 
-	public void setImageBackupFolder(String imageBackupFolder) {
-		this.imageBackupFolder = imageBackupFolder;
+	public static int getnHomepageClips() {
+		return Integer.parseInt(BeanUtils.getConfig("service.homepage.nClips"));
 	}
 
-	public int getnHomepageClips() {
-		return nHomepageClips;
+	public static int getnFeaturedClips() {
+		return Integer.parseInt(BeanUtils.getConfig("client.nFeaturedClips"));
 	}
 
-	public void setnHomepageClips(int nHomepageClips) {
-		this.nHomepageClips = nHomepageClips;
-	}
-	public int getnFeaturedClips() {
-		return nFeaturedClips;
+	public static long getnRowsPerPage() {
+		return Long.parseLong(BeanUtils.getConfig("client.nRowsPerPage"));
 	}
 
-	public void setnFeaturedClips(int nFeaturedClips) {
-		this.nFeaturedClips = nFeaturedClips;
+	public static long getnFollowerToDisplay() {
+		return Long.parseLong(BeanUtils.getConfig("client.nFollowerToDisplay"));
 	}
-
-	public long getnRowsPerPage() {
-		return nRowsPerPage;
-	}
-
-	public void setnRowsPerPage(long nRowsPerPage) {
-		this.nRowsPerPage = nRowsPerPage;
-	}
-
-	public long getnFollowerToDisplay() {
-		return nFollowerToDisplay;
-	}
-
-	public void setnFollowerToDisplay(long nFollowerToDisplay) {
-		this.nFollowerToDisplay = nFollowerToDisplay;
-	}
+	
+//	<bean id="configurationService" class="net.aihat.service.ConfigurationService">
+//		<property name="imageBackupFolder">
+//			<value>${service.imageBackupFolder}</value>
+//		</property>
+//		<property name="nHomepageClips">
+//			<value>${service.homepage.nClips}</value>
+//		</property>
+//		<property name="nFeaturedClips">
+//			<value>${client.nFeaturedClips}</value>
+//		</property>
+//		<property name="nRowsPerPage">
+//			<value>${client.nRowsPerPage}</value>
+//		</property>
+//		<property name="nFollowerToDisplay">
+//			<value>${client.nFollowerToDisplay}</value>
+//		</property>
+//	</bean>
 }

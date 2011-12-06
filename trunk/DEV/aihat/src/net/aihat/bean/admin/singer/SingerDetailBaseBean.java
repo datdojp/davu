@@ -9,11 +9,11 @@ import java.util.Calendar;
 import net.aihat.bean.BaseBean;
 import net.aihat.dto.SingerDto;
 import net.aihat.dto.UserDto;
+import net.aihat.service.ConfigurationService;
 import net.aihat.service.SingerService;
 import net.aihat.utils.AihatUtils;
 import net.aihat.utils.BeanUtils;
 
-import org.apache.log4j.Logger;
 import org.apache.myfaces.custom.fileupload.UploadedFile;
 import org.springframework.dao.DataAccessException;
 
@@ -55,7 +55,7 @@ public abstract class SingerDetailBaseBean extends BaseBean {
 				bufferedOutputStream.close();
 
 				//save the file to backup folder
-				File backupFile = new File(getConfigurationService().getImageBackupFolder() + avatarFilename);
+				File backupFile = new File(ConfigurationService.getImageBackupFolder() + avatarFilename);
 				if(!backupFile.exists()) {
 					backupFile.createNewFile();
 				}
@@ -73,7 +73,7 @@ public abstract class SingerDetailBaseBean extends BaseBean {
 						}
 					}
 					
-					File oldBackupFile = new File(getConfigurationService().getImageBackupFolder() + singer.getImage());
+					File oldBackupFile = new File(ConfigurationService.getImageBackupFolder() + singer.getImage());
 					if(oldBackupFile.exists()) {
 						oldBackupFile.delete();
 					}

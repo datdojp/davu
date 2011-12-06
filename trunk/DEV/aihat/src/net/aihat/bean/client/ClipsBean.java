@@ -1,6 +1,7 @@
 package net.aihat.bean.client;
 
 import java.util.ArrayList;
+import net.aihat.service.ConfigurationService;
 
 import javax.faces.event.AjaxBehaviorEvent;
 
@@ -15,6 +16,7 @@ public class ClipsBean extends MultiTabPagingBean {
 	public ClipsBean() {
 		logger = Logger.getLogger(ClipsBean.class);
 		displayTab = CLIPS_TAB;
+		init();
 	}
 	
 	public String getBeanName() {
@@ -49,11 +51,11 @@ public class ClipsBean extends MultiTabPagingBean {
 	}
 	
 	protected void initTabPagingMap() {
-		tabPagingMap.put(CLIPS_TAB, new PagingCriterion(0l, getConfigurationService().getnRowsPerPage()));
-		tabPagingMap.put(SINGERS_TAB, new PagingCriterion(0l, getConfigurationService().getnRowsPerPage()));
-		tabPagingMap.put(COMPOSERS_TAB, new PagingCriterion(0l, getConfigurationService().getnRowsPerPage()));
-		tabPagingMap.put(PLAYLISTS_TAB, new PagingCriterion(0l, getConfigurationService().getnRowsPerPage()));
-		tabPagingMap.put(GENRES_TAB, new PagingCriterion(0l, getConfigurationService().getnRowsPerPage()));
+		tabPagingMap.put(CLIPS_TAB, new PagingCriterion(0l, ConfigurationService.getnRowsPerPage()));
+		tabPagingMap.put(SINGERS_TAB, new PagingCriterion(0l, ConfigurationService.getnRowsPerPage()));
+		tabPagingMap.put(COMPOSERS_TAB, new PagingCriterion(0l, ConfigurationService.getnRowsPerPage()));
+		tabPagingMap.put(PLAYLISTS_TAB, new PagingCriterion(0l, ConfigurationService.getnRowsPerPage()));
+		tabPagingMap.put(GENRES_TAB, new PagingCriterion(0l, ConfigurationService.getnRowsPerPage()));
 	}
 
 	protected void initTabDataMap() {

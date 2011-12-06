@@ -158,7 +158,7 @@
 			</isNotNull>
 			<isNotEmpty property="ids" prepend="AND">
 				c.id in
-				<iterate open="(" close=")" conjunction=",">
+				<iterate open="(" close=")" conjunction="," property="ids">
 					#ids[]#
 				</iterate>
 			</isNotEmpty>
@@ -169,7 +169,7 @@
 					WHERE
 						cg_.clip_id = c.id AND
 						cg_.genre_id IN
-						<iterate open="(" close=")" conjunction=",">
+						<iterate open="(" close=")" conjunction="," property="genreIds">
 							#genreIds[]#
 						</iterate>
 				)
@@ -226,7 +226,7 @@
 			,
 			deleted = 1
 		WHERE id in
-		<iterate open="(" close=")" conjunction=",">
+		<iterate open="(" close=")" conjunction="," property="ids">
 			#ids[]#
 		</iterate>
 	</update>

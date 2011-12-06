@@ -13,14 +13,14 @@ import org.apache.log4j.Logger;
 
 public class AihatPhaseListener implements PhaseListener {
 	private Logger logger = Logger.getLogger(AihatPhaseListener.class);
-	private static String[] INIT_REQUIRED_CLIENT_BEANS = new String[] {
-		"clipsBean",
-		"detailBean",
-		"featuredClipsBean",
-		"myProfileBean",
-		"zentaiBean",
-		"homepageBean"
-	};
+//	private static String[] INIT_REQUIRED_CLIENT_BEANS = new String[] {
+//		"clipsBean",
+//		"detailBean",
+//		"featuredClipsBean",
+//		"myProfileBean",
+//		"zentaiBean",
+//		"homepageBean"
+//	};
 	
 	public void afterPhase(PhaseEvent event) {
 		String uri = BeanUtils.getPageURI();
@@ -37,12 +37,12 @@ public class AihatPhaseListener implements PhaseListener {
 	}
 
 	public void beforePhase(PhaseEvent event) {
-		for(String aBeanName : INIT_REQUIRED_CLIENT_BEANS) {
-			BaseBean bean = (BaseBean) BeanUtils.getContextBean(aBeanName);
-			if(!bean.isInitialized()) {
-				bean.init();
-			}
-		}
+//		for(String aBeanName : INIT_REQUIRED_CLIENT_BEANS) {
+//			BaseBean bean = (BaseBean) BeanUtils.getContextBean(aBeanName);
+//			if(!bean.isInitialized()) {
+//				bean.init();
+//			}
+//		}
 	}
 
 	public PhaseId getPhaseId() {

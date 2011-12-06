@@ -104,10 +104,6 @@
 			<property-name>singerService</property-name>
 			<value>#{singerService}</value>
 		</managed-property>
-		<managed-property>
-			<property-name>configurationService</property-name>
-			<value>#{configurationService}</value>
-		</managed-property>
 	</managed-bean>
 	
 	<managed-bean>
@@ -132,10 +128,6 @@
 			<property-name>singerService</property-name>
 			<value>#{singerService}</value>
 		</managed-property>
-		<managed-property>
-			<property-name>configurationService</property-name>
-			<value>#{configurationService}</value>
-		</managed-property>
 	</managed-bean>
 	
 	<managed-bean>
@@ -145,10 +137,6 @@
 		<managed-property>
 			<property-name>composerService</property-name>
 			<value>#{composerService}</value>
-		</managed-property>
-		<managed-property>
-			<property-name>configurationService</property-name>
-			<value>#{configurationService}</value>
 		</managed-property>
 	</managed-bean>
 	
@@ -174,10 +162,6 @@
 			<property-name>composerService</property-name>
 			<value>#{composerService}</value>
 		</managed-property>
-		<managed-property>
-			<property-name>configurationService</property-name>
-			<value>#{configurationService}</value>
-		</managed-property>
 	</managed-bean>
 	
 	<managed-bean>
@@ -187,10 +171,6 @@
 		<managed-property>
 			<property-name>genreService</property-name>
 			<value>#{genreService}</value>
-		</managed-property>
-		<managed-property>
-			<property-name>configurationService</property-name>
-			<value>#{configurationService}</value>
 		</managed-property>
 	</managed-bean>
 	
@@ -215,10 +195,6 @@
 		<managed-property>
 			<property-name>genreService</property-name>
 			<value>#{genreService}</value>
-		</managed-property>
-		<managed-property>
-			<property-name>configurationService</property-name>
-			<value>#{configurationService}</value>
 		</managed-property>
 	</managed-bean>
 	
@@ -261,10 +237,6 @@
 		<managed-bean-class>net.aihat.bean.client.ZentaiBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 		<managed-property>
-			<property-name>configurationService</property-name>
-			<value>#{configurationService}</value>
-		</managed-property>
-		<managed-property>
 			<property-name>clipService</property-name>
 			<value>#{clipService}</value>
 		</managed-property>
@@ -298,10 +270,6 @@
 		<managed-bean-name>clipsBean</managed-bean-name>
 		<managed-bean-class>net.aihat.bean.client.ClipsBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
-		<managed-property>
-			<property-name>configurationService</property-name>
-			<value>#{configurationService}</value>
-		</managed-property>
 		<managed-property>
 			<property-name>clipService</property-name>
 			<value>#{clipService}</value>
@@ -341,10 +309,6 @@
 		<managed-bean-class>net.aihat.bean.client.DetailBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 		<managed-property>
-			<property-name>configurationService</property-name>
-			<value>#{configurationService}</value>
-		</managed-property>
-		<managed-property>
 			<property-name>clipService</property-name>
 			<value>#{clipService}</value>
 		</managed-property>
@@ -378,10 +342,6 @@
 		<managed-bean-name>featuredClipsBean</managed-bean-name>
 		<managed-bean-class>net.aihat.bean.client.FeaturedClipsBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
-		<managed-property>
-			<property-name>configurationService</property-name>
-			<value>#{configurationService}</value>
-		</managed-property>
 		<managed-property>
 			<property-name>clipService</property-name>
 			<value>#{clipService}</value>
@@ -425,10 +385,6 @@
 		<managed-bean-class>net.aihat.bean.client.MyProfileBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 		<managed-property>
-			<property-name>configurationService</property-name>
-			<value>#{configurationService}</value>
-		</managed-property>
-		<managed-property>
 			<property-name>clipService</property-name>
 			<value>#{clipService}</value>
 		</managed-property>
@@ -462,10 +418,6 @@
 		<managed-bean-name>registerBean</managed-bean-name>
 		<managed-bean-class>net.aihat.bean.client.RegisterBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
-		<managed-property>
-			<property-name>configurationService</property-name>
-			<value>#{configurationService}</value>
-		</managed-property>
 		<managed-property>
 			<property-name>clipService</property-name>
 			<value>#{clipService}</value>

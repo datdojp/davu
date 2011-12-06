@@ -5,15 +5,18 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
+
 import net.aihat.bean.BaseBean;
 import net.aihat.dto.ComposerDto;
 import net.aihat.dto.UserDto;
 import net.aihat.service.ComposerService;
+import net.aihat.service.ConfigurationService;
 import net.aihat.utils.AihatUtils;
 import net.aihat.utils.BeanUtils;
-import org.apache.log4j.Logger;
+
 import org.apache.myfaces.custom.fileupload.UploadedFile;
 import org.springframework.dao.DataAccessException;
+import net.aihat.service.ConfigurationService;
 
 public abstract class ComposerDetailBaseBean extends BaseBean {
 	private ComposerService composerService;
@@ -53,7 +56,7 @@ public abstract class ComposerDetailBaseBean extends BaseBean {
 				bufferedOutputStream.close();
 
 				//save the file to backup folder
-				File backupFile = new File(getConfigurationService().getImageBackupFolder() + avatarFilename);
+				File backupFile = new File(ConfigurationService.getImageBackupFolder() + avatarFilename);
 				if(!backupFile.exists()) {
 					backupFile.createNewFile();
 				}
@@ -71,7 +74,7 @@ public abstract class ComposerDetailBaseBean extends BaseBean {
 						}
 					}
 					
-					File oldBackupFile = new File(getConfigurationService().getImageBackupFolder() + composer.getImage());
+					File oldBackupFile = new File(ConfigurationService.getImageBackupFolder() + composer.getImage());
 					if(oldBackupFile.exists()) {
 						oldBackupFile.delete();
 					}
