@@ -99,6 +99,7 @@ public class ManageHomepageBean extends BaseBean {
 	}
 	
 	public synchronized String cancel() {
+		cleanAllFields();
 		action = null;
 		return null;
 	}

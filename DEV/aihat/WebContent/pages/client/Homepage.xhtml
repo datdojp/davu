@@ -26,11 +26,13 @@
 							<tr>
 								<c:forEach var="aTab" items="#{homepageBean.allTabs}">
 									<td>
-										<h:commandButton styleClass="tab_#{aTab.id}">
+										<h:commandButton value="#{aTab.titleVi}" styleClass="tab tab_#{aTab.id}" rendered="#{utilsBean.currentLanguage eq 'vi'}">
 											<f:param name="tabId" value="#{aTab.id}"></f:param>
 											<f:ajax event="click" render="@form" listener="#{homepageBean.switchTab}"/>
-											<h:outputText value="#{aTab.titleVi}" rendered="#{utilsBean.currentLanguage eq 'vi'}"></h:outputText>
-											<h:outputText value="#{aTab.titleEn}" rendered="#{utilsBean.currentLanguage eq 'en'}"></h:outputText>
+										</h:commandButton>
+										<h:commandButton value="#{aTab.titleEn}" styleClass="tab tab_#{aTab.id}" rendered="#{utilsBean.currentLanguage eq 'en'}">
+											<f:param name="tabId" value="#{aTab.id}"></f:param>
+											<f:ajax event="click" render="@form" listener="#{homepageBean.switchTab}"/>
 										</h:commandButton>
 									</td>
 								</c:forEach>

@@ -33,7 +33,7 @@ public class HomepageTabServiceImpl extends BaseService implements HomepageTabSe
 				criteria.setIds(new ArrayList<Integer>());
 				for(String aGenreId : splitted) {
 					if(!AihatUtils.isEmpty(aGenreId)) {
-						criteria.getIds().add(Integer.parseInt(aGenreId));
+						criteria.getIds().add(Integer.parseInt(aGenreId.trim()));
 					}
 				}
 				genreIds.addAll(criteria.getIds());
@@ -47,7 +47,7 @@ public class HomepageTabServiceImpl extends BaseService implements HomepageTabSe
 				singerSearchCriteria.setIds(new ArrayList<Integer>());
 				for(String aSingerId : splitted) {
 					if(!AihatUtils.isEmpty(aSingerId)) {
-						singerSearchCriteria.getIds().add(Integer.parseInt(aSingerId));
+						singerSearchCriteria.getIds().add(Integer.parseInt(aSingerId.trim()));
 					}
 				}
 				homePageTab.setListTopSingers(getSingerDao().search(singerSearchCriteria).getResults());
@@ -60,7 +60,7 @@ public class HomepageTabServiceImpl extends BaseService implements HomepageTabSe
 				playlistSearchCriteria.setIds(new ArrayList<Integer>());
 				for(String aPlaylistId : splitted) {
 					if(!AihatUtils.isEmpty(aPlaylistId)) {
-						playlistSearchCriteria.getIds().add(Integer.parseInt(aPlaylistId));
+						playlistSearchCriteria.getIds().add(Integer.parseInt(aPlaylistId.trim()));
 					}
 				}
 				homePageTab.setListTopPlaylists(getPlaylistDao().search(playlistSearchCriteria).getResults());
@@ -73,7 +73,7 @@ public class HomepageTabServiceImpl extends BaseService implements HomepageTabSe
 				clipSearchCriteria.setIds(new ArrayList<Integer>());
 				for(String aRecommededClipId : splitted) {
 					if(!AihatUtils.isEmpty(aRecommededClipId)) {
-						clipSearchCriteria.getIds().add(Integer.parseInt(aRecommededClipId));
+						clipSearchCriteria.getIds().add(Integer.parseInt(aRecommededClipId.trim()));
 					}
 				}
 				homePageTab.setListRecommendedClips(getClipDao().search(clipSearchCriteria).getResults());
@@ -85,7 +85,7 @@ public class HomepageTabServiceImpl extends BaseService implements HomepageTabSe
 				UserSearchCriteria userSearchCriteria = new UserSearchCriteria();
 				userSearchCriteria.setIds(new ArrayList<Integer>());
 				for(String anUploaderId : splitted) {
-					userSearchCriteria.getIds().add(Integer.parseInt(anUploaderId));
+					userSearchCriteria.getIds().add(Integer.parseInt(anUploaderId.trim()));
 				}
 				homePageTab.setListTopUploaders(getUserDao().search(userSearchCriteria).getResults());
 			}

@@ -1,6 +1,7 @@
 package net.aihat.bean.client;
 
 import java.util.ArrayList;
+import net.aihat.service.ConfigurationService;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class FeaturedClipsBean extends BaseClientBean {
 	
 	public FeaturedClipsBean() {
 		logger = Logger.getLogger(FeaturedClipsBean.class);
+		init();
 	}
 	
 	public String getBeanName() {
@@ -86,7 +88,7 @@ public class FeaturedClipsBean extends BaseClientBean {
 					}
 				} else {
 					//DEFAULT
-					featuredClips = getClipService().getFeaturedClips(getConfigurationService().getnFeaturedClips());
+					featuredClips = getClipService().getFeaturedClips(ConfigurationService.getnFeaturedClips());
 				}
 			}
 		}

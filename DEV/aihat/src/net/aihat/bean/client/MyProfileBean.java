@@ -23,11 +23,13 @@ import net.aihat.utils.BeanUtils;
 
 import org.apache.log4j.Logger;
 import org.apache.myfaces.custom.fileupload.UploadedFile;
+import net.aihat.service.ConfigurationService;
 
 public class MyProfileBean extends MultiTabPagingBean {
 	public MyProfileBean() {
 		logger = Logger.getLogger(MyProfileBean.class);
 		displayTab = MYPLAYLISTS_TAB;
+		init();
 	}
 	
 	public String getBeanName() {
@@ -177,7 +179,7 @@ public class MyProfileBean extends MultiTabPagingBean {
 					bufferedOutputStream.close();
 		
 					//save the file to backup folder
-					File backupFile = new File(getConfigurationService().getImageBackupFolder() + avatarFilename);
+					File backupFile = new File(ConfigurationService.getImageBackupFolder() + avatarFilename);
 					if(!backupFile.exists()) {
 						backupFile.createNewFile();
 					}
@@ -195,7 +197,7 @@ public class MyProfileBean extends MultiTabPagingBean {
 							}
 						}
 						
-						File oldBackupFile = new File(getConfigurationService().getImageBackupFolder() + user.getImage());
+						File oldBackupFile = new File(ConfigurationService.getImageBackupFolder() + user.getImage());
 						if(oldBackupFile.exists()) {
 							oldBackupFile.delete();
 						}
@@ -219,11 +221,11 @@ public class MyProfileBean extends MultiTabPagingBean {
 	 * INIT
 	 */
 	protected void initTabPagingMap() {
-		tabPagingMap.put(MYPLAYLISTS_TAB, new PagingCriterion(0l, getConfigurationService().getnRowsPerPage()));
-		tabPagingMap.put(MYCLIPS_TAB, new PagingCriterion(0l, getConfigurationService().getnRowsPerPage()));
-		tabPagingMap.put(LIKED_CLIPS_TAB, new PagingCriterion(0l, getConfigurationService().getnRowsPerPage()));
-		tabPagingMap.put(FOLLOWED_SINGERS_TAB, new PagingCriterion(0l, getConfigurationService().getnRowsPerPage()));
-		tabPagingMap.put(NOTIFIED_CLIPS_TAB, new PagingCriterion(0l, getConfigurationService().getnRowsPerPage()));
+		tabPagingMap.put(MYPLAYLISTS_TAB, new PagingCriterion(0l, ConfigurationService.getnRowsPerPage()));
+		tabPagingMap.put(MYCLIPS_TAB, new PagingCriterion(0l, ConfigurationService.getnRowsPerPage()));
+		tabPagingMap.put(LIKED_CLIPS_TAB, new PagingCriterion(0l, ConfigurationService.getnRowsPerPage()));
+		tabPagingMap.put(FOLLOWED_SINGERS_TAB, new PagingCriterion(0l, ConfigurationService.getnRowsPerPage()));
+		tabPagingMap.put(NOTIFIED_CLIPS_TAB, new PagingCriterion(0l, ConfigurationService.getnRowsPerPage()));
 	}
 	protected void initTabDataMap() {
 		tabDataMap.put(MYPLAYLISTS_TAB, new ArrayList());

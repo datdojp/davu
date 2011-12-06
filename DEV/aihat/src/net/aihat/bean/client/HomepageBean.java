@@ -7,6 +7,7 @@ import javax.faces.event.AjaxBehaviorEvent;
 
 import net.aihat.dto.ClipDto;
 import net.aihat.dto.HomepageTabDto;
+import net.aihat.service.HomepageTabService;
 import net.aihat.utils.AihatUtils;
 import net.aihat.utils.BeanUtils;
 
@@ -18,16 +19,21 @@ public class HomepageBean extends BaseClientBean {
 	
 	public HomepageBean() {
 		logger = Logger.getLogger(HomepageBean.class);
+		init();
 	}
 	
 	public synchronized String init() {
 		super.init();
+		return null;
+	}
+	
+	public void setHomepageTabService(HomepageTabService homepageTabService) {
+		super.setHomepageTabService(homepageTabService);
 		allTabs = getHomepageTabService().getAllHomepageTab();
 		if(!AihatUtils.isEmpty(allTabs)) {
 			currentTab = allTabs.get(0);
 			getHomepageTabService().loadHomepageTabContent(currentTab);
 		}
-		return null;
 	}
 	
 	protected List getCurrentDtoList() {

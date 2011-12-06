@@ -19,8 +19,6 @@ public abstract class BaseBean implements Serializable {
 	
 	private String savedPageURI;
 	
-	private ConfigurationService configurationService;
-	
 	protected boolean isInitialized = false;
 	public synchronized String init() {
 		isInitialized = true;
@@ -79,13 +77,6 @@ public abstract class BaseBean implements Serializable {
 		this.savedPageURI = savedPageURI;
 	}
 	
-	public ConfigurationService getConfigurationService() {
-		return configurationService;
-	}
-
-	public void setConfigurationService(ConfigurationService configurationService) {
-		this.configurationService = configurationService;
-	}
 	public boolean isInitialized() {
 		return isInitialized;
 	}

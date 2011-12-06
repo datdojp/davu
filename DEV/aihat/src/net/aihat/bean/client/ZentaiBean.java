@@ -17,6 +17,7 @@ import org.apache.log4j.Logger;
 public class ZentaiBean extends BaseClientBean {
 	public ZentaiBean() {
 		logger = Logger.getLogger(ZentaiBean.class);
+		init();
 	}
 	
 	public String getBeanName() {

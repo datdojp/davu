@@ -1,6 +1,7 @@
 package net.aihat.bean.client;
 
 import java.util.ArrayList;
+import net.aihat.service.ConfigurationService;
 import java.util.List;
 
 import javax.faces.event.AjaxBehaviorEvent;
@@ -22,6 +23,7 @@ import org.apache.log4j.Logger;
 public class DetailBean extends BaseClientBean implements PagingBean {
 	public DetailBean() {
 		logger = Logger.getLogger(DetailBean.class);
+		init();
 	}
 	
 	private SingerDto singerDetail = new SingerDto();
@@ -229,7 +231,7 @@ public class DetailBean extends BaseClientBean implements PagingBean {
 	}
 	
 	private void resetReferenceDtosPaging() {
-		referenceDtosPaging = new PagingCriterion(0l, getConfigurationService().getnRowsPerPage());
+		referenceDtosPaging = new PagingCriterion(0l, ConfigurationService.getnRowsPerPage());
 	}
 	
 	private long updateReferenceDtosCount() {

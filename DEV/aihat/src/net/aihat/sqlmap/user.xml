@@ -86,7 +86,7 @@
 			</isNotNull>
 			<isNotEmpty property="ids" prepend="AND">
 				u.id in
-				<iterate open="(" close=")" conjunction=",">
+				<iterate open="(" close=")" conjunction="," property="ids">
 					#ids[]#
 				</iterate>
 			</isNotEmpty>
@@ -132,7 +132,7 @@
 		UPDATE user
 		SET deleted = 1
 		WHERE id in
-		<iterate open="(" close=")" conjunction=",">
+		<iterate open="(" close=")" conjunction="," property="ids">
 			#ids[]#
 		</iterate>
 	</update>
@@ -140,7 +140,7 @@
 		UPDATE user
 		SET blocked = 1
 		WHERE id in
-		<iterate open="(" close=")" conjunction=",">
+		<iterate open="(" close=")" conjunction="," property="ids">
 			#ids[]#
 		</iterate>
 	</update>
@@ -148,7 +148,7 @@
 		UPDATE user
 		SET blocked = 0
 		WHERE id in
-		<iterate open="(" close=")" conjunction=",">
+		<iterate open="(" close=")" conjunction="," property="ids">
 			#ids[]#
 		</iterate>
 	</update>

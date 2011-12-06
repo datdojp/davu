@@ -45,7 +45,7 @@ public class AihatUtils {
 	
 	//VALIDATOR
 	public static boolean isEmpty(String str) {
-		return str == null || "".equals(str);
+		return str == null || "".equals(str.trim());
 	}
 	public static boolean isEmpty(List list) {
 		return list == null || list.size() == 0;
