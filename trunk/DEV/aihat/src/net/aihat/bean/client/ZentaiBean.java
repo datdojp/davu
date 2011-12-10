@@ -134,7 +134,7 @@ public class ZentaiBean extends BaseClientBean {
 			int singerId = Integer.parseInt(BeanUtils.getRequest().getParameter("singerId"));
 			getSingerService().addLiked(profile.getId(), singerId);
 			
-			//check liked=true for singer
+			//check liked=true for singer and increase number of likes
 			SingerDto likedSinger;
 			if(getReferenceBean() instanceof DetailBean) {
 				likedSinger = ((DetailBean)getReferenceBean()).getSingerDetail();
@@ -144,6 +144,7 @@ public class ZentaiBean extends BaseClientBean {
 			if(likedSinger != null) {
 				likedSinger.setLiked(true);
 			}
+			likedSinger.setnFans(likedSinger.getnFans() + 1);
 			
 			//like action also involves follow action
 			if(!likedSinger.getFollowed()) {
@@ -164,7 +165,7 @@ public class ZentaiBean extends BaseClientBean {
 			int singerId = Integer.parseInt(BeanUtils.getRequest().getParameter("singerId"));
 			getSingerService().removeLiked(profile.getId(), singerId);
 			
-			//check liked=false for singer
+			//check liked=false for singer and descrease number of likes
 			SingerDto likedSinger;
 			if(getReferenceBean() instanceof DetailBean) {
 				likedSinger = ((DetailBean)getReferenceBean()).getSingerDetail();
@@ -174,6 +175,7 @@ public class ZentaiBean extends BaseClientBean {
 			if(likedSinger != null) {
 				likedSinger.setLiked(false);
 			}
+			likedSinger.setnFans(likedSinger.getnFans() - 1);
 		} catch (Throwable err) {
 			handleGeneralError(err);
 		}
@@ -189,7 +191,7 @@ public class ZentaiBean extends BaseClientBean {
 			int singerId = Integer.parseInt(BeanUtils.getRequest().getParameter("singerId"));
 			getSingerService().addFollower(profile.getId(), singerId);
 			
-			//check followed=true for singer
+			//check followed=true for singer and increase numbers of follows
 			SingerDto followedSinger;
 			if(getReferenceBean() instanceof DetailBean) {
 				followedSinger = ((DetailBean)getReferenceBean()).getSingerDetail();
@@ -199,6 +201,7 @@ public class ZentaiBean extends BaseClientBean {
 			if(followedSinger != null) {
 				followedSinger.setFollowed(true);
 			}
+			followedSinger.setnFollowers(followedSinger.getnFollowers() + 1);
 		} catch (Throwable err) {
 			handleGeneralError(err);
 		}
@@ -214,7 +217,7 @@ public class ZentaiBean extends BaseClientBean {
 			int singerId = Integer.parseInt(BeanUtils.getRequest().getParameter("singerId"));
 			getSingerService().removeFollower(profile.getId(), singerId);
 			
-			//check followed=false for singer
+			//check followed=false for singer and decrease number of follows
 			SingerDto followedSinger;
 			if(getReferenceBean() instanceof DetailBean) {
 				followedSinger = ((DetailBean)getReferenceBean()).getSingerDetail();
@@ -224,6 +227,7 @@ public class ZentaiBean extends BaseClientBean {
 			if(followedSinger != null) {
 				followedSinger.setFollowed(false);
 			}
+			followedSinger.setnFollowers(followedSinger.getnFollowers() - 1);
 		} catch (Throwable err) {
 			handleGeneralError(err);
 		}
@@ -239,7 +243,7 @@ public class ZentaiBean extends BaseClientBean {
 			int uploaderId = Integer.parseInt(BeanUtils.getRequest().getParameter("uploaderId"));
 			getUserService().addFollower(profile.getId(), uploaderId);
 			
-			//check followed=true for singer
+			//check followed=true for singer and increase number of follows
 			UserDto followedUploader;
 			if(getReferenceBean() instanceof DetailBean) {
 				followedUploader = ((DetailBean)getReferenceBean()).getUserDetail();
@@ -249,6 +253,7 @@ public class ZentaiBean extends BaseClientBean {
 			if(followedUploader != null) {
 				followedUploader.setFollowed(true);
 			}
+			followedUploader.setnFollowers(followedUploader.getnFollowers() + 1);
 		} catch (Throwable err) {
 			handleGeneralError(err);
 		}
@@ -264,7 +269,7 @@ public class ZentaiBean extends BaseClientBean {
 			int uploaderId = Integer.parseInt(BeanUtils.getRequest().getParameter("uploaderId"));
 			getUserService().removeFollower(profile.getId(), uploaderId);
 			
-			//check followed=false for singer
+			//check followed=false for singer and decrease number of follows
 			UserDto followedUploader;
 			if(getReferenceBean() instanceof DetailBean) {
 				followedUploader = ((DetailBean)getReferenceBean()).getUserDetail();
@@ -274,6 +279,7 @@ public class ZentaiBean extends BaseClientBean {
 			if(followedUploader != null) {
 				followedUploader.setFollowed(false);
 			}
+			followedUploader.setnFollowers(followedUploader.getnFollowers() - 1);
 		} catch (Throwable err) {
 			handleGeneralError(err);
 		}
@@ -289,11 +295,12 @@ public class ZentaiBean extends BaseClientBean {
 			int clipId = Integer.parseInt(BeanUtils.getRequest().getParameter("clipId"));
 			getClipService().addLiked(clipId, profile.getId());
 			
-			//check followed=true for clip
+			//check followed=true for clip and increase number of likes
 			ClipDto likedClip = (ClipDto) AihatUtils.getDtoFromList(clipId, getReferenceBean().getCurrentDtoList());
 			if(likedClip != null) {
 				likedClip.setLiked(true);
 			}
+			likedClip.setnFans(likedClip.getnFans() + 1);
 		} catch (Throwable err) {
 			handleGeneralError(err);
 		}
@@ -308,11 +315,12 @@ public class ZentaiBean extends BaseClientBean {
 			int clipId = Integer.parseInt(BeanUtils.getRequest().getParameter("clipId"));
 			getClipService().removeLiked(clipId, profile.getId());
 			
-			//check followed=false for singer
+			//check followed=false for singer and decrease number of likes
 			ClipDto likedClip = (ClipDto) AihatUtils.getDtoFromList(clipId, getReferenceBean().getCurrentDtoList());
 			if(likedClip != null) {
 				likedClip.setLiked(false);
 			}
+			likedClip.setnFans(likedClip.getnFans() - 1);
 		} catch (Throwable err) {
 			handleGeneralError(err);
 		}
@@ -328,7 +336,7 @@ public class ZentaiBean extends BaseClientBean {
 		if(BeanUtils.getUserProfileBean().getLoggedIn()) {
 			return getSearchService().searchClips(null, null, null, null, null, null, null,
 					BeanUtils.getLogginUserId(), null, null, null, null, true, null, 
-					BeanUtils.getLogginUserId()).getnResults();
+					BeanUtils.getLogginUserId(),null).getnResults();
 		} else {
 			return 0;
 		}

@@ -29,6 +29,7 @@
 						<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showPlaylistDetail}"/>
 						<h:outputText value="#{aPlaylist.name}" styleClass="style017"/>
 					</h:commandLink>
+					<h:outputText value="ID: #{aPlaylist.id}" styleClass="style017" rendered="#{userProfileBean.profile.admin}"/>
 					<h:commandLink onclick="slideToDetail();">
 						<f:param name="userId" value="#{aPlaylist.user.id}"/>
 						<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showUserDetail}"/>

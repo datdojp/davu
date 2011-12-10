@@ -46,52 +46,97 @@
 		<script>
 			$("#homepage").find(".tab_#{homepageBean.currentTab.id}").addClass("selected");
 		</script>
-		<t:div>
-			<table cellpadding="0" cellspacing="0" style="width: 100%; vertical-align: middle;">
-				<tr>
-					<td style="width: 20%;vertical-align: top;">
-						<client:sidePanel rendered="#{true}">
-							<ui:define name="title"></ui:define>
-							<ui:define name="body">
-								
-								TRAI
-								
-								
-								
-								
-							
-							</ui:define>
-						</client:sidePanel>
-					</td>
-					<td style="vertical-align: top;" align="center">
-						
-						
-						GIUA
-						
-						
-						
-						
-						
-					</td>
-					<td style="width: 20%;vertical-align: top;">
-						<client:sidePanel rendered="#{true}">
-							<ui:define name="title"></ui:define>
-							<ui:define name="body">
-							
-							
-							PHAI
-							
-							
-							
-							
-							
-							
-							</ui:define>
-						</client:sidePanel>
-					</td>
-				</tr>
-			</table>
-		</t:div>
+		<div class="insideContent" style="overflow:scroll">
+			<div class="topPlaylistsPane" style="width:100%;">
+				<h:panelGrid columns="#{homepageBean.topPlaylistsPerRow}" cellspacing="0" cellpadding="0">
+					<c:forEach var="aTP" items="#{homepageBean.currentTab.listTopPlaylists}">
+						<h:commandLink onclick="slideToDetail();">
+							<f:param name="playlistId" value="#{aTP.id}"/>
+							<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showPlaylistDetail}"/>
+							<h:graphicImage url="#{aTP.mainClip.thumbnailLink}" width="135"/>
+						</h:commandLink>
+					</c:forEach>
+				</h:panelGrid>
+			</div>
+			<t:div>
+				<table cellpadding="0" cellspacing="0" style="width: 100%; vertical-align: middle;">
+					<tr>
+						<td style="width: 20%;vertical-align: top;">
+							<client:sidePanel rendered="#{true}">
+								<ui:define name="title"></ui:define>
+								<ui:define name="body">
+									<div class="sideBox">
+										<div class="header">
+											#{msg.most_liked_singers}
+										</div>
+										<h:panelGrid columns="2" styleClass="hondana" style="width:100%" border="0" cellspacing="0" cellpadding="0">
+											<c:forEach var="aSinger" items="#{homepageBean.currentTab.listTopSingers}">
+												<h:commandLink onclick="slideToDetail();">
+													<f:param name="singerId" value="#{aSinger.id}"/>
+													<f:ajax event="click" render=":detail" listener="#{detailBean.showSingerDetail}"/>
+													<h:graphicImage url="#{config.server}/img/#{aSinger.image}" height="78"/>
+													<t:div styleClass="text" style="margin-top:2px">#{aSinger.name}</t:div>
+												</h:commandLink>
+											</c:forEach>
+										</h:panelGrid>
+									</div>
+								</ui:define>
+							</client:sidePanel>
+						</td>
+						<td style="vertical-align: top;" align="center">
+							<client:clip-list formId="homepage" clips="#{homepageBean.currentTab.listTopViewClips}" bean="#{homepageBean}"/>
+							<br/><hr/><br/>
+							<client:clip-list formId="homepage" clips="#{homepageBean.currentTab.listRecommendedClips}" bean="#{homepageBean}" hideHeader="true"/>
+							<br/><hr/><br/>
+							<client:clip-list formId="homepage" clips="#{homepageBean.currentTab.listNewUploadedClips}" bean="#{homepageBean}" hideHeader="true"/>
+						</td>
+						<td style="width: 20%;vertical-align: top;">
+							<client:sidePanel rendered="#{true}">
+								<ui:define name="title"></ui:define>
+								<ui:define name="body">
+									<div class="sideBox">
+										<div class="header">
+											#{msg.genre}
+										</div>
+										<div class="text-item">
+											<h:commandLink onclick="slideToClips();">
+												<f:ajax event="click" render=":clips" listener="#{homepageBean.showAllClipsOfGenres}"/>
+												<h:outputText value="#{msg.all}"/>
+											</h:commandLink>
+										</div>
+										<c:forEach var="aGenre" items="#{homepageBean.currentTab.listGenres}">
+											<div class="text-item">
+												<h:commandLink onclick="slideToDetail();">
+													<f:param name="genreId" value="#{aGenre.id}"/>
+													<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showGenreDetail}"/>
+													<h:outputText value="#{aGenre.nameVi}" rendered="#{utilsBean.currentLanguage eq 'vi'}"/>
+													<h:outputText value="#{aGenre.nameEn}" rendered="#{utilsBean.currentLanguage eq 'en'}"/>
+												</h:commandLink>
+											</div>
+										</c:forEach>
+									</div>
+									<div class="sideBox">
+										<div class="header">
+											#{msg.most_liked_uploaders}
+										</div>
+										<h:panelGrid columns="2" styleClass="hondana" style="width:100%" border="0" cellspacing="0" cellpadding="0">
+											<c:forEach var="anUploader" items="#{homepageBean.currentTab.listTopUploaders}">
+												<h:commandLink onclick="slideToDetail();">
+													<f:param name="userId" value="#{anUploader.id}"/>
+													<f:ajax event="click" render=":detail" listener="#{detailBean.showUserDetail}"/>
+													<h:graphicImage url="#{config.server}/img/#{anUploader.image}" height="78"/>
+													<t:div styleClass="text" style="margin-top:2px">#{anUploader.name}</t:div>
+												</h:commandLink>
+											</c:forEach>
+										</h:panelGrid>
+									</div>
+								</ui:define>
+							</client:sidePanel>
+						</td>
+					</tr>
+				</table>
+			</t:div>
+		</div>
 		<client:messages formId="homepage"/>
 		<c:if test="#{clipsBean.focusSearchKeyword}">
 			<script>
@@ -103,6 +148,12 @@
 				slideToHomepage();
 			</script>
 		</c:if>
+		<script>
+			resizeInsideContentZones();
+			
+			//make td of hondana table align center
+			$("#homepage .sideBox table.hondana td").attr("align", "center");
+		</script>
 	</h:form>
 </ui:composition>
 </html>

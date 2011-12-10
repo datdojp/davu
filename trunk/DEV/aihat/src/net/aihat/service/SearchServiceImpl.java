@@ -1,7 +1,7 @@
 package net.aihat.service;
 
 import java.util.List;
-
+import java.util.ArrayList;
 import net.aihat.criteria.ClipSearchCriteria;
 import net.aihat.criteria.ComposerSearchCriteria;
 import net.aihat.criteria.GenreSearchCriteria;
@@ -145,7 +145,7 @@ public class SearchServiceImpl extends BaseService implements SearchService {
 	@Transactional(rollbackFor=DataAccessException.class)
 	public SearchResultDto searchClips(Integer id, String title, Integer singerId, Integer composerId, Integer genreId, Integer playlistId, 
 			String userMail, Integer logginedUserId, Boolean official, Boolean hasDuplicate, SortCriterion sortCriterion,
-			PagingCriterion pagingCriterion, boolean forCounting, Integer likedBy, Integer notifiedUserId) throws DataAccessException {
+			PagingCriterion pagingCriterion, boolean forCounting, Integer likedBy, Integer notifiedUserId, List<GenreDto> genres) throws DataAccessException {
 		ClipSearchCriteria criteria = new ClipSearchCriteria();
 
 		if(AihatUtils.isValidId(id)) {
@@ -195,6 +195,13 @@ public class SearchServiceImpl extends BaseService implements SearchService {
 			UserDto notifiedUser = new UserDto();
 			notifiedUser.setId(notifiedUserId);
 			criteria.setNotifiedUser(notifiedUser);
+		}
+		
+		if(!AihatUtils.isEmpty(genres)) {
+			criteria.setGenreIds(new ArrayList<Integer>(genres.size()));
+			for(GenreDto aGenre : genres) {
+				criteria.getGenreIds().add(aGenre.getId());
+			}
 		}
 		
 		criteria.setOfficial(official);

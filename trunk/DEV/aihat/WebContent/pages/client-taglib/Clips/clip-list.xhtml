@@ -10,7 +10,10 @@
 <ui:composition>
 	<table cellspacing="0" class="dataTable" style="width: 100%">
 		<thead>
-			<tr class="style012">
+			<c:if test="#{hideHeader}">
+				<c:set var="hideHeaderStyle" value="display:none"/>
+			</c:if>
+			<tr class="style012" style="#{hideHeaderStyle}">
 				<td align="center">
 					<h:selectBooleanCheckbox styleClass="selectHeader" onchange="selectOnChange_header(this, '#{formId}', 'selectClipCheckBox')"/>
 				</td>

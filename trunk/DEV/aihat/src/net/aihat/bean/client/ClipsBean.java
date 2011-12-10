@@ -2,9 +2,9 @@ package net.aihat.bean.client;
 
 import java.util.ArrayList;
 import net.aihat.service.ConfigurationService;
-
+import java.util.List;
 import javax.faces.event.AjaxBehaviorEvent;
-
+import net.aihat.dto.GenreDto;
 import org.apache.log4j.Logger;
 
 import net.aihat.criteria.PagingCriterion;
@@ -40,6 +40,9 @@ public class ClipsBean extends MultiTabPagingBean {
 	private final String[] ALL_TABS =  new String[] {
 		CLIPS_TAB, SINGERS_TAB, COMPOSERS_TAB, PLAYLISTS_TAB, GENRES_TAB
 	};
+	
+	//general criterion
+	private List<GenreDto> genresCriterion;
 	
 	/**
 	 * INIT
@@ -86,6 +89,9 @@ public class ClipsBean extends MultiTabPagingBean {
 			updatePlaylistsCounting();
 			updateGenresCounting();
 			
+			//clear general criterion
+			genresCriterion = null;
+			
 			//check if there is any result found,
 			//if no result is found, log failed-search
 			boolean isResultFound = false;
@@ -120,6 +126,14 @@ public class ClipsBean extends MultiTabPagingBean {
 		}
 	}
 	
+	public synchronized void searchAllClipsOfGenres(List genres) {
+		genresCriterion = genres;
+		for(String key : tabDataCountMap.keySet()) {
+			tabDataCountMap.put(key, 0l);
+		}
+		selectClipsTab(null);
+	}
+	
 	public synchronized void removeSearch(AjaxBehaviorEvent e) {
 		searchKeyword = null;
 		search(e);
@@ -133,7 +147,7 @@ public class ClipsBean extends MultiTabPagingBean {
 	 * COUNTING 
 	 */
 	private long updateClipsCounting() {
-		long n = getSearchService().searchClips(null, searchKeyword, null, null, null, null, null, null, null, null, null, null, true, null, null).getnResults(); 
+		long n = getSearchService().searchClips(null, searchKeyword, null, null, null, null, null, null, null, null, null, null, true, null, null,genresCriterion).getnResults(); 
 		tabDataCountMap.put(CLIPS_TAB, n);
 		return n;
 	}
@@ -190,7 +204,7 @@ public class ClipsBean extends MultiTabPagingBean {
 			
 			tabDataMap.put(displayTab, getSearchService().searchClips(null, searchKeyword, null, null, null, null, null, userId, null, null,
 					new SortCriterion("nViews", SortCriterion.ORDER_DESCENDING), 
-					tabPagingMap.get(CLIPS_TAB), false, null, null).getResults());
+					tabPagingMap.get(CLIPS_TAB), false, null, null,genresCriterion).getResults());
 			updateCurrentCounting();
 		} catch (Throwable err) {
 			handleGeneralError(err);

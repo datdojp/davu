@@ -20,7 +20,7 @@ public class ClipSearchCriteria extends BaseCriteria {
 	private UserDto likedBy;
 	private UserDto notifiedUser;
 	private List<Integer> genreIds;
-	
+	private boolean fetchTodayViews;
 	//getter setter
 	public String getTitle() {
 		return title;
@@ -92,5 +92,12 @@ public class ClipSearchCriteria extends BaseCriteria {
 	public void setGenreIds(List<Integer> genreIds) {
 		this.genreIds = genreIds;
 	}
+	public boolean isFetchTodayViews() {
+		return fetchTodayViews;
+	}
+	public void setFetchTodayViews(boolean fetchTodayViews) {
+		this.fetchTodayViews = fetchTodayViews;
+	}
+	
 		
 }

@@ -2,7 +2,7 @@ package net.aihat.bean.client;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import net.aihat.bean.client.ClipsBean;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import net.aihat.dto.ClipDto;
@@ -25,6 +25,14 @@ public class HomepageBean extends BaseClientBean {
 	public synchronized String init() {
 		super.init();
 		return null;
+	}
+	
+	public int getTopPlaylistsPerRow() {
+		if( currentTab != null && !AihatUtils.isEmpty(currentTab.getTopPlaylists()) ) {
+			return (currentTab.getListTopPlaylists().size()+1) / 2;
+		} else {
+			return 1; 
+		}
 	}
 	
 	public void setHomepageTabService(HomepageTabService homepageTabService) {
@@ -54,6 +62,11 @@ public class HomepageBean extends BaseClientBean {
 		if(!currentTab.isLoaded()) {
 			getHomepageTabService().loadHomepageTabContent(currentTab);
 		}
+	}
+	
+	public synchronized void showAllClipsOfGenres(AjaxBehaviorEvent e) {
+		ClipsBean clipsBean = (ClipsBean) BeanUtils.getContextBean("clipsBean");
+		clipsBean.searchAllClipsOfGenres(currentTab.getListGenres());
 	}
 
 	public HomepageTabDto getCurrentTab() {

@@ -1,6 +1,7 @@
 package net.aihat.service;
 
 import java.util.ArrayList;
+import net.aihat.dto.PlaylistDto;
 import java.util.List;
 import net.aihat.criteria.ClipSearchCriteria;
 import net.aihat.criteria.GenreSearchCriteria;
@@ -9,6 +10,7 @@ import net.aihat.criteria.PlaylistSearchCriteria;
 import net.aihat.criteria.SingerSearchCriteria;
 import net.aihat.criteria.SortCriterion;
 import net.aihat.criteria.UserSearchCriteria;
+import net.aihat.dto.ClipDto;
 import net.aihat.dto.HomepageTabDto;
 import net.aihat.utils.AihatUtils;
 import net.aihat.utils.BeanUtils;
@@ -64,6 +66,10 @@ public class HomepageTabServiceImpl extends BaseService implements HomepageTabSe
 					}
 				}
 				homePageTab.setListTopPlaylists(getPlaylistDao().search(playlistSearchCriteria).getResults());
+				for(PlaylistDto aPl : homePageTab.getListTopPlaylists()) {
+					ClipDto mainClip = getPlaylistDao().getMainClip(aPl);
+					aPl.setMainClip(mainClip);
+				}
 			}
 			
 			//load listRecommendedClips
@@ -94,11 +100,12 @@ public class HomepageTabServiceImpl extends BaseService implements HomepageTabSe
 			//load listTopViewClips
 			ClipSearchCriteria clipSearchCriteria = new ClipSearchCriteria();
 			clipSearchCriteria.setGenreIds(genreIds);
+			clipSearchCriteria.setFetchTodayViews(true);
 			clipSearchCriteria.setPagingCriterion(new PagingCriterion());
 			clipSearchCriteria.getPagingCriterion().setOffset(0l);
 			clipSearchCriteria.getPagingCriterion().setRowCount(Long.parseLong(BeanUtils.getConfig("client.homepage.nTopViewClips")));
 			clipSearchCriteria.setSortCriterion(new SortCriterion());
-			clipSearchCriteria.getSortCriterion().setColumnName("nViews");
+			clipSearchCriteria.getSortCriterion().setColumnName("nTodayViews");
 			clipSearchCriteria.getSortCriterion().setOrder(SortCriterion.ORDER_DESCENDING);
 			homePageTab.setListTopViewClips(getClipDao().search(clipSearchCriteria).getResults());
 			

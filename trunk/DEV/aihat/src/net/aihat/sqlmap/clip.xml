@@ -55,6 +55,17 @@
 				<isNotPropertyAvailable prepend="," property="playlist">
 					-1 as orderInPlaylist
 				</isNotPropertyAvailable>
+				<isPropertyAvailable property="fetchTodayViews">
+					<isEqual prepend="," property="fetchTodayViews" compareValue="true">
+						(
+							SELECT count(*) 
+							FROM user_view_clip uvc_ 
+							WHERE
+								uvc_.clip_id = c.id AND
+								curdate() = date(uvc_.`time`)
+						) as nTodayViews
+					</isEqual>
+				</isPropertyAvailable>
 			</dynamic>
 	</sql>
 	<sql id="clipCommonFrom">
