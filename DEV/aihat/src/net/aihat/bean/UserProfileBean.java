@@ -96,12 +96,10 @@ public class UserProfileBean extends BaseClientBean {
 		}
 	}
 	
-	public synchronized void logout(AjaxBehaviorEvent event) {
-		try {
-			profile = null;
-		} catch (Throwable err) {
-			handleGeneralError(err);
-		}
+	public synchronized String logout() {
+		BeanUtils.getRequest().getSession().invalidate();
+		BeanUtils.redirect(BeanUtils.getConfig("server"));
+		return null;
 	}
 	
 	//for admin to logout

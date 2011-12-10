@@ -72,7 +72,7 @@
 		</tr>
 		<tr>
 			<td align="center" colspan="2">
-				<t:div rendered="#{playlist.editable}" style="width:170px">
+				<t:div rendered="#{playlist.editable or userProfileBean.profile.admin}" style="width:170px">
 					<client:button>
 						<ui:define name="button-body">
 							<h:commandButton value="#{msg.CU0020}" onclick="return confirm('#{msg.CM0010}');">

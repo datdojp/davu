@@ -83,13 +83,22 @@
 			});
 		}
 		function resizeLayout() {
+			//set size for wrapper and mask			
 			width = $(window).width();
 			height = $(window).height() - 99;
-			
 			mask_width = width * $('#wrapper .page').length;
 			$('#wrapper, .page').css({width: width, height: height});
 			$('#wrapper').css({width: width, height: height});
 			$('#mask').css({width: mask_width, height: height});
+			
+			resizeInsideContentZones();
+		}
+		
+		function resizeInsideContentZones() {
+			//set size for insideContent
+			width1 = $(window).width();
+			height1 = $(window).height() - 99 - 78;
+			$('.insideContent').css({width: width1, height: height1});
 		}
 	</script>
 </h:head>
@@ -114,17 +123,17 @@
 					<ui:include src="FeaturedClips.xhtml"/>
 				</ui:insert>
 			</div>
-			<div id="Homepage" class="page" align="center">
+			<div id="Homepage" class="page" style="overflow:hidden" align="center">
 				<ui:insert>
 					<ui:include src="Homepage.xhtml"/>
 				</ui:insert>
 			</div>
-			<div id="Clips" class="page" align="center">
+			<div id="Clips" class="page" style="overflow:hidden" align="center">
 				<ui:insert>
 					<ui:include src="Clips.xhtml"/>
 				</ui:insert>
 			</div>
-			<div id="Detail" class="page" align="center">
+			<div id="Detail" class="page" style="overflow:hidden" align="center">
 				<ui:insert>
 					<ui:include src="Detail.xhtml"/>
 				</ui:insert>
@@ -270,9 +279,7 @@
 			<t:div rendered="#{userProfileBean.loggedIn}" styleClass="style002">
 				<h:panelGrid columns="2">
 					<h:outputText value="#{msg.welcome} #{userProfileBean.profile.name}"/>
-					<h:commandButton value="#{msg.logout}" styleClass="style005">
-						<f:ajax event="click" render="@form :clips :detail :myProfile" listener="#{userProfileBean.logout}"/>
-					</h:commandButton>
+					<h:commandButton value="#{msg.logout}" styleClass="style005" action="#{userProfileBean.logout}"/>
 				</h:panelGrid>
 			</t:div>
 			<script>
