@@ -237,7 +237,7 @@
 			,
 			deleted = 1
 		WHERE id in
-		<iterate open="(" close=")" conjunction="," property="ids">
+		<iterate open="(" close=")" conjunction=",">
 			#ids[]#
 		</iterate>
 	</update>
