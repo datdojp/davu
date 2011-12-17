@@ -101,3 +101,11 @@ function oddEventMouseOver(line) {
 function oddEventMouseOut(line) {
 	$(line).find("td").removeClass("line_over");
 }
+
+function clipAdditionalFunctions_mouseover(obj) {
+	$(obj).removeClass("allChildrenHidden");
+}
+
+function clipAdditionalFunctions_mouseout(obj) {
+	$(obj).addClass("allChildrenHidden");
+}

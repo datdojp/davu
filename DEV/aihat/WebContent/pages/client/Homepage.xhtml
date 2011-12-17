@@ -7,7 +7,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:client="http://www.aihat.net/client">
+	xmlns:client="http://www.aihat.net/client"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 <ui:composition>
 	<h:form id="homepage" styleClass="homepage">
 		<div class="style006">
@@ -48,7 +49,7 @@
 		</script>
 		<div class="insideContent" style="overflow:scroll">
 			<div class="topPlaylistsPane" style="width:100%;">
-				<h:panelGrid columns="#{homepageBean.topPlaylistsPerRow}" cellspacing="0" cellpadding="0">
+				<h:panelGrid columns="#{fn:length(homepageBean.currentTab.listTopPlaylists)}" cellspacing="0" cellpadding="0">
 					<c:forEach var="aTP" items="#{homepageBean.currentTab.listTopPlaylists}">
 						<h:commandLink onclick="slideToDetail();">
 							<f:param name="playlistId" value="#{aTP.id}"/>

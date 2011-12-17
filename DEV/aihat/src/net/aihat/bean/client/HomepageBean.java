@@ -27,13 +27,13 @@ public class HomepageBean extends BaseClientBean {
 		return null;
 	}
 	
-	public int getTopPlaylistsPerRow() {
-		if( currentTab != null && !AihatUtils.isEmpty(currentTab.getTopPlaylists()) ) {
-			return (currentTab.getListTopPlaylists().size()+1) / 2;
-		} else {
-			return 1; 
-		}
-	}
+//	public int getTopPlaylistsPerRow() {
+//		if( currentTab != null && !AihatUtils.isEmpty(currentTab.getTopPlaylists()) ) {
+//			return (currentTab.getListTopPlaylists().size()+1) / 2;
+//		} else {
+//			return 1; 
+//		}
+//	}
 	
 	public void setHomepageTabService(HomepageTabService homepageTabService) {
 		super.setHomepageTabService(homepageTabService);

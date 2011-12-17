@@ -10,128 +10,123 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:fb="http://www.facebook.com">
 <ui:composition>
-	<table cellpadding="0" cellspacing="0" border="0" style="width: 100%">
-		<tr>
-			<td>
-				<div id="ytwrapper"></div>
-			</td>
-			<td>
-				<table cellpadding="0" cellspacing="0" border="0">
-					<tr>
-						<td>
-							<h:form id="featuredClips_search">
-								<client:search-panel formId="featuredClips_search"/>
-							</h:form>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<h:form id="featuredClips_relatedClips">
-								<div style="overflow: scroll; width: 500px">
-									<table>
-										<tr style="float: left; height: 63px;">
-										<c:forEach items="#{featuredClipsBean.currentRelatedClips}" var="aClip">
-											<td style="overflow: hidden;">
-												<div id="post#{aClip.id}" onmouseover="relatedClipMouseOver(this, event)" onmouseout="relatedClipMouseOut(this, event)">
-													<h:commandLink action="#{featuredClipsBean.playOne}">
-														<f:param name="selectedClipId" value="#{aClip.id}"/>
-														<h:graphicImage url="#{aClip.thumbnailLink}" width="60"/>
-													</h:commandLink>
-													<div style="display:none;position: fixed;" class="relatedClipInfoBox">
-														<b>#{aClip.title}</b>
-														<br></br>
-														#{msg.singer}: #{aClip.allSingersForDisplay}
-														<br></br> 
-														#{msg.composer}: #{aClip.allComposersForDisplay}
-														<br></br>
-														#{msg.uploader}: #{aClip.user.name}
-													</div>
-												</div>
-											</td>
-										</c:forEach>
-										</tr>
-									</table>
-								</div>
-							</h:form>
-						</td>
-					</tr>
-					<tr>
-						<td style="height: 50%">
-							<h:form id="featuredClips_comments">
-								<t:div id="allComments" style="overflow: scroll;width: 100%;height:200px" styleClass="commentsBox">
-									<h:outputText value="#{msg.no_comment}" rendered="#{empty featuredClipsBean.currentClipComments}"/>
-									<c:forEach var="aComment" items="#{featuredClipsBean.currentClipComments}">
-										<span style="width: 100%">
-											#{aComment.user.name}
-											(
-											<i>
-												<h:outputText value="#{aComment.time}">
-													<f:convertDateTime pattern="yyyy.MM.dd HH:mm:ss"/>
-												</h:outputText>
-											</i>
-											)
-											: #{aComment.content}
-										</span>
-										<br></br>
-									</c:forEach>
-								</t:div>
-								<h:panelGrid columns="2">
-									<h:inputText value="#{featuredClipsBean.commentContent}"/>
-									<h:commandButton value="#{msg.post_comment}">
-										<f:ajax event="click" execute="@form" render="@form" listener="#{featuredClipsBean.addComment}"/>
+	<div id="ytwrapper"></div>
+	<div id="clipAdditionalFunctions" class="allChildrenHidden" 
+			onmouseover="clipAdditionalFunctions_mouseover(this)" onmouseout="clipAdditionalFunctions_mouseout(this)">
+		<table cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td>
+					<h:form id="featuredClips_search">
+						<client:search-panel formId="featuredClips_search"/>
+					</h:form>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h:form id="featuredClips_relatedClips">
+						<div style="overflow: scroll; width: 500px">
+							<table>
+								<tr style="float: left; height: 63px;">
+								<c:forEach items="#{featuredClipsBean.currentRelatedClips}" var="aClip">
+									<td style="overflow: hidden;">
+										<div id="post#{aClip.id}" onmouseover="relatedClipMouseOver(this, event)" onmouseout="relatedClipMouseOut(this, event)">
+											<h:commandLink action="#{featuredClipsBean.playOne}">
+												<f:param name="selectedClipId" value="#{aClip.id}"/>
+												<h:graphicImage url="#{aClip.thumbnailLink}" width="60"/>
+											</h:commandLink>
+											<div style="display:none;position: fixed;" class="relatedClipInfoBox">
+												<b>#{aClip.title}</b>
+												<br></br>
+												#{msg.singer}: #{aClip.allSingersForDisplay}
+												<br></br> 
+												#{msg.composer}: #{aClip.allComposersForDisplay}
+												<br></br>
+												#{msg.uploader}: #{aClip.user.name}
+											</div>
+										</div>
+									</td>
+								</c:forEach>
+								</tr>
+							</table>
+						</div>
+					</h:form>
+				</td>
+			</tr>
+			<tr>
+				<td style="height: 50%">
+					<h:form id="featuredClips_comments">
+						<t:div id="allComments" style="overflow: scroll;width: 100%;height:200px" styleClass="commentsBox">
+							<h:outputText value="#{msg.no_comment}" rendered="#{empty featuredClipsBean.currentClipComments}"/>
+							<c:forEach var="aComment" items="#{featuredClipsBean.currentClipComments}">
+								<span style="width: 100%">
+									#{aComment.user.name}
+									(
+									<i>
+										<h:outputText value="#{aComment.time}">
+											<f:convertDateTime pattern="yyyy.MM.dd HH:mm:ss"/>
+										</h:outputText>
+									</i>
+									)
+									: #{aComment.content}
+								</span>
+								<br></br>
+							</c:forEach>
+						</t:div>
+						<h:panelGrid columns="2">
+							<h:inputText value="#{featuredClipsBean.commentContent}"/>
+							<h:commandButton value="#{msg.post_comment}">
+								<f:ajax event="click" execute="@form" render="@form" listener="#{featuredClipsBean.addComment}"/>
+							</h:commandButton>
+						</h:panelGrid>
+						<h:commandButton style="display:none" styleClass="refreshComments">
+							<f:ajax event="click" render=":featuredClips_comments:allComments" listener="#{featuredClipsBean.refreshComments}"/>
+						</h:commandButton>
+					</h:form>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h:form id="featuredClips_funcs">
+						<table cellpadding="0" cellspacing="0" border="0">
+							<tr>
+								<td align="center">
+									<fb:like href="#{config.server}/pages/client/Zentai.jsf?perlink_clipid=#{featuredClipsBean.currentClipId}" layout="button_count"></fb:like>
+								</td>
+								<td align="center">
+									<h:commandButton value="#{msg.share}"
+											onclick="prompt('', '#{config.server}/pages/client/Zentai.jsf?perlink_clipid=#{featuredClipsBean.currentClipId}');return false;"
+											styleClass="shareBtn">
 									</h:commandButton>
-								</h:panelGrid>
-								<h:commandButton style="display:none" styleClass="refreshComments">
-									<f:ajax event="click" render=":featuredClips_comments:allComments" listener="#{featuredClipsBean.refreshComments}"/>
-								</h:commandButton>
-							</h:form>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<h:form id="featuredClips_funcs">
-								<table cellpadding="0" cellspacing="0" border="0">
-									<tr>
-										<td align="center">
-											<fb:like href="#{config.server}/pages/client/Zentai.jsf?perlink_clipid=#{featuredClipsBean.currentClipId}" layout="button_count"></fb:like>
-										</td>
-										<td align="center">
-											<h:commandButton value="#{msg.share}"
-													onclick="prompt('', '#{config.server}/pages/client/Zentai.jsf?perlink_clipid=#{featuredClipsBean.currentClipId}');return false;"
-													styleClass="shareBtn">
-											</h:commandButton>
-										</td>
-										<td align="center">
-											<h:commandLink rendered="#{not featuredClipsBean.currentClip.liked}">
-												<f:param name="clipId" value="#{featuredClipsBean.currentClipId}"/>
-												<f:param name="referenceBeanName" value="#{featuredClipsBean.beanName}"/>
-												<f:ajax event="click" render="@form" listener="#{zentaiBean.likeClip}"/>
-												<h:graphicImage url="#{config.server}/img/client/like.png"/>
-												<h:outputText value="#{msg.like}" styleClass="like"/>
-											</h:commandLink>
-											<h:commandLink rendered="#{featuredClipsBean.currentClip.liked}">
-												<f:param name="clipId" value="#{featuredClipsBean.currentClipId}"/>
-												<f:param name="referenceBeanName" value="#{featuredClipsBean.beanName}"/>
-												<f:ajax event="click" render="@form" listener="#{zentaiBean.unlikeClip}"/>
-												<h:graphicImage url="#{config.server}/img/client/unlike.png"/>
-												<h:outputText value="#{msg.like}" styleClass="unlike"/>
-											</h:commandLink>
-										</td>
-									</tr>
-								</table>
-								<client:messages formId="featuredClips_funcs"/>
-								<script>
-								    try{
-								        FB.XFBML.parse(); 
-								    }catch(ex){}
-								</script>
-							</h:form>
-						</td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-	</table>
+								</td>
+								<td align="center">
+									<h:commandLink rendered="#{not featuredClipsBean.currentClip.liked}">
+										<f:param name="clipId" value="#{featuredClipsBean.currentClipId}"/>
+										<f:param name="referenceBeanName" value="#{featuredClipsBean.beanName}"/>
+										<f:ajax event="click" render="@form" listener="#{zentaiBean.likeClip}"/>
+										<h:graphicImage url="#{config.server}/img/client/like.png"/>
+										<h:outputText value="#{msg.like}" styleClass="like"/>
+									</h:commandLink>
+									<h:commandLink rendered="#{featuredClipsBean.currentClip.liked}">
+										<f:param name="clipId" value="#{featuredClipsBean.currentClipId}"/>
+										<f:param name="referenceBeanName" value="#{featuredClipsBean.beanName}"/>
+										<f:ajax event="click" render="@form" listener="#{zentaiBean.unlikeClip}"/>
+										<h:graphicImage url="#{config.server}/img/client/unlike.png"/>
+										<h:outputText value="#{msg.like}" styleClass="unlike"/>
+									</h:commandLink>
+								</td>
+							</tr>
+						</table>
+						<client:messages formId="featuredClips_funcs"/>
+						<script>
+						    try{
+						        FB.XFBML.parse(); 
+						    }catch(ex){}
+						</script>
+					</h:form>
+				</td>
+			</tr>
+		</table>
+	</div>
 	
 	<h:form id="featuredClips">
 		<h:inputText id="currentClipId" value="#{featuredClipsBean.currentClipId}" styleClass="currentClipId" style="display:none;"/>
@@ -352,6 +347,9 @@
 			    var atts = { id: "myytplayer" };
 			    var height = $(window).height() - 99 - 122;
 			    var width = Math.round(height*640/390);
+			    
+			    $("#clipAdditionalFunctions").css("height", height);
+			    
 			    swfobject.embedSWF(link + "?enablejsapi=1&amp;fs=1&amp;playerapiid=ytplayer&amp;autoplay=1&amp;version=3&amp;showinfo=0",
 			                       "ytapiplayer", "" + width, "" + height, "8", null, null, params, atts);
 			}
