@@ -502,3 +502,15 @@ a :HOVER {
 	-o-box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
 	box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
 }
+
+#clipAdditionalFunctions {
+	background-color: white;
+	border: thin solid #555;
+	min-width: 30px;
+	position: absolute;
+	top:0px;
+	right: 0px;
+}
+.allChildrenHidden * {
+	display:none;
+}
