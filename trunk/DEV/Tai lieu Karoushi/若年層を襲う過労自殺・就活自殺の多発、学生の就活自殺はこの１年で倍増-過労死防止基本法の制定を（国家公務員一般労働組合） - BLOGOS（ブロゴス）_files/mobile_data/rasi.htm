@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+  <meta http-equiv="content-type" content="text/html; charset=EUC-JP">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-Control" content="no-cache">
+  <meta http-equiv="Expires" content="Thu, 01 Dec 1994 16:00:00 GMT">
+<title>ads</title>
+</head>
+<body style="margin: 0px;">
+
+<div id="asi" align="center"><iframe src="rasi_data/siteadnwcontlivedr_rtyperecttg1ord197194.htm" marginwidth="0" marginheight="0" rightmargin="0" leftmargin="0" bottommargin="0" topmargin="0" frameborder="0" height="250" scrolling="no" width="300"></iframe></div>
+
+<script type="text/javascript">
+
+var parameter = getParameter(window.location.search);
+var asiFlag = true;
+var cnt = 0;
+var rsiParams = null;
+var rrmParams = null;
+var rsyncFlag = 0;
+
+if ((typeof (parameter["asi"]) != "undefined") && parameter["asi"] != "") {
+    asiFlag = parameter["asi"];
+}
+if ((typeof (parameter["rsync"]) != "undefined") && parameter["rsync"] != "") {
+	rsyncFlag = parameter["rsync"];
+}
+
+if (asiFlag) {
+    document.write('<scr' + 'ipt src="' + location.protocol + '//pix04.revsci.net/H10977/a6/0/0/nolog.js?csid=H10977&auto=t">\n');
+    document.write('</scr' + 'ipt>\n');
+    setApiTimer();
+} else {
+    showAD(null, parameter);
+}
+
+// below function
+var rid = 0;
+
+function setApiTimer() {
+    if (typeof (rsinetsegs) != "undefined" && rsiParams != null) {
+        clearTimeout(rid);
+        showAD(rsiParams, parameter);
+        if(rsyncFlag != 1 && rrmParams != null) {
+        	callRM(rrmParams);
+        }
+        return;
+    } else if (cnt > 7) {
+        clearTimeout(rid);
+        showAD(null, parameter);
+        return;
+    }
+    cnt = cnt + 1;
+    rid = setTimeout("setApiTimer()", 100);
+    return;
+}
+
+function DM_onSegsAvailable(rsinetsegs, csid) {
+    if (csid == "h10977" && asiFlag) {
+        rsiParams = rsinetsegs.length > 0 ? "rsi=" + rsinetsegs[0] : null;
+        for ( var i = 1; i < ((rsinetsegs.length > 3) ? 3 : rsinetsegs.length); i++) {
+            rsiParams += ("&rsi=" + rsinetsegs[i]);
+        }
+        if(rsyncFlag != 1) {
+	        rrmParams = rsinetsegs.length > 0 ? "code=" + rsinetsegs[0] : null;
+	        for ( var i = 1; i < ((rsinetsegs.length > 25) ? 25 : rsinetsegs.length); i++) {
+	        	rrmParams += ("&code=" + rsinetsegs[i]);
+	        }
+        }
+    } else {
+        rsiParams = "";
+        rrmParams = "";
+    }
+}
+
+function showAD(rsiParameters, p) {
+    var adparams = 'site=' + p["site"] + '&cont=' + p["cont"] + '&type='+ p["type"];
+
+    if ((typeof (p["pos"]) != "undefined") && p["pos"] != "") {
+        adparams += '&pos=' + p["pos"];
+    }
+
+    var target = "";
+    var host = "";
+
+    if ((typeof (p["target"]) != "undefined") && p["target"] != "") {
+        target = p["target"];
+    }
+    if ((typeof (p["host"]) != "undefined") && p["host"] != "") {
+        host = p["host"];
+    }
+
+    var dartReq = location.protocol + "//" + location.hostname + "/html.ng/" + adparams;
+
+    if ((rsiParameters != null && rsiParameters != "") && rsiParameters.match(/^[\w\&o=]+$/)) {
+        dartReq = dartReq + "&" + rsiParameters;
+    }
+
+    var bust = Math.floor(1000000 * Math.random());
+    dartReq = dartReq + '&tg=1&ord=' + bust + '?target=' + target + "&host=" + host;
+    document.getElementById("asi").innerHTML = '<iframe src="'+dartReq + '" width="'+ p["width"] + '" height="' + p["height"] + '" frameborder="0" marginwidth="0" marginheight="0" rightmargin="0" leftmargin="0" bottommargin="0" topmargin="0" scrolling="no"></iframe>';
+}
+
+function callRM(rrmParams) {
+    var obj = document.getElementsByTagName("body").item(0);
+
+    var elem = document.createElement("img");
+    elem.src = location.protocol+"//ad.yieldmanager.com/pixel?adv=502621&" + rrmParams + "&t=2";
+    elem.type = "text/javascr"+"ipt"
+    elem.width = 0;
+    elem.height = 0;
+    elem.border = 0;
+
+	obj.appendChild(elem);
+}
+
+function getParameter(search) {
+    var q = search.substring(1, search.length).split('&');
+    var p = {};
+    for (i = 0, len = q.length; i < len; i++) {
+        var kv = q[i].split('=');
+        if (kv.length == 2) {
+            p["" + kv[0]] = "" + kv[1];
+        }
+    }
+    return p;
+}
+
+if(rsyncFlag != 1) {
+	var _fout_xid = '';
+	var _fout_nortbsync = 1;
+	var _fout_jsurl = (("https:" == document.location.protocol) ? "https://" : "http://") + 'js.fout.jp/beacon.js';
+	document.write(unescape("%3Cscript src='" + _fout_jsurl + "'language='javascript' %3E%3C/script%3E"));
+}
+</script><script src="rasi_data/nolog.js">
+</script>
+<script src="rasi_data/beacon.js" language="javascript"></script><iframe src="rasi_data/beacon.htm" style="display: none;" frameborder="0" height="1" width="1"></iframe>
+
+</body></html>
