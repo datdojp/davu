@@ -1,0 +1,53 @@
+{
+
+var google_ads = new Array();
+var google_ad;
+var google_radlinks = new Array();
+var google_radlink;
+var google_info = new Object();
+google_ad = new Object(); 
+google_ad.n = 1; 
+google_ad.type = "text"; 
+google_ad.bidtype = "CPC"; 
+google_ad.targeting_type = "contextual"; 
+google_ad.url = "http://googleads.g.doubleclick.net/aclk?sa=l&amp;ai=Bli4dGEbzTsTuGceOigebkqDVAZC3ipgDkOqDojXAjbcBgNHKCBABGAEgk_GcEygDOABQzfOB_AVgwbX6DaABmLic4gOyAQpibG9nb3MuY29tyAEB2gEgaHR0cDovL2Jsb2dvcy5jb20vYXJ0aWNsZS8yNDM2MS-pAlhq-EEHgEs-yAL4zIQsqAMB6ANM6AO-B-gDE-gDvQX1AwAAAMT1AwAAABA&amp;num=1&amp;sig=AOD64_05CEO5ndrSkV_JH35NjaJ5Qo8vGQ&amp;client=ca-livedoor-infoentame_js&amp;adurl=http://www.ana.co.jp/wws/vn/j/local/fare/index_11b.html%3Fcid%3DSEAgooglevietnam_contents2010081606"; 
+google_ad.visible_url = "www.ana.co.jp"; 
+google_ad.line1 = "\x26quot;ANA\x26quot;\x26#12505;\x26#12488;\x26#12490;\x26#12512;-\x26#26085;\x26#26412; \x26#33322;\x26#31354;\x26#21048;"; 
+google_ad.line2 = "\x26#12362;\x26#24471;\x26#12394;\x26#26085;\x26#26412;\x26#34892;\x26#12365;\x26#33322;\x26#31354;\x26#21048;\x26#12434;Web\x26#12391;\x26#36092;\x26#20837;\x26#12290;"; 
+google_ad.line3 = "\x26#30452;\x26#34892;\x26#20415;\x26#12434;\x26#27598;\x26#26085;\x26#36939;\x26#33322;\x26#65281;\x26#21069;\x26#26085;\x26#12414;\x26#12391;\x26#20104;\x26#32004;OK"; 
+google_ad.regionname = ""; 
+google_ads[0] = google_ad; 
+google_ad = new Object(); 
+google_ad.n = 2; 
+google_ad.type = "text"; 
+google_ad.bidtype = "CPC"; 
+google_ad.targeting_type = "contextual"; 
+google_ad.url = "http://googleads.g.doubleclick.net/aclk?sa=L&amp;ai=Buom5GEbzTsTuGceOigebkqDVAa35m6wChb-2qyjAjbcBgL_WBhACGAIgk_GcEygDOABQxtiI0vr_____AWDBtfoNsgEKYmxvZ29zLmNvbcgBAdoBIGh0dHA6Ly9ibG9nb3MuY29tL2FydGljbGUvMjQzNjEvgAIBqQJYavhBB4BLPqgDAegDTOgDvgfoAxPoA70F9QMAAADE9QMAAAAQ&amp;num=2&amp;sig=AOD64_0CFvW8kHdhLyEEYJQ4B3s9VYcczQ&amp;client=ca-livedoor-infoentame_js&amp;adurl=http://www.discoverworld.biz/"; 
+google_ad.visible_url = "www.discoverworld.biz"; 
+google_ad.line1 = "\x26#26684;\x26#23433;\x26#12499;\x26#12472;\x26#12493;\x26#12473;\x26#12463;\x26#12521;\x26#12473;\x26#23554;\x26#38272;"; 
+google_ad.line2 = "\x26#39514;\x26#12365;\x26#12398;\x26#26684;\x26#23433;\x26#26009;\x26#37329;\x26#12391;\x26#24555;\x26#36969;\x26#12391;\x26#19978;\x26#36074;\x26#12394;\x26#26053;\x26#12434;!"; 
+google_ad.line3 = "\x26#38263;\x26#24180;\x26#12398;\x26#23455;\x26#32318;\x26#12391;\x26#35242;\x26#20999;\x26#23550;\x26#24540;\x26#12290;\x26#12501;\x26#12449;\x26#12540;\x26#12473;\x26#12488;\x26#12418;"; 
+google_ad.regionname = ""; 
+google_ads[1] = google_ad; 
+google_ad = new Object(); 
+google_ad.n = 3; 
+google_ad.type = "text"; 
+google_ad.bidtype = "CPC"; 
+google_ad.targeting_type = "contextual"; 
+google_ad.url = "http://googleads.g.doubleclick.net/aclk?sa=l&amp;ai=Bu3Q5GEbzTsTuGceOigebkqDVAdvs16ICg7TxqCDAjbcBgJvuAhADGAMgk_GcEygDOABQiY-X5QVgwbX6DaABq-vQ7gOyAQpibG9nb3MuY29tyAEB2gEgaHR0cDovL2Jsb2dvcy5jb20vYXJ0aWNsZS8yNDM2MS-AAgGpAlhq-EEHgEs-qAMB6ANM6AO-B-gDE-gDvQX1AwAAAMT1AwAAABA&amp;num=3&amp;sig=AOD64_32i8pG-lq6IcM20-Ei6r7kCX2s6Q&amp;client=ca-livedoor-infoentame_js&amp;adurl=https://www.bizreach.jp/landing/s63media/%3Ftrcd%3DGGASAB15"; 
+google_ad.visible_url = "www.bizreach.jp"; 
+google_ad.line1 = "\x26#24180;\x26#21454;1000\x26#19975;\x26#12363;\x26#12425;\x26#12398;\x26#36578;\x26#32887;\x26#24773;\x26#22577;"; 
+google_ad.line2 = "\x26#24180;\x26#21454;1000\x26#19975;\x26#20870;\x26#20197;\x26#19978;\x26#38480;\x26#23450;\x26#65281;\x26#25522;\x26#36617;\x26#27714;\x26#20154;\x26#25968;"; 
+google_ad.line3 = "6000\x26#20214;\x26#20197;\x26#19978;\x26#12398;\x26#12495;\x26#12452;\x26#12463;\x26#12521;\x26#12473;\x26#36578;\x26#32887;\x26#24773;\x26#22577;"; 
+google_ad.regionname = ""; 
+google_ads[2] = google_ad; 
+google_info.feedback_url = "http://www.google.com/url?ct\x3dabg\x26q\x3dhttps://www.google.com/adsense/support/bin/request.py%3Fcontact%3Dabg_afc%26url%3Dhttp://blogos.com/article/24361/%26hl%3Dja%26client%3Dca-livedoor-infoentame_js%26adU%3Dwww.ana.co.jp%26adT%3D%2526quot%253BANA%2526quot%253B%25E3%2583%2599%25E3%2583%2588%25E3%2583%258A%25E3%2583%25A0-%25E6%2597%25A5%25E6%259C%25AC%2B%25E8%2588%25AA%25E7%25A9%25BA%25E5%2588%25B8%26adU%3Dwww.discoverworld.biz%26adT%3D%25E6%25A0%25BC%25E5%25AE%2589%25E3%2583%2593%25E3%2582%25B8%25E3%2583%258D%25E3%2582%25B9%25E3%2582%25AF%25E3%2583%25A9%25E3%2582%25B9%25E5%25B0%2582%25E9%2596%2580%26adU%3Dwww.bizreach.jp%26adT%3D%25E5%25B9%25B4%25E5%258F%258E1000%25E4%25B8%2587%25E3%2581%258B%25E3%2582%2589%25E3%2581%25AE%25E8%25BB%25A2%25E8%2581%25B7%25E6%2583%2585%25E5%25A0%25B1%26gl%3DVN%26hideleadgen%3D1\x26usg\x3dAFQjCNHv5CGcJmVhTFt5hxz14ZLq5YSzyg";
+var google_attribution_text = "Ads by Google";
+var google_is_rtl = false;
+if (window.google_ad_request_done) {
+google_ad_request_done(google_ads);
+}
+if (window.google_radlink_request_done) {
+google_radlink_request_done(google_radlinks);
+}
+}

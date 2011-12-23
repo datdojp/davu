@@ -1,0 +1,194 @@
+
+.badge_sprite {
+background: url("http://static.blogos.com/common/image/badges.png?12345") no-repeat 0 0;
+ height: 38px;
+ width: 38px;
+}
+
+.big_badge_evangelist1 {
+    background-position: -76px -384px;
+    height: 64px;
+    width: 64px;
+}
+.big_badge_evangelist2 {
+    background-position: -76px -448px;
+    height: 64px;
+    width: 64px;
+}
+.big_badge_evangelist3 {
+    background-position: -76px -512px;
+    height: 64px;
+    width: 64px;
+}
+
+.big_badge_opinion_leader1 {
+    background-position: -76px -192px;
+    height: 64px;
+    width: 64px;
+}
+.big_badge_opinion_leader2 {
+    background-position: -76px -256px;
+    height: 64px;
+    width: 64px;
+}
+.big_badge_opinion_leader3 {
+    background-position: -76px -320px;
+    height: 64px;
+    width: 64px;
+}
+.big_badge_moderator1 {
+    background-position: -76px 0;
+    height: 64px;
+    width: 64px;
+}
+.big_badge_moderator2 {
+    background-position: -76px -64px;
+    height: 64px;
+    width: 64px;
+}
+.big_badge_moderator3 {
+    background-position: -76px -128px;
+    height: 64px;
+    width: 64px;
+}
+
+.big_badge_evangelist0 {
+    background-position: -140px -384px;
+    height: 64px;
+    width: 64px;
+}
+.big_badge_opinion_leader0 {
+    background-position:  -140px -192px;
+    height: 64px;
+    width: 64px;
+}
+.big_badge_moderator0 {
+    background-position:  -140px 0;
+    height: 64px;
+    width: 64px;
+}
+
+
+/* small */
+.small_badge_evangelist1 {
+    background-position: 0 -228px;
+    height: 38px;
+    width: 38px;
+}
+.small_badge_evangelist2 {
+    background-position: 0 -266px;
+    height: 38px;
+    width: 38px;
+}
+.small_badge_evangelist3 {
+    background-position: 0 -304px;
+    height: 38px;
+    width: 38px;
+}
+
+.small_badge_opinion_leader1 {
+    background-position: 0 -114px;
+    height: 38px;
+    width: 38px;
+}
+.small_badge_opinion_leader2 {
+    background-position: 0 -152px;
+    height: 38px;
+    width: 38px;
+}
+.small_badge_opinion_leader3 {
+    background-position: 0 -190px;
+    height: 38px;
+    width: 38px;
+}
+.small_badge_moderator1 {
+    background-position: 0 0;
+    height: 38px;
+    width: 38px;
+}
+.small_badge_moderator2 {
+    background-position: 0 -38px;
+    height: 38px;
+    width: 38px;
+}
+.small_badge_moderator3 {
+    background-position: 0 -76px;
+    height: 38px;
+    width: 38px;
+}
+
+.small_badge_evangelist0 {
+    background-position: -38px -76px;
+    height: 38px;
+    width: 38px;
+}
+.small_badge_opinion_leader0 {
+    background-position:  -38px -38px;
+    height: 38px;
+    width: 38px;
+}
+.small_badge_moderator0 {
+    background-position:  -38px 0;
+    height: 38px;
+    width: 38px;
+}
+
+table.small_badge_box {
+	float:right;
+}
+table.small_badge_box td
+,table.big_badge_box td {
+	padding:0 3px;
+}
+
+#badge-box {
+	width:350px;
+	height:220px;
+}
+.badge-box-left{
+	background:url(http://static.blogos.com/pc/image/common/popup_right.png) no-repeat 0 0;
+	padding:20px 0 30px 50px;
+}
+.badge-box-right{
+	background:url(http://static.blogos.com/pc/image/common/popup_left.png) no-repeat 0 0;
+	padding:20px 0 30px 40px;
+}
+#badge-box h5{
+	width:260px;
+	text-align:left;
+	line-height:1.1;
+	font-size:22px;
+}
+#badge-box h6{
+	width:260px;
+	text-align:left;
+	line-height:1.2;
+	font-size:16px;
+	margin-top:5px;
+	margin-bottom:10px;
+}
+#badge-box b{
+	line-height:1.5;
+	color:#666;
+}
+#badge-box p{
+	width:260px;
+	text-align:left;
+	line-height:1.5;
+	font-size:12px;
+	margin-bottom:5px;
+}
+
+#badge-box p.t_level{
+	color:#666;
+}
+
+.c-evangelist {
+	color:#13a9bb;
+}
+.c-opinion {
+	color:#eca700;
+}
+.c-moderator {
+	color:#58278a;
+}

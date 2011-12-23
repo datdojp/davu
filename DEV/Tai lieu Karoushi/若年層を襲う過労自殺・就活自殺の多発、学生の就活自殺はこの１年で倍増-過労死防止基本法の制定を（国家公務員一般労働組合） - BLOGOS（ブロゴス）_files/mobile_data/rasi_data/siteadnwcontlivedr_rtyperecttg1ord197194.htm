@@ -1,0 +1,40 @@
+<!-- GIF CreativeTag ver.3.4 -->
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=EUC-JP"><script type="text/javascript">
+<!--
+// 共通パラメータ
+var add_param = "grp01.ias.rakuten.co.jp/event.ng/Type=click&FlightID=1132536&AdID=1151893&TargetID=65054&RawValues=SITEID%2Cadnw%2CCONT%2Clivedr_r%2CTYP%2Crect&Redirect=";
+// リダイレクトURL
+var redirect_url = "http%3A%2F%2Fr.advg.jp%2Fadptg_count%2Fr%3Fadptg_aid%3D1362%26adptg_mid%3D1484%26adptg_lid%3D1";
+// 画像URL
+var lp = location.protocol;
+if (lp == "file:" || lp == "about:") {
+var img_url = "http://image.ias.rakuten.co.jp/mgt/21991/1/09027ab926640f4e3f965311034c0e8c.gif";
+var base_tag = "http://" + add_param + redirect_url;
+} else {
+var img_url = location.protocol + "//image.ias.rakuten.co.jp/mgt/21991/1/09027ab926640f4e3f965311034c0e8c.gif";
+var base_tag = location.protocol + "//" + add_param + redirect_url;
+}
+var home_target = "_top";
+var QS = new Array;
+if (location.search.length > 1) {
+	var m_Array = location.search.substr(1).split("&");
+	for (idx = 0; idx < m_Array.length; idx++ ){
+		QS.push(m_Array[idx].split("="));
+	}
+}
+for(i = 0; i < QS.length; i++ ){
+	if((QS[i][0] == "target") && ((QS[i][1] == "top") || (QS[i][1] == "blank"))) {
+		home_target = "_" + QS[i][1];
+		break;
+	}
+}
+document.open();
+document.write('<a href="' + base_tag + '" target="' + home_target + '"><img src="' + img_url + '" border="0"></a>\n');
+document.close();
+//-->
+</script></head><body><a href="http://grp01.ias.rakuten.co.jp/event.ng/Type=click&amp;FlightID=1132536&amp;AdID=1151893&amp;TargetID=65054&amp;RawValues=SITEID%2Cadnw%2CCONT%2Clivedr_r%2CTYP%2Crect&amp;Redirect=http%3A%2F%2Fr.advg.jp%2Fadptg_count%2Fr%3Fadptg_aid%3D1362%26adptg_mid%3D1484%26adptg_lid%3D1" target="_top"><img src="siteadnwcontlivedr_rtyperecttg1ord197194_data/09027ab926640f4e3f965311034c0e8c.gif" border="0"></a>
+
+<noscript>
+<a href="https://grp01.ias.rakuten.co.jp/event.ng/Type=click&FlightID=1132536&AdID=1151893&TargetID=65054&RawValues=SITEID%2Cadnw%2CCONT%2Clivedr_r%2CTYP%2Crect&Redirect=http%3A%2F%2Fr.advg.jp%2Fadptg_count%2Fr%3Fadptg_aid%3D1362%26adptg_mid%3D1484%26adptg_lid%3D1" target="_top"><img src="https://image.ias.rakuten.co.jp/mgt/21991/1/09027ab926640f4e3f965311034c0e8c.gif"></a>
+</noscript></body></html>

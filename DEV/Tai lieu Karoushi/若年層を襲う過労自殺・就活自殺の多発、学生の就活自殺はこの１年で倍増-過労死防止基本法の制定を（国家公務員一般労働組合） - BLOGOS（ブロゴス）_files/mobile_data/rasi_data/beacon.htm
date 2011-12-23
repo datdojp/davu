@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+
+<script language="javascript">
+
+var _ref = '';
+var _url = '';
+var _xid = '';
+var _flag_search = 0;
+var _nortb_mapping = 0;
+
+var _flag_last_target = 1;
+var _flag_last_mapping = 1;
+
+
+var _now = getUnixTime();
+
+var ins = new Array();
+
+jsGet();
+
+_ref = ins["ref"];
+_xid = ins["xid"];
+_nortb_mapping = ins["nortbsync"] >= 1 ? 1 : 0;
+
+
+// get cookie
+var _uid = ReadCookie("uid");
+var _lastwrite_target = ReadCookie("lastW_target") || 0;
+var _lastwrite_mapping = ReadCookie("lastW_mapping") || 0;
+
+// search referer
+if (_ref) {
+    if (_ref.match(/google.co.jp|search.yahoo.co.jp|bing.com/i)) {
+        _flag_search = 1;
+    }
+}
+
+
+
+// 1call a day
+if (_now - _lastwrite_target < 3600*24) {_flag_last_target = 0; }
+if (_now - _lastwrite_mapping < 3600*24) {_flag_last_mapping = 0; }
+
+var http_protocol   = (("https:" == document.location.protocol) ? "https" : "http");
+
+
+
+
+
+// beacon
+if (_uid && _flag_search == 1 && _flag_last_target == 1) {
+    var _beacon_url = 'http://sync.fout.jp/sync?noback=1' 
+    + '&xid=' + _xid + '&rurl=' + _ref + '&url=' + _url;
+    
+    if (http_protocol == "http") {
+        document.write('<img src="' + _beacon_url + '" width="1" height="1" border="0" />');
+        WriteCookie("lastW_target", _now, 365);
+    }
+}
+
+// audience mapping
+
+if (_flag_last_mapping == 1) {
+
+    // dynamic piggyback
+    var dynamic_rd_url = http_protocol + '%3A%2F%2Ftarget.fout.jp%2F1%2Ftg%3Fbc%3D1%26vd%3D1%26did%3DD10900%26type%3Ddynamic%26segdata%3D%7Bsegs%7D';
+    var dynamic_url = http_protocol + '://pix04.revsci.net/D10900/a4/0/0/0.302?tgt=' + dynamic_rd_url;
+    document.write('<img src="' + dynamic_url + '" width="1" height="1" border="0" />');
+    
+    // shared segments
+    var clientid = "F10928";
+    var gwjs = document.createElement('script');
+    gwjs.type = "text/javascript";
+    gwjs.src = http_protocol + ":\/\/pix04.revsci.net/" + clientid + "\/a6\/0\/0\/nolog\.js";
+    document.body.appendChild(gwjs);
+    
+    WriteCookie("lastW_mapping", _now, 365);
+
+
+}
+
+
+// RTB mapping
+if (_uid && _nortb_mapping == 0 && http_protocol == "http" && _flag_last_mapping == 1) {
+    var _openx_beacon_url = http_protocol + "://r.openx.net/set?pid=477e1adf-5fa4-52dc-21f0-38538af7d311&rtb=" + _uid;
+    document.write('<img src="' + _openx_beacon_url + '" width="1" height="1" border="0" />');
+    
+    
+    var _y1_beacon_url = http_protocol + "://y.one.impact-ad.jp/cs?d=23";
+    document.write('<img src="' + _y1_beacon_url + '" width="1" height="1" border="0" />');
+
+
+    var _google_beacon_url = http_protocol + "://cm.g.doubleclick.net/pixel?google_nid=freakout&google_cm";
+    document.write('<img src="' + _google_beacon_url + '" width="1" height="1" border="0" />');
+
+}
+
+
+
+function DM_onSegsAvailable(rsinetsegs, csid) {
+    clientid = clientid.toLowerCase();
+    if (csid == clientid) {
+        var segQS = rsinetsegs.length > 0 ? rsinetsegs[0] + "|" : "";
+        for (var i = 1; i < rsinetsegs.length; i++){
+            segQS += (rsinetsegs[i] + "|");
+        }
+    }
+    if (rsinetsegs.length > 0){
+        var beaconObj = document.createElement('img');
+        beaconObj.src= (("https:" == document.location.protocol) ? "https://" : "http://") + "target.fout.jp/1/tg?bc=1&vd=1&segdata=" + segQS;
+        beaconObj.style.visibility = "hidden";
+        document.body.appendChild(beaconObj);
+    }
+}
+
+// get 
+function jsGet() {
+    var query = window.location.search.substring(1);
+    var parms = query.split('&');
+    for (var i=0; i<parms.length; i++) {
+        var pos = parms[i].indexOf('=');
+        if (pos > 0) {
+            var key = parms[i].substring(0,pos);
+            var val = parms[i].substring(pos+1);
+            //qsParm[key] = decodeURIComponent(val);
+            ins[key] = val;
+        }
+    }
+}
+
+
+// read
+function ReadCookie(key) {
+     var sCookie = document.cookie;
+     var aData = sCookie.split(";");
+     var oExp = new RegExp(" ", "g");
+     key = key.replace(oExp, "");
+     var i = 0;
+     while (aData[i]) {
+          var aWord = aData[i].split("=");
+          aWord[0] = aWord[0].replace(oExp, "");
+          if (key == aWord[0]) return unescape(aWord[1]);
+          if (++i >= aData.length) break;
+     }
+     return "";
+}
+
+// write
+function WriteCookie(key, value, days) {
+     var str = key + "=" + escape(value) + ";";
+     if (days != 0) {
+          var dt = new Date();
+          dt.setDate(dt.getDate() + days);
+          str += "expires=" + dt.toGMTString() + ";";
+     }
+     document.cookie = str;
+}
+
+
+
+function getUnixTime() {
+    return parseInt((new Date)/1000);
+}
+
+
+</script>
+
+
+
+
+</body></html>
