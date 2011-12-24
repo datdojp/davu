@@ -34,7 +34,7 @@ public class ManageClipBean extends DataTableCareBaseBean {
 		if(!AihatUtils.isValidId(getIdCriterion())) {
 			setIdCriterion(null);
 		}
-		setSearchResults(getSearchService().searchClips(getIdCriterion(), titleCriterion, singerIdCriterion, composerIdCriterion, genreIdCriterion, null, userMailCriterion, null, getOfficial(), hasDuplicateCriterion, getSortCriterion(), null, false, null, null, null).getResults());
+		setSearchResults(getSearchService().searchClips(getIdCriterion(), titleCriterion, singerIdCriterion, composerIdCriterion, genreIdCriterion, null, userMailCriterion, null, getOfficial(), hasDuplicateCriterion, getSortCriterion(), null, false, null, null, null, false).getResults());
 		BeanUtils.reloadPage();
 		return null;
 	}
@@ -63,7 +63,7 @@ public class ManageClipBean extends DataTableCareBaseBean {
 			userMailCriterion = (String) value;
 		}
 		
-		setSearchResults(getSearchService().searchClips(getIdCriterion(), titleCriterion, singerIdCriterion, composerIdCriterion, genreIdCriterion, null, userMailCriterion, null, getOfficial(), hasDuplicateCriterion, getSortCriterion(), null, false, null, null,null).getResults());
+		setSearchResults(getSearchService().searchClips(getIdCriterion(), titleCriterion, singerIdCriterion, composerIdCriterion, genreIdCriterion, null, userMailCriterion, null, getOfficial(), hasDuplicateCriterion, getSortCriterion(), null, false, null, null,null, false).getResults());
 		return "adminManageClip";
 	}
 	

@@ -63,19 +63,19 @@ public class DetailBean extends BaseClientBean implements PagingBean {
 	public List<ClipDto> getAllReferenceDtos() {
 		if(SINGER.equals(objectType)) {
 			return
-				getSearchService().searchClips(null, null, singerDetail.getId(), null, null, null, null, BeanUtils.getLogginUserId(), null, null, new SortCriterion("title", SortCriterion.ORDER_ASCENDING), null, false, null, null,null).getResults();
+				getSearchService().searchClips(null, null, singerDetail.getId(), null, null, null, null, BeanUtils.getLogginUserId(), null, null, new SortCriterion("title", SortCriterion.ORDER_ASCENDING), null, false, null, null,null, false).getResults();
 		} else if(COMPOSER.equals(objectType)) {
 			return 
-				getSearchService().searchClips(null, null, null, composerDetail.getId(), null, null, null, BeanUtils.getLogginUserId(), null, null, new SortCriterion("title", SortCriterion.ORDER_ASCENDING), null, false, null, null,null).getResults();
+				getSearchService().searchClips(null, null, null, composerDetail.getId(), null, null, null, BeanUtils.getLogginUserId(), null, null, new SortCriterion("title", SortCriterion.ORDER_ASCENDING), null, false, null, null,null,false).getResults();
 		} else if(PLAYLIST.equals(objectType)) {
 			return
-				getSearchService().searchClips(null, null, null, null, null, playlistDetail.getId(), null, BeanUtils.getLogginUserId(), null, null, new SortCriterion("orderInPlaylist", SortCriterion.ORDER_ASCENDING), null, false, null, null, null).getResults();
+				getSearchService().searchClips(null, null, null, null, null, playlistDetail.getId(), null, BeanUtils.getLogginUserId(), null, null, new SortCriterion("orderInPlaylist", SortCriterion.ORDER_ASCENDING), null, false, null, null, null,false).getResults();
 		} else if(GENRE.equals(objectType)) {
 			return
-				getSearchService().searchClips(null, null, null, null, genreDetail.getId(), null, null, BeanUtils.getLogginUserId(), null, null, new SortCriterion("title", SortCriterion.ORDER_ASCENDING), null, false, null, null,null).getResults();
+				getSearchService().searchClips(null, null, null, null, genreDetail.getId(), null, null, BeanUtils.getLogginUserId(), null, null, new SortCriterion("title", SortCriterion.ORDER_ASCENDING), null, false, null, null,null,false).getResults();
 		} else if(USER.equals(objectType)) {
 			return
-				getSearchService().searchClips(null, null, null, null, null, null, userDetail.getMail(), BeanUtils.getLogginUserId(), null, null, new SortCriterion("title", SortCriterion.ORDER_ASCENDING), null, false, null, null,null).getResults();
+				getSearchService().searchClips(null, null, null, null, null, null, userDetail.getMail(), BeanUtils.getLogginUserId(), null, null, new SortCriterion("title", SortCriterion.ORDER_ASCENDING), null, false, null, null,null,false).getResults();
 		}
 		return new ArrayList<ClipDto>();
 	}
@@ -237,19 +237,19 @@ public class DetailBean extends BaseClientBean implements PagingBean {
 	private long updateReferenceDtosCount() {
 		if(SINGER.equals(objectType)) {
 			referenceDtosCount =
-				getSearchService().searchClips(null, null, singerDetail.getId(), null, null, null, null, BeanUtils.getLogginUserId(), null, null, null, null, true, null, null,null).getnResults();
+				getSearchService().searchClips(null, null, singerDetail.getId(), null, null, null, null, BeanUtils.getLogginUserId(), null, null, null, null, true, null, null,null, false).getnResults();
 		} else if(COMPOSER.equals(objectType)) {
 			referenceDtosCount = 
-				getSearchService().searchClips(null, null, null, composerDetail.getId(), null, null, null, BeanUtils.getLogginUserId(), null, null, null, null, true, null, null,null).getnResults();
+				getSearchService().searchClips(null, null, null, composerDetail.getId(), null, null, null, BeanUtils.getLogginUserId(), null, null, null, null, true, null, null,null,false).getnResults();
 		} else if(PLAYLIST.equals(objectType)) {
 			referenceDtosCount =
-				getSearchService().searchClips(null, null, null, null, null, playlistDetail.getId(), null, BeanUtils.getLogginUserId(), null, null, null, null, true, null, null,null).getnResults();
+				getSearchService().searchClips(null, null, null, null, null, playlistDetail.getId(), null, BeanUtils.getLogginUserId(), null, null, null, null, true, null, null,null,false).getnResults();
 		} else if(GENRE.equals(objectType)) {
 			referenceDtosCount =
-				getSearchService().searchClips(null, null, null, null, genreDetail.getId(), null, null, BeanUtils.getLogginUserId(), null, null, null, null, true, null, null,null).getnResults();
+				getSearchService().searchClips(null, null, null, null, genreDetail.getId(), null, null, BeanUtils.getLogginUserId(), null, null, null, null, true, null, null,null,false).getnResults();
 		} else if(USER.equals(objectType)) {
 			referenceDtosCount =
-				getSearchService().searchClips(null, null, null, null, null, null, userDetail.getMail(), BeanUtils.getLogginUserId(), null, null, null, null, true, null, null,null).getnResults();
+				getSearchService().searchClips(null, null, null, null, null, null, userDetail.getMail(), BeanUtils.getLogginUserId(), null, null, null, null, true, null, null,null,false).getnResults();
 		}
 		return referenceDtosCount;
 	}
@@ -257,19 +257,19 @@ public class DetailBean extends BaseClientBean implements PagingBean {
 	private void updateReferenceDtos() {
 		if(SINGER.equals(objectType)) {
 			referenceDtos =
-				getSearchService().searchClips(null, null, singerDetail.getId(), null, null, null, null, BeanUtils.getLogginUserId(), null, null, new SortCriterion("title", SortCriterion.ORDER_ASCENDING), referenceDtosPaging, false, null, null,null).getResults();
+				getSearchService().searchClips(null, null, singerDetail.getId(), null, null, null, null, BeanUtils.getLogginUserId(), null, null, new SortCriterion("title", SortCriterion.ORDER_ASCENDING), referenceDtosPaging, false, null, null,null,false).getResults();
 		} else if(COMPOSER.equals(objectType)) {
 			referenceDtos = 
-				getSearchService().searchClips(null, null, null, composerDetail.getId(), null, null, null, BeanUtils.getLogginUserId(), null, null, new SortCriterion("title", SortCriterion.ORDER_ASCENDING), referenceDtosPaging, false, null, null,null).getResults();
+				getSearchService().searchClips(null, null, null, composerDetail.getId(), null, null, null, BeanUtils.getLogginUserId(), null, null, new SortCriterion("title", SortCriterion.ORDER_ASCENDING), referenceDtosPaging, false, null, null,null,false).getResults();
 		} else if(PLAYLIST.equals(objectType)) {
 			referenceDtos =
-				getSearchService().searchClips(null, null, null, null, null, playlistDetail.getId(), null, BeanUtils.getLogginUserId(), null, null, new SortCriterion("orderInPlaylist", SortCriterion.ORDER_ASCENDING), null, false, null, null,null).getResults();
+				getSearchService().searchClips(null, null, null, null, null, playlistDetail.getId(), null, BeanUtils.getLogginUserId(), null, null, new SortCriterion("orderInPlaylist", SortCriterion.ORDER_ASCENDING), null, false, null, null,null,false).getResults();
 		} else if(GENRE.equals(objectType)) {
 			referenceDtos =
-				getSearchService().searchClips(null, null, null, null, genreDetail.getId(), null, null, BeanUtils.getLogginUserId(), null, null, new SortCriterion("title", SortCriterion.ORDER_ASCENDING), referenceDtosPaging, false, null, null,null).getResults();
+				getSearchService().searchClips(null, null, null, null, genreDetail.getId(), null, null, BeanUtils.getLogginUserId(), null, null, new SortCriterion("title", SortCriterion.ORDER_ASCENDING), referenceDtosPaging, false, null, null,null,false).getResults();
 		} else if(USER.equals(objectType)) {
 			referenceDtos =
-				getSearchService().searchClips(null, null, null, null, null, null, userDetail.getMail(), BeanUtils.getLogginUserId(), null, null, new SortCriterion("title", SortCriterion.ORDER_ASCENDING), referenceDtosPaging, false, null, null,null).getResults();
+				getSearchService().searchClips(null, null, null, null, null, null, userDetail.getMail(), BeanUtils.getLogginUserId(), null, null, new SortCriterion("title", SortCriterion.ORDER_ASCENDING), referenceDtosPaging, false, null, null,null,false).getResults();
 		}
 	}
 	/**

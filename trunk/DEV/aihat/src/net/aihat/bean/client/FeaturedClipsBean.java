@@ -75,7 +75,7 @@ public class FeaturedClipsBean extends BaseClientBean {
 		} else if(!AihatUtils.isEmpty(strPermPlaylistId)) {
 			Integer playlistId = Integer.parseInt(strPermPlaylistId);
 			featuredClips = getSearchService().searchClips(null, null, null, null, null, playlistId, null, 
-					BeanUtils.getLogginUserId(), null, null, null, null, false, null, null,null).getResults();
+					BeanUtils.getLogginUserId(), null, null, null, null, false, null, null,null,false).getResults();
 			addClipView(featuredClips);
 		} else {
 			if(AihatUtils.isEmpty(featuredClips)) {

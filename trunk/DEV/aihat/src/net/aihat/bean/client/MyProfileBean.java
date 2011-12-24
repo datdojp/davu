@@ -275,7 +275,7 @@ public class MyProfileBean extends MultiTabPagingBean {
 				tabDataMap.put(displayTab,
 						getSearchService().searchClips(null, null, null, null, null, null, user.getMail(), user.getId(), null, null, 
 							new SortCriterion("title", SortCriterion.ORDER_ASCENDING), 
-							tabPagingMap.get(displayTab), false, null, null,null).getResults()
+							tabPagingMap.get(displayTab), false, null, null,null,false).getResults()
 					);
 			} else {
 				addErrorMessage(BeanUtils.getBundleMsg("common_please_login"));
@@ -293,7 +293,7 @@ public class MyProfileBean extends MultiTabPagingBean {
 				tabDataMap.put(displayTab,
 						getSearchService().searchClips(null, null, null, null, null, null, null, user.getId(), null, null, 
 							new SortCriterion("title", SortCriterion.ORDER_ASCENDING), 
-							tabPagingMap.get(displayTab), false, user.getId(), null,null).getResults()
+							tabPagingMap.get(displayTab), false, user.getId(), null,null,false).getResults()
 					);
 			} else {
 				addErrorMessage(BeanUtils.getBundleMsg("common_please_login"));
@@ -336,7 +336,7 @@ public class MyProfileBean extends MultiTabPagingBean {
 				tabDataMap.put(displayTab,
 					getSearchService().searchClips(null, null, null, null, null, null, null, user.getId(), null, null, 
 							new SortCriterion("title", SortCriterion.ORDER_ASCENDING), 
-							tabPagingMap.get(displayTab), false, null, user.getId(),null).getResults()
+							tabPagingMap.get(displayTab), false, null, user.getId(),null,false).getResults()
 					);
 				for(ClipDto aClip : (List<ClipDto>)tabDataMap.get(displayTab)) {
 					for(SingerDto aSinger : aClip.getSingers()) {
@@ -384,12 +384,12 @@ public class MyProfileBean extends MultiTabPagingBean {
 			} else if(MYCLIPS_TAB.equals(displayTab)) {
 				tabDataCountMap.put(displayTab,
 						getSearchService().searchClips(null, null, null, null, null, null, user.getMail(), user.getId(), null, null, 
-								null, null, true, null, null,null).getnResults()
+								null, null, true, null, null,null,false).getnResults()
 						);
 			} else if(LIKED_CLIPS_TAB.equals(displayTab)) {
 				tabDataCountMap.put(displayTab,
 					getSearchService().searchClips(null, null, null, null, null, null, null, user.getId(), null, null, 
-							null, null, true, user.getId(), null,null).getnResults()
+							null, null, true, user.getId(), null,null,false).getnResults()
 					);
 			} else if(FOLLOWED_SINGERS_TAB.equals(displayTab)) {
 				tabDataCountMap.put(displayTab,
@@ -399,7 +399,7 @@ public class MyProfileBean extends MultiTabPagingBean {
 			} else if(NOTIFIED_CLIPS_TAB.equals(displayTab)) {
 				tabDataCountMap.put(displayTab,
 					getSearchService().searchClips(null, null, null, null, null, null, null, user.getId(), null, null, 
-							null, null, true, null, user.getId(), null).getnResults()
+							null, null, true, null, user.getId(), null,false).getnResults()
 					);
 			} 
 		} else {
