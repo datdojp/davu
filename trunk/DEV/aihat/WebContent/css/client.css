@@ -5,6 +5,14 @@ body {
 	background-color: ghostWhite;
 }
 
+body * {
+	-webkit-transition: all 0.15s ease-in-out 0s;
+	-moz-transition: all 0.15s ease-in-out 0s;
+	-o-transition: all 0.15s ease-in-out 0s;
+	transition: all 0.15s ease-in-out 0s;
+}
+
+
 a {
 	text-decoration: none;
 }
@@ -417,17 +425,20 @@ a :HOVER {
 	height: 36px;
 }
 
+/*
 .commentsBox {
 	background-color: white;
 	color: black;
 	font-size: 9pt;
 }
-
+*/
 .relatedClipInfoBox {
-	border: thin solid red;
-	background-color: yellow;
+	border: thin solid #333;
+	background-color: #bababa;
+	opacity: 0.9;
 	color: black;
 	font-size: 11pt;
+	padding: 5px;
 }
 
 #homepage .topPlaylistsPane {
@@ -437,8 +448,18 @@ a :HOVER {
 }
 
 #homepage .topPlaylistsPane img {
-	border: 2px solid white;
+	border: 0.5px solid white;
 	
+}
+
+#homepage .clipListTitle {
+	width: 100%;
+	height: 15px;
+	line-height: 15px;
+	text-align: right;
+}
+#homepage .clipListTitle a {
+	margin-right: 15px;
 }
 
 #homepage .sideBox {
@@ -454,7 +475,6 @@ a :HOVER {
 	height: 39px;
 	line-height:39px;
 	background-color: #010203;
-	padding-left: 30px;
 	
 	border-top: solid 1px #CCC;
 	
@@ -462,6 +482,9 @@ a :HOVER {
 	-webkit-box-shadow: 1px 1px 5px #999;
     -o-box-shadow: 1px 1px 5px #999;
     box-shadow: 1px 1px 5px #999;
+}
+#homepage .sideBox div.header t {
+	margin-left: 30px;
 }
 
 #homepage .sideBox div.text-item {
@@ -503,14 +526,149 @@ a :HOVER {
 	box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
 }
 
+#homepage div.clipListTitle {
+	width: 100%;
+	height: 35px;
+	line-height: 35px;
+	font-weight: bold;
+	font-size: 14px;
+	background-color: #ededed;
+	text-align:left;
+}
+#homepage div.clipListTitle div.header {
+	width: 12px;
+	height: 100%;
+	float:left;
+}
+#homepage div.clipListTitle t {
+	margin-left:20px;
+}
+
 #clipAdditionalFunctions {
-	background-color: white;
-	border: thin solid #555;
-	min-width: 30px;
+	border: 0.5pt solid black;
+	
 	position: absolute;
 	top:0px;
 	right: 0px;
+	padding: 1px;
+	width:50%;
+	
+	background-color: #e4e4e4;
+	opacity: 0.9;	
 }
+#clipAdditionalFunctions_collapsed {
+	position: absolute;
+	top:0px;
+	right: 0px;
+	padding: 1px;
+	width: 51px;
+	background-image: url('clip_extra_func_collapsed_repeat.png');
+	opacity: 0.75;
+}
+#clipAdditionalFunctions_collapsed .top {
+	position: absolute;
+	top:0px;
+	width:100%;
+	height: 7px;
+	background-image: url("clip_extra_func_collapsed_top.png");
+}
+#clipAdditionalFunctions_collapsed .bottom {
+	position: absolute;
+	bottom:0px;
+	width:100%;
+	height: 7px;
+	background-image: url("clip_extra_func_collapsed_bottom.png");
+}
+
+#clipAdditionalFunctions div.top {
+	width:100%;
+	height: 31px;
+	background-image: url("clip_extra_func_top.png");
+}
+#clipAdditionalFunctions .comment-top {
+	width: 100%;
+	height: 39px;
+	background-image: url("clip_extra_func_comment_top.png");
+	
+	font-weight: bold;
+	font-size: 12px;
+	color: white;
+	line-height: 33px;
+}
+
+#clipAdditionalFunctions .comment-top t {
+	margin-left: 15px;
+}
+
+#clipAdditionalFunctions div.commentsBox {
+	border: 0.5pt solid #666; 
+	overflow-y: auto;
+}
+
+#clipAdditionalFunctions div.commentsBox .no-comment {
+	font-weight: normal;
+	color: black;
+	font-size: 12px;
+}
+
+#clipAdditionalFunctions div.commentsBox span {
+	word-wrap: break-word;
+}
+
+#clipAdditionalFunctions div.commentsBox t.commenter {
+	font-weight: bold;
+	color: green;
+	font-size: 12px;
+}
+#clipAdditionalFunctions div.commentsBox i.comment-time {
+	font-size: 10px;
+	font-weight: normal;
+	color: #444;
+}
+#clipAdditionalFunctions div.commentsBox span.comment-content {
+	font-weight: normal;
+	color: #111;
+	font-size: 11px;
+}
+#clipAdditionalFunctions div.post-comment-box {
+	border: 0.5pt solid #666;
+	background-color:white;
+}
+#clipAdditionalFunctions div.post-comment-box textarea.content {
+	border: none;
+	width:100%;
+	resize: none;
+}
+#clipAdditionalFunctions div.post-comment-box input.post {
+	
+}
+#clipAdditionalFunctions div.comment-boxes-seperator {
+	width: 100%;
+	height: 25px;
+	line-height: 25px;
+}
+#clipAdditionalFunctions div.comment-boxes-seperator t {
+	color: #111;
+	font-weight: bold;
+	font-size: 12px;
+	
+	margin-left: 15px;
+}
+#clipAdditionalFunctions button.hide {
+	width:	43px;
+	height: 25px;
+	border:none;
+	background-image: url("clip_extra_func_hide.png");
+	background-color:transparent;
+	
+	margin-left:3px;
+	margin-top: 3px;
+}
+#clipAdditionalFunctions button.hide:HOVER {
+	background-image: url("clip_extra_func_hide_hover.png");
+}
+/*
 .allChildrenHidden * {
 	display:none;
 }
+*/

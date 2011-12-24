@@ -102,10 +102,20 @@ function oddEventMouseOut(line) {
 	$(line).find("td").removeClass("line_over");
 }
 
-function clipAdditionalFunctions_mouseover(obj) {
-	$(obj).removeClass("allChildrenHidden");
+function clipAdditionalFunctions_mouseover() {
+	$("#clipAdditionalFunctions_collapsed").hide();
+	$("#clipAdditionalFunctions").show("slide", {direction:"right"}, 150,
+			function() {
+				$("#clipAdditionalFunctions div.post-comment-box textarea.content").focus();
+			}
+	);
 }
 
-function clipAdditionalFunctions_mouseout(obj) {
-	$(obj).addClass("allChildrenHidden");
+function clipAdditionalFunctions_mouseout() {
+	$("#clipAdditionalFunctions").hide("slide", {direction:"right"}, 150,
+			function() {
+				$(".relatedClipInfoBox").hide();
+				$("#clipAdditionalFunctions_collapsed").show();
+			}
+	);
 }
