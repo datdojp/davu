@@ -69,6 +69,15 @@ public class HomepageBean extends BaseClientBean {
 		clipsBean.searchAllClipsOfGenres(currentTab.getListGenres());
 	}
 
+	public synchronized void showAllTopViewClips(AjaxBehaviorEvent e) {
+		ClipsBean clipsBean = (ClipsBean) BeanUtils.getContextBean("clipsBean");
+		clipsBean.searchAllTopViewClips(currentTab.getListGenres());
+	}
+	public synchronized void showAllNewUploadedClips(AjaxBehaviorEvent e) {
+		ClipsBean clipsBean = (ClipsBean) BeanUtils.getContextBean("clipsBean");
+		clipsBean.searchAllNewUploadedClips(currentTab.getListGenres());
+	}
+
 	public HomepageTabDto getCurrentTab() {
 		return currentTab;
 	}

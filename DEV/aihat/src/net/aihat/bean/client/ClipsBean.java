@@ -133,6 +133,20 @@ public class ClipsBean extends MultiTabPagingBean {
 		}
 		selectClipsTab(null);
 	}
+	public synchronized void searchAllTopViewClips(List genres) {
+		genresCriterion = genres;
+		for(String key : tabDataCountMap.keySet()) {
+			tabDataCountMap.put(key, 0l);
+		}
+		selectClipsTab(null);
+	}
+	public synchronized void searchAllNewUploadedClips(List genres) {
+		genresCriterion = genres;
+		for(String key : tabDataCountMap.keySet()) {
+			tabDataCountMap.put(key, 0l);
+		}
+		selectClipsTab(null);
+	}
 	
 	public synchronized void removeSearch(AjaxBehaviorEvent e) {
 		searchKeyword = null;

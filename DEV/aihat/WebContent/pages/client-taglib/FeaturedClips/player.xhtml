@@ -11,9 +11,15 @@
 	xmlns:fb="http://www.facebook.com">
 <ui:composition>
 	<div id="ytwrapper"></div>
-	<div id="clipAdditionalFunctions" class="allChildrenHidden" 
-			onmouseover="clipAdditionalFunctions_mouseover(this)" onmouseout="clipAdditionalFunctions_mouseout(this)">
-		<table cellpadding="0" cellspacing="0" border="0">
+	<div id="clipAdditionalFunctions_collapsed" onmouseover="clipAdditionalFunctions_mouseover()">
+		<div class="top"/>
+		<div class="bottom"/>
+	</div>
+	<div id="clipAdditionalFunctions" style="display:none;">
+		<div class="top">
+			<button onclick="clipAdditionalFunctions_mouseout()" style="float:left" class="hide"></button>
+		</div>
+		<table cellpadding="0" cellspacing="0" border="0" style="width:100%;">
 			<tr>
 				<td>
 					<h:form id="featuredClips_search">
@@ -24,7 +30,7 @@
 			<tr>
 				<td>
 					<h:form id="featuredClips_relatedClips">
-						<div style="overflow: scroll; width: 500px">
+						<div style="overflow: hidden;">
 							<table>
 								<tr style="float: left; height: 63px;">
 								<c:forEach items="#{featuredClipsBean.currentRelatedClips}" var="aClip">
@@ -36,11 +42,11 @@
 											</h:commandLink>
 											<div style="display:none;position: fixed;" class="relatedClipInfoBox">
 												<b>#{aClip.title}</b>
-												<br></br>
+												<br/>
 												#{msg.singer}: #{aClip.allSingersForDisplay}
-												<br></br> 
+												<br/>
 												#{msg.composer}: #{aClip.allComposersForDisplay}
-												<br></br>
+												<br/>
 												#{msg.uploader}: #{aClip.user.name}
 											</div>
 										</div>
@@ -53,31 +59,57 @@
 				</td>
 			</tr>
 			<tr>
-				<td style="height: 50%">
+				<td>
 					<h:form id="featuredClips_comments">
-						<t:div id="allComments" style="overflow: scroll;width: 100%;height:200px" styleClass="commentsBox">
-							<h:outputText value="#{msg.no_comment}" rendered="#{empty featuredClipsBean.currentClipComments}"/>
-							<c:forEach var="aComment" items="#{featuredClipsBean.currentClipComments}">
-								<span style="width: 100%">
-									#{aComment.user.name}
-									(
-									<i>
-										<h:outputText value="#{aComment.time}">
-											<f:convertDateTime pattern="yyyy.MM.dd HH:mm:ss"/>
-										</h:outputText>
-									</i>
-									)
-									: #{aComment.content}
-								</span>
-								<br></br>
-							</c:forEach>
+						<div class="comment-top">
+							<t>#{msg.comment}</t>
+						</div>
+						<t:div id="allComments" style="width:100%;" styleClass="commentsBox">
+							<h:outputText value="#{msg.no_comment}" rendered="#{empty featuredClipsBean.currentClipComments}" class="no-comment"/>
+							<table cellspacing="5px" cellpadding="0" style="width:100%" border="0">
+								<c:forEach var="aComment" items="#{featuredClipsBean.currentClipComments}">
+									<tr><td>
+										<span>
+											<t class="commenter">
+												#{aComment.user.name}
+											</t>
+											<i class="comment-time">(
+												<h:outputText value="#{aComment.time}">
+													<f:convertDateTime pattern="yyyy.MM.dd HH:mm:ss"/>
+												</h:outputText>
+											)</i>
+											
+										</span>
+										<br/>
+										<span class="comment-content">
+											#{aComment.content}
+										</span>
+									</td></tr>
+								</c:forEach>
+							</table>
+							<script>
+					    		$("#clipAdditionalFunctions").find(".commentsBox").css("height", $(window).height() - 99 - 122 - 300);
+							</script>
 						</t:div>
-						<h:panelGrid columns="2">
-							<h:inputText value="#{featuredClipsBean.commentContent}"/>
-							<h:commandButton value="#{msg.post_comment}">
-								<f:ajax event="click" execute="@form" render="@form" listener="#{featuredClipsBean.addComment}"/>
-							</h:commandButton>
-						</h:panelGrid>
+						<div class="comment-boxes-seperator">
+							<t>
+								#{msg.please_comment}
+							</t>
+						</div>
+						<div class="post-comment-box">
+							<table cellspacing="3px" cellpadding="0" border="0" style="width:100%">
+								<tr>
+									<td>
+										<h:inputTextarea value="#{featuredClipsBean.commentContent}" rows="2" styleClass="content"/>
+									</td>
+									<td style="width:50px">
+										<h:commandButton value="#{msg.post_comment}" styleClass="post">
+											<f:ajax event="click" execute="@form" render="@form" listener="#{featuredClipsBean.addComment}"/>
+										</h:commandButton>
+									</td>
+								</tr>
+							</table>
+						</div>
 						<h:commandButton style="display:none" styleClass="refreshComments">
 							<f:ajax event="click" render=":featuredClips_comments:allComments" listener="#{featuredClipsBean.refreshComments}"/>
 						</h:commandButton>
@@ -85,20 +117,20 @@
 				</td>
 			</tr>
 			<tr>
-				<td>
+				<td style="line-height:35px">
 					<h:form id="featuredClips_funcs">
-						<table cellpadding="0" cellspacing="0" border="0">
+						<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 							<tr>
-								<td align="center">
+								<td align="center" width="33%">
 									<fb:like href="#{config.server}/pages/client/Zentai.jsf?perlink_clipid=#{featuredClipsBean.currentClipId}" layout="button_count"></fb:like>
 								</td>
-								<td align="center">
+								<td align="center" width="33%">
 									<h:commandButton value="#{msg.share}"
 											onclick="prompt('', '#{config.server}/pages/client/Zentai.jsf?perlink_clipid=#{featuredClipsBean.currentClipId}');return false;"
 											styleClass="shareBtn">
 									</h:commandButton>
 								</td>
-								<td align="center">
+								<td align="center" width="33%">
 									<h:commandLink rendered="#{not featuredClipsBean.currentClip.liked}">
 										<f:param name="clipId" value="#{featuredClipsBean.currentClipId}"/>
 										<f:param name="referenceBeanName" value="#{featuredClipsBean.beanName}"/>
@@ -345,10 +377,11 @@
 				//embed youtube
 				var params = { allowScriptAccess: "always", allowFullScreen:"true", wmode:"transparent"};
 			    var atts = { id: "myytplayer" };
-			    var height = $(window).height() - 99 - 122;
+			    var height = $(window).height() - 99 - 122 - 3;
 			    var width = Math.round(height*640/390);
 			    
 			    $("#clipAdditionalFunctions").css("height", height);
+			    $("#clipAdditionalFunctions_collapsed").css("height", height);
 			    
 			    swfobject.embedSWF(link + "?enablejsapi=1&amp;fs=1&amp;playerapiid=ytplayer&amp;autoplay=1&amp;version=3&amp;showinfo=0",
 			                       "ytapiplayer", "" + width, "" + height, "8", null, null, params, atts);
@@ -452,9 +485,10 @@
 			//related clip mouser over/out
 			function relatedClipMouseOver(obj, event) {
 				var $inforBox = $(obj).find(".relatedClipInfoBox");
+				$inforBox.css("top", event.pageY);
+				$inforBox.css("right", $(window).width() - event.pageX);
+				
 				$inforBox.show();
-				$inforBox.css("left", event.screenX);
-				$inforBox.css("top", event.screenY);
 			}
 			function relatedClipMouseOut(obj, event) {
 				$(obj).find(".relatedClipInfoBox").hide();
