@@ -144,13 +144,13 @@ public class ClipServiceImpl extends BaseService implements ClipService {
 		//first, get from the same singer
 		pagingCriterion.setRowCount((long)nClips);
 		results = searchService.searchClips(null, null, clip.getSingers().get(0).getId(), null, null, null, null, 
-				logginedUserId, null, null, null, pagingCriterion, false, null, null,null).getResults();
+				logginedUserId, null, null, null, pagingCriterion, false, null, null,null, false).getResults();
 		
 		//if not enough, search from the same genre
 		if(results.size() < nClips) {
 			pagingCriterion.setRowCount((long)nClips - results.size());
 			results.addAll(searchService.searchClips(null, null, null, null, clip.getGenres().get(0).getId(), null, null, 
-					logginedUserId, null, null, null, pagingCriterion, false, null, null,null).getResults());
+					logginedUserId, null, null, null, pagingCriterion, false, null, null,null,false).getResults());
 		}
 		
 		return results;

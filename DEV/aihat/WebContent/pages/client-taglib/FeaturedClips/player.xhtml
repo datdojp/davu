@@ -40,7 +40,7 @@
 												<f:param name="selectedClipId" value="#{aClip.id}"/>
 												<h:graphicImage url="#{aClip.thumbnailLink}" width="60"/>
 											</h:commandLink>
-											<div style="display:none;position: fixed;" class="relatedClipInfoBox">
+											<div class="relatedClipInfoBox">
 												<b>#{aClip.title}</b>
 												<br/>
 												#{msg.singer}: #{aClip.allSingersForDisplay}
@@ -480,18 +480,6 @@
 
 			function refreshComments() {
 				$("#featuredClips_comments").find(".refreshComments").click();
-			}
-
-			//related clip mouser over/out
-			function relatedClipMouseOver(obj, event) {
-				var $inforBox = $(obj).find(".relatedClipInfoBox");
-				$inforBox.css("top", event.pageY);
-				$inforBox.css("right", $(window).width() - event.pageX);
-				
-				$inforBox.show();
-			}
-			function relatedClipMouseOut(obj, event) {
-				$(obj).find(".relatedClipInfoBox").hide();
 			}
 		</script>
 	</h:form>

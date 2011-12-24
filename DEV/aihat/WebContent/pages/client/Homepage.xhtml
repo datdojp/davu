@@ -51,11 +51,16 @@
 			<div class="topPlaylistsPane" style="width:100%;">
 				<h:panelGrid columns="#{fn:length(homepageBean.currentTab.listTopPlaylists)}" cellspacing="0" cellpadding="0">
 					<c:forEach var="aTP" items="#{homepageBean.currentTab.listTopPlaylists}">
-						<h:commandLink onclick="slideToDetail();">
-							<f:param name="playlistId" value="#{aTP.id}"/>
-							<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showPlaylistDetail}"/>
-							<h:graphicImage url="#{aTP.mainClip.thumbnailLink}" width="135"/>
-						</h:commandLink>
+						<t:div onmouseover="relatedClipMouseOver(this, event)" onmouseout="relatedClipMouseOut(this, event)">
+							<h:commandLink onclick="slideToDetail();">
+								<f:param name="playlistId" value="#{aTP.id}"/>
+								<f:ajax event="click" execute="@form" render=":detail" listener="#{detailBean.showPlaylistDetail}"/>
+								<h:graphicImage url="#{aTP.mainClip.thumbnailLink}" width="135"/>
+							</h:commandLink>
+							<t:div styleClass="relatedClipInfoBox">
+								<b>#{aTP.name}</b>
+							</t:div>
+						</t:div>
 					</c:forEach>
 				</h:panelGrid>
 			</div>
@@ -87,33 +92,33 @@
 						<td style="vertical-align: top;" align="center">
 							<client:clip-list formId="homepage" bean="#{homepageBean}"/>
 							
-							<div class="clipListTitle">
+							<div class="clipListTitle" style="background-color:#fed0d0">
 								<div class="header" style="background-color:#fa4260"/>
 								<t style="color:#fa4260">#{msg.list_top_view_clips}</t>
 							</div>
 							<client:clip-list formId="homepage" clips="#{homepageBean.currentTab.listTopViewClips}" bean="#{homepageBean}" hideHeader="true"/>
-							<div style="clip-list-separator">
+							<div class="clip-list-separator">
 								<h:commandLink onclick="slideToClips();">
-									<f:ajax event="click" render=":clips" listener="#{homepageBean.showAllTopViewClips"/>
-									<h:outputText value="#{msg.all}"/>
+									<f:ajax event="click" render=":clips" listener="#{homepageBean.showAllTopViewClips}"/>
+									<h:outputText value="#{msg.view_more}"/>
 								</h:commandLink>
 							</div>
 							
-							<div class="clipListTitle">
+							<div class="clipListTitle" style="background-color:#bffbbf">
 								<div class="header" style="background-color:#03a20b"/>
 								<t style="color:#03a20b">#{msg.list_recommended_clips}</t>
 							</div>
 							<client:clip-list formId="homepage" clips="#{homepageBean.currentTab.listRecommendedClips}" bean="#{homepageBean}" hideHeader="true"/>
 							
-							<div class="clipListTitle">
+							<div class="clipListTitle" style="background-color:#bfbffb">
 								<div class="header" style="background-color:#01b1fb"/>
 								<t style="color:#01b1fb">#{msg.list_new_uploaded_clips}</t>
 							</div>
 							<client:clip-list formId="homepage" clips="#{homepageBean.currentTab.listNewUploadedClips}" bean="#{homepageBean}" hideHeader="true"/>
-							<div style="clip-list-separator">	
+							<div class="clip-list-separator">	
 								<h:commandLink onclick="slideToClips();">
-									<f:ajax event="click" render=":clips" listener="#{homepageBean.showAllNewUploadedClips"/>
-									<h:outputText value="#{msg.all}"/>
+									<f:ajax event="click" render=":clips" listener="#{homepageBean.showAllNewUploadedClips}"/>
+									<h:outputText value="#{msg.view_more}"/>
 								</h:commandLink>
 							</div>
 						</td>

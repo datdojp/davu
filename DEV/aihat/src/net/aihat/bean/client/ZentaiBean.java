@@ -336,7 +336,7 @@ public class ZentaiBean extends BaseClientBean {
 		if(BeanUtils.getUserProfileBean().getLoggedIn()) {
 			return getSearchService().searchClips(null, null, null, null, null, null, null,
 					BeanUtils.getLogginUserId(), null, null, null, null, true, null, 
-					BeanUtils.getLogginUserId(),null).getnResults();
+					BeanUtils.getLogginUserId(),null,false).getnResults();
 		} else {
 			return 0;
 		}

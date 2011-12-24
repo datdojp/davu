@@ -7,6 +7,7 @@ import javax.faces.event.AjaxBehaviorEvent;
 import net.aihat.dto.GenreDto;
 import org.apache.log4j.Logger;
 
+import net.aihat.criteria.ClipSearchCriteria;
 import net.aihat.criteria.PagingCriterion;
 import net.aihat.criteria.SortCriterion;
 import net.aihat.dto.UserDto;
@@ -42,7 +43,10 @@ public class ClipsBean extends MultiTabPagingBean {
 	};
 	
 	//general criterion
-	private List<GenreDto> genresCriterion;
+	private List<GenreDto> generalGenresCriterion;
+	private boolean generalFetchTodayViews;
+	private SortCriterion generalSortCriterion;
+	
 	
 	/**
 	 * INIT
@@ -90,7 +94,9 @@ public class ClipsBean extends MultiTabPagingBean {
 			updateGenresCounting();
 			
 			//clear general criterion
-			genresCriterion = null;
+			generalGenresCriterion = null;
+			generalFetchTodayViews = false;
+			generalSortCriterion = null;
 			
 			//check if there is any result found,
 			//if no result is found, log failed-search
@@ -127,24 +133,46 @@ public class ClipsBean extends MultiTabPagingBean {
 	}
 	
 	public synchronized void searchAllClipsOfGenres(List genres) {
-		genresCriterion = genres;
+		generalGenresCriterion = genres;
+		searchKeyword = null;
 		for(String key : tabDataCountMap.keySet()) {
 			tabDataCountMap.put(key, 0l);
 		}
+		for(String key : tabPagingMap.keySet()) {
+			tabPagingMap.put(key, new PagingCriterion(0l, ConfigurationService.getnRowsPerPage()));
+		}
+		generalFetchTodayViews = false;
+		generalSortCriterion = null;
 		selectClipsTab(null);
 	}
 	public synchronized void searchAllTopViewClips(List genres) {
-		genresCriterion = genres;
+		generalGenresCriterion = genres;
+		searchKeyword = null;
 		for(String key : tabDataCountMap.keySet()) {
 			tabDataCountMap.put(key, 0l);
 		}
+		for(String key : tabPagingMap.keySet()) {
+			tabPagingMap.put(key, new PagingCriterion(0l, ConfigurationService.getnRowsPerPage()));
+		}
+		generalFetchTodayViews = true;
+		generalSortCriterion = new SortCriterion();
+		generalSortCriterion.setColumnName("nTodayViews");
+		generalSortCriterion.setOrder(SortCriterion.ORDER_DESCENDING);
 		selectClipsTab(null);
 	}
 	public synchronized void searchAllNewUploadedClips(List genres) {
-		genresCriterion = genres;
+		generalGenresCriterion = genres;
+		searchKeyword = null;
 		for(String key : tabDataCountMap.keySet()) {
 			tabDataCountMap.put(key, 0l);
 		}
+		for(String key : tabPagingMap.keySet()) {
+			tabPagingMap.put(key, new PagingCriterion(0l, ConfigurationService.getnRowsPerPage()));
+		}
+		generalFetchTodayViews = false;
+		generalSortCriterion = new SortCriterion();
+		generalSortCriterion.setColumnName("createdTime");
+		generalSortCriterion.setOrder(SortCriterion.ORDER_DESCENDING);
 		selectClipsTab(null);
 	}
 	
@@ -161,7 +189,7 @@ public class ClipsBean extends MultiTabPagingBean {
 	 * COUNTING 
 	 */
 	private long updateClipsCounting() {
-		long n = getSearchService().searchClips(null, searchKeyword, null, null, null, null, null, null, null, null, null, null, true, null, null,genresCriterion).getnResults(); 
+		long n = getSearchService().searchClips(null, searchKeyword, null, null, null, null, null, null, null, null, null, null, true, null, null,generalGenresCriterion,false).getnResults(); 
 		tabDataCountMap.put(CLIPS_TAB, n);
 		return n;
 	}
@@ -217,8 +245,8 @@ public class ClipsBean extends MultiTabPagingBean {
 			}
 			
 			tabDataMap.put(displayTab, getSearchService().searchClips(null, searchKeyword, null, null, null, null, null, userId, null, null,
-					new SortCriterion("nViews", SortCriterion.ORDER_DESCENDING), 
-					tabPagingMap.get(CLIPS_TAB), false, null, null,genresCriterion).getResults());
+					generalSortCriterion != null ? generalSortCriterion : new SortCriterion("nViews", SortCriterion.ORDER_DESCENDING), 
+					tabPagingMap.get(CLIPS_TAB), false, null, null,generalGenresCriterion, generalFetchTodayViews).getResults());
 			updateCurrentCounting();
 		} catch (Throwable err) {
 			handleGeneralError(err);

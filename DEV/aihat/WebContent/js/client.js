@@ -119,3 +119,19 @@ function clipAdditionalFunctions_mouseout() {
 			}
 	);
 }
+
+//related clip mouser over/out
+function relatedClipMouseOver(obj, event) {
+	var $inforBox = $(obj).find(".relatedClipInfoBox");
+	$inforBox.css("top", event.pageY);
+	if(event.pageX > $(window).width()/2) {
+		$inforBox.css("right", $(window).width() - event.pageX);
+	} else {
+		$inforBox.css("left", event.pageX);
+	}
+	
+	$inforBox.show();
+}
+function relatedClipMouseOut(obj, event) {
+	$(obj).find(".relatedClipInfoBox").hide();
+}

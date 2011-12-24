@@ -145,7 +145,7 @@ public class SearchServiceImpl extends BaseService implements SearchService {
 	@Transactional(rollbackFor=DataAccessException.class)
 	public SearchResultDto searchClips(Integer id, String title, Integer singerId, Integer composerId, Integer genreId, Integer playlistId, 
 			String userMail, Integer logginedUserId, Boolean official, Boolean hasDuplicate, SortCriterion sortCriterion,
-			PagingCriterion pagingCriterion, boolean forCounting, Integer likedBy, Integer notifiedUserId, List<GenreDto> genres) throws DataAccessException {
+			PagingCriterion pagingCriterion, boolean forCounting, Integer likedBy, Integer notifiedUserId, List<GenreDto> genres, boolean fetchTodayViews) throws DataAccessException {
 		ClipSearchCriteria criteria = new ClipSearchCriteria();
 
 		if(AihatUtils.isValidId(id)) {
@@ -209,6 +209,7 @@ public class SearchServiceImpl extends BaseService implements SearchService {
 		criteria.setSortCriterion(sortCriterion);
 		criteria.setPagingCriterion(pagingCriterion);
 		criteria.setForCounting(forCounting);
+		criteria.setFetchTodayViews(fetchTodayViews);
 
 		SearchResultDto result = getClipDao().search(criteria);
 		

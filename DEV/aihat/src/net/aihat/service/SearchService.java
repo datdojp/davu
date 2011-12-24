@@ -10,7 +10,7 @@ import org.springframework.dao.DataAccessException;
 
 public interface SearchService {
 	public SearchResultDto searchClips(Integer id, String title, Integer singerId, Integer composerId, Integer genreId, Integer playlistId, String userMail, Integer logginedUserId, Boolean official, Boolean hasDuplicate, 
-				SortCriterion sortCriterion, PagingCriterion pagingCriterion, boolean forCounting, Integer likedBy, Integer notifiedUserId, List<GenreDto> genres) throws DataAccessException;
+				SortCriterion sortCriterion, PagingCriterion pagingCriterion, boolean forCounting, Integer likedBy, Integer notifiedUserId, List<GenreDto> genres, boolean fetchTodayViews) throws DataAccessException;
 	public SearchResultDto searchSingers(Integer id, String name, String userMail, Integer logginedUserId, SortCriterion sortCriterion, PagingCriterion pagingCriterion, boolean forCounting, Integer followedBy) throws DataAccessException;
 	public SearchResultDto searchComposers(Integer id, String name, String userMail, SortCriterion sortCriterion, PagingCriterion pagingCriterion, boolean forCounting) throws DataAccessException;
 	public SearchResultDto searchGenres(Integer id, String name, String language, String userMail, SortCriterion sortCriterion, PagingCriterion pagingCriterion, boolean forCounting) throws DataAccessException;
