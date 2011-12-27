@@ -1,0 +1,10 @@
+.friend-pop-box .ohyeah-pop {top:5%;margin-left:-295px}
+.friend-pop-box .ohyeah-pop-content {width:570px}
+	.ohyeah-pop-content .ohyeah-data {overflow-y:auto;overflow-x:hidden;height:460px;position:relative;z-index:1}
+	.lst-pop-friend {}
+	.lst-pop-friend li {padding:10px;border-top:1px solid #d8d8d8;display:block}
+	.lst-pop-friend .friend-name,.lst-pop-friend .friend-info {margin-bottom:3px;padding-right:120px}
+	.lst-pop-friend .friend-info {font-size:11px}
+	.lst-pop-friend .friend-info.last {margin-bottom:0}
+	.lst-pop-friend .friend-pop-button {color:#999;position:absolute;right:0;top:14px;font-size:12px}
+		.friend-pop-button .waiting-response {display:block;padding-top:3px}

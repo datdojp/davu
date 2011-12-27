@@ -1,0 +1,19 @@
+.right-userfreq-box .lst-userfreq {margin-left:-1px}
+	.lst-userfreq > li {float:left;margin-left:1px;margin-bottom:1px;position:relative;z-index:1}
+	.lst-userfreq  li:hover {z-index:100;zoom:1}
+		.lst-userfreq li a {display:block;position:relative;z-index:1}
+		.lst-userfreq a img {z-index:1;position:relative}
+		.lst-userfreq .img-freq {width:35px}
+	.right-userfreq-box .userfreq-viewmore-grp {text-align:right;font-size:11px}
+
+
+.userfreq-pop {display:none;position:absolute;top:30px;right:0;z-index:5}
+	.lst-userfreq li:hover .userfreq-pop {display:block;z-index:200}
+	.userfreq-pop .userfreq-iarrow-grp {padding-left:183px;line-height:8px;height:8px;font-size:8px;position:relative;z-index:20}
+	.userfreq-pop .userfreq-pop-content {margin-top:-1px;border:1px solid #103e56;width:203px;position:relative;z-index:10}
+		.userfreq-pop-content h3 {background:#f1f3fa;height:26px;line-height:26px;border-top:1px solid #fff;border-bottom:1px solid #fff;padding:0 9px}
+		.userfreq-pop-content .userfreq-data {background:#fff;border-top:1px solid #d8d8d8;padding:9px 10px}
+			.userfreq-data .userfreq-data-head {font-size:11px;margin-bottom:7px}
+			.userfreq-data .userfreq-button {margin-left:-4px}
+				.userfreq-button .cutebtn,.userfreq-button .cutebtnGroup {float:left;margin-left:4px}
+					.userfreq-data .iletter-blue {vertical-align:-1px}

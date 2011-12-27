@@ -1,0 +1,56 @@
+#ads_box_170 { margin-bottom: 14px; }
+.vbmenu_popup .thead { color:#fff; }
+.advwrap { position: relative; height:200px; overflow:hidden; }
+.adv-content { position:absolute; left:0; top:0; }
+
+.uppercase { text-transform: uppercase; }
+.forum-left { position: static; }
+.f-box { border-collapse: collapse; margin-bottom: 14px; }
+.f-box th { text-align: left; background-color: #6699cc; border-top: 1px solid #11445e; border-right: 1px solid #043b56; border-bottom: 1px solid #006699; border-left: 1px solid #043b56; }
+.f-box th h2 { line-height: 30px; padding: 0 13px; }
+.f-box th h2 a { color: #fff; }
+
+.f-box .f-des { border-right: 1px solid #cacaca; border-bottom: 1px solid #e0e0e0; border-left: 1px solid #cacaca; text-align: center; }
+.f-box .f-des td { padding: 10px 0; }
+.f-box .f-adv { border-right: 1px solid #fff; border-bottom: 1px solid #e0e0e0; border-left: 1px solid #fff; }
+.f-box .f-adv td { padding: 10px 0; }
+.f-box .f-header { color: #808080; height: 31px; background-color: #e7ebf7; border-right: 1px solid #cacaca; border-bottom: 1px solid #e0e0e0; border-left: 1px solid #cacaca; }
+.f-box .f-header .title { padding: 0 13px; }
+.f-box .f-header .count { text-align: center; padding: 0 10px; width: 90px; }
+.f-box .f-header .new { text-align: center; }
+
+.f-box .f-list { color: #808080; height: 31px; border-right: 1px solid #cacaca; border-bottom: 1px solid #e0e0e0; border-left: 1px solid #cacaca; }
+.f-box .f-list .title { padding: 2px 13px 7px 13px; border-bottom: 1px solid #e0e0e0; border-left: 1px solid #cacaca; vertical-align: top; }
+.f-box .f-list .title h3 a { font-size: 14px; line-height: 30px; margin-left: -2px; }
+.f-box .f-list .count { text-align: center; border-right: 1px solid #cacaca; border-bottom: 1px solid #e0e0e0; padding-bottom: 7px; vertical-align: top; }
+.f-box .f-list .count .box { background-color: #ebebeb; width: 49px; height: 40px; padding: 6px; margin: 14px auto 5px; border-radius: 2px 2px 2px 2px; }
+.f-box .f-list .count .box .topic { border-bottom: 1px solid #cacaca; display: block; clear: both; color: #ff0000; padding-bottom: 4px; }
+.f-box .f-list .count .box .thread { color: #045d09; clear: both; display: block; padding-top: 4px; }
+.f-box .f-list .new { width: 238px; color: #444; text-align: left; vertical-align: top; border-right: 1px solid #cacaca; border-bottom: 1px solid #e0e0e0; border-left: 1px solid #cacaca; padding: 12px 13px; }
+.f-box .f-list .new .irss { vertical-align: -3px; margin-right: 3px; }
+.f-box .f-list .new .lnknew { color: #045d09; font-weight: bold; line-height: 17px; }
+.f-box .f-list .new .byuser { padding: 5px 2px 2px 22px; }
+.f-box .f-list .new .byuser a { color: #444; font-weight: bold; }
+.f-box .f-list .new .datetime { padding: 0 2px 2px 22px; }
+
+.f-box .f-list .new .byuser-datetime { padding: 5px 2px 2px 20px; font-size: 11px; }
+.f-box .f-list .new .byuser-datetime a { color: #444; font-weight: bold; }
+
+.bottom-pagenav { margin-bottom: 10px; margin-top:5px; }
+.bottom-pagenav .pagenav td { padding: 0 0 0 5px; }
+
+.mod-action { text-align: right; padding: 6px 0 15px; }
+.mod-action select { padding: 4px 3px; width: 235px; }
+.mod-action .btnok { background-color: #696969; border-top: 1px solid #e1e1e1; border-right: 1px solid #343434; border-bottom: 1px solid #343434; border-left: 1px solid #e1e1e1; color: #FFFFFF; font-weight: bold; padding: 4px 15px 3px; cursor: pointer; }
+
+/*--------------------------------------------------------------*/
+.block-left { border-top: 1px solid #92abd0; margin-bottom: 10px; }
+.block-left .block-content { padding: 10px 5px 10px 10px; }
+.block-left .title { color: #000; background: #e7ebf7; border-top: 1px solid #fff; height: 24px; line-height: 24px; padding-left: 10px; position: relative; }
+.block-left .notify-number-box { color: #333; background: #e0ebf5; border: 1px solid #acc8e4; font-weight: normal; line-height: 100%; padding: 2px 3px; position: absolute; right: 5px; top: 1px; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; }
+.notify-number-box-fix { margin-top: 2px; }
+
+.tbrssandnew td { vertical-align: top; }
+.tdrss { width: 20px; text-align: left; padding-top: 2px; }
+
+#ads_zone171 { padding: 0 10px; }

@@ -1,0 +1,72 @@
+.f-post-content {min-height:100px;}
+.mgrlnk a.topicclose { color:#ff0000; }
+.mgrlnk a.topicclose .imgrtopic { margin-right:5px; }
+.detail-heading { border-collapse: collapse; border-top: 1px solid #11445e; border-right: 1px solid #043b56; border-bottom: 1px solid #006699; border-left: 1px solid #043b56; }
+.detail-heading th { text-align: left; background-color: #6699cc; }
+.detail-heading th h2 { line-height: 30px; padding: 0 13px; }
+.detail-heading th h2 a { color: #fff; }
+.detail-heading-search { width: 266px; }
+.detail-heading-search .box-searchtop { margin-top: 0; }
+
+.post-header { background-color: #e7ebf7; color: #808080; height: 31px; }
+.post-header .title { padding: 0 13px; border-bottom: 1px solid #e0e0e0; border-left: 1px solid #cacaca; }
+.post-header .position { text-align: right; border-right: 1px solid #cacaca; border-bottom: 1px solid #e0e0e0; }
+
+.post-info-fix { background-color: #f0f0f0; }
+.post-info-fix td { vertical-align: top; }
+.post-info-fix .user-info { border-top: 1px solid #fff; border-left: 1px solid #cacaca; border-bottom: 1px solid #dbdbdb; }
+.post-info-fix .user-count { border-top: 1px solid #fff; border-right: 1px solid #cacaca; border-bottom: 1px solid #dbdbdb; }
+
+.post-content-fix { padding: 10px; border-left: 1px solid #cacaca; border-right: 1px solid #cacaca; }
+
+.post-action-fix { border-left: 1px solid #cacaca; border-right: 1px solid #cacaca; border-bottom: 3px solid #456295; }
+.post-action-fix-wrap { margin-bottom: 3px; background-color: #e6ebe5; }
+.post-action-fix-wrap .thankbad { padding: 0 10px; }
+.post-action-fix-wrap .thankbad a { color: #333; }
+.post-action-fix-wrap .action-mog { padding: 0 7px; }
+
+.post-alter .post-action-fix { border-bottom: 1px solid #cacaca; }
+.post-alter .post-action-fix-wrap { margin-bottom: 0; }
+
+.f-box .f-header .title { font-size: 12px; }
+
+.f-box .f-post-info { border-color: #e0e0e0 #dbdbdb; border-style: solid; border-width: 1px; background-color: #f0f0f0; }
+.f-box .f-post-info .user-info td { vertical-align: top; }
+.f-post-info .user-count { width: 180px; vertical-align: top; padding: 17px 14px; font-size: 11px; color: #444; }
+.f-post-info .user-info .avatar { border: 1px solid #cacaca; padding: 1px; background-color: #fff; width: 100px; height: 100px; margin: 10px; }
+.f-post-info .user-info .solugan { font-weight: bold; color: #146e02; margin: 7px 0 0 0; }
+.f-post-info .user-info .fhuyhieu { font-size: 11px; color: #444; margin: 7px 0 0; }
+.f-post-info .user-info h5 { font-size: 16px; color: #105cb6; margin-top: 12px; }
+.f-post-info .userbtnbox { padding: 9px 0; }
+.f-post-info .userbtnbox .inputbutton img { margin-right: 5px; }
+.f-post-info .userbtnbox .memmgr { vertical-align: -7px; }
+
+.f-box .f-post { border-color: #e0e0e0 #cacaca; border-style: solid; border-width: 1px; }
+.f-box .f-post td { padding: 10px; }
+.signature { margin-top: 11px; }
+.lst-thank { border: 1px solid #e1e1e1; padding: 6px 9px; font-size: 11px; color: #333; margin-top: 10px; }
+.lst-thank a { font-weight: bold; color: #333; }
+.f-post-editinfo { font-size: 11px; font-style: italic; color: #999; margin: 10px 0 0 0; }
+
+.f-box .f-topic-action { border-color: #E0E0E0 #CACACA #456295; border-style: solid; border-width: 1px 1px 3px; }
+.f-box .f-topic-action td { background-color: #f0f3ef; color: #333; height: 27px; line-height: 27px; padding: 0 10px; }
+.f-box .f-topic-action td table { border-bottom: 1px solid #fff; }
+.f-box .f-topic-action td table table { border-bottom: none; }
+.f-box .f-topic-action a { color: #333; }
+.thankbad { font-size: 11px; font-family: Tahoma; }
+.thankbad img { vertical-align: -3px; margin-right: 5px; }
+
+.idpostposition { color: navy; font-family: tahoma; font-size: 10px; font-weight: 700; padding-right: 7px; }
+.nextprevtopic { padding: 13px 13px 3px 3px; }
+.nextprevtopic .spacer { padding: 0 8px; color: #808080; }
+.nextprevtopic a { font-size: 11px; color: #105cb6; }
+.nextprevtopic a:hover { color: #508cd3; }
+.mgrlnk { float: right; }
+div.mgrlnk-bottom { float: none; text-align: right; margin-bottom: 13px; }
+.mgrlnk .inewthread { vertical-align: -3px; margin-right: 3px; }
+.mgrlnk .ireply-mgr { vertical-align: middle; margin-right: 3px; }
+.mgrlnk .isticktopic { margin-right: 5px; vertical-align: -3px; }
+.mgrlnk .imgrtopic, .mgrlnk .ipaste { vertical-align: middle; }
+.mgrlnk a { font-size: 11px; color: #444; font-weight: bold; margin-left: 10px; }
+.f-box .modActive td { background-color: #FFFFBE; }
+.tdavatar { width: 126px; }
