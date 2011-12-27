@@ -1,0 +1,30 @@
+.block-ticker-box {width:100%}
+	.block-ticker-box h2 {border-bottom:none;position:relative}
+	#ticker-loading {position:absolute;right:4px;top:4px}
+	.block-ticker {background:#f2f2f2;border-bottom: 1px solid #C1C1C1;font-size:11px;padding-bottom:3px;position:relative;box-shadow:0 1px 0 #f1f1f1;-moz-box-shadow:0 1px 0 #f1f1f1;-moz-user-select:none;-webkit-user-select:none;}
+	.block-ticker .ticker-top {-moz-transition:all 0.3s ease;-webkit-transition:all 0.3s ease;cursor:pointer;background:#fff;border-top:1px solid #cfcfcf;border-bottom:1px solid #cfcfcf;height:12px;text-align:center;position:absolute;top:0;width:100%;z-index:10;-ms-filter:"alpha(opacity=0)";filter:alpha(opacity=0);-moz-opacity:0;-khtml-opacity:0;opacity:0;visibility:hidden;margin-top:-3px}
+		.block-ticker.active:hover .ticker-top {display:block;visibility:visible;margin-top:0;-ms-filter:"alpha(opacity=70)";filter:alpha(opacity=70);-moz-opacity: 0.7;-khtml-opacity: 0.7;opacity: 0.7}
+		.block-ticker.active:hover .ticker-top:hover {background:#fff;opacity:1;box-shadow:0 1px 2px #cfcfcf}
+		.block-ticker .ticker-top:active{background:#efefef}
+		.ticker-top .ticker-top-inner {border-top:1px solid #f1f1f1;padding-top:4px}
+		.ticker-top:hover .ticker-top-inner {border-top:none;padding-top:5px}
+
+		.ticker-content-box {background:#fff;border-bottom:1px solid #E5E5E5;height:360px;overflow:hidden;position:relative;z-index:1}
+			.ticker-content-box .ticker-content {position:absolute;left:0;top:0;padding:0;margin:0}
+				.ticker-content .lst-ticker {}
+					.lst-ticker li {border-top:1px solid #e0e0e0;padding:6px 8px;width:184px}
+					.lst-ticker li:hover,.lst-ticker li.new:hover {cursor:pointer;background:#f1f4fa}
+					.lst-ticker li.new {background:#fcffd8}
+						.ticker-content .ticker-data {margin-bottom:3px}
+						.ticker-content .ticker-time {color:#999}
+						.ticker-update {background:#fff;color:#888;line-height:28px;height:28px;text-align:center;opacity:0.8}
+						.ticker-update .loading {margin-left:4px;vertical-align:-4px}
+					.lst-ticker .c-left {*position:static}
+
+			/*Scrollbar */
+			.block-ticker .ticker-scrollbar{visibility:hidden;background:transparent;position:absolute;top:0;right:0;opacity:0;width:7px;z-index:10;-moz-transition:all 0.5s ease;-webkit-transition:all 0.5s ease}
+			.block-ticker.hover .ticker-scrollbar {opacity:0.2}
+			.block-ticker.active .ticker-scrollbar{visibility:visible;opacity:0.3}
+			.block-ticker .ticker-track {height:100%;width:100%;position:relative}
+			.block-ticker .ticker-thumb {background:#000;height:40px;width:100%;cursor:pointer;overflow:hidden;position:absolute;top:0;left:0;border-radius:3px;-moz-border-radius:3px}
+			.block-ticker .scroll-disable {display:none !important}

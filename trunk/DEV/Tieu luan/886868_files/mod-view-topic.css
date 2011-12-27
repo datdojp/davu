@@ -1,0 +1,65 @@
+.breadcrum { padding: 10px 2px; font-size: 11px; font-weight: bold; color: #333; }
+.breadcrum .iblue-folder { vertical-align: -3px; margin-right: 5px; }
+.breadcrum a { color: #105cb6; }
+.breadcrum .iarow-mini { margin: 0 6px 0 7px; vertical-align: 1px; }
+
+.online-info { background-color: #e7ebf7; border: 1px solid #abc9e7; padding: 11px 11px 10px 35px; position: relative; }
+.online-info .ico-online { position: absolute; top: 8px; left: 10px; }
+.online-info .count { color: #333; border-bottom: 1px solid #c8c8c8; padding-bottom: 6px; }
+.online-info .count span { font-weight: bold; color: #008000; }
+.online-info .user { font-size: 11px; padding-top: 8px; }
+.online-info .user a { color: #414141; line-height: 17px; }
+
+.go-fast { color: #333; padding: 15px 15px 9px 2px; }
+.go-fast .lbl-gofast {margin-right:10px;}
+.go-fast select { width: 235px; padding: 4px 3px; }
+
+.function-pager { padding-bottom: 5px; width: 170px; }
+.add-thread span { display: inline-block; height: 28px; line-height: 28px; margin-right:3px; padding: 0 20px; border: 1px solid #3b6e22; box-shadow: 0 1px 0 #c7ccd6; background-color: #67a54e; color: #fff; }
+.add-thread:hover span { background-color: #74ad5d; }
+.add-thread span .iplus-white { vertical-align: -2px; margin-right: 8px; }
+.rss-big img { vertical-align: middle; }
+
+.mod-user { background-color: #e7ebf7; border: 1px solid #b0cce8; color: #333; padding: 11px 10px; }
+.mod-user a { font-weight: bold; color: #333; }
+
+.f-box .thwrap { position: relative; }
+.f-box .box-searchtop { position: absolute; right: 0; top: 0; }
+.f-box .avatar { width: 50px; height: 50px; float: left; margin: 9px 10px 10px 0; }
+.f-box .f-list .title h3 { margin-top: 7px; margin-bottom: 5px; }
+.f-box .f-list .title h3 a { color: #004176; line-height: 18px; }
+.f-box .f-list .by { border-bottom: 1px solid #E0E0E0; border-left: 1px solid #cacaca; border-right: 1px solid #cacaca; font-size: 11px; color: #444; line-height: 16px; text-align: left; vertical-align: middle; width: 167px; padding: 7px 10px; }
+.f-box .byavatar { width: 32px; height: 32px; float: left; margin: 0 8px 5px 0; }
+
+.f-box .mgrlnk { display: block; margin-bottom: 10px; float:none; }
+.modActive { background-color: #FFFFBE; }
+
+.f-box .user-name { font-weight: bold; color: #444; }
+/*table.f-box .f-list .title { padding-bottom: 8px; }trùng*/
+table.f-box .f-list .title img { max-width: 450px; }
+.new-wrap { position: relative; }
+
+.f-header-soft { display: block; padding: 10px 0; text-align: center; }
+.f-header-soft .iarow-down { margin-right: 0; width: 11px; cursor:pointer; }
+.f-header-soft:hover { background-color: #bac9f6; border-radius: 3px 3px 3px 3px; }
+
+.f-sub-header { border-top: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0; border-left: 1px solid #cacaca; border-right: 1px solid #cacaca; }
+.f-sub-header td { background-color: #efefef; padding: 0 12px; height: 31px; line-height: 31px; font-family: 11px; font-weight: bold; color: #191970; }
+
+.t-des { font-size: 11px; color: #808080; margin-top: 3px; }
+.t-des .user-name { font-weight: bold; color: #333; }
+.t-des .paged-spacer { padding: 0 10px 0 13px; }
+.t-des .paged-post a { color: #808080; margin: 0 3px; }
+.t-des .paged-post a:hover { color: #fff; background-color: #ff0000; }
+
+.sub-mod { position: relative; }
+.sub-mod .sub-mod-list { background-color: #fff; border: 1px solid #103e56; display: none; margin: 0; padding: 0; position: absolute; right: -2px; top: 28px; width: 230px; text-align: left; }
+.sub-mod .sub-mod-list dt { background-color: #6699cc; color: #fff; font-weight: bold; padding-left: 5px; height: 27px; line-height: 27px; border-bottom: 1px solid #fff; }
+.sub-mod .sub-mod-list dd { margin: 0; padding-left: 15px; height: 25px; line-height: 25px; border-bottom: 1px solid #fff; cursor:pointer; color:#000; font-family: Verdana,Geneva,sans-serif; }
+.sub-mod .sub-mod-list dd:hover { background-color: #f1f3fa; }
+
+/*div#imod_menu { background-color: #fff; border: 1px solid #103e56; }
+div#imod_menu .thead { background-color: #6699cc; color: #fff; font-weight: bold; padding-left: 5px; border-bottom: 1px solid #fff; }
+div#imod_menu .vbmenu_option { background-color: #f1f3fa; margin: 0; padding-left: 15px; border-bottom: 1px solid #fff; }
+div#imod_menu .vbmenu_option:hover { background-color: #dee0e7; }
+td.vbmenu_hilite { background-color: #dee0e7; margin: 0; padding-left: 15px; border-bottom: 1px solid #fff; }*/

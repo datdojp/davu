@@ -1,0 +1,302 @@
+/* Default Style */
+.boldtext
+{
+	color: navy;
+	font-size: 10px;
+	font-weight: bold;
+	font-family: Verdana,Arial, Helvetica, Geneva, Swiss, SunSans-Regular;
+	text-align: center;
+}
+.boldtext a:link
+{
+	color: blue;
+	font-weight: bold;
+	font-size: 10px;
+	font-family: Verdana,Arial, Georgia, Times;
+	text-align: center;
+}
+.boldtext a:visited
+{
+	color: blue;
+	font-weight: bold;
+	font-size: 10px;
+	font-family: Verdana,Arial, Georgia, Times;
+	text-align: center;
+}
+.boldtext a:hover
+{
+	color: blue;
+	font-weight: bold;
+	font-size: 10px;
+	font-family: Verdana,Arial, Georgia, Times;
+	text-align: center;
+}
+
+a
+{
+	text-decoration: none;
+}
+hover
+{
+	text-decoration: underline;
+	color: Red;
+}
+
+/* Defined Style */
+.Forum_Table
+{
+	border-collapse: separate;
+	width: 100%;
+	background-color: #92abd0;
+}
+.Forum_TableQuickReply
+{
+	border-collapse: separate;
+	width: 60%;
+	background-color: #92abd0;
+}
+.Header_Table
+{
+	border-collapse: separate;
+	width: 100%;
+	border-color: #92abd0;
+}
+.Forum_Header
+{
+	background-color: #e7ebf7;
+	font-family: Arial;
+	font-size: 13px;
+	font-weight: bold;
+	color: Navy;
+}
+.Forum_Footer
+{
+	background-color: #e7ebf7;
+	font-family: Verdana;
+	font-size: 10px;
+	color: Navy;
+}
+.Forum_SortItem
+{
+	font-family: Verdana;
+	font-size: 10px;
+	color: Navy;
+}
+.Forum_Item
+{
+	background-color: #f5f5f5;
+}
+.Forum_ItemGray
+{
+	background-color: #dcdcdc;
+}
+.Forum_Special
+{
+	font-family: Arial;
+	font-size: 13px;
+	color: Navy;
+}
+.Forum_Count
+{
+	color: Navy;
+	font-family: Arial;
+	font-size: 13;
+	font-weight: bold;
+}
+.Forum_Author
+{
+	font-family: Arial;
+	font-size: 13px;
+	color: Blue;
+}
+.Forum_LastPost
+{
+	font-family: Arial;
+	font-size: 10px;
+	color: Navy;
+}
+.Forum_Link
+{
+	color: Blue;
+	font-family: Arial;
+	font-size: 13px;
+}
+.Forum_Link:hover
+{
+	color: Red;
+	font-family: Arial;
+	text-decoration: underline;
+	font-size: 13px;
+}
+.Forum_PageLink
+{
+	color: Blue;
+	font-family: Arial;
+	font-size: 10px;
+}
+.Forum_PageLink:hover
+{
+	color: Red;
+	font-family: Arial;
+	font-size: 10px;
+}
+.Paging
+{
+	color: Black;
+	font-family: Arial;
+	font-size: 13px;
+}
+.Paging_Link
+{
+	color: Blue;
+	font-family: Arial;
+	font-size: 13px;
+}
+.Forum_TopicNewsLink
+{
+	font-weight: bold;
+	font-size: 16px;
+	color: blue;
+	font-family: Arial;
+}
+.Forum_TopicNewsLink:hover
+{
+	color: Red;
+	font-weight: bold;
+	font-size: 16px;
+	font-family: Arial;
+	text-decoration: underline;
+}
+.Forum_TopicNewsDescription
+{
+	font-size: 16px;
+	color: black;
+	font-family: 'Times New Roman';
+}
+.SearchTerms
+{
+	background-color: yellow;
+}
+
+.cursor
+{
+	cursor: hand;
+}
+.spnSearchHighlight0
+{
+	background-color: #ffff66;
+}
+.spnSearchHighlight1
+{
+	background-color: #A0FFFF;
+}
+.spnSearchHighlight2
+{
+	background-color: #99ff99;
+}
+.spnSearchHighlight3
+{
+	background-color: #ff9999;
+}
+.spnSearchHighlight4
+{
+	background-color: #ff66ff;
+}
+
+a:link
+{
+	color: 0000FF;
+	text-decoration: none;
+}
+a:visited
+{
+	color: 0000AA;
+	text-decoration: none;
+}
+a:hover
+{
+	color: FF0000;
+	text-decoration: underline;
+}
+input.radio
+{
+	background: F5F5F5;
+	color: #000000;
+}
+.tdsmall
+{
+	font-size: 11px;
+	font-family: Arial;
+	font-color: #000099;
+}
+/*Heal the World*/
+
+/*--//Heal the world--*/
+.textbox_on
+{
+	border-right: #cccccc 1px solid;
+	border-top: #cccccc 1px solid;
+	font-size: 12px;
+	background: #e0e0ff;
+	border-left: #cccccc 1px solid;
+	border-bottom: #cccccc 1px solid;
+	font-family: Arial;
+}
+.textbox_off
+{
+	border-right: #c0c0c0 1px solid;
+	background-position: 0% 50%;
+	border-top: #c0c0c0 1px solid;
+	font-size: 12px;
+	background-attachment: scroll;
+	border-left: #c0c0c0 1px solid;
+	border-bottom: #c0c0c0 1px solid;
+	background-repeat: repeat;
+	font-family: Arial;
+	background-color: #efefff;
+}
+.tbflat
+{
+	font-size: 11px;
+	font-family: Arial;
+	border-width: 1;
+	border-style: solid;
+	border-color: #cccccc;
+}
+.tbflat1
+{
+	font-size: 11px;
+	font-family: Arial;
+	font-color: #6699cc;
+}
+.tbflat2
+{
+	font-size: xx-small;
+	font-family: Verdana;
+	border-width: 0;
+	border-color: #FFFFFF;
+}
+.tbflat3
+{
+	font-size: 11px;
+	font-family: Arial;
+	border-width: 1;
+	border-style: solid;
+	border-color: #215DC6;
+}
+.link1
+{
+	font-color: #FFFFFF;
+}
+.mainMenuLink
+{
+	font-size: 10px;
+	font-family: Arial;
+}
+.forum
+{
+	font-family: Arial;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 9pt;
+}

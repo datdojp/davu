@@ -1,0 +1,10 @@
+.adv-bottom { text-align: center; margin-bottom:20px; }
+.footer-fix { padding-top: 1px; border-top: 1px solid #ccc; margin-top:10px; }
+.footer-fix table td { vertical-align: middle; background-color: #efefef; }
+.f-content { padding: 13px 13px 20px 15px; }
+.f-content p { margin: 0; padding: 0; color: #888; line-height: 16px; }
+.f-nav { font-weight: bold; font-size: 12px; }
+.f-nav a { font-weight: bold; font-size: 12px; color: #105cb6; }
+.f-nav-spacer { color: #105cb6; padding: 0 7px; }
+.f-email a { color: #888; }
+.f-logo { text-align: right; padding: 15px 15px 25px 15px; }

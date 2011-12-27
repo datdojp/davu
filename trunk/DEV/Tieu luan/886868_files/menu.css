@@ -1,0 +1,110 @@
+.menulist{
+	font-family: Tahoma, Arial;
+	list-style: none;
+	font-size: 11px;
+	margin: 0;
+	padding: 0;
+	width:100%;
+	height:33px;
+}
+.per_button{
+	background:url(../../images/muare/menu/bg_line.gif) no-repeat left 0;
+}
+#no_bg{
+	background:none;
+}
+.per_button,.per_button_hover{
+	position:relative;
+	float:left;
+}
+
+.per_button a,.per_button_hover a {
+	display: block;
+	height:33px;
+	line-height:33px;
+	padding: 0 0 0 30px;
+	color: #FFF;
+	text-decoration: none;
+	overflow:hidden;
+	font-weight: bold;
+	
+}
+
+
+.menu_home,.menu_home:link,.menu_home:visited{
+		background:url(../../images/muare/menu/home.jpg) no-repeat 10px 0;
+		width:51px;
+		
+}
+.menu_search,.menu_search:link,.menu_search:visited{
+		background:url(../../images/muare/menu/search.jpg) no-repeat 10px 0;
+		width:64px;
+}
+.menu_forum,.menu_forum:link,.menu_forum:visited{
+		background:url(../../images/muare/menu/forum.jpg) no-repeat 10px 0;
+		width:60px;
+}
+.menu_user,.menu_user:link,.menu_user:visited{
+		background:url(../../images/muare/menu/account.jpg) no-repeat 10px 0;
+		width:90px;
+}
+.menu_faq,.menu_faq:link,.menu_faq:visited{
+		background:url(../../images/muare/menu/faq.jpg) no-repeat 10px 0;
+		width:70px;
+}
+.menu_help,.menu_help:link,.menu_help:visited{
+		background:url(../../images/muare/menu/help.jpg) no-repeat 10px 0;
+		width:60px;
+}
+.per_button a:hover,
+.per_button a.highlighted:hover,
+.per_button a:focus 
+.per_button_hover a,
+.per_button_hover a:link,
+.per_button_hover a:visited
+{
+	color: #FFF;
+	background-color: #005a9c;
+	background-position:10px -33px;
+	text-decoration:none;
+}
+.per_button .sub_menu, .per_button_hover .sub_menu{
+	position:absolute;
+	padding:10px;
+	display:none;
+	background-color:#005a9c;
+	
+}
+#diendan{width:165px}
+#canhan{width:185px}
+#muare{width:150px}
+
+.per_button .sub_menu a,.per_button .sub_menu a:link,.per_button .sub_menu a:visited,.per_button_hover .sub_menu a,.per_button_hover .sub_menu a:link,.per_button_hover .sub_menu a:visited {
+	display: block;
+	height:23px;
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:11px;
+	padding:0 0 0 20px;
+	background:url(../../images/muare/menu/sub_arr.gif) no-repeat 5px 0;
+	line-height:23px;
+	color: #FFF;
+	text-decoration: none;
+	font-weight: bold;
+}
+.per_button .sub_menu a:hover,
+.per_button .sub_menu a.highlighted:hover,
+.per_button .sub_menu a:focus ,
+.per_button_hover .sub_menu a:hover,
+.per_button_hover .sub_menu a.highlighted:hover,
+.per_button_hover .sub_menu a:focus
+{
+	color: #FFF;
+	background-position:5px -23px;
+	background-color: #ff5f00;
+	
+}
+
+.menu_game, .menu_game:link, .menu_game:visited {
+    background: url("../../images/muare/menu/game.gif") no-repeat scroll 10px 0 transparent;
+    width: 70px;
+}

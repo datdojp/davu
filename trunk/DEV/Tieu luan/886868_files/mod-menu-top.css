@@ -1,0 +1,96 @@
+.navtop {background:#6699cc;border-bottom:2px solid #006699;height:31px;position:relative;z-index:10}
+.navtop-inner {padding:0 10px;position:relative}
+.navtop.fixed {position:fixed;top:-1px;left:0;z-index:999;width:100%;padding:0}
+/*Top menu*/
+	.lst-menutop {display:block;font-size:11px;float:left}
+        .lst-menutop > li {float:left;position:relative;}
+        .lst-menutop a.parentlink {color:#fff;display:block;float:left;font-weight:bold;height:31px;line-height:31px;padding:0 10px;text-decoration:none}
+            .lst-menutop li:hover a.parentlink {background:#005A9C}
+        .lst-menutop a .ico {margin-right:4px;vertical-align:-2px}
+        .lst-menutop a .iforum {vertical-align:-4px}
+        .lst-menutop a .isohagame,.lst-menutop a .iwarning {vertical-align:-3px}
+            .lst-menutop-child {display:none;background:#005A9C;position:absolute;top:31px;left:0;padding:5px 10px}
+            .lst-menutop li:hover .lst-menutop-child {display:block}
+            .lst-menutop-child li.line {border-bottom:1px solid #004A81;font-size:0;line-height:0;padding-top:4px;margin-bottom:4px}
+            .lst-menutop-child a {color:#fff;display:block;font-weight:bold;position:relative;padding:4px 10px 4px 18px;white-space:nowrap;text-decoration:none}
+            .lst-menutop-child a:hover {background:#FF5F00}
+                .lst-menutop-child .iarrow-left-whiteblue {position:absolute;top:8px;left:6px}
+			/*menu game*/
+			.lst-game {background:url(http://f319.com/images/f319/menu/f319-bg-soha-menu.png) 0 100% no-repeat #005A9C;padding:0 0 21px 0}
+			.lst-game li {border-top:1px solid #004A81;min-width:164px;max-width:234px}
+			.lst-game li.first {border-top:none}
+			.lst-game a {padding:5px 10px 5px 10px;position:relative}
+			.lst-game .favGame {margin-right:3px;vertical-align:-4px}
+			.lst-game .iconNew {position:absolute;top:8px;right:5px}
+/*Search*/
+    .box-searchtop {padding-left:15px;margin-top:3px;float:left;position:relative}
+        .box-searchtop .txt-search {color:#777;border:1px solid #294a8f;font-size:11px;font-family:Tahoma;height:22px;width:217px;padding-right:27px;padding-left:3px}
+            .box-searchtop .txt-search:focus {color:#333}
+        .box-searchtop .grp-isearch {border-left:1px solid #ddd;display:block;position:absolute;height:16px;padding-left:5px;position:absolute;top:5px;right:5px}
+            .grp-isearch .isearch {margin-top:3px}
+/*person menu*/
+	.navtop .menuperson-box {position:absolute;right:6px;top:0}
+		.lst-menuperson > li {float:left;position:relative;}
+		.lst-menuperson > li.space{border-left:1px solid #134679;border-right:1px solid #99c5f7;height:11px;margin:0 8px;margin-top:11px}
+			.menuperson-box a {text-decoration:none}
+			.menuperson-box .menu-item{cursor:pointer;color:#fff;display:block;font-weight:bold;line-height:31px;height:31px;padding: 0 6px}
+				.menu-item .ico {vertical-align:-4px}
+				.menu-item .iarrow-square-blue {vertical-align:-3px}
+
+		.lst-menuperson .mnuser-setting{position:relative}
+			.mnuser-setting:hover .menu-item,.mnuser-setting.active .menu-item {color:#008004;background:#fff;border:1px solid #134679;border-bottom:none;height:22px;line-height:17px;margin-top:6px;padding: 0 5px;position:relative;z-index:2}
+				.mnuser-setting .user-setting-box {display:none;background:#fff;border:1px solid #134679;overflow:hidden;position:absolute;top:28px;left:0;width:244px;z-index:1}
+				.lst-login .user-setting-box{left:auto;right:0}
+				.mnuser-setting:hover .user-setting-box {display:block}
+					.user-setting-box .user-setting-head {border-bottom:1px solid #dbdbdb;padding:5px 5px 8px 60px}
+						.user-setting-head > .c-left {padding-top:3px}
+						.user-setting-head .user-setting-name {color:#000;font-size:18px;line-height:100%;margin-bottom:3px}
+						.user-setting-head .user-setting-desc {color:#808080;font-style:italic;margin-bottom:4px}
+						.user-setting-head .user-pagelink-grp a {color:#256091;font-size:11px;font-weight:bold}
+					.user-setting-box .user-settinglink-box {padding:5px;white-space:nowrap;font-size:11px}
+						.user-settinglink-box .lst-settinglink-box {}
+							.lst-settinglink-box li {float:left}
+								.lst-settinglink-box a {color:#0000ff;display:block;padding:0 5px;width:105px;height:22px;line-height:22px}
+								.lst-settinglink-box a:hover {color:#fff;background:#6699cc}
+					.user-setting-box .setting-connect-box{background:#f0f0f0;border-top:1px solid #dbdbdb;height:36px;line-height:36px;padding:0 10px}
+						.setting-connect-box .ico {vertical-align:-2px;margin-right:3px}
+			.menu-item.radius{background:#e0ebf5;border:1px solid #0d6e9e;height:18px;margin-top:6px;line-height:18px;padding:0;width:26px;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;text-align:center}
+				.radius:hover,li.active .radius {background:#f8fbfe;border-color:#0e86c2}
+				.radius .iletter-blue {margin-top:4px}
+				.radius .iannounce,.radius .igame {margin-top:1px}
+
+/*lst-login*/
+.lst-login .user-setting-box {padding:10px}
+	.lst-login .mnuser-setting:hover .menu-item {color:#fff;background:transparent;line-height:31px;height:31px;padding: 0 6px;border:none;margin-top:0}
+	.lst-login .mnuser-setting:hover .user-setting-box {display:none}
+	.lst-login .mnuser-setting.active .user-setting-box {display:block}
+
+
+/*lst-menu-pop*/
+.menu-pop-box {display:none;background:#fff;border:1px solid #01324b;position:absolute;width:314px;top:28px;right:0}
+li.active .menu-pop-box {display:block}
+	.menu-pop-box .lst-menu-pop {font-size:11px;height:350px;overflow-y:auto}
+		.lst-menu-pop li {border-top:1px solid #e0e3e3;display:block;padding:8px 7px}
+		.lst-menu-pop li.new {background:#fffdda}
+		.lst-menu-pop .c-left > .c-data {padding-left:8px}
+		.lst-menu-pop .pop-content-head {color:#808080;margin-bottom:3px}
+		.lst-menu-pop .pop-content-bottom {color:#999}
+	.menu-pop-box .menu-pop-read-more {border-top:1px solid #dbdbdb;border-bottom:1px solid #dbdbdb}
+			.menu-pop-read-more .read-more-grp {color:#006699;font-size:11px;margin:1px 0;background:#e7ebf7;height:33px;line-height:33px;padding:0 7px}
+			.pop-btn-viewall .ico {margin-right:6px}
+		.menu-pop-read-more a {color:#006699}
+
+	.menu-pop-box .lst-page-notify {font-size:11px;height:350px;overflow-y:auto}
+		.menu-pop-box .lst-page-notify li {border-top:1px solid #e0e3e3;display:block;padding:8px 7px}
+		.menu-pop-box .lst-page-notify li.new {background:#fffdda}
+		.menu-pop-box .lst-page-notify .c-left > .c-data {padding-left:8px}
+		.menu-pop-box .lst-page-notify .pop-content-head {color:#808080;margin-bottom:3px}
+		.menu-pop-box .lst-page-notify .pop-content-bottom {color:#999}
+	.menu-pop-box .menu-pop-read-more {border-top:1px solid #dbdbdb;border-bottom:1px solid #dbdbdb}
+			.menu-pop-read-more .read-more-grp {color:#006699;font-size:11px;margin:1px 0;background:#e7ebf7;height:33px;line-height:33px;padding:0 7px}
+			.pop-btn-viewall .ico {margin-right:6px}
+		.menu-pop-read-more a {color:#006699}
+	.menu-pop-box .lst-page-notify .c-borpad .c-thumb {width:32px;}
+	.menu-pop-box .lst-page-notify .cw50.c-borpad {padding-left: 36px;color:#808080;}
+	.menu-pop-box .lst-page-notify .cw50.c-borpad > .c-left {margin-left: -36px;width: 36px;}
+	.menu-pop-box .lst-page-notify .first {background-color:#FFFDDA;}
