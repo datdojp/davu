@@ -78,7 +78,10 @@
 													<f:convertDateTime pattern="yyyy.MM.dd HH:mm:ss"/>
 												</h:outputText>
 											)</i>
-											
+											<h:commandLink value="Delete" rendered="#{userProfileBean.loggedIn and userProfileBean.profile.admin}">
+												<f:param name="commentId" value="#{aComment.id}"/>
+												<f:ajax event="click" execute="@form" render="@form" listener="#{featuredClipsBean.deleteComment}"/>
+											</h:commandLink>
 										</span>
 										<br/>
 										<span class="comment-content">
@@ -113,6 +116,7 @@
 						<h:commandButton style="display:none" styleClass="refreshComments">
 							<f:ajax event="click" render=":featuredClips_comments:allComments" listener="#{featuredClipsBean.refreshComments}"/>
 						</h:commandButton>
+						<client:messages formId="featuredClips_comments"/>
 					</h:form>
 				</td>
 			</tr>

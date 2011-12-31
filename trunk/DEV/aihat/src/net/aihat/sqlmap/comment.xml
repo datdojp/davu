@@ -3,6 +3,7 @@
 <sqlMap namespace="comment">
 	<select id="searchCommentOfClip" parameterClass="net.aihat.criteria.ClipCommentSearchCriteria" resultClass="net.aihat.dto.ClipCommentDto">
 		SELECT
+			ucc.id as id,
 			ucc.user_id as `user.id`,
 			u.name as `user.name`,
 			ucc.clip_id as `clip.id`,

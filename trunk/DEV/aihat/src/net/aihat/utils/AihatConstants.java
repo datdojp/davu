@@ -34,4 +34,7 @@ public class AihatConstants {
 		SDF_YYYYMMDD.setLenient(false);
 		SDF_YYYYMMDD_HHMMSS_SSS.setLenient(false);
 	}
+	
+	//encrypt password
+	public static final String ENCRYPT_PASSWORD = "i34yiuhfjkhair2347rhjkfhairy4iyhrjkasdhf834758yh";
 }
