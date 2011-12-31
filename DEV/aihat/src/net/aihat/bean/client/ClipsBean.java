@@ -53,7 +53,7 @@ public class ClipsBean extends MultiTabPagingBean {
 	 */
 	public synchronized String init() {
 		super.init();
-//		reselectCurrentTab();TODO
+//		reselectCurrentTab();//TODO
 		return null;
 	}
 	

@@ -1,21 +1,18 @@
 package net.aihat.bean.client;
 
 import java.util.ArrayList;
-import net.aihat.service.ConfigurationService;
-import java.util.Date;
 import java.util.List;
-
 import javax.faces.event.AjaxBehaviorEvent;
-
 import net.aihat.dto.ClipCommentDto;
 import net.aihat.dto.ClipDto;
 import net.aihat.dto.FeaturedClipDto;
 import net.aihat.dto.UserDto;
+import net.aihat.service.ConfigurationService;
 import net.aihat.utils.AihatUtils;
 import net.aihat.utils.BeanUtils;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import net.aihat.dto.PlaylistDto;
 
 public class FeaturedClipsBean extends BaseClientBean {
 	private static final String PERMANENT_LINK_PARAM_CLIPID = "perlink_clipid";
@@ -54,10 +51,30 @@ public class FeaturedClipsBean extends BaseClientBean {
 	public synchronized void syncPlaybackPos(AjaxBehaviorEvent e) {
 	}
 	
+	private String getPageTitleForClips(List<ClipDto> clips) {
+		StringBuilder result = new StringBuilder();
+		if(!AihatUtils.isEmpty(clips)) {
+			result.append(clips.get(0).getTitle());
+			if(clips.size() >= 2) {
+				result.append(" | ").append(clips.get(1).getTitle());
+			}
+			if(clips.size() >= 3) {
+				result.append(" | ").append(clips.get(2).getTitle());
+			}
+			if(clips.size() >= 4) {
+				result.append("...");
+			}
+		}
+		return result.toString();
+	}
+	
 	public List<ClipDto> getFeaturedClips() {
 		String strClipIds = BeanUtils.getRequest().getParameter(PARAM_CLIPIDS);
 		String strPermClipId = BeanUtils.getRequest().getParameter(PERMANENT_LINK_PARAM_CLIPID);
 		String strPermPlaylistId = BeanUtils.getRequest().getParameter(PERMANENT_LINK_PARAM_PLAYLISTID);
+		
+		ZentaiBean zentaiBean = (ZentaiBean) BeanUtils.getContextBean("zentaiBean");
+		
 		if(!AihatUtils.isEmpty(strClipIds)) {
 			String[] splitted = strClipIds.split(",");
 			List<Integer> clipIds = new ArrayList<Integer>();
@@ -66,17 +83,31 @@ public class FeaturedClipsBean extends BaseClientBean {
 			}
 			featuredClips = getClipService().getClips(clipIds);
 			addClipView(featuredClips);
+			
+			//set the page title
+			zentaiBean.setPageTitle(getPageTitleForClips(featuredClips));
 		} else if(!AihatUtils.isEmpty(strPermClipId)) {
 			Integer clipId = Integer.parseInt(strPermClipId);
 			ClipDto clipDto = getClipService().getClip(clipId);
 			featuredClips = new ArrayList<ClipDto>();
 			featuredClips.add(clipDto);
 			addClipView(clipDto);
+			
+			//set the page title
+			if(clipDto != null) {
+				zentaiBean.setPageTitle(clipDto.getTitle());
+			}
 		} else if(!AihatUtils.isEmpty(strPermPlaylistId)) {
 			Integer playlistId = Integer.parseInt(strPermPlaylistId);
 			featuredClips = getSearchService().searchClips(null, null, null, null, null, playlistId, null, 
 					BeanUtils.getLogginUserId(), null, null, null, null, false, null, null,null,false).getResults();
 			addClipView(featuredClips);
+			
+			//set the page title
+			PlaylistDto playlist = getPlaylistService().getPlaylist(playlistId);
+			if(playlist != null) {
+				zentaiBean.setPageTitle(playlist.getName());
+			}
 		} else {
 			if(AihatUtils.isEmpty(featuredClips)) {
 				List<FeaturedClipDto> fcs = getFeaturedClipService().getAllFeaturedClips();
@@ -90,6 +121,9 @@ public class FeaturedClipsBean extends BaseClientBean {
 					//DEFAULT
 					featuredClips = getClipService().getFeaturedClips(ConfigurationService.getnFeaturedClips());
 				}
+				
+				//set the page title
+				zentaiBean.setPageTitle(BeanUtils.getBundleMsg("aihat_title"));
 			}
 		}
 		
@@ -257,6 +291,10 @@ public class FeaturedClipsBean extends BaseClientBean {
 //	private Date latestCommentUpdatedAt;
 	private String commentContent;
 	public synchronized void addComment(AjaxBehaviorEvent event) {
+		if(commentContent == null || AihatUtils.isEmpty(commentContent.trim())) {
+			addErrorMessage(BeanUtils.getBundleMsg("error_empty_comment"));
+			return;
+		}
 		Integer userId;
 		if(BeanUtils.getUserProfileBean().getLoggedIn()) {
 			userId = BeanUtils.getLogginUserId();
@@ -267,6 +305,13 @@ public class FeaturedClipsBean extends BaseClientBean {
 		currentClipComments.add(0, clipComment);
 		commentContent = "";
 	}
+	public synchronized void deleteComment(AjaxBehaviorEvent event) {
+		int commentId = Integer.parseInt(BeanUtils.getRequest().getParameter("commentId"));
+		getClipCommentService().deleteComment(commentId);
+		ClipCommentDto comment = (ClipCommentDto) AihatUtils.getDtoFromList(commentId, currentClipComments);
+		currentClipComments.remove(comment);
+	}
+	
 	private synchronized void loadComments() {
 		currentClipComments = getClipCommentService().getAllCommentOfClip(currentClipId);
 		//TODO improve smart-comment-pole

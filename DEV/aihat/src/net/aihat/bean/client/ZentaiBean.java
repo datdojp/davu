@@ -27,6 +27,19 @@ public class ZentaiBean extends BaseClientBean {
 		return null;
 	}
 	
+	//page title
+	private String pageTitle;
+	public String getPageTitle() {
+		String result = "Aihat.vn";
+		if(!AihatUtils.isEmpty(pageTitle)) {
+			result += " - " + pageTitle;
+		}
+		return result;
+	}
+	public void setPageTitle(String pageTitle) {
+		this.pageTitle = pageTitle;
+	}
+	
 	//current pagename, used for synchronous loading
 	private String pageName;
 	public String getPageName() {
@@ -380,5 +393,4 @@ public class ZentaiBean extends BaseClientBean {
 	public void setNewPlaylistDescription(String newPlaylistDescription) {
 		this.newPlaylistDescription = newPlaylistDescription;
 	}
-	
 }

@@ -52,6 +52,11 @@ public class HomepageBean extends BaseClientBean {
 		return results;
 	}
 
+	public String getReloadCurrentTab() {
+		getHomepageTabService().loadHomepageTabContent(currentTab);
+		return "";
+	}
+	
 	public String getBeanName() {
 		return "homepageBean";
 	}
