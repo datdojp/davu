@@ -26,4 +26,6 @@ public interface ClipDao {
 	public void addLiked(ClipDto clip, UserDto user) throws DataAccessException;
 	public void deleteUserLikeClip(ClipDto clip, UserDto user) throws DataAccessException;
 	public boolean checkLiked(ClipDto clip, UserDto user) throws DataAccessException;
+	public List<ClipDto> getAllClipsInDB() throws DataAccessException;
+	public void updateTitle(ClipDto dto) throws DataAccessException;
 }

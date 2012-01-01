@@ -3,6 +3,10 @@ package net.aihat.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import net.aihat.utils.AihatConstants;
+
+import org.jasypt.util.text.BasicTextEncryptor;
+
 public abstract class BaseDto implements Serializable, Cloneable {
 	private Integer id;
 	private Date createdTime;

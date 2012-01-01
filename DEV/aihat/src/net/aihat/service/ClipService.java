@@ -18,4 +18,7 @@ public interface ClipService {
 	public void addLiked(Integer clipId, Integer userId) throws DataAccessException;
 	public void removeLiked(Integer clipId, Integer userId) throws DataAccessException;
 	public List<ClipDto> getRelatedClips(int clipId, int nClips, Integer logginedUserId) throws DataAccessException;
+	
+	public List<ClipDto> getAllClipsInDB() throws DataAccessException;
+	public void updateTitleOfClips(List<ClipDto> clips) throws DataAccessException;
 }

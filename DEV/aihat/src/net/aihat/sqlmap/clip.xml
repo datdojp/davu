@@ -311,4 +311,12 @@
 			ulc.user_id = #user.id# AND
 			ulc.clip_id = #clip.id#
 	</select>
+	<select id="getAllClipInDB" resultClass="net.aihat.dto.ClipDto">
+		SELECT id, title FROM clip
+	</select>
+	<update id="updateClipTitle" parameterClass="net.aihat.dto.ClipDto">
+		UPDATE clip
+		SET title = #title#
+		WHERE id = #id#
+	</update>
 </sqlMap>

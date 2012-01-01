@@ -16,10 +16,39 @@ import net.aihat.utils.AihatUtils;
 import org.springframework.dao.DataAccessException;
 
 public class ClipDaoImpl extends BaseDao implements ClipDao {
+	private static final int ACTION_ENCRYPT = 0;
+	private static final int ACTION_DECRYPT = 1;
+	private List<ClipDto> crypt(List<ClipDto> clips, int action) {
+		if(AihatUtils.isEmpty(clips)) {
+			return clips;
+		}
+		for(ClipDto aClip : clips) {
+			if(action == ACTION_ENCRYPT) {
+				aClip.setTitle(AihatUtils.encryptText(aClip.getTitle()));
+			} else if(action  == ACTION_DECRYPT) {
+				aClip.setTitle(AihatUtils.decryptText(aClip.getTitle()));
+			}
+		}
+		return clips;
+	}
+	private ClipDto crypt(ClipDto clip, int action) {
+		if(clip == null) {
+			return clip;
+		}
+		if(action == ACTION_ENCRYPT) {
+			clip.setTitle(AihatUtils.encryptText(clip.getTitle()));
+		} else if(action  == ACTION_DECRYPT) {
+			clip.setTitle(AihatUtils.decryptText(clip.getTitle()));
+		}
+		
+		return clip;
+	}
+	
+	
 	public List<ClipDto> getMostLiked(int nClips) throws DataAccessException {
-		List<ClipDto> result = getSqlMapClientTemplate().queryForList("getMostLikedClips", nClips);
-		loadRelatedDto(result);
-		return result;
+		List<ClipDto> results = getSqlMapClientTemplate().queryForList("getMostLikedClips", nClips);
+		loadRelatedDto(results);
+		return crypt(results, ACTION_DECRYPT);
 	}
 
 	public SearchResultDto search(ClipSearchCriteria criteria) throws DataAccessException {
@@ -41,22 +70,23 @@ public class ClipDaoImpl extends BaseDao implements ClipDao {
 		} else {
 			List<ClipDto> results = getSqlMapClientTemplate().queryForList("searchClip", param);
 			loadRelatedDto(results);
-			return new SearchResultDto(results);
+			return new SearchResultDto(crypt(results, ACTION_DECRYPT));
 		}
 	}
 
 	public ClipDto get(Integer id) throws DataAccessException {
 		ClipDto result = (ClipDto) getSqlMapClientTemplate().queryForObject("getClip", id);
 		loadRelatedDto(result);
-		return result;
+		return crypt(result, ACTION_DECRYPT);
 	}
 
 	public ClipDto insert(ClipDto dto) throws DataAccessException {
 		dto.setTitle(dto.getTitle().trim());
 		dto.setTitleSearch(getSearchableString(dto.getTitle()));
+		crypt(dto, ACTION_ENCRYPT);
 		getSqlMapClientTemplate().insert("insertClip", dto);
 		dto.setId(getLastInsertId());
-		return dto;
+		return crypt(dto, ACTION_DECRYPT);
 	}
 
 	public void updateDeleted(List<Integer> ids) throws DataAccessException {
@@ -68,7 +98,9 @@ public class ClipDaoImpl extends BaseDao implements ClipDao {
 
 	public void update(ClipDto dto)  throws DataAccessException{
 		dto.setTitleSearch(getSearchableString(dto.getTitle()));
+		crypt(dto, ACTION_ENCRYPT);
 		getSqlMapClientTemplate().update("updateClip", dto);
+		crypt(dto, ACTION_DECRYPT);
 	}
 
 	public void insertClipSinger(Integer clipId, Integer singerId, Integer order) throws DataAccessException {
@@ -155,5 +187,12 @@ public class ClipDaoImpl extends BaseDao implements ClipDao {
 		params.put("clip", clip);
 		params.put("user", user);
 		getSqlMapClientTemplate().delete("deleteUserLikeClip", params);
+	}
+
+	public List<ClipDto> getAllClipsInDB() throws DataAccessException {
+		return getSqlMapClientTemplate().queryForList("getAllClipInDB");
+	}
+	public void updateTitle(ClipDto dto) throws DataAccessException {
+		getSqlMapClientTemplate().update("updateClipTitle", dto);
 	}
 }

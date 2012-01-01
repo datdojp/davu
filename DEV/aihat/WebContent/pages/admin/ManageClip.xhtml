@@ -73,6 +73,8 @@
 		<h:form>
 			<input type="button" onclick="location.href='#{config.server}/pages/admin/UploadClip.jsf'" value="Upload"/>
 			<h:commandButton value="Delete" action="#{manageClipBean.delete}" onclick="return confirm('Do you really want to delete?');"/>
+			<h:commandButton value="Encrypt" action="#{manageClipBean.encryptDb}" rendered="#{false}"></h:commandButton>
+			<h:commandButton value="Decrypt" action="#{manageClipBean.decryptDb}" rendered="#{false}"></h:commandButton>
 			<a href="javascript:void()" onclick="changeCheckBoxStt('selectClipCheckBox', 'checked')">Select all</a>
 			<a href="javascript:void()" onclick="changeCheckBoxStt('selectClipCheckBox', '')">Deselect all</a>
 			<br></br>

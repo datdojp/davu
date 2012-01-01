@@ -69,19 +69,23 @@ public class ClipDto extends BaseUserCareDto {
 		return result;
 	}
 	
-	//getters, setters
+	
 	public String getTitle() {
+//		return AihatUtils.decryptText(title);
 		return title;
 	}
 	public String getTitleEscapeDoubleQuote() {
 		if(AihatUtils.isEmpty(title)) {
-			return title;
+			return getTitle();
 		}
-		return title.replace("\"", "\\\"");
+		return getTitle().replace("\"", "\\\"");
 	}
 	public void setTitle(String title) {
+//		this.title = AihatUtils.encryptText(title);
 		this.title = title;
 	}
+	
+	//getters, setters
 	public String getTitleSearch() {
 		return titleSearch;
 	}
