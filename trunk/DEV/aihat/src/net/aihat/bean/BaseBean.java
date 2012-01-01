@@ -3,26 +3,13 @@ package net.aihat.bean;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import net.aihat.message.AihatMessage;
-import net.aihat.utils.AihatConstants;
 import net.aihat.utils.AihatUtils;
 import net.aihat.utils.BeanUtils;
+
 import org.apache.log4j.Logger;
-import org.jasypt.util.text.BasicTextEncryptor;
 public abstract class BaseBean implements Serializable {
-	//encryptor
-	protected static BasicTextEncryptor textEncryptor;
-	static {
-		textEncryptor = new BasicTextEncryptor();
-		textEncryptor.setPassword(AihatConstants.ENCRYPT_PASSWORD);
-	}
-	protected String encryptText(String source) {
-		return textEncryptor.encrypt(source);
-	}
-	protected String decryptText(String decrypted) {
-		return textEncryptor.decrypt(decrypted);
-	}
-	
 	protected Logger logger;
 	protected Logger getLogger() {
 		return logger;

@@ -10,6 +10,7 @@ import net.aihat.dto.SingerDto;
 import net.aihat.dto.UserDto;
 
 import org.jasypt.digest.PooledStringDigester;
+import org.jasypt.util.text.BasicTextEncryptor;
 
 public class AihatUtils {
 	
@@ -171,4 +172,38 @@ public class AihatUtils {
 		String result = keyword.trim();
 		return result.substring(1, result.length()-1);
 	}
+	
+	//encryptor
+	protected static BasicTextEncryptor textEncryptor;
+	static {
+		textEncryptor = new BasicTextEncryptor();
+		textEncryptor.setPassword(AihatConstants.ENCRYPT_PASSWORD);
+	}
+	public static String encryptText(String source) {
+//		if(source == null || isEmpty(source.trim())) {
+//			return ENCRYPTED_MARKER;
+//		}
+//		if(isEncrypted(source)) {
+//			return source;
+//		}
+//		return ENCRYPTED_MARKER + textEncryptor.encrypt(source);
+		return textEncryptor.encrypt(source);
+	}
+	public static String decryptText(String encrypted) {
+//		if(encrypted == null || isEmpty(encrypted.trim())) {
+//			return "";
+//		}
+//		if(!isEncrypted(encrypted)) {
+//			return encrypted;
+//		}
+//		return textEncryptor.decrypt(encrypted.replaceAll(ENCRYPTED_MARKER, ""));
+		return textEncryptor.decrypt(encrypted);
+	}
+//	private static final String ENCRYPTED_MARKER = "_Trang_";
+//	private static boolean isEncrypted(String text) {
+//		if(text == null || isEmpty(text.trim())) {
+//			return false;
+//		}
+//		return text.indexOf(ENCRYPTED_MARKER) == 0;
+//	}
 }

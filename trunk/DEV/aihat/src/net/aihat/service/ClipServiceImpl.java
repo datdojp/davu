@@ -156,6 +156,21 @@ public class ClipServiceImpl extends BaseService implements ClipService {
 		return results;
 	}
 
+	@Transactional(rollbackFor=DataAccessException.class)
+	public List<ClipDto> getAllClipsInDB() throws DataAccessException {
+		return getClipDao().getAllClipsInDB();
+	}
+
+	@Transactional(rollbackFor=DataAccessException.class)
+	public void updateTitleOfClips(List<ClipDto> clips) throws DataAccessException {
+		if(!AihatUtils.isEmpty(clips)) {
+			for(ClipDto aClip : clips) {
+				getClipDao().updateTitle(aClip);
+			}
+		}
+		
+	}
+	
 	public SearchService getSearchService() {
 		return searchService;
 	}
@@ -163,4 +178,6 @@ public class ClipServiceImpl extends BaseService implements ClipService {
 	public void setSearchService(SearchService searchService) {
 		this.searchService = searchService;
 	}
+
+	
 }

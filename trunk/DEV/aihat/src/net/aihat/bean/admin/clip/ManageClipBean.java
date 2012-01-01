@@ -113,6 +113,30 @@ public class ManageClipBean extends DataTableCareBaseBean {
 		return null;
 	}
 	
+//	public synchronized String encryptDb() {
+//		List<ClipDto> allClipsInDB = getClipService().getAllClipsInDB();
+//		if(!AihatUtils.isEmpty(allClipsInDB)) {
+//			for(ClipDto aClip : allClipsInDB) {
+//				aClip.setTitle(AihatUtils.encryptText(aClip.getTitle()));
+//			}
+//		}
+//		getClipService().updateTitleOfClips(allClipsInDB);
+//		this.addInfoMessage("Encrypt successed.");
+//		return null;
+//	}
+//	
+//	public synchronized String decryptDb() {
+//		List<ClipDto> allClipsInDB = getClipService().getAllClipsInDB();
+//		if(!AihatUtils.isEmpty(allClipsInDB)) {
+//			for(ClipDto aClip : allClipsInDB) {
+//				aClip.setTitle(AihatUtils.decryptText(aClip.getTitle()));
+//			}
+//		}
+//		getClipService().updateTitleOfClips(allClipsInDB);
+//		this.addInfoMessage("Decrypt successed.");
+//		return null;
+//	}
+	
 	//getter setter
 	public void setTitleCriterion(String title) {
 		this.titleCriterion = title;
