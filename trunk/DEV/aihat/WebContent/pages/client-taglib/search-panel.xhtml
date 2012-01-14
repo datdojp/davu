@@ -23,7 +23,7 @@
 							<client:button>
 								<ui:define name="button-body">
 									<h:commandButton value="#{msg.CU0048}" styleClass="searchBtn" onclick="slideToClips()">
-										<f:ajax event="click" execute="@form" render=":clips :featuredClips_search" listener="#{clipsBean.search}" />
+										<f:ajax event="click" execute="@form" render=":clips" listener="#{clipsBean.search}" />
 									</h:commandButton>
 								</ui:define>
 							</client:button>
@@ -33,7 +33,7 @@
 								<client:button>
 									<ui:define name="button-body">
 										<h:commandButton value="#{msg.remove_search}" onclick="slideToClips()">
-											<f:ajax event="click" execute="@form" render=":clips :featuredClips_search" listener="#{clipsBean.removeSearch}" />
+											<f:ajax event="click" execute="@form" render=":clips" listener="#{clipsBean.removeSearch}" />
 										</h:commandButton>
 									</ui:define>
 								</client:button>
@@ -53,6 +53,11 @@
 		        } else {
 		            return true;
 		        }
+		    });
+		    
+		    $("##{formId}").find(".searchBtn").click(function(e) {
+		    	var val = $("##{formId}").find(".searchKeywordInput").val();
+		    	$(".searchKeywordInput").val(val);
 		    });
 		    
 		    $("##{formId}").find(".searchKeywordInput").attr("placeholder", '#{msg.search_placeholder}');
