@@ -95,6 +95,15 @@
 			$('#mask').css({width: mask_width, height: height});
 			
 			resizeInsideContentZones();
+			putCenter($("#loading_indicator img"));
+		}
+		
+		function putCenter($component) {
+			$component.css("position", "fixed");
+			var width = parseInt( $component.css("width").split("px")[0] );
+			var height = parseInt( $component.css("height").split("px")[0] );
+			$component.css("left", ( ($(window).width() - width)/2 ) + "px");
+			$component.css("top", ( ($(window).height() - height)/2 ) + "px");
 		}
 		
 		function resizeInsideContentZones() {
@@ -359,6 +368,23 @@
 		  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 		  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 		})();
+	</script>
+	<div id="loading_indicator" align="center" style="display:none;">
+		<img src="#{config.server}/img/client/loading.gif" width="48" height="48"/>
+	</div>
+	<script>
+		putCenter($("#loading_indicator img"));
+		$(function() {
+			jsf.ajax.addOnEvent(statusUpdate);
+			jsf.ajax.addOnError(statusUpdate);
+		});
+		var statusUpdate = function statusUpdate(data) {
+			if(data.status == "begin") {
+				$("#loading_indicator").show();
+			} else if(data.status == "complete") {
+				$("#loading_indicator").hide();
+			}
+		};
 	</script>
 </h:body>
 </f:view>
