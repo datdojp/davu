@@ -109,7 +109,7 @@ public class FeaturedClipsBean extends BaseClientBean {
 				zentaiBean.setPageTitle(playlist.getName());
 			}
 		} else {
-			if(AihatUtils.isEmpty(featuredClips)) {
+			//if(AihatUtils.isEmpty(featuredClips)) {
 				List<FeaturedClipDto> fcs = getFeaturedClipService().getAllFeaturedClips();
 				if(!AihatUtils.isEmpty(fcs)) {
 					//GET FROM SETTING
@@ -124,7 +124,7 @@ public class FeaturedClipsBean extends BaseClientBean {
 				
 				//set the page title
 				zentaiBean.setPageTitle(BeanUtils.getBundleMsg("aihat_title"));
-			}
+			//}
 		}
 		
 		if(currentClipId == null && !AihatUtils.isEmpty(featuredClips)) {
