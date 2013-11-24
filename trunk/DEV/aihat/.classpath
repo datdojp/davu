@@ -9,23 +9,26 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="E:/DAVU/apache-tomcat-7.0.16/lib/annotations-api.jar"/>
-	<classpathentry kind="lib" path="E:/DAVU/apache-tomcat-7.0.16/lib/catalina.jar"/>
-	<classpathentry kind="lib" path="E:/DAVU/apache-tomcat-7.0.16/lib/catalina-ant.jar"/>
-	<classpathentry kind="lib" path="E:/DAVU/apache-tomcat-7.0.16/lib/catalina-ha.jar"/>
-	<classpathentry kind="lib" path="E:/DAVU/apache-tomcat-7.0.16/lib/catalina-tribes.jar"/>
-	<classpathentry kind="lib" path="E:/DAVU/apache-tomcat-7.0.16/lib/ecj-3.6.2.jar"/>
-	<classpathentry kind="lib" path="E:/DAVU/apache-tomcat-7.0.16/lib/el-api.jar"/>
-	<classpathentry kind="lib" path="E:/DAVU/apache-tomcat-7.0.16/lib/jasper.jar"/>
-	<classpathentry kind="lib" path="E:/DAVU/apache-tomcat-7.0.16/lib/jasper-el.jar"/>
-	<classpathentry kind="lib" path="E:/DAVU/apache-tomcat-7.0.16/lib/jsp-api.jar"/>
-	<classpathentry kind="lib" path="E:/DAVU/apache-tomcat-7.0.16/lib/servlet-api.jar"/>
-	<classpathentry kind="lib" path="E:/DAVU/apache-tomcat-7.0.16/lib/tomcat-api.jar"/>
-	<classpathentry kind="lib" path="E:/DAVU/apache-tomcat-7.0.16/lib/tomcat-coyote.jar"/>
-	<classpathentry kind="lib" path="E:/DAVU/apache-tomcat-7.0.16/lib/tomcat-dbcp.jar"/>
-	<classpathentry kind="lib" path="E:/DAVU/apache-tomcat-7.0.16/lib/tomcat-i18n-es.jar"/>
-	<classpathentry kind="lib" path="E:/DAVU/apache-tomcat-7.0.16/lib/tomcat-i18n-fr.jar"/>
-	<classpathentry kind="lib" path="E:/DAVU/apache-tomcat-7.0.16/lib/tomcat-i18n-ja.jar"/>
-	<classpathentry kind="lib" path="E:/DAVU/apache-tomcat-7.0.16/lib/tomcat-util.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/tomcat-libs/annotations-api.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/tomcat-libs/catalina-ant.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/tomcat-libs/catalina-ha.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/tomcat-libs/catalina-tribes.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/tomcat-libs/catalina.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/tomcat-libs/ecj-4.2.2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/tomcat-libs/el-api.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/tomcat-libs/jasper-el.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/tomcat-libs/jasper.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/tomcat-libs/jsp-api.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/tomcat-libs/servlet-api.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/tomcat-libs/tomcat-api.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/tomcat-libs/tomcat-coyote.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/tomcat-libs/tomcat-dbcp.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/tomcat-libs/tomcat-i18n-es.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/tomcat-libs/tomcat-i18n-fr.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/tomcat-libs/tomcat-i18n-ja.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/tomcat-libs/tomcat-jdbc.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/tomcat-libs/tomcat-util.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/tomcat-libs/tomcat7-websocket.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/tomcat-libs/websocket-api.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
